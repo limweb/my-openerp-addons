@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+
+    <record id="base.group_complaint_user" model="res.groups">
+        <field name="name">Complaint / User</field>
+    </record>
+
+    <record id="base.group_complaint_pm" model="res.groups">
+        <field name="name">Complaint / Project Management</field>
+    </record>
+
+    <record id="base.group_complaint_qm" model="res.groups">
+        <field name="name">Complaint / Quality Management</field>
+    </record>
+
+</data>
+</openerp>

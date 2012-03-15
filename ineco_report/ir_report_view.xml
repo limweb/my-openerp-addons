@@ -1,0 +1,22 @@
+<openerp>
+    <data>
+        <record id="act_report_xml_view" model="ir.ui.view">
+            <field name="name">ir.actions.report.xml.inherit</field>
+            <field name="model">ir.actions.report.xml</field>
+            <field name="inherit_id" ref="base.act_report_xml_view"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="/form/notebook/page[@string='Security']" position="before" >
+                    <page string="Ineco" attrs="{'invisible':[('report_type','!=','ineco')]}">
+                        <field name="jasper_url"/>
+                        <field name="jasper_report_path" />
+                        <field name="jasper_username" />
+                        <field name="jasper_password" />
+                        <field name="parameter_name"  />
+                        <field name="criteria_field"  />
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

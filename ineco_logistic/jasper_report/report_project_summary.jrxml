@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_project_summary" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/media/OpenERPs/openobject-server-3388/openerp/addons/ineco_logistic/jasper_report/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+  acc.name as project_name,
+  ru.name as manager_name,
+  ppp.name as parent_task_name,
+  pt.name as task_name,
+  to_char(pt.date_start, 'dd/mm/yyyy') as date_start,
+  ru2.name as worker_name
+from project_task pt
+left join project_project pp on pt.project_id = pp.id
+left join project_task_parent_rel ptp on pt.id = ptp.task_id
+left join account_analytic_account acc on pp.analytic_account_id = acc.id
+left join res_users ru on acc.user_id = ru.id
+left join project_task ppp on ptp.parent_id = ppp.id
+left join res_users ru2 on pt.user_id = ru2.id
+where ppp.name is not null
+order by pt.sequence]]>
+	</queryString>
+	<field name="project_name" class="java.lang.String"/>
+	<field name="manager_name" class="java.lang.String"/>
+	<field name="parent_task_name" class="java.lang.String"/>
+	<field name="task_name" class="java.lang.String"/>
+	<field name="date_start" class="java.lang.String"/>
+	<field name="worker_name" class="java.lang.String"/>
+	<group name="Project Name" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{project_name}]]></groupExpression>
+		<groupHeader>
+			<band height="42">
+				<textField>
+					<reportElement x="100" y="1" width="299" height="20"/>
+					<textElement>
+						<font fontName="Tahoma"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{project_name}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="1" width="100" height="20"/>
+					<textElement>
+						<font fontName="Tahoma"/>
+					</textElement>
+					<text><![CDATA[Project Name:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="21" width="100" height="20"/>
+					<textElement>
+						<font fontName="Tahoma"/>
+					</textElement>
+					<text><![CDATA[Manager:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="100" y="21" width="299" height="20"/>
+					<textElement>
+						<font fontName="Tahoma"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{manager_name}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="88">
+				<subreport>
+					<reportElement x="0" y="3" width="802" height="79"/>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "report_project_summary_subreport.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+		<wizard
+			string="Search All"
+			model="res.partner.address"
+			name="search_all_launch"
+			id="wizard_search_all"
+			keyword="client_action_multi"/>
+
+		<wizard
+			string="Find Location"
+			model="stock.location.set"
+			name="search_location_launch"
+			id="wizard_search_location"
+			keyword="client_action_multi"/>
+
+		<wizard
+			string="Search Special All"
+			model="res.partner.address"
+			name="search_special_launch"
+			id="wizard_search_special"
+			keyword="client_action_multi"/>
+
+	</data>
+
+</openerp>

@@ -1,0 +1,878 @@
+<?xml version="1.0"?>
+
+<!--  Date       ID         Message
+15-12-2011       POP-001    Create new Form, Tree, Search, Action of ineco.stock.report
+30-12-2011		 POP-002 	Create new Form, Delivery Order (Add Delivery Date)
+ -->
+ 
+<openerp>
+	<data>
+        <record id="ineco_view_picking_in_form" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.in.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_in_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='General Information']/field/form/group/field[@name='location_dest_id']" position="after">
+            		<field name="category_id" />            		
+            	</xpath>
+            </field>
+        </record>
+        
+        <record id="ineco_view_picking_in_form_inherit" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.in.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="ineco_view_picking_in_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='General Information']/field/form/group/field[@name='product_uom']" position="replace">
+            		<field name="product_uom" string="Unit Of Measure" colspan="4" domain="[('category_id','=',category_id)]"/>
+            	</xpath>
+            </field>
+        </record>
+
+        <record id="ineco_view_picking_in_form_setdraft" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.in.form.setdraft</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_in_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='General Information']/group/button[@name='action_process']" position="after">
+            		<button name="action_done_draft" groups="base.group_system" states="done" string="Set to Confirm" type="object" icon="gtk-ok"/>          		
+            		<button name="action_cancel_draft" groups="base.group_system" states="cancel" string="Set to Confirm" type="object" icon="gtk-ok"/>          		
+            	</xpath>
+            </field>
+        </record>
+
+        <record id="ineco_view_picking_out_form" model="ir.ui.view">
+            <field name="name">stock.picking.out.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_out_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='Products']/field/form/group/field[@name='location_dest_id']" position="after">
+            		<field name="category_id" colspan="4" readonly="1"/>
+            	</xpath>            	
+            </field>
+        </record>            
+
+        <record id="ineco_view_picking_out_form_setdraft" model="ir.ui.view">
+            <field name="name">stock.picking.out.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_out_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='Products']/group/button[@name='action_process']" position="after">
+            		<button name="action_done_draft" groups="base.group_system" states="done" string="Set to Confirm" type="object" icon="gtk-ok"/>          		
+            		<button name="action_cancel_draft" groups="base.group_system" states="cancel" string="Set to Confirm" type="object" icon="gtk-ok"/>          		
+            	</xpath>
+            </field>
+     </record>            
+
+
+        <record id="ineco_view_picking_out_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.out.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="ineco_view_picking_out_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='Products']/field/form/group/field[@name='product_uom']" position="replace">
+            		<field name="product_uom" string="Unit Of Measure" colspan="4" domain="[('category_id','=',category_id)]"/>
+            	</xpath>            	
+            </field>
+        </record>
+        
+        <record id="ineco_view_picking_form" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field eval="12" name="priority"/>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='Products']/field/form/group/field[@name='location_dest_id']" position="replace">
+            		<field name="location_dest_id" domain="['|',('usage','=','internal'),('usage','=','inventory')]" />
+            		<field name="category_id" colspan="4" readonly="1"/>
+            	</xpath>            	
+            </field>
+        </record>
+
+        <record id="ineco_view_picking_form_stock_journal" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.form.stock.journal</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field eval="12" name="priority"/>
+            <field name="arch" type="xml">
+            	<field name="stock_journal_id" position="replace">
+            		<field name="stock_journal_id" widget="many2one"/>
+            	</field>
+            </field>            
+        </record> 
+
+		<!-- Add Requested User -->
+        <record id="ineco_view_picking_form_requested_user" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.form.requested.user</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field eval="12" name="priority"/>
+            <field name="arch" type="xml">
+            	<field name="backorder_id" position="after">
+            		<field name="ineco_request_user_id" />
+            	</field>
+            </field>            
+        </record>
+        <record id="ineco_view_picking_form_inherit" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="ineco_view_picking_form"/>
+            <field eval="12" name="priority"/>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='Products']/field/form/group/field[@name='product_uom']" position="replace">
+            		<field name="product_uom" string="Unit Of Measure" colspan="4" domain="[('category_id','=',category_id)]"/>
+            	</xpath>            	
+            </field>
+        </record>
+				
+        <record id="ineco_view_inventory_form" model="ir.ui.view">
+            <field name="name">stock.inventory.form</field>
+            <field name="model">stock.inventory</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field eval="12" name="priority"/>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='General Informations']/field/tree/field[@name='product_uom']" position="replace">
+            		<field name="product_uom" domain="[('category_id','=',uom_category_id)]" />
+            		<field name="uom_category_id" readonly="1"/>
+            		<field name="tracking_id" />
+            	</xpath>            	
+            </field>
+        </record>	
+	
+        <record id="ineco_view_production_lot_tree" model="ir.ui.view">
+            <field name="name">ineco.stock.production.lot.tree</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+            	<field name="date" position="after">
+            		<field name="date_expired" />
+            	</field>
+			</field>
+		</record>		
+		
+        <record id="ineco_view_production_lot_form" model="ir.ui.view">
+            <field name="name">ineco.stock.production.lot.form</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/group/field[@name='stock_available']" position="before">
+            		<field name="date_expired" />
+            	</xpath>
+			</field>
+		</record>				 
+
+         <record id="ineco_view_picking_form" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page/field[@name='move_lines']" position="before">
+            		<button
+                        name="%(ineco_base.stock_receive_card_load)d"
+                        string="Load Pack No"
+                        type="action" 
+                        icon="terp-stock_effects-object-colorize"
+                        states="draft,waiting,confirmed,assigned" 
+                        colspan="4" />
+            	</xpath>            
+            </field>
+         </record>
+
+<!-- 
+        <record id="ineco_view_split_in_lots" model="ir.ui.view">
+	            <field name="name">Split in lots</field>
+	            <field name="model">stock.move.split</field>
+	            <field name="type">form</field>
+            	<field name="inherit_id" ref="stock.view_split_in_lots"/>
+	            <field name="arch" type="xml">
+            		<xpath expr="/form/group/group/field[@name='line_ids']" position="replace">
+                        <field name="line_ids" colspan="4" nolabel="1" position="replace">
+                            <tree string="Production Lot Numbers" >
+                                <field name="name" string="Lots"/>
+                                <field name="quantity" />
+                            </tree>
+                            <form string="Production Lot Number">
+                                <field name="name" string="Lot number"/>
+                                <field name="quantity" />
+                            </form>
+                        </field>
+	            	</xpath>
+	            </field>
+	    </record>
+  -->
+
+        <record id="ineco_view_stock_keeping_method_tree" model="ir.ui.view">
+            <field name="name">ineco.stock.keepting.method.tree</field>
+            <field name="model">ineco.stock.keeping.method</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<tree string="Stock Keeping Metho">
+					<field name="name"/>
+					<field name="total_location" />
+					<field name="available_location" />
+				</tree>
+			</field>
+		</record>		
+
+        <record id="ineco_view_stock_keeping_method_form" model="ir.ui.view">
+            <field name="name">ineco.stock.keepting.method.form</field>
+            <field name="model">ineco.stock.keeping.method</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<form string="Stock Keeping Metho">
+					<field name="name"/>
+					<field name="total_location" />
+					<field name="available_location" />
+					<field name="active" />
+					<field name="location_ids" colspan="4" nolabel="1">
+						<tree string="Locations">
+							<field name="name" />
+							<field name="available" />
+						</tree>
+					</field>
+				</form>
+			</field>
+		</record>		
+
+         <record id="ineco_view_stock_keeping_method_filter" model="ir.ui.view">
+            <field name="name">ineco.stock.keepting.method.filter</field>
+            <field name="model">ineco.stock.keeping.method</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Keeping Method">
+                    <group>
+                        <field name="name"/>
+                    </group>
+<!-- 
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="4" col="4" groups="base.group_extended">
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}"/>
+                    </group>
+ -->                    
+                </search>
+
+            </field>
+        </record>
+
+		<!-- Keeping Method -->
+        <record id="ineco_view_stock_keeping_method_action" model="ir.actions.act_window">
+            <field name="name">Stock Keeping Method</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.stock.keeping.method</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="ineco_view_stock_keeping_method_tree"/>
+<!--             <field name="context">{'full':'1'}</field>  -->
+            <field name="search_view_id" ref="ineco_view_stock_keeping_method_filter" />
+        </record>
+
+		<menuitem
+            id="menu_product_in_config_stock" 
+            name="Keeping Method"
+            parent="stock.menu_warehouse_config" 
+            sequence="20"
+            action="ineco_view_stock_keeping_method_action"/>   
+            
+        <record id="ineco_view_location_keeping_method_form" model="ir.ui.view">
+            <field name="name">ineco.stock.location.keeping.method.form</field>
+            <field name="model">stock.location</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_location_form"/>
+            <field name="arch" type="xml">
+            	<field name="address_id" position="before">
+            		<field name="keeping_id" />
+            	</field>
+			</field>
+		</record>		
+		
+        <record id="ineco_keeping_method_view_location_tree2" model="ir.ui.view">
+            <field name="name">ineco.keeping.method.stock.location.tree</field>
+            <field name="model">stock.location</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="stock.view_location_tree2"/>
+            <field name="arch" type="xml">
+            	<field name="usage" position="after">
+            		<field name="keeping_id" />
+            	</field>
+            </field>
+        </record>
+				 
+        <record id="ineco_view_production_lot_form_lastmove" model="ir.ui.view">
+            <field name="name">ineco.stock.production.lot.form.lastmove</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<xpath expr="/form/notebook" position="inside">
+					<page string="Last Move">
+						<field name="lastmove_ids" colspan="4" nolabel="1">
+							<tree string="Last Move">
+								<field name="product_id" />
+								<field name="tracking_id" />
+								<field name="date_expected" />
+								<field name="picking_id" />
+								<field name="product_qty" />
+								<field name="product_uom" />
+								<field name="location_dest_id" />
+								<field name="state" />
+							</tree>
+						</field>
+					</page>
+				</xpath>            
+            </field>
+        </record>
+
+		<!-- Stock Report -->
+        <record id="ineco_view_production_lot_form_stockreport" model="ir.ui.view">
+            <field name="name">ineco.stock.production.lot.form.stockreport</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<xpath expr="/form/notebook" position="inside">
+					<page string="Stock Report">
+						<field name="stock_report_ids" nolabel="1" />
+					</page>
+				</xpath>            
+            </field>
+        </record>
+        
+        <!-- Stock Kitting -->
+        <record id="view_ineco_stock_kitting_tree" model="ir.ui.view">
+            <field name="name">ineco.stock.kitting.tree</field>
+            <field name="model">ineco.stock.kitting</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<tree string="Kitting Pack">
+					<field name="product_id" />
+					<field name="prodlot_id"/>
+					<field name="tracking_id" />
+					<field name="location_id" />
+					<field name="date_expected" string="Delivery Date"/>
+				</tree>
+			</field>
+		</record>		
+
+        <record id="view_ineco_stock_kitting_form" model="ir.ui.view">
+            <field name="name">ineco.stock.kitting.form</field>
+            <field name="model">ineco.stock.kitting</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<form string="Kitting Pack">
+					<field name="product_id" />
+					<field name="prodlot_id"/>
+					<field name="tracking_id" />
+					<field name="location_id" />
+					<field name="date_expected" string="Delivery Date"/>
+				</form>
+			</field>
+		</record>		
+		
+         <record id="view_ineco_stock_kitting_filter" model="ir.ui.view">
+            <field name="name">ineco.stock.kitting.filter</field>
+            <field name="model">ineco.stock.kitting</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Kitting Pack">
+                    <group>
+						<field name="product_id" />
+						<field name="prodlot_id"/>
+						<field name="tracking_id" />
+						<field name="location_id" />
+						<field name="date_expected"  string="Delivery Date"/>
+                    </group>
+				</search>
+			</field>
+		</record>
+		
+        <record id="ineco_view_stock_kitting_pack_action" model="ir.actions.act_window">
+            <field name="name">Delivery Pack</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.stock.kitting</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_ineco_stock_kitting_tree"/>
+            <field name="search_view_id" ref="view_ineco_stock_kitting_filter" />
+        </record>
+        
+		<menuitem
+            id="menu_ineco_stock_kitting" 
+            name="Delivery Pack"
+            parent="stock.menu_stock_products_moves" 
+            sequence="20"
+            action="ineco_view_stock_kitting_pack_action"/>   
+
+		<!-- Purchase History -->
+        <record id="view_ineco_purchase_history_tree" model="ir.ui.view">
+            <field name="name">ineco.purchase.history.tree</field>
+            <field name="model">stock.move</field>
+            <field name="type">tree</field>
+            <field eval="10" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Purchase History">
+                    <field name="product_id"/>
+                    <field name="partner_id" string="Partner"/>
+                    <field name="product_qty" />
+                    <field name="product_uom" string="UOM"/>
+                    <field name="price_unit" />
+                    <field name="origin"/>
+                    <field name="picking_id" string="Reference"/>
+                    <field name="date" string="Date Receive" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_ineco_purchase_history_form" model="ir.ui.view">
+            <field name="name">ineco.purchase.history.form</field>
+            <field name="model">stock.move</field>
+            <field name="type">form</field>
+            <field eval="10" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Purchase History">
+                    <field name="product_id"/>
+                    <field name="partner_id" string="Partner"/>
+                    <field name="product_qty" />
+                    <field name="product_uom" string="UOM"/>
+                    <field name="price_unit" />
+                    <field name="origin"/>
+                    <field name="picking_id" string="Reference"/>
+                    <field name="date" string="Date Receive" />
+                </form>
+            </field>
+        </record>
+
+        <record id="view_ineco_purchase_history_search" model="ir.ui.view">
+            <field name="name">ineco.purchase.history.search</field>
+            <field name="model">stock.move</field>
+            <field name="type">search</field>
+            <field eval="6" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Purchase History">
+                    <group col="8" colspan="4">
+                        <field name="product_id"/>
+                        <field name="partner_id" string="Partner"/>
+                        <field name="origin"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="4" col="8" groups="base.group_extended">
+                        <filter string="Supplier" icon="terp-personal" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Product" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'product_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Order" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'origin'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Order Date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_ineco_purchase_history" model="ir.actions.act_window">
+            <field name="name">Purchase History</field>
+            <field name="res_model">stock.move</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">['|','&amp;',('picking_id','=',False),('location_id.usage', 'in', ['customer','supplier']),'&amp;',('picking_id','!=',False),('picking_id.type','=','in')]</field>
+            <field name="view_id" ref="view_ineco_purchase_history_tree"/>
+<!--             <field name="context" eval="'{\'search_default_receive\':1, \'product_receive\' : True, \'default_location_id\':%d, \'default_location_dest_id\':%d}' % (ref('stock_location_suppliers'),ref('stock_location_stock') )"/>
+ -->            
+ 			<field name="search_view_id" ref="view_ineco_purchase_history_search"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_ineco_purchase_history_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_ineco_purchase_history_tree"/>
+            <field name="act_window_id" ref="action_ineco_purchase_history"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_ineco_purchase_history_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ineco_purchase_history_form"/>
+            <field name="act_window_id" ref="action_ineco_purchase_history"/>
+        </record>
+
+      <menuitem action="action_ineco_purchase_history" id="menu_ineco_purchase_history" 
+      		parent="purchase.menu_procurement_management_inventory"
+            name="Purchase History" sequence="9"
+            groups="base.group_extended"/>
+
+<!-- 
+        <record id="ineco_view_location_search" model="ir.ui.view">
+            <field name="name">ineco.stock.location.search</field>
+            <field name="model">stock.location</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="stock.view_location_search"/>
+            <field name="arch" type="xml">
+            	<filter name="supplier" position="after">
+                    <filter icon="terp-go-home" name="available"
+                        string="Available" domain="[('ineco_stock_real', '>', 0)]" help="Available Stock" />
+            	</filter>
+            </field>
+        </record>
+ -->
+
+		<!-- Ineco Stock Report -->
+        <record id="view_ineco_stock_report_tree" model="ir.ui.view">
+            <field name="name">ineco.stock.report.tree</field>
+            <field name="model">ineco.stock.report</field>
+            <field name="type">tree</field>
+            <field eval="10" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Stock Report">
+                    <field name="location_dest_id"/>
+                    <field name="lot_id" />
+                    <field name="date_input" />
+                    <field name="expired" />
+                    <field name="tracking_id" />
+                    <field name="product_id" />
+                    <field name="qty" />
+                    <field name="uom_id"/>
+                    <field name="warehouse_qty" />
+                    <field name="warehouse_uom" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_ineco_stock_report_form" model="ir.ui.view">
+            <field name="name">ineco.stock.report.form</field>
+            <field name="model">ineco.stock.report</field>
+            <field name="type">form</field>
+            <field eval="10" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Stock Report">
+                    <field name="location_dest_id"/>
+                    <field name="lot_id" />
+                    <field name="expired" />
+                    <field name="tracking_id" />
+                    <field name="product_id" />
+                    <field name="uom_id"/>
+                    <field name="qty" />
+                </form>
+            </field>
+        </record>
+
+        <record id="view_ineco_stock_report_search" model="ir.ui.view">
+            <field name="name">ineco.stock.report.search</field>
+            <field name="model">ineco.stock.report</field>
+            <field name="type">search</field>
+            <field eval="6" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Stock Report">
+                	<filter string="Available" icon="terp-personal" domain="[('qty','>',0)]" />
+                    <separator orientation="vertical"/>
+                    <field name="product_id" />
+                    <field name="location_dest_id" />
+                    <field name="lot_id" />
+                    <field name="tracking_id" />
+                    <field name="expired" />
+                </search>
+            </field>
+        </record>
+
+        <record id="action_ineco_stock_report" model="ir.actions.act_window">
+            <field name="name">Stock Report</field>
+            <field name="res_model">ineco.stock.report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_ineco_stock_report_tree"/>
+ 			<field name="search_view_id" ref="view_ineco_stock_report_search"/>
+        </record>
+
+        <menuitem
+            name="Stock Report"
+            parent="stock.next_id_61"
+            action="action_ineco_stock_report"
+            id="menu_ineco_stock_report"
+            icon="STOCK_PRINT" 
+            groups="base.group_extended" />
+
+
+        <record id="ineco_view_tracking_tree" model="ir.ui.view">
+            <field name="name">ineco.stock.tracking.tree</field>
+            <field name="model">stock.tracking</field>
+            <field name="inherit_id" ref="stock.view_tracking_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+            	<field name="date" position="after">
+            		<field name="stock_available" />
+            	</field>
+            </field>
+        </record>
+
+		<!-- POP-002 -->
+        <record id="ineco_view_picking_out_inherited_form" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.out.inheried.form</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+			<field name="inherit_id" ref="stock.view_picking_out_form"/>
+            <field name="arch" type="xml">
+				<field name="date_done" position="after">
+					<field name="ineco_delivery_date" />
+				</field>
+			</field>
+		</record>
+
+        <record id="view_ineco_stock_picking_out_delivery_date_tree" model="ir.ui.view">
+            <field name="name">ineco.delivery.date.stock.picking.out.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="type">search</field>
+			<field name="inherit_id" ref="stock.view_picking_out_tree"/>
+            <field name="arch" type="xml">
+             	<field name="min_date" position="after">
+					<field name="ineco_delivery_date" />
+             	</field>
+            </field>
+        </record>
+
+        <record id="view_ineco_stock_picking_out_delivery_date_search" model="ir.ui.view">
+            <field name="name">ineco.delivery.date.stock.picking.out.search</field>
+            <field name="model">stock.picking</field>
+            <field name="type">search</field>
+			<field name="inherit_id" ref="stock.view_picking_out_search"/>
+            <field name="arch" type="xml">
+             	<field name="stock_journal_id" position="before">
+					<field name="ineco_delivery_date" />
+             	</field>
+            </field>
+        </record>
+
+        <record id="view_ineco_stock_picking_out_hide_journal_search" model="ir.ui.view">
+            <field name="name">ineco.delivery.hide.journal.stock.picking.out.search</field>
+            <field name="model">stock.picking</field>
+            <field name="type">search</field>
+			<field name="inherit_id" ref="stock.view_picking_out_search"/>
+            <field name="arch" type="xml">
+             	<field name="stock_journal_id" position="replace">
+					<field name="stock_journal_id" invisible="1" />
+             	</field>
+            </field>
+        </record>
+
+        <record id="view_ineco_stock_picking_out_hide_company_search" model="ir.ui.view">
+            <field name="name">ineco.delivery.hide.company.stock.picking.out.search</field>
+            <field name="model">stock.picking</field>
+            <field name="type">search</field>
+			<field name="inherit_id" ref="stock.view_picking_out_search"/>
+            <field name="arch" type="xml">
+             	<field name="company_id" position="replace">
+					<field name="company_id" invisible="1" />
+             	</field>
+            </field>
+        </record>
+
+        <record id="view_ineco_stock_picking_out_no_delivery_search" model="ir.ui.view">
+            <field name="name">ineco.delivery.nodate.stock.picking.out.search</field>
+            <field name="model">stock.picking</field>
+            <field name="type">search</field>
+			<field name="inherit_id" ref="stock.view_picking_out_search"/>
+            <field name="arch" type="xml">
+             	<field name="name" position="before">
+                        <filter icon="terp-dolar" name="no_delivery" string="No Delivery Date" domain="[('ineco_delivery_date','=',False)]" />
+             	</field>
+            </field>
+        </record>
+
+
+		<!-- Add New Multiple Pack Generate -->
+        <record id="ineco_view_picking_in_form_split_into" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.in.form.split.into</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_in_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='General Information']/field/tree/button[@string='Put in a new pack']" position="after">
+            		<button name="%(ineco_stock_split_into)d" string="Multiple Pack" type="action"
+                     	groups="base.group_extended"
+                        icon="terp-stock_effects-object-colorize"
+                        states="draft,assigned,confirmed"/>            		
+            	</xpath>
+            </field>
+        </record>
+        
+		<!-- Sticker Category -->
+        <record id="ineco_view_stock_sticker_category_tree" model="ir.ui.view">
+            <field name="name">ineco.stock.sticker.category.tree</field>
+            <field name="model">ineco.stock.sticker.category</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<tree string="Stock Sticker Category">
+					<field name="name"/>
+					<field name="printable" />
+					<field name="active" />
+				</tree>
+			</field>
+		</record>		
+
+        <record id="ineco_view_stock_sticker_category_form" model="ir.ui.view">
+            <field name="name">ineco.stock.sticker.category.form</field>
+            <field name="model">ineco.stock.sticker.category</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<form string="Stock Sticker Category">
+					<field name="name"/>
+					<field name="printable" />
+					<field name="active" />
+				</form>
+			</field>
+		</record>		
+
+        <record id="view_ineco_stock_sticker_category_search" model="ir.ui.view">
+            <field name="name">ineco.stock.sticker.category.search</field>
+            <field name="model">ineco.stock.sticker.category</field>
+            <field name="type">search</field>
+            <field eval="6" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Sticker Category">
+                	<filter string="Printable" icon="terp-personal" domain="[('printable','=',True)]" />
+                    <separator orientation="vertical"/>
+                    <field name="name" />
+                </search>
+            </field>
+        </record>
+
+        <record id="action_ineco_stock_sticker_category" model="ir.actions.act_window">
+            <field name="name">Sticker Category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.stock.sticker.category</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="ineco_view_stock_sticker_category_tree"/>
+            <field name="search_view_id" ref="view_ineco_stock_sticker_category_search" />
+        </record>
+        
+		<menuitem
+            id="menu_ineco_stock_sticker_category" 
+            name="Sticker Category"
+            parent="stock.menu_warehouse_config" 
+            sequence="20"
+            action="action_ineco_stock_sticker_category"/>   
+
+
+        <record id="ineco_view_incoming_search" model="ir.ui.view">
+            <field name="name">ineco.stock.incoming.search</field>
+            <field name="model">stock.move</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="stock.view_move_search_reception_incoming_picking"/>
+            <field name="arch" type="xml">
+            	<field name="product_id" position="after">
+            		<field name="date" />
+            	</field>
+            </field>
+        </record>
+
+        <record id="ineco_view_outgoing_search" model="ir.ui.view">
+            <field name="name">ineco.stock.outgoing.search</field>
+            <field name="model">stock.move</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="stock.view_move_search_reception_outcoming_picking"/>
+            <field name="arch" type="xml">
+            	<field name="product_id" position="after">
+            		<field name="date" />
+            	</field>
+            </field>
+        </record>
+
+		<!-- Add Sequence in Stock Journal -->
+        <record id="ineco_view_stock_journal_tree" model="ir.ui.view">
+            <field name="name">ineco.view.stock.journal.tree</field>
+            <field name="model">stock.journal</field>
+            <field name="inherit_id" ref="stock.view_stock_journal_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<field name="user_id" position="after">
+					<field name="sequence_id" />
+				</field>     		
+            </field>
+        </record>  
+
+        <record id="ineco_view_stock_journal_form" model="ir.ui.view">
+            <field name="name">ineco.view.stock.journal.form</field>
+            <field name="model">stock.journal</field>
+            <field name="inherit_id" ref="stock.view_stock_journal_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<field name="user_id" position="after">
+					<field name="sequence_id" />
+				</field>     		
+            </field>
+        </record>		
+
+		<!-- Ineco Stock Barcode Delivery -->
+        <record id="ineco_view_stock_barcode_delivery_tree" model="ir.ui.view">
+            <field name="name">ineco.stock.barcode.delivery.tree</field>
+            <field name="model">ineco.stock.barcode.delivery</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<tree string="Barcode Delivery" editable="top">
+					<field name="tracking_id" on_change="onchange_tracking_id(tracking_id)"  />
+					<field name="quantity" />
+					<field name="uom_id" />
+					<field name="product_id" />
+					<field name="date_barcode" readonly="1"/>
+					<field name="user_id" readonly="1" />
+				</tree>
+			</field>
+		</record>		
+
+        <record id="ineco_view_stock_barcode_delivery_form" model="ir.ui.view">
+            <field name="name">ineco.stock.barcode.delivery.form</field>
+            <field name="model">ineco.stock.barcode.delivery</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<form string="Barcode Delivery">
+					<field name="tracking_id" />
+					<field name="date_barcode" readonly="1"/>
+					<field name="user_id" readonly="1" />
+				</form>
+			</field>
+		</record>		
+
+        <record id="ineco_view_stock_barcode_delivery_search" model="ir.ui.view">
+            <field name="name">ineco.stock.barcode.delivery.search</field>
+            <field name="model">ineco.stock.barcode.delivery</field>
+            <field name="type">search</field>
+            <field eval="6" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Barcode Delivery">
+                    <field name="tracking_id" />
+                    <field name="date_barcode" />
+                    <field name="user_id" />
+                </search>
+            </field>
+        </record>
+        		    
+        <record id="action_ineco_stock_barcode_delivery" model="ir.actions.act_window">
+            <field name="name">Barcode Delivery</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.stock.barcode.delivery</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="ineco_view_stock_barcode_delivery_tree"/>
+            <field name="search_view_id" ref="ineco_view_stock_barcode_delivery_search" />
+        </record>
+
+		<menuitem
+            id="menu_ineco_stock_barcode_delivery" 
+            name="Barcode Delivery"
+            parent="stock.menu_stock_warehouse_mgmt" 
+            sequence="50"
+            action="action_ineco_stock_barcode_delivery"/>   
+
+	</data>
+	
+</openerp>
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+       <record model="ir.ui.view" id="view_ineco_company_form">
+            <field name="name">ineco.res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                	<field name="ineco_nav_table" />
+                </field>                
+            </field>
+        </record>
+
+	</data>
+</openerp>

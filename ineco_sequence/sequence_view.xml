@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- Sequences -->
+        
+    	<record model="ir.ui.view" id="decha_ir_sequence_form">
+        	<field name="name">decha.ir.sequence.form</field>
+        	<field name="type">form</field>
+        	<field name="model">ir.sequence</field>
+			<field name="inherit_id" ref="base.sequence_view"/>
+        	<field name="arch" type="xml">  	
+ 				<field name="number_increment" position="after">
+                	<field name="reset_nunber_month" />
+                </field>
+			</field>
+    	</record>  	
+	</data>
+</openerp>
+        

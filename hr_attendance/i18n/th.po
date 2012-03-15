@@ -1,0 +1,578 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* hr_attendance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 5.0.0\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:15+0000\n"
+"PO-Revision-Date: 2009-02-04 06:32+0000\n"
+"Last-Translator: Fabien (Open ERP) <fp@tinyerp.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-01-15 05:44+0000\n"
+"X-Generator: Launchpad (build 12177)\n"
+
+#. module: hr_attendance
+#: model:ir.ui.menu,name:hr_attendance.menu_hr_time_tracking
+msgid "Time Tracking"
+msgstr "ติดตามเวลา"
+
+#. module: hr_attendance
+#: view:hr.attendance:0
+msgid "Group By..."
+msgstr "กลุ่มตาม ..."
+
+#. module: hr_attendance
+#: view:hr.attendance:0
+msgid "Today"
+msgstr "ในวันนี้"
+
+#. module: hr_attendance
+#: selection:hr.attendance.month,month:0
+msgid "March"
+msgstr "เดือนมีนาคม"
+
+#. module: hr_attendance
+#: view:hr.sign.in.out.ask:0
+msgid ""
+"You did not sign out the last time. Please enter the date and time you "
+"signed out."
+msgstr "คุณยังไม่ได้ออกจากระบบครั้งสุดท้าย โปรดป้อนวันที่และเวลาที่คุณออกจากระบบ"
+
+#. module: hr_attendance
+#: report:report.hr.timesheet.attendance.error:0
+msgid "Total period:"
+msgstr "รวมระยะเวลา :"
+
+#. module: hr_attendance
+#: field:hr.action.reason,name:0
+msgid "Reason"
+msgstr "เหตุผล"
+
+#. module: hr_attendance
+#: view:hr.attendance.error:0
+msgid "Print Attendance Report Error"
+msgstr "พิมพ์รายงานข้อผิดพลาดการเข้าร่วมประชุม"
+
+#. module: hr_attendance
+#: code:addons/hr_attendance/wizard/hr_attendance_sign_in_out.py:156
+#, python-format
+msgid "The sign-out date must be in the past"
+msgstr "วันที่ออกจากระบบต้องอยู่ในที่ผ่านมา"
+
+#. module: hr_attendance
+#: report:report.hr.timesheet.attendance.error:0
+msgid "Date Signed"
+msgstr "วันที่ลงชื่อ"
+
+#. module: hr_attendance
+#: model:ir.actions.act_window,help:hr_attendance.open_view_attendance
+msgid ""
+"The Time Tracking functionality aims to manage employee attendances from "
+"Sign in/Sign out actions. You can also link this feature to an attendance "
+"device using OpenERP's web service features."
+msgstr "การติดตามเวลาการทำงานมีจุดมุ่งหมายในการจัดการ attendances พนักงานจากเข้าสู่ระบบ / ออกจากระบบการดำเนินการ นอกจากนี้คุณยังสามารถเชื่อมโยงคุณลักษณะนี้เพื่อเข้าร่วมประชุมโดยใช้อุปกรณ์ OpenERP ของคุณลักษณะของบริการเว็บ"
+
+#. module: hr_attendance
+#: view:hr.action.reason:0
+msgid "Attendance reasons"
+msgstr "เหตุผลการเข้าร่วมประชุม"
+
+#. module: hr_attendance
+#: view:hr.attendance:0
+#: field:hr.attendance,day:0
+msgid "Day"
+msgstr "วัน"
+
+#. module: hr_attendance
+#: selection:hr.employee,state:0
+msgid "Present"
+msgstr "ปัจจุบัน"
+
+#. module: hr_attendance
+#: model:ir.model,name:hr_attendance.model_hr_sign_in_out_ask
+msgid "Ask for Sign In Out"
+msgstr "ขอเข้าสู่ระบบออก"
+
+#. module: hr_attendance
+#: field:hr.attendance,action_desc:0
+#: model:ir.model,name:hr_attendance.model_hr_action_reason
+msgid "Action Reason"
+msgstr "เหตุผลที่การกระทำ"
+
+#. module: hr_attendance
+#: view:hr.sign.in.out:0
+msgid "Ok"
+msgstr "โอเค"
+
+#. module: hr_attendance
+#: view:hr.action.reason:0
+msgid "Define attendance reason"
+msgstr "ระบุเหตุผลที่เข้าร่วมประชุม"
+
+#. module: hr_attendance
+#: constraint:hr.employee:0
+msgid ""
+"Error ! You cannot select a department for which the employee is the manager."
+msgstr "ข้อผิดพลาด คุณไม่สามารถเลือกแผนกที่ลูกจ้างเป็นผู้จัดการ"
+
+#. module: hr_attendance
+#: model:ir.actions.act_window,name:hr_attendance.action_hr_attendance_month
+msgid "Attendances By Month"
+msgstr "Attendances ตามเดือน"
+
+#. module: hr_attendance
+#: field:hr.sign.in.out,name:0
+#: field:hr.sign.in.out.ask,name:0
+msgid "Employees name"
+msgstr "ชื่อพนักงาน"
+
+#. module: hr_attendance
+#: model:ir.actions.act_window,name:hr_attendance.open_view_attendance_reason
+#: model:ir.ui.menu,name:hr_attendance.menu_open_view_attendance_reason
+msgid "Attendance Reasons"
+msgstr "เหตุผลในการเข้าร่วมประชุม"
+
+#. module: hr_attendance
+#: code:addons/hr_attendance/wizard/hr_attendance_sign_in_out.py:156
+#: code:addons/hr_attendance/wizard/hr_attendance_sign_in_out.py:162
+#: code:addons/hr_attendance/wizard/hr_attendance_sign_in_out.py:169
+#: code:addons/hr_attendance/wizard/hr_attendance_sign_in_out.py:174
+#, python-format
+msgid "UserError"
+msgstr "UserError"
+
+#. module: hr_attendance
+#: field:hr.attendance.error,end_date:0
+#: field:hr.attendance.week,end_date:0
+msgid "Ending Date"
+msgstr "สิ้นสุดวันที่"
+
+#. module: hr_attendance
+#: view:hr.attendance:0
+msgid "Employee attendance"
+msgstr "การเข้าร่วมของพนักงาน"
+
+#. module: hr_attendance
+#: code:addons/hr_attendance/hr_attendance.py:136
+#, python-format
+msgid "Warning"
+msgstr "การเตือน"
+
+#. module: hr_attendance
+#: code:addons/hr_attendance/wizard/hr_attendance_sign_in_out.py:169
+#, python-format
+msgid "The Sign-in date must be in the past"
+msgstr "เข้าสู่ระบบในวันที่ต้องอยู่ในที่ผ่านมา"
+
+#. module: hr_attendance
+#: code:addons/hr_attendance/wizard/hr_attendance_sign_in_out.py:162
+#, python-format
+msgid "A sign-in must be right after a sign-out !"
+msgstr "เข้าสู่ระบบในทันทีหลังจากที่จะต้องเข้าสู่ระบบออก!"
+
+#. module: hr_attendance
+#: field:hr.employee,state:0
+#: model:ir.model,name:hr_attendance.model_hr_attendance
+msgid "Attendance"
+msgstr "เข้าร่วมประชุม"
+
+#. module: hr_attendance
+#: field:hr.attendance.error,max_delay:0
+msgid "Max. Delay (Min)"
+msgstr "แม็กซ์ Delay (นาที)"
+
+#. module: hr_attendance
+#: view:hr.attendance.error:0
+#: view:hr.attendance.month:0
+msgid "Print"
+msgstr "พิมพ์"
+
+#. module: hr_attendance
+#: view:hr.attendance:0
+msgid "Hr Attendance Search"
+msgstr "ค้นหาเข้าร่วมชม"
+
+#. module: hr_attendance
+#: model:ir.module.module,description:hr_attendance.module_meta_information
+msgid ""
+"\n"
+"    This module aims to manage employee's attendances.\n"
+"    Keeps account of the attendances of the employees on the basis of the\n"
+"    actions(Sign in/Sign out) performed by them.\n"
+"       "
+msgstr "โมดูลนี้มีจุดมุ่งหมายในการจัดการ attendances ของพนักงาน ช่วยให้บัญชีของ attendances ของพนักงานบนพื้นฐานของการกระทำ (เข้าสู่ระบบ / ออกจากระบบ) ทำโดยพวกเขา"
+
+#. module: hr_attendance
+#: constraint:hr.attendance:0
+msgid "Error: Sign in (resp. Sign out) must follow Sign out (resp. Sign in)"
+msgstr "ข้อผิดพลาด : เข้าสู่ระบบ (resp. ออกจากระบบ) จะต้องทำตามออกจากระบบ (resp. เข้าสู่ระบบ)"
+
+#. module: hr_attendance
+#: selection:hr.attendance.month,month:0
+msgid "July"
+msgstr "กรกฎาคม"
+
+#. module: hr_attendance
+#: model:ir.actions.act_window,name:hr_attendance.action_hr_attendance_error
+#: model:ir.actions.report.xml,name:hr_attendance.attendance_error_report
+msgid "Attendance Error Report"
+msgstr "รายงานข้อผิดพลาดในการเข้าร่วมประชุม"
+
+#. module: hr_attendance
+#: field:hr.attendance.error,init_date:0
+#: field:hr.attendance.week,init_date:0
+msgid "Starting Date"
+msgstr "เริ่มวันที่"
+
+#. module: hr_attendance
+#: report:report.hr.timesheet.attendance.error:0
+msgid "Min Delay"
+msgstr "หน่วงเวลาต่ำสุด"
+
+#. module: hr_attendance
+#: selection:hr.attendance,action:0
+#: view:hr.employee:0
+msgid "Sign In"
+msgstr "เข้าสู่ระบบ"
+
+#. module: hr_attendance
+#: report:report.hr.timesheet.attendance.error:0
+msgid "Operation"
+msgstr "การทำงาน"
+
+#. module: hr_attendance
+#: code:addons/hr_attendance/wizard/hr_attendance_error.py:49
+#, python-format
+msgid "No Data Available"
+msgstr "ไม่มีข้อมูล"
+
+#. module: hr_attendance
+#: selection:hr.attendance.month,month:0
+msgid "September"
+msgstr "กันยายน"
+
+#. module: hr_attendance
+#: selection:hr.attendance.month,month:0
+msgid "December"
+msgstr "ธันวาคม"
+
+#. module: hr_attendance
+#: field:hr.attendance.month,month:0
+msgid "Month"
+msgstr "เดือน"
+
+#. module: hr_attendance
+#: report:report.hr.timesheet.attendance.error:0
+msgid ""
+"(*) A negative delay means that the employee worked more than encoded."
+msgstr "(*) ล่าช้าเชิงลบหมายความว่าพนักงานทำงานเข้ารหัสมากกว่า"
+
+#. module: hr_attendance
+#: help:hr.attendance,action_desc:0
+msgid ""
+"Specifies the reason for Signing In/Signing Out in case of extra hours."
+msgstr "ระบุเหตุผลในการลงชื่อเข้า / ออกจากระบบในกรณีที่มีชั่วโมงพิเศษ"
+
+#. module: hr_attendance
+#: model:ir.model,name:hr_attendance.model_hr_attendance_month
+msgid "Print Monthly Attendance Report"
+msgstr "รายงานการเข้าร่วมประชุมพิมพ์รายเดือน"
+
+#. module: hr_attendance
+#: model:ir.model,name:hr_attendance.model_hr_sign_in_out
+msgid "Sign In Sign Out"
+msgstr "เข้าสู่ระบบออกจากระบบ"
+
+#. module: hr_attendance
+#: code:addons/hr_attendance/wizard/hr_attendance_sign_in_out.py:103
+#: code:addons/hr_attendance/wizard/hr_attendance_sign_in_out.py:125
+#: code:addons/hr_attendance/wizard/hr_attendance_sign_in_out.py:141
+#: view:hr.sign.in.out:0
+#: model:ir.actions.act_window,name:hr_attendance.action_hr_attendance_sigh_in_out
+#: model:ir.ui.menu,name:hr_attendance.menu_hr_attendance_sigh_in_out
+#, python-format
+msgid "Sign in / Sign out"
+msgstr "เข้าสู่ระบบ / ออกจากระบบ"
+
+#. module: hr_attendance
+#: view:hr.sign.in.out.ask:0
+msgid "hr.sign.out.ask"
+msgstr "hr.sign.out.ask"
+
+#. module: hr_attendance
+#: selection:hr.attendance.month,month:0
+msgid "August"
+msgstr "สิงหาคม"
+
+#. module: hr_attendance
+#: code:addons/hr_attendance/wizard/hr_attendance_sign_in_out.py:174
+#, python-format
+msgid "A sign-out must be right after a sign-in !"
+msgstr "ออกจะต้องลงชื่อสมัครเข้าใช้ทันทีหลังจากที่เข้าสู่ระบบ!"
+
+#. module: hr_attendance
+#: selection:hr.attendance.month,month:0
+msgid "June"
+msgstr "เดือนมิถุนายน"
+
+#. module: hr_attendance
+#: model:ir.model,name:hr_attendance.model_hr_attendance_error
+msgid "Print Error Attendance Report"
+msgstr "พิมพ์รายงานการเข้าร่วมข้อผิดพลาด"
+
+#. module: hr_attendance
+#: model:ir.module.module,shortdesc:hr_attendance.module_meta_information
+msgid "Attendances Of Employees"
+msgstr "ครั้งจากพนักงาน"
+
+#. module: hr_attendance
+#: field:hr.attendance,name:0
+msgid "Date"
+msgstr "วันที่"
+
+#. module: hr_attendance
+#: selection:hr.attendance.month,month:0
+msgid "November"
+msgstr "พฤศจิกายน"
+
+#. module: hr_attendance
+#: constraint:hr.employee:0
+msgid "Error ! You cannot create recursive Hierarchy of Employees."
+msgstr "ข้อผิดพลาด คุณไม่สามารถสร้างลำดับชั้นเวียนเกิดของพนักงาน"
+
+#. module: hr_attendance
+#: selection:hr.attendance.month,month:0
+msgid "October"
+msgstr "เดือนตุลาคม"
+
+#. module: hr_attendance
+#: view:hr.attendance:0
+msgid "My Attendances"
+msgstr "Attendances ของฉัน"
+
+#. module: hr_attendance
+#: selection:hr.attendance.month,month:0
+msgid "January"
+msgstr "เดือนมกราคม"
+
+#. module: hr_attendance
+#: selection:hr.action.reason,action_type:0
+#: view:hr.sign.in.out:0
+#: view:hr.sign.in.out.ask:0
+msgid "Sign in"
+msgstr "เข้าสู่ระบบ"
+
+#. module: hr_attendance
+#: view:hr.attendance.error:0
+msgid "Analysis Information"
+msgstr "ข้อมูลการวิเคราะห์"
+
+#. module: hr_attendance
+#: view:hr.sign.in.out:0
+msgid "Sign-Out Entry must follow Sign-In."
+msgstr "เข้าสู่ระบบเข้าออกต้องเป็นไปตามเข้าสู่ระบบ"
+
+#. module: hr_attendance
+#: report:report.hr.timesheet.attendance.error:0
+msgid "Attendance Errors"
+msgstr "ข้อผิดพลาดการเข้าร่วมประชุม"
+
+#. module: hr_attendance
+#: field:hr.attendance,action:0
+#: selection:hr.attendance,action:0
+msgid "Action"
+msgstr "การกระทำ"
+
+#. module: hr_attendance
+#: view:hr.sign.in.out:0
+msgid ""
+"If you need your staff to sign in when they arrive at work and sign out "
+"again at the end of the day, OpenERP allows you to manage this with this "
+"tool. If each employee has been linked to a system user, then they can "
+"encode their time with this action button."
+msgstr "ถ้าคุณต้องการพนักงานของคุณในการลงชื่อเข้าเมื่อมาถึงที่ทำงานและออกจากระบบอีกครั้งเมื่อสิ้นวัน, OpenERP ช่วยให้คุณสามารถจัดการนี​​้ด้วยเครื่องมือนี้ หากพนักงานแต่ละคนมีการเชื่อมโยงไปยังผู้ใช้ระบบแล้วพวกเขาก็สามารถเข้ารหัสเวลาของพวกเขาด้วยปุ่มการกระทำนี้"
+
+#. module: hr_attendance
+#: field:hr.sign.in.out,emp_id:0
+msgid "Employee ID"
+msgstr "รหัสพนักงาน"
+
+#. module: hr_attendance
+#: model:ir.model,name:hr_attendance.model_hr_attendance_week
+msgid "Print Week Attendance Report"
+msgstr "พิมพ์รายงานการเข้าร่วมสัปดาห์"
+
+#. module: hr_attendance
+#: field:hr.sign.in.out.ask,emp_id:0
+msgid "Empoyee ID"
+msgstr "ID Empoyee"
+
+#. module: hr_attendance
+#: view:hr.attendance.error:0
+#: view:hr.attendance.month:0
+#: view:hr.sign.in.out:0
+#: view:hr.sign.in.out.ask:0
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+#. module: hr_attendance
+#: help:hr.action.reason,name:0
+msgid "Specifies the reason for Signing In/Signing Out."
+msgstr "ระบุเหตุผลในการลงชื่อเข้า / ออกจากระบบ"
+
+#. module: hr_attendance
+#: report:report.hr.timesheet.attendance.error:0
+msgid ""
+"(*) A positive delay means that the employee worked less than recorded."
+msgstr "(*) ความล่าช้าในเชิงบวกหมายถึงการที่พนักงานทำงานบันทึกน้อยกว่า"
+
+#. module: hr_attendance
+#: view:hr.attendance.month:0
+msgid "Print Attendance Report Monthly"
+msgstr "รายงานการเข้าร่วมประชุมพิมพ์รายเดือน"
+
+#. module: hr_attendance
+#: selection:hr.action.reason,action_type:0
+#: view:hr.sign.in.out:0
+#: view:hr.sign.in.out.ask:0
+msgid "Sign out"
+msgstr "ออกจากระบบ"
+
+#. module: hr_attendance
+#: report:report.hr.timesheet.attendance.error:0
+msgid "Delay"
+msgstr "ความล่าช้า"
+
+#. module: hr_attendance
+#: view:hr.attendance:0
+#: model:ir.model,name:hr_attendance.model_hr_employee
+msgid "Employee"
+msgstr "Співробітник"
+
+#. module: hr_attendance
+#: code:addons/hr_attendance/hr_attendance.py:136
+#, python-format
+msgid ""
+"You tried to %s with a date anterior to another event !\n"
+"Try to contact the administrator to correct attendances."
+msgstr "คุณพยายามที่จะมีส่วนหน้า%s วันที่เข้าร่วมกิจกรรมอื่น! พยายามที่จะติดต่อผู้ดูแลระบบเพื่อแก้ไข attendances"
+
+#. module: hr_attendance
+#: view:hr.sign.in.out.ask:0
+#: field:hr.sign.in.out.ask,last_time:0
+msgid "Your last sign out"
+msgstr "เข้าสู่ระบบล่าสุดออก"
+
+#. module: hr_attendance
+#: report:report.hr.timesheet.attendance.error:0
+msgid "Date Recorded"
+msgstr "บันทึกวันที่"
+
+#. module: hr_attendance
+#: model:ir.actions.act_window,name:hr_attendance.open_view_attendance
+#: model:ir.ui.menu,name:hr_attendance.menu_hr_attendance
+#: model:ir.ui.menu,name:hr_attendance.menu_open_view_attendance
+msgid "Attendances"
+msgstr "Відвідування"
+
+#. module: hr_attendance
+#: selection:hr.attendance.month,month:0
+msgid "May"
+msgstr "เดือนพฤษภาคม"
+
+#. module: hr_attendance
+#: view:hr.sign.in.out.ask:0
+msgid "Your last sign in"
+msgstr "เข้าสู่ระบบล่าสุดใน"
+
+#. module: hr_attendance
+#: selection:hr.attendance,action:0
+#: view:hr.employee:0
+msgid "Sign Out"
+msgstr "ออกจากระบบ"
+
+#. module: hr_attendance
+#: model:ir.actions.act_window,help:hr_attendance.action_hr_attendance_sigh_in_out
+msgid ""
+"Sign in / Sign out. In some companies, staff have to sign in when they "
+"arrive at work and sign out again at the end of the day. If each employee "
+"has been linked to a system user, then they can encode their time with this "
+"action button."
+msgstr "เข้าสู่ระบบ / ออกจากระบบ ในบาง บริษัท มีพนักงานที่ต้องเข้าสู่ระบบในเมื่อพวกเขามาถึงที่ทำงานและออกจากระบบอีกครั้งเมื่อสิ้นวัน หากพนักงานแต่ละคนมีการเชื่อมโยงไปยังผู้ใช้ระบบแล้วพวกเขาก็สามารถเข้ารหัสเวลาของพวกเขาด้วยปุ่มการกระทำนี้"
+
+#. module: hr_attendance
+#: field:hr.attendance,employee_id:0
+msgid "Employee's Name"
+msgstr "ชื่อของพนักงาน"
+
+#. module: hr_attendance
+#: selection:hr.employee,state:0
+msgid "Absent"
+msgstr "ไม่อยู่"
+
+#. module: hr_attendance
+#: selection:hr.attendance.month,month:0
+msgid "February"
+msgstr "กุมภาพันธ์"
+
+#. module: hr_attendance
+#: field:hr.action.reason,action_type:0
+msgid "Action's type"
+msgstr "ประเภทการกระทำของ"
+
+#. module: hr_attendance
+#: view:hr.attendance:0
+msgid "Employee attendances"
+msgstr "attendances พนักงาน"
+
+#. module: hr_attendance
+#: field:hr.sign.in.out,state:0
+msgid "Current state"
+msgstr "สถานะปัจจุบัน"
+
+#. module: hr_attendance
+#: selection:hr.attendance.month,month:0
+msgid "April"
+msgstr "เมษายน"
+
+#. module: hr_attendance
+#: view:hr.attendance.error:0
+msgid "Bellow this delay, the error is considered to be voluntary"
+msgstr "การร้องความล่าช้านี้มีข้อผิดพลาดจะถือเป็นความสมัครใจ"
+
+#. module: hr_attendance
+#: code:addons/hr_attendance/wizard/hr_attendance_error.py:49
+#, python-format
+msgid "No records found for your selection!"
+msgstr "ไม่พบระเบียนสำหรับการเลือกของคุณ"
+
+#. module: hr_attendance
+#: view:hr.sign.in.out.ask:0
+msgid ""
+"You did not sign in the last time. Please enter the date and time you signed "
+"in."
+msgstr "คุณยังไม่ได้เข้าสู่ระบบครั้งสุดท้าย โปรดป้อนวันที่และเวลาที่คุณได้เข้าสู่ระบบ"
+
+#. module: hr_attendance
+#: field:hr.attendance.month,year:0
+msgid "Year"
+msgstr "ปี"
+
+#. module: hr_attendance
+#: view:hr.sign.in.out.ask:0
+msgid "hr.sign.in.out.ask"
+msgstr "hr.sign.in.out.ask"
+
+#~ msgid ""
+#~ "The Object name must start with x_ and not contain any special character !"
+#~ msgstr ""
+#~ "Назва об'єкту має починатися з x_ і не містити ніяких спеціальних символів!"
+
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "Неправильний XML для Архітектури Вигляду!"
+

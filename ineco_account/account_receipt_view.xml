@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+      	<record model="ir.ui.view" id="view_ineco_account_receipt_tree">
+            <field name="name">ineco.account.receipt.tree</field>
+            <field name="model">ineco.account.receipt</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Receipt">
+                    <field name="name"/>
+                    <field name="receipt_date"/>
+                    <field name="partner_id"/>
+                    <field name="address_id"/>
+                    <field name="amount" sum="Total Amount"/>
+                    <field name="journal_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_ineco_account_receipt_form">
+            <field name="name">ineco.account.receipt.form</field>
+            <field name="model">ineco.account.receipt</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Receipt Form">
+                	<field name="journal_id" domain="[('type','in',['receipt', 'receipttax'])]" widget="selection" select="1" />
+                    <field name="name"/>
+                    <field name="receipt_date"/>
+                    <field name="partner_id" on_change="onchange_partner_id(partner_id)" domain="[('customer','=',True)]" context="{'search_default_customer':1}"/>
+                    <field name="address_id" domain="[('partner_id','=',partner_id)]"/>
+                    <field name="voucher_ids" colspan="4" nolabel="1">
+                    	<tree string="Billing Notes">
+		                    <field name="name"/>
+		                    <field name="date_voucher"/>
+		                    <field name="date_due"/>
+		                    <field name="amount"/>
+                    	</tree>
+                    	<form>
+		                    <field name="voucher_id" domain="[('type','=','bill')]" on_change="onchange_voucher(voucher_id)"/>
+		                    <field name="name"/>
+		                    <field name="date_voucher"/>
+		                    <field name="date_due"/>
+		                    <field name="amount"/>
+                    	</form>
+                    </field>
+                    <field name="amount" sum="Total Amount"/>
+                </form>
+            </field>
+       </record>
+
+        <record id="view_ineco_account_receipt_filter" model="ir.ui.view">
+            <field name="name">ineco.account.receipt.select</field>
+            <field name="model">ineco.account.receipt</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Receipt">
+                    <group col='8' colspan='4'>
+                    	<field name="name"/>
+                    	<field name="receipt_date"/>
+                        <field name="partner_id" domain="[('customer','=',True)]" />
+                    </group>
+                   <newline/>
+                    <group expand="0" string="Group By..." colspan="4" col="10">
+                        <filter string="Customer" icon="terp-personal" domain="[('customer','=',True)]" context="{'group_by':'partner_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+ 
+        <record id="action_ineco_account_receipt" model="ir.actions.act_window">
+            <field name="name">Customer Receipt</field>
+            <field name="res_model">ineco.account.receipt</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="view_ineco_account_receipt_filter"/>
+            <field name="view_id" eval="False"/>
+            <field name="target">current</field>
+        </record>
+        <record id="action_ineco_account_receipt_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_ineco_account_receipt_tree" />
+            <field name="act_window_id" ref="action_ineco_account_receipt"/>
+        </record>
+        <record id="action_ineco_account_receipt_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ineco_account_receipt_form"/>
+            <field name="act_window_id" ref="action_ineco_account_receipt"/>
+        </record>
+
+        <menuitem action="action_ineco_account_receipt" icon="STOCK_JUSTIFY_FILL" sequence="12"
+            id="menu_ineco_action_ineco_account_receipt"  parent="account.menu_finance_receivables"/>
+    
+    </data>
+</openerp>

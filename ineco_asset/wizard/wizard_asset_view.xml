@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<openerp>
+      <data>
+
+    	<record id="view_stock_move_asset_create" model="ir.ui.view">
+            <field name="name">Register Asset</field>
+            <field name="model">stock.move.asset.create</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+              	<form string="Register Asset">
+              		<field name="product_id" />
+              		<field name="quantity"/>
+              		<field name="register_date"/>
+              		<field name="partner_id"/>
+              		<field name="price_unit"/>
+              		<field name="company_id"/>
+              		<field name="notes" colspan="4"/>
+			<button icon="gtk-ok" name="create_asset" string="Create Asset" type="object"/>
+			<button icon="gtk-cancel" special="cancel" string="_Cancel"/>
+		</form>
+            </field>
+	</record>
+
+        <act_window name="Register Asset"            
+            res_model="stock.move.asset.create"
+            src_model="stock.move"
+	    context="{'product_id':product_id,'quantity':product_qty}"
+            view_mode="form"
+            target="new"
+            multi="True"        
+            id="action_stock_move_asset_create"  />    
+</data>
+</openerp>
+
+       

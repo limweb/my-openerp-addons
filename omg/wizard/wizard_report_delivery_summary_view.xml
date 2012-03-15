@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_wizard_report_delivery_summary" model="ir.ui.view">
+            <field name="name">Delivery Summary Report</field>
+            <field name="model">wizard.report.delivery.summary</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form string="Status Report">
+                     <group col="8">
+                        <group colspan="8">
+                            <group colspan="8" states="choose">
+                                <separator colspan="8" string="Delivery Summary Report"/>
+                                <field name="product_id"/>
+                                <field name="period_id"/>
+                                <field name="format" required="1"/>
+                                <field invisible="1" name="state"/>
+                            </group>
+                            <group colspan="8" states="get">
+                                <separator string="Report Exportation" colspan="8"/>
+                                <field name="name" invisible="1" colspan="8"/>
+                                <field name="report" nolabel="1" readonly="1" fieldname="name" colspan="8"/>
+                                <!-- <field height="80" name="advice" nolabel="1" colspan="4"/> -->
+                            </group>
+                        </group>
+                        <group colspan="8" col="8" states="choose">
+                            <separator string="" colspan="8"/>
+                            <label colspan="6" width="220"/>
+                            <button icon="gtk-cancel" name="act_cancel" special="cancel" string="_Close" type="object"/>
+                            <button icon="gtk-ok" name="create_report" string="_Print" type="object"/>
+                        </group>
+                        <group colspan="8" col="8" states="get">
+                            <separator string="" colspan="8"/>
+                            <label colspan="7" width="220"/>
+                            <button icon="gtk-close" name="act_destroy" special="cancel" string="_Close" type="object"/>
+                        </group>
+                    </group>            	
+            	</form>
+            </field>
+        </record>
+
+        <record id="action_wizard_report_delivery_summary" model="ir.actions.act_window">
+            <field name="name">Delivery Summary Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.report.delivery.summary</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+            name="Delivery Summary Report"
+            parent="stock.next_id_61"
+            action="action_wizard_report_delivery_summary"
+            id="menu_wizard_report_delivery_summary"
+            icon="STOCK_PRINT" />
+
+    </data>
+</openerp>

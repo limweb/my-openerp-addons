@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+
+    <record id="base.group_omg_requester" model="res.groups">
+        <field name="name">OMG / Requester</field>
+    </record>
+
+    <record id="base.group_omg_purchase" model="res.groups">
+        <field name="name">OMG / Purchaser</field>
+    </record>
+
+</data>
+</openerp>

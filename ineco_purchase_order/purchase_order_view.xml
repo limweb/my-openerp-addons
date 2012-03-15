@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="ineco_purchase_order_form" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="type">form</field>
+       		<field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='Delivery &amp; Invoicing']/group/field[@name='fiscal_position']" position="after">
+                   	<field name="payment_id" />
+            	</xpath>	        	
+            	
+			</field>
+		</record>
+		
+	</data>
+</openerp>

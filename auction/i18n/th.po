@@ -1,0 +1,2294 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* auction
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:14+0000\n"
+"PO-Revision-Date: 2009-02-03 06:25+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-01-15 05:37+0000\n"
+"X-Generator: Launchpad (build 12177)\n"
+
+#. module: auction
+#: model:ir.ui.menu,name:auction.auction_report_menu
+msgid "Reporting"
+msgstr "การรายงาน"
+
+#. module: auction
+#: model:ir.model,name:auction.model_auction_taken
+msgid "Auction taken"
+msgstr "นำมาประมูล"
+
+#. module: auction
+#: view:auction.lots:0
+msgid "Set to draft"
+msgstr "ตั้งเป็นร่าง"
+
+#. module: auction
+#: view:auction.deposit:0
+#: field:auction.deposit,partner_id:0
+#: field:auction.lots,seller_id:0
+#: view:report.auction:0
+#: field:report.auction,seller:0
+msgid "Seller"
+msgstr "ผู้ขาย"
+
+#. module: auction
+#: field:auction.lots,name:0
+msgid "Title"
+msgstr "ชื่อเรื่อง"
+
+#. module: auction
+#: field:auction.lots.sms.send,text:0
+msgid "SMS Message"
+msgstr "SMS ข้อความ"
+
+#. module: auction
+#: view:auction.catalog.flagey:0
+#: view:auction.lots.auction.move:0
+#: view:auction.lots.make.invoice.buyer:0
+msgid " "
+msgstr ""
+
+#. module: auction
+#: view:auction.lots.auction.move:0
+msgid "Warning, Erase The Object Adjudication Price and Its Buyer!"
+msgstr "คำเตือน, ลบ Object และราคาพิจารณาพิพากษาของผู้ซื้อ!"
+
+#. module: auction
+#: help:auction.pay.buy,statement_id1:0
+msgid "First Bank Statement For Buyer"
+msgstr "บัญชีเงินฝากธนาคารแรกสำหรับผู้ซื้อ"
+
+#. module: auction
+#: field:auction.bid_line,lot_id:0
+#: field:auction.lot.history,lot_id:0
+msgid "Object"
+msgstr "วัตถุ"
+
+#. module: auction
+#: field:report.auction.object.date,obj_num:0
+msgid "# of Objects"
+msgstr "# ของวัตถุ"
+
+#. module: auction
+#: view:auction.lots:0
+msgid "Authors"
+msgstr "ชื่อผู้เขียน"
+
+#. module: auction
+#: view:auction.bid:0
+#: report:auction.bids:0
+#: view:auction.lots:0
+#: field:auction.lots,ach_uid:0
+#: field:auction.lots.buyer_map,ach_uid:0
+#: field:auction.lots.make.invoice.buyer,buyer_id:0
+#: field:auction.pay.buy,buyer_id:0
+#: report:buyer.list:0
+#: view:report.auction:0
+#: field:report.auction,buyer:0
+#: report:report.auction.buyer.result:0
+msgid "Buyer"
+msgstr "ผู้ซื้อ"
+
+#. module: auction
+#: field:report.auction,object:0
+msgid "No of objects"
+msgstr "ไม่มีวัตถุ"
+
+#. module: auction
+#: help:auction.lots,paid_vnd:0
+msgid ""
+"When state of Seller Invoice is 'Paid', this field is selected as True."
+msgstr "เมื่อสถานะของผู้ขายใบแจ้งหนี้คือ&#39;ชำระเงิน&#39;, ฟิลด์นี้จะถูกเลือกเป็นทรู"
+
+#. module: auction
+#: report:auction.total.rml:0
+msgid "# of paid items (based on invoices):"
+msgstr "# ของรายการที่จ่าย (ตามใบแจ้งหนี้) :"
+
+#. module: auction
+#: view:auction.deposit:0
+msgid "Deposit Border"
+msgstr "ชายแดนเงินฝาก"
+
+#. module: auction
+#: field:auction.lots.make.invoice,amount:0
+#: field:auction.lots.make.invoice.buyer,amount:0
+msgid "Invoiced Amount"
+msgstr "ยอดเงินในใบแจ้งหนี้"
+
+#. module: auction
+#: help:auction.lots,name:0
+msgid "Auction object name"
+msgstr "ชื่อวัตถุประมูล"
+
+#. module: auction
+#: model:ir.model,name:auction.model_aie_category
+msgid "aie.category"
+msgstr "aie.category"
+
+#. module: auction
+#: field:auction.deposit.cost,amount:0
+#: field:auction.pay.buy,amount:0
+#: field:auction.pay.buy,amount2:0
+#: field:auction.pay.buy,amount3:0
+msgid "Amount"
+msgstr "จำนวน"
+
+#. module: auction
+#: model:ir.actions.act_window,name:auction.action_deposit_border
+#: model:ir.ui.menu,name:auction.menu_auction_deposit_border
+msgid "Deposit border"
+msgstr "ชายแดนเงินฝาก"
+
+#. module: auction
+#: view:auction.deposit:0
+msgid "Reference"
+msgstr "การอ้างอิง"
+
+#. module: auction
+#: help:auction.dates,state:0
+msgid ""
+"When auction starts the state is 'Draft'.\n"
+" At the end of auction, the state becomes 'Closed'."
+msgstr "เมื่อเริ่มการประมูลของรัฐเป็น&#39;ฉบับร่าง&#39; ในตอนท้ายของการประมูลของรัฐจะกลายเป็น\"ปิด\""
+
+#. module: auction
+#: field:auction.dates,account_analytic_id:0
+msgid "Analytic Account"
+msgstr "บัญชีวิเคราะห์"
+
+#. module: auction
+#: help:auction.pay.buy,amount3:0
+msgid "Amount For Third Bank Statement"
+msgstr "จำนวนเงินสำหรับบัญชีเงินฝากธนาคารที่สาม"
+
+#. module: auction
+#: field:auction.lots,lot_num:0
+msgid "List Number"
+msgstr "จำนวนรายการ"
+
+#. module: auction
+#: report:buyer.list:0
+msgid "Date:"
+msgstr "วันที่ :"
+
+#. module: auction
+#: field:auction.deposit.cost,name:0
+msgid "Cost Name"
+msgstr "ชื่อค่าใช้จ่าย"
+
+#. module: auction
+#: view:auction.dates:0
+#: field:auction.dates,state:0
+#: view:auction.lots:0
+#: field:auction.lots,state:0
+#: view:report.auction:0
+#: field:report.auction,state:0
+msgid "State"
+msgstr "ของรัฐ"
+
+#. module: auction
+#: view:auction.dates:0
+msgid "First Auction Date"
+msgstr "วันที่ประมูลครั้งแรก"
+
+#. module: auction
+#: selection:report.auction,month:0
+msgid "January"
+msgstr "เดือนมกราคม"
+
+#. module: auction
+#: help:auction.lot.category,active:0
+msgid ""
+"If the active field is set to False, it will allow you to hide the auction "
+"lot category without removing it."
+msgstr "ถ้าเขตข้อมูลที่ใช้อยู่กำหนดเป็นเท็จก็จะช่วยให้คุณสามารถซ่อนการประมูลหมวดหมู่มากโดยไม่ลบออก"
+
+#. module: auction
+#: view:auction.lots:0
+msgid "Ref"
+msgstr "อ้าง"
+
+#. module: auction
+#: field:report.auction,total_price:0
+msgid "Total Price"
+msgstr "ราคารวม"
+
+#. module: auction
+#: view:auction.lots:0
+msgid "Total Adj."
+msgstr "adj รวม"
+
+#. module: auction
+#: view:auction.lots.sms.send:0
+msgid "SMS - Gateway: clickatell','Bulk SMS send"
+msgstr "SMS -- Gateway : clickatell&#39;,&#39;Bulk SMS ส่ง"
+
+#. module: auction
+#: help:auction.lots,costs:0
+msgid "Deposit cost"
+msgstr "ค่าใช้จ่ายดอกเบี้ยเงินฝาก"
+
+#. module: auction
+#: selection:auction.lots,state:0
+#: selection:report.auction,state:0
+#: selection:report.object.encoded,state:0
+msgid "Unsold"
+msgstr "ยังไม่ขาย"
+
+#. module: auction
+#: view:auction.deposit:0
+msgid "Search Auction deposit"
+msgstr "ค้นหาฝากประมูล"
+
+#. module: auction
+#: help:auction.lots,lot_num:0
+msgid "List number in depositer inventory"
+msgstr "จำนวนรายการสินค้าคงคลัง depositer"
+
+#. module: auction
+#: report:auction.total.rml:0
+msgid "Items"
+msgstr "รายการที่"
+
+#. module: auction
+#: model:account.tax,name:auction.auction_tax5
+#: field:auction.dates,seller_costs:0
+msgid "Seller Costs"
+msgstr "ค่าใช้จ่ายผู้ขาย"
+
+#. module: auction
+#: view:auction.bid:0
+#: view:auction.bid_line:0
+#: view:auction.lots:0
+#: field:auction.lots,bid_lines:0
+#: model:ir.actions.report.xml,name:auction.bid_auction
+#: model:ir.ui.menu,name:auction.menu_action_bid_open
+msgid "Bids"
+msgstr "การเสนอราคา"
+
+#. module: auction
+#: view:auction.lots.buyer_map:0
+msgid "Buyer Map"
+msgstr "แผนที่ผู้ซื้อ"
+
+#. module: auction
+#: field:report.object.encoded,obj_ret:0
+msgid "# obj ret"
+msgstr "# ret OBJ"
+
+#. module: auction
+#: model:ir.model,name:auction.model_auction_bid
+msgid "Bid Auctions"
+msgstr "การเสนอราคาประมูล"
+
+#. module: auction
+#: help:auction.lots,image:0
+msgid "Object Image"
+msgstr "ภาพวัตถุ"
+
+#. module: auction
+#: code:addons/auction/wizard/auction_lots_buyer_map.py:70
+#, python-format
+msgid "No buyer is set for this lot."
+msgstr "ผู้ซื้อไม่มีการกำหนดราคาจำนวนมากนี้"
+
+#. module: auction
+#: code:addons/auction/auction.py:578
+#, python-format
+msgid "The Buyer \"%s\" has no Invoice Address."
+msgstr "ผู้ซื้อ\"%s\"ไม่มีที่อยู่ใบแจ้งหนี้"
+
+#. module: auction
+#: view:auction.dates:0
+msgid "Commissions"
+msgstr "คณะกรรมการ"
+
+#. module: auction
+#: model:ir.model,name:auction.model_auction_deposit_cost
+msgid "Auction Deposit Cost"
+msgstr "ต้นทุนเงินฝากประมูล"
+
+#. module: auction
+#: view:auction.deposit:0
+msgid "Deposit Border Form"
+msgstr "แบบฟอร์มการฝากชายแดน"
+
+#. module: auction
+#: help:auction.lots,statement_id:0
+msgid "Bank statement line for given buyer"
+msgstr "บรรทัดคำสั่งให้ธนาคารสำหรับผู้ซื้อ"
+
+#. module: auction
+#: field:auction.lot.category,aie_categ:0
+msgid "Category"
+msgstr "หมวด"
+
+#. module: auction
+#: model:ir.actions.act_window,name:auction.action_view_auction_buyer_map
+msgid "Map buyer username to Partners"
+msgstr "ชื่อผู้ใช้ผู้ซื้อแผนที่พาร์ทเนอร์"
+
+#. module: auction
+#: view:auction.lots:0
+msgid "Search Auction Lots"
+msgstr "ประมูลค้นหาจำนวนมาก"
+
+#. module: auction
+#: field:report.auction,net_revenue:0
+msgid "Net Revenue"
+msgstr "รายได้สุทธิ"
+
+#. module: auction
+#: field:report.auction.adjudication,state:0
+#: field:report.object.encoded,state:0
+msgid "Status"
+msgstr "สถานะ"
+
+#. module: auction
+#: model:ir.actions.act_window,name:auction.action_auction_lots_sms_send
+msgid "SMS Send"
+msgstr "SMS ส่ง"
+
+#. module: auction
+#: selection:report.auction,month:0
+msgid "August"
+msgstr "สิงหาคม"
+
+#. module: auction
+#: view:auction.lots:0
+#: selection:auction.lots,state:0
+#: view:report.auction:0
+#: selection:report.auction,state:0
+msgid "Sold"
+msgstr "ที่ขาย"
+
+#. module: auction
+#: selection:report.auction,month:0
+msgid "June"
+msgstr "เดือนมิถุนายน"
+
+#. module: auction
+#: code:addons/auction/wizard/auction_catalog_flagey_report.py:63
+#, python-format
+msgid "No Lots belong to this Auction Date"
+msgstr "จำนวนมากไม่อยู่ในนี้ประมูลวันที่"
+
+#. module: auction
+#: selection:report.auction,month:0
+msgid "October"
+msgstr "เดือนตุลาคม"
+
+#. module: auction
+#: field:auction.bid_line,name:0
+msgid "Bid date"
+msgstr "วันที่เสนอราคา"
+
+#. module: auction
+#: field:auction.dates,acc_expense:0
+msgid "Expense Account"
+msgstr "บัญชีค่าใช้จ่าย"
+
+#. module: auction
+#: model:ir.ui.menu,name:auction.menu_wizard_emporte
+msgid "Deliveries Management"
+msgstr "การบริหารการส่งมอบ"
+
+#. module: auction
+#: field:auction.lots,obj_desc:0
+msgid "Object Description"
+msgstr "รายละเอียดวัตถุ"
+
+#. module: auction
+#: field:auction.lots,artist2_id:0
+msgid "Artist/Author2"
+msgstr "Artist/Author2"
+
+#. module: auction
+#: view:auction.pay.buy:0
+msgid "Line1"
+msgstr "Line1"
+
+#. module: auction
+#: model:ir.model,name:auction.model_auction_lots_make_invoice_buyer
+msgid "Make Invoice for Buyer"
+msgstr "ทำใบแจ้งหนี้สำหรับผู้ซื้อ"
+
+#. module: auction
+#: field:auction.lots,gross_revenue:0
+#: field:report.object.encoded,gross_revenue:0
+msgid "Gross revenue"
+msgstr "รายได้มวลรวมประชาชาติ"
+
+#. module: auction
+#: model:ir.actions.act_window,name:auction.action_auction_pay_buy
+msgid "Pay objects of the buyer"
+msgstr "วัตถุการชำระเงินของผู้ซื้อ"
+
+#. module: auction
+#: help:auction.dates,auction2:0
+msgid "End date of auction"
+msgstr "วันสิ้นสุดการประมูล"
+
+#. module: auction
+#: view:auction.lots.sms.send:0
+msgid "Send SMS"
+msgstr "ส่ง SMS"
+
+#. module: auction
+#: field:auction.lots,name2:0
+msgid "Short Description (2)"
+msgstr "คำอธิบายสั้น (2)"
+
+#. module: auction
+#: report:auction.total.rml:0
+#: model:ir.ui.menu,name:auction.auction_buyers_menu
+msgid "Buyers"
+msgstr "ผู้ซื้อ"
+
+#. module: auction
+#: model:account.tax.code,name:auction.account_tax_code_id4
+msgid "VAT 12%"
+msgstr "12% ภาษีมูลค่าเพิ่ม"
+
+#. module: auction
+#: view:auction.dates:0
+msgid "Buyer Invoices"
+msgstr "ใบแจ้งหนี้ที่ผู้ซื้อ"
+
+#. module: auction
+#: model:ir.actions.report.xml,name:auction.res_w_buyer
+msgid "Results with buyer"
+msgstr "ผลกับผู้ซื้อ"
+
+#. module: auction
+#: field:auction.bid_line,price:0
+msgid "Maximum Price"
+msgstr "ราคาสูงสุด"
+
+#. module: auction
+#: help:auction.dates,auction1:0
+msgid "Start date of auction"
+msgstr "วันที่เริ่มต้นการประมูล"
+
+#. module: auction
+#: model:ir.model,name:auction.model_auction_lots_auction_move
+msgid "Auction Move"
+msgstr "ประมูลย้าย"
+
+#. module: auction
+#: help:auction.dates,buyer_costs:0
+msgid "Account tax for buyer"
+msgstr "บัญชีภาษีสำหรับผู้ซื้อ"
+
+#. module: auction
+#: view:auction.dates:0
+msgid "Next Auction"
+msgstr "ประมูลถัดไป"
+
+#. module: auction
+#: view:auction.taken:0
+msgid "Select lots which are Sold"
+msgstr "จำนวนมากเลือกที่จะขาย"
+
+#. module: auction
+#: field:auction.lots,statement_id:0
+msgid "Payment"
+msgstr "การชําระเงิน"
+
+#. module: auction
+#: code:addons/auction/auction.py:571
+#: code:addons/auction/auction.py:686
+#, python-format
+msgid "The object \"%s\" has no buyer assigned."
+msgstr "วัตถุ\"%s\"ได้มอบหมายให้ผู้ซื้อไม่มี"
+
+#. module: auction
+#: selection:auction.deposit,method:0
+msgid "Keep until sold"
+msgstr "ให้ถึงการจำหน่าย"
+
+#. module: auction
+#: view:auction.dates:0
+msgid "Last Auction Date"
+msgstr "วันที่ประมูลล่าสุด"
+
+#. module: auction
+#: model:account.tax,name:auction.tax_seller
+msgid "Seller Costs (12%)"
+msgstr "ต้นทุนการขาย (12%)"
+
+#. module: auction
+#: field:auction.lots,paid_vnd:0
+msgid "Seller Paid"
+msgstr "ผู้ขายชำระแล้ว"
+
+#. module: auction
+#: view:board.board:0
+#: view:report.object.encoded:0
+msgid "Objects statistics"
+msgstr "สถิติวัตถุ"
+
+#. module: auction
+#: report:auction.total.rml:0
+msgid "# of sellers:"
+msgstr "# การขาย :"
+
+#. module: auction
+#: field:report.auction,date:0
+#: field:report.object.encoded,date:0
+msgid "Create Date"
+msgstr "วันที่สร้าง"
+
+#. module: auction
+#: view:auction.dates:0
+#: selection:report.object.encoded,state:0
+msgid "Invoiced"
+msgstr "ใบแจ้งหนี้"
+
+#. module: auction
+#: report:auction.total.rml:0
+msgid "# of items taken away:"
+msgstr "# ของรายการเอาออกไป :"
+
+#. module: auction
+#: model:ir.model,name:auction.model_report_auction
+#: view:report.auction:0
+msgid "Auction's Summary"
+msgstr "สรุปการประมูลของ"
+
+#. module: auction
+#: report:buyer.list:0
+msgid "%)"
+msgstr "%)"
+
+#. module: auction
+#: view:auction.lots:0
+msgid "Buyer Information"
+msgstr "ข้อมูลผู้ซื้อ"
+
+#. module: auction
+#: help:auction.lots,gross_revenue:0
+msgid "Buyer Price - Seller Price"
+msgstr "ราคาซื้อ -- ราคาขาย"
+
+#. module: auction
+#: field:auction.lots.make.invoice,objects:0
+#: field:auction.lots.make.invoice.buyer,objects:0
+msgid "# of objects"
+msgstr "# ของวัตถุ"
+
+#. module: auction
+#: field:auction.lots,lot_est2:0
+msgid "Maximum Estimation"
+msgstr "การประมาณค่าสูงสุด"
+
+#. module: auction
+#: field:auction.lots,buyer_price:0
+msgid "Buyer price"
+msgstr "ราคาผู้ซื้อ"
+
+#. module: auction
+#: view:auction.lots:0
+msgid "Bids Details"
+msgstr "รายละเอียดการเสนอราคา"
+
+#. module: auction
+#: field:auction.lots,is_ok:0
+msgid "Buyer's payment"
+msgstr "การชำระเงินของผู้ซื้อ"
+
+#. module: auction
+#: view:auction.dates:0
+msgid "End of auction"
+msgstr "สุดท้ายของการประมูล"
+
+#. module: auction
+#: model:ir.actions.act_window,name:auction.action_auction_catalog_flagey_wizard
+#: model:ir.model,name:auction.model_auction_catalog_flagey
+msgid "Auction Catalog Flagey"
+msgstr "Flagey รายการสินค้าประมูล"
+
+#. module: auction
+#: selection:report.auction,month:0
+msgid "March"
+msgstr "เดือนมีนาคม"
+
+#. module: auction
+#: model:account.tax,name:auction.auction_tax4
+msgid "Seller Costs1"
+msgstr "ผู้ขาย Costs1"
+
+#. module: auction
+#: field:auction.deposit,create_uid:0
+#: field:auction.lots,create_uid:0
+msgid "Created by"
+msgstr "สร้างโดย"
+
+#. module: auction
+#: report:auction.total.rml:0
+msgid "# of buyers:"
+msgstr "# ของผู้ซื้อ :"
+
+#. module: auction
+#: field:auction.lots,costs:0
+msgid "Indirect costs"
+msgstr "ค่าใช้จ่ายทางอ้อม"
+
+#. module: auction
+#: help:auction.dates,seller_costs:0
+msgid "Account tax for seller"
+msgstr "บัญชีภาษีสำหรับผู้ขาย"
+
+#. module: auction
+#: code:addons/auction/wizard/auction_lots_invoice.py:68
+#: code:addons/auction/wizard/auction_lots_numerotate.py:103
+#: code:addons/auction/wizard/auction_lots_numerotate.py:129
+#, python-format
+msgid "UserError"
+msgstr "UserError"
+
+#. module: auction
+#: model:ir.module.module,shortdesc:auction.module_meta_information
+msgid "Auction Management"
+msgstr "การจัดการประมูล"
+
+#. module: auction
+#: field:auction.dates,journal_seller_id:0
+msgid "Seller Journal"
+msgstr "วารสารผู้ขาย"
+
+#. module: auction
+#: view:auction.dates:0
+#: selection:auction.dates,state:0
+#: view:auction.lots:0
+#: selection:auction.lots,state:0
+#: view:report.auction:0
+#: selection:report.auction,state:0
+#: selection:report.auction.adjudication,state:0
+#: selection:report.object.encoded,state:0
+msgid "Draft"
+msgstr "ร่าง"
+
+#. module: auction
+#: help:auction.lots,state:0
+msgid ""
+" * The 'Draft' state is used when a object is encoding as a new object.      "
+"           \n"
+"* The 'Unsold' state is used when object does not sold for long time, user "
+"can also set it as draft state after unsold.                 \n"
+"* The 'Paid' state is used when user pay for the object                 \n"
+"* The 'Sold' state is used when user buy the object."
+msgstr "รัฐ *&#39;ฉบับร่าง&#39;จะใช้เมื่อวัตถุมีการเข้ารหัสเป็นวัตถุใหม่ รัฐ *&#39;ไม่ขาย&#39;จะใช้เมื่อวัตถุไม่ได้จำหน่ายเป็นเวลานานผู้ใช้ยังสามารถตั้งให้เป็นร่างหลังจากที่รัฐยังไม่ขาย รัฐ *&#39;ชำระเงิน&#39;จะใช้เมื่อผู้ใช้จ่ายสำหรับวัตถุ * รัฐ&#39;ขาย&#39;จะใช้เมื่อผู้ใช้ซื้อวัตถุ"
+
+#. module: auction
+#: view:auction.catalog.flagey:0
+msgid "Print"
+msgstr "พิมพ์"
+
+#. module: auction
+#: view:auction.lots:0
+#: view:report.auction:0
+msgid "Type"
+msgstr "ประเภท"
+
+#. module: auction
+#: help:aie.category,child_ids:0
+msgid "children aie category"
+msgstr "เด็กเอี๊ยะหมวดหมู่"
+
+#. module: auction
+#: help:auction.lots,ach_emp:0
+msgid "When state is Taken Away, this field is marked as True"
+msgstr "เมื่อรัฐสามารถเอาออกไปฟิลด์นี้จะถูกทำเครื่องหมายเป็นทรู"
+
+#. module: auction
+#: model:ir.actions.act_window,name:auction.action_auction_taken
+msgid "Gestion emporte"
+msgstr "emporte Gestion"
+
+#. module: auction
+#: view:auction.bid:0
+#: report:auction.bids:0
+#: view:auction.dates:0
+#: view:auction.lots:0
+#: field:auction.lots,auction_id:0
+#: report:auction.total.rml:0
+#: model:ir.ui.menu,name:auction.auction_menu_root
+#: view:report.auction:0
+msgid "Auction"
+msgstr "การประมูล"
+
+#. module: auction
+#: view:auction.lot.category:0
+#: model:ir.ui.menu,name:auction.menu_auction_object_cat
+msgid "Object Categories"
+msgstr "หมวดหมู่วัตถุ"
+
+#. module: auction
+#: field:auction.lots.sms.send,app_id:0
+msgid "API ID"
+msgstr "ID API"
+
+#. module: auction
+#: field:auction.bid,name:0
+#: field:auction.bid_line,bid_id:0
+msgid "Bid ID"
+msgstr "ID การเสนอราคา"
+
+#. module: auction
+#: report:auction.total.rml:0
+msgid "Min Estimate:"
+msgstr "ประมาณการขั้นต่ำ :"
+
+#. module: auction
+#: selection:report.auction,month:0
+msgid "September"
+msgstr "กันยายน"
+
+#. module: auction
+#: field:report.auction,net_margin:0
+msgid "Net Margin"
+msgstr "อัตรากำไรสุทธิ"
+
+#. module: auction
+#: field:auction.lots,vnd_lim_net:0
+msgid "Net limit ?"
+msgstr "จำกัด สุทธิ?"
+
+#. module: auction
+#: field:aie.category,child_ids:0
+msgid "unknown"
+msgstr "ไม่ทราบ"
+
+#. module: auction
+#: report:auction.total.rml:0
+msgid "# of commissions:"
+msgstr "# ของคณะกรรมการ :"
+
+#. module: auction
+#: field:auction.bid_line,auction:0
+#: field:auction.dates,name:0
+msgid "Auction Name"
+msgstr "ชื่อประมูล"
+
+#. module: auction
+#: field:report.object.encoded,obj_num:0
+msgid "# of Encoded obj."
+msgstr "# การเข้ารหัส OBJ"
+
+#. module: auction
+#: field:aie.category,parent_id:0
+msgid "Parent aie Category"
+msgstr "หมวดหมู่เอี๊ยะผู้ปกครอง"
+
+#. module: auction
+#: view:report.auction:0
+msgid "Auction Summary"
+msgstr "สรุปการประมูล"
+
+#. module: auction
+#: view:auction.lots.make.invoice:0
+#: view:auction.lots.make.invoice.buyer:0
+msgid "(Keep empty for automatic number)"
+msgstr "(เก็บว่างเปล่าสำหรับตัวเลขให้โดยอัตโนมัติ)"
+
+#. module: auction
+#: code:addons/auction/auction.py:578
+#, python-format
+msgid "No Invoice Address"
+msgstr "ไม่มีที่อยู่ใบแจ้งหนี้"
+
+#. module: auction
+#: model:ir.actions.report.xml,name:auction.v_huissier
+msgid "Bailiffs Listing"
+msgstr "Bailiffs รายการ"
+
+#. module: auction
+#: code:addons/auction/wizard/auction_lots_numerotate.py:103
+#: code:addons/auction/wizard/auction_lots_numerotate.py:129
+#, python-format
+msgid "This record does not exist !"
+msgstr "บันทึกนี้ไม่ได้อยู่!"
+
+#. module: auction
+#: field:auction.pay.buy,total:0
+msgid "Total Amount"
+msgstr "รวมเป็นจำนวนเงิน"
+
+#. module: auction
+#: help:auction.pay.buy,amount:0
+msgid "Amount For First Bank Statement"
+msgstr "จำนวนเงินสำหรับบัญชีเงินฝากธนาคารแรก"
+
+#. module: auction
+#: model:ir.model,name:auction.model_report_auction_object_date
+#: view:report.auction.object.date:0
+msgid "Objects per day"
+msgstr "อบเจกต์ต่อวัน"
+
+#. module: auction
+#: help:auction.lots,author_right:0
+msgid "Account tax for author commission"
+msgstr "บัญชีภาษีสำหรับคณะกรรมการผู้สร้าง"
+
+#. module: auction
+#: model:product.template,name:auction.monproduit_product_template
+msgid "Oeuvres a 21%"
+msgstr "oeuvres 21%"
+
+#. module: auction
+#: field:report.object.encoded,adj:0
+msgid "Adj."
+msgstr "adj"
+
+#. module: auction
+#: field:auction.lot.history,name:0
+#: field:report.auction.adjudication,date:0
+msgid "Date"
+msgstr "วันที่"
+
+#. module: auction
+#: field:auction.lots,obj_ret:0
+msgid "Price retired"
+msgstr "ราคาพ้นจากตำแหน่ง"
+
+#. module: auction
+#: view:auction.deposit:0
+msgid "Extra Costs"
+msgstr "ค่าใช้จ่ายเพิ่มเติม"
+
+#. module: auction
+#: view:auction.lots.buyer_map:0
+msgid "Map "
+msgstr "แผนที่"
+
+#. module: auction
+#: field:auction.lots,paid_ach:0
+msgid "Buyer Invoice Reconciled"
+msgstr "ใบแจ้งหนี้ของผู้ซื้อคืนดี"
+
+#. module: auction
+#: field:auction.deposit,date_dep:0
+msgid "Deposit date"
+msgstr "วันที่ฝาก"
+
+#. module: auction
+#: model:ir.actions.report.xml,name:auction.id_deposit
+msgid "Deposits"
+msgstr "เงินรับฝาก"
+
+#. module: auction
+#: field:auction.deposit,specific_cost_ids:0
+msgid "Specific Costs"
+msgstr "ค่าใช้จ่ายเฉพาะ"
+
+#. module: auction
+#: report:buyer.list:0
+msgid "To pay ("
+msgstr "ในการจ่ายเงิน ("
+
+#. module: auction
+#: model:account.tax,name:auction.tax_buyer
+msgid "Buyer Costs (20%)"
+msgstr "ค่าใช้จ่ายผู้ซื้อ (20%)"
+
+#. module: auction
+#: model:ir.ui.menu,name:auction.menu_board_auction
+msgid "Dashboard"
+msgstr "แผงควบคุม"
+
+#. module: auction
+#: view:auction.dates:0
+#: model:ir.actions.act_window,name:auction.action_auction_dates_next
+#: model:ir.ui.menu,name:auction.auction_date_menu
+#: model:ir.ui.menu,name:auction.menu_auction_dates_next1
+msgid "Auctions"
+msgstr "การประมูล"
+
+#. module: auction
+#: view:board.board:0
+msgid "Total Adjudications"
+msgstr "Adjudications รวม"
+
+#. module: auction
+#: model:ir.model,name:auction.model_auction_lots_make_invoice
+msgid "Make invoice"
+msgstr "ทำใบแจ้งหนี้"
+
+#. module: auction
+#: selection:report.auction,month:0
+msgid "November"
+msgstr "พฤศจิกายน"
+
+#. module: auction
+#: view:auction.dates:0
+#: view:auction.lots:0
+msgid "History"
+msgstr "ประวัติ"
+
+#. module: auction
+#: field:aie.category,code:0
+msgid "Code"
+msgstr "รหัส"
+
+#. module: auction
+#: report:auction.code_bar_lot:0
+msgid "Nr."
+msgstr "Nr"
+
+#. module: auction
+#: model:ir.actions.report.xml,name:auction.v_report_barcode_lot
+msgid "Barcode batch"
+msgstr "ชุดเครื่องอ่านบาร์โค้ด"
+
+#. module: auction
+#: report:report.auction.buyer.result:0
+msgid "Num"
+msgstr "Num"
+
+#. module: auction
+#: view:auction.catalog.flagey:0
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+#. module: auction
+#: view:auction.lots:0
+msgid "Buyer's Payment History"
+msgstr "ประวัติการชำระเงินของผู้ซื้อ"
+
+#. module: auction
+#: view:auction.artists:0
+#: field:auction.artists,biography:0
+msgid "Biography"
+msgstr "ชีวประวัติ"
+
+#. module: auction
+#: view:auction.lots:0
+msgid "Inventory"
+msgstr "สินค้าคงคลัง"
+
+#. module: auction
+#: view:auction.pay.buy:0
+msgid "Pay"
+msgstr "จ่ายเงิน"
+
+#. module: auction
+#: view:auction.lots.make.invoice:0
+msgid "Create Invoices For Seller"
+msgstr "สร้างใบแจ้งหนี้สำหรับผู้ขาย"
+
+#. module: auction
+#: field:report.object.encoded,obj_margin:0
+msgid "Net margin"
+msgstr "อัตรากำไรสุทธิ"
+
+#. module: auction
+#: help:auction.lots,lot_local:0
+msgid "Auction Location"
+msgstr "สถานที่ประมูล"
+
+#. module: auction
+#: view:auction.dates:0
+msgid "Analytic"
+msgstr "วิเคราะห์"
+
+#. module: auction
+#: help:auction.lots,paid_ach:0
+msgid ""
+"When state of Buyer Invoice is 'Paid', this field is selected as True."
+msgstr "เมื่อสถานะของผู้ซื้อใบแจ้งหนี้คือ&#39;ชำระเงิน&#39;, ฟิลด์นี้จะถูกเลือกเป็นทรู"
+
+#. module: auction
+#: report:bids.lots:0
+#: report:bids.phones.details:0
+msgid "Cat.N"
+msgstr "Cat.N"
+
+#. module: auction
+#: selection:auction.deposit,method:0
+msgid "Decrease limit of 10%"
+msgstr "จำกัด ลดลง 10%"
+
+#. module: auction
+#: field:auction.dates,adj_total:0
+#: field:report.auction.adjudication,adj_total:0
+msgid "Total Adjudication"
+msgstr "พิจารณาพิพากษารวม"
+
+#. module: auction
+#: model:ir.actions.act_window,name:auction.action_auction_lots_make_invoice_buyer
+msgid "Invoice Buyer objects"
+msgstr "วัตถุใบแจ้งหนี้ของผู้ซื้อ"
+
+#. module: auction
+#: view:report.auction:0
+msgid "My Auction"
+msgstr "ประมูลของฉัน"
+
+#. module: auction
+#: help:auction.lots,gross_margin:0
+msgid "(Gross Revenue*100.0)/ Object Price"
+msgstr "(รายได้มวลรวม * 100.0) ราคาวัตถุ /"
+
+#. module: auction
+#: field:auction.bid,contact_tel:0
+msgid "Contact Number"
+msgstr "หมายเลขติดต่อ"
+
+#. module: auction
+#: view:auction.lots:0
+msgid "Price"
+msgstr "ราคา"
+
+#. module: auction
+#: report:bids.phones.details:0
+msgid "-"
+msgstr "--"
+
+#. module: auction
+#: view:auction.deposit:0
+msgid "Photos"
+msgstr "Photos"
+
+#. module: auction
+#: field:auction.lots.make.invoice,number:0
+#: field:auction.lots.make.invoice.buyer,number:0
+msgid "Invoice Number"
+msgstr "หมายเลขใบแจ้งหนี้"
+
+#. module: auction
+#: code:addons/auction/wizard/auction_lots_buyer_map.py:87
+#: code:addons/auction/wizard/auction_lots_numerotate.py:77
+#: code:addons/auction/wizard/auction_lots_numerotate.py:95
+#: code:addons/auction/wizard/auction_lots_numerotate.py:122
+#: code:addons/auction/wizard/auction_lots_numerotate.py:137
+#: code:addons/auction/wizard/auction_lots_numerotate.py:173
+#, python-format
+msgid "Active IDs not Found"
+msgstr "Active รหัสไม่พบข้อมูล"
+
+#. module: auction
+#: code:addons/auction/wizard/auction_aie_send.py:167
+#: code:addons/auction/wizard/auction_aie_send_result.py:117
+#, python-format
+msgid "Connection to WWW.Auction-in-Europe.com failed !"
+msgstr "เชื่อมต่อไปยัง WWW.Auction - in - Europe.com ล้มเหลว!"
+
+#. module: auction
+#: field:report.auction,gross_revenue:0
+msgid "Gross Revenue"
+msgstr "รายได้มวลรวมประชาชาติ"
+
+#. module: auction
+#: model:ir.actions.act_window,name:auction.open_board_auction
+msgid "Auction board"
+msgstr "บอร์ดประมูล"
+
+#. module: auction
+#: field:aie.category,name:0
+#: view:auction.artists:0
+#: report:bids.lots:0
+msgid "Name"
+msgstr "ชื่อ"
+
+#. module: auction
+#: field:auction.deposit,name:0
+#: field:auction.lots,bord_vnd_id:0
+msgid "Depositer Inventory"
+msgstr "สินค้าคงคลัง Depositer"
+
+#. module: auction
+#: code:addons/auction/auction.py:692
+#, python-format
+msgid "The Buyer has no Invoice Address."
+msgstr "ผู้ซื้อไม่มีที่อยู่ใบแจ้งหนี้"
+
+#. module: auction
+#: view:report.object.encoded:0
+msgid "Total adj."
+msgstr "รวม adj"
+
+#. module: auction
+#: field:auction.lots.sms.send,user:0
+msgid "Login"
+msgstr "เข้าสู่ระบบ"
+
+#. module: auction
+#: model:ir.model,name:auction.model_report_auction_adjudication
+msgid "report_auction_adjudication"
+msgstr "report_auction_adjudication"
+
+#. module: auction
+#: model:ir.actions.report.xml,name:auction.seller_lots_3
+msgid "Seller Form"
+msgstr "แบบฟอร์มผู้ขาย"
+
+#. module: auction
+#: field:auction.lots,lot_type:0
+#: field:report.auction,lot_type:0
+msgid "Object category"
+msgstr "หมวดหมู่วัตถุ"
+
+#. module: auction
+#: view:auction.taken:0
+msgid "Mark Lots"
+msgstr "Mark จำนวนมาก"
+
+#. module: auction
+#: model:ir.model,name:auction.model_auction_lots
+msgid "Auction Object"
+msgstr "วัตถุประมูล"
+
+#. module: auction
+#: field:auction.lots,obj_num:0
+#: field:auction.lots.enable,confirm_en:0
+msgid "Catalog Number"
+msgstr "จำนวนรายการสินค้า"
+
+#. module: auction
+#: view:auction.dates:0
+msgid "Accounting"
+msgstr "การบัญชี"
+
+#. module: auction
+#: model:ir.actions.report.xml,name:auction.bid_phone
+msgid "Bids phones"
+msgstr "โทรศัพท์การเสนอราคา"
+
+#. module: auction
+#: field:report.auction,avg_estimation:0
+msgid "Avg estimation"
+msgstr "การประมาณค่าเฉลี่ย"
+
+#. module: auction
+#: report:auction.total.rml:0
+msgid "Debit:"
+msgstr "เดบิต :"
+
+#. module: auction
+#: field:auction.lots,author_right:0
+msgid "Author rights"
+msgstr "สิทธิของผู้เขียน"
+
+#. module: auction
+#: view:auction.bid:0
+#: view:auction.dates:0
+#: view:auction.deposit:0
+#: view:auction.lots:0
+#: view:report.auction:0
+msgid "Group By..."
+msgstr "กลุ่มตาม ..."
+
+#. module: auction
+#: help:auction.dates,journal_id:0
+msgid "Account journal for buyer"
+msgstr "วารสารบัญชีสำหรับผู้ซื้อ"
+
+#. module: auction
+#: field:auction.bid,bid_lines:0
+#: report:auction.bids:0
+#: report:bids.lots:0
+#: model:ir.model,name:auction.model_auction_bid_line
+msgid "Bid"
+msgstr "การเสนอราคา"
+
+#. module: auction
+#: view:report.object.encoded:0
+msgid "Total net rev."
+msgstr "หมุนรอบสุทธิรวม"
+
+#. module: auction
+#: view:auction.lots.buyer_map:0
+msgid "Update"
+msgstr "Update"
+
+#. module: auction
+#: report:auction.total.rml:0
+#: model:ir.ui.menu,name:auction.auction_seller_menu
+msgid "Sellers"
+msgstr "ผู้ขาย"
+
+#. module: auction
+#: help:auction.lots,lot_est2:0
+msgid "Maximum Estimate Price"
+msgstr "ราคาประเมินสูงสุด"
+
+#. module: auction
+#: view:auction.lots:0
+msgid "Notes"
+msgstr "Notes"
+
+#. module: auction
+#: view:auction.lots.auction.move:0
+msgid "Move to Auction date"
+msgstr "ย้ายไปวันที่ประมูล"
+
+#. module: auction
+#: report:auction.total.rml:0
+msgid "# of unsold items:"
+msgstr "# ของรายการที่ยังไม่ขาย :"
+
+#. module: auction
+#: view:auction.dates:0
+msgid "Create Invoices"
+msgstr "สร้างใบแจ้งหนี้"
+
+#. module: auction
+#: field:auction.bid,auction_id:0
+#: view:auction.dates:0
+#: field:auction.lots.auction.move,auction_id:0
+msgid "Auction Date"
+msgstr "วันที่ประมูล"
+
+#. module: auction
+#: report:auction.code_bar_lot:0
+msgid ", ID"
+msgstr ", ID"
+
+#. module: auction
+#: report:buyer.list:0
+msgid "Adj.("
+msgstr "adj. ("
+
+#. module: auction
+#: model:ir.actions.report.xml,name:auction.lot_list_inv
+msgid "Lots List - Landscape"
+msgstr "รายการจำนวนมาก -- Landscape"
+
+#. module: auction
+#: view:auction.artists:0
+msgid "Author/Artist"
+msgstr "ผู้แต่ง / ศิลปิน"
+
+#. module: auction
+#: field:auction.lots,ach_login:0
+#: field:auction.lots.buyer_map,ach_login:0
+msgid "Buyer Username"
+msgstr "ชื่อผู้ใช้ผู้ซื้อ"
+
+#. module: auction
+#: field:auction.lot.category,priority:0
+msgid "Priority"
+msgstr "ลำดับความสำคัญ"
+
+#. module: auction
+#: view:board.board:0
+msgid "Latest objects"
+msgstr "วัตถุล่าสุด"
+
+#. module: auction
+#: field:auction.lots,lot_local:0
+msgid "Location"
+msgstr "ตำแหน่งที่ตั้ง"
+
+#. module: auction
+#: view:report.auction:0
+msgid "Month -1"
+msgstr "-1 เดือน"
+
+#. module: auction
+#: help:auction.lots,is_ok:0
+msgid "When buyer pay for bank statement', this field is marked"
+msgstr "เมื่อผู้ซื้อจ่ายเงินสำหรับบัญชีเงินฝากธนาคาร&#39;ฟิลด์นี้จะมีการทำเครื่องหมาย"
+
+#. module: auction
+#: field:auction.lots,ach_emp:0
+msgid "Taken Away"
+msgstr "เอาออกไป"
+
+#. module: auction
+#: view:report.object.encoded:0
+msgid "Total gross rev."
+msgstr "หมุนรอบขั้นต้นรวม"
+
+#. module: auction
+#: help:auction.lots,lot_est1:0
+msgid "Minimum Estimate Price"
+msgstr "ราคาประเมินขั้นต่ำ"
+
+#. module: auction
+#: view:auction.deposit:0
+msgid "Deposit Date"
+msgstr "วันที่ฝาก"
+
+#. module: auction
+#: code:addons/auction/wizard/auction_lots_numerotate.py:145
+#, python-format
+msgid "This lot does not exist !"
+msgstr "จำนวนมากนี้ไม่ได้อยู่!"
+
+#. module: auction
+#: selection:report.auction,month:0
+msgid "July"
+msgstr "กรกฎาคม"
+
+#. module: auction
+#: field:auction.bid_line,call:0
+msgid "To be Called"
+msgstr "จะได้ชื่อว่าเป็น"
+
+#. module: auction
+#: view:auction.lots:0
+#: model:ir.actions.act_window,name:auction.action_report_auction_lots_estimation_adj_category_tree
+msgid "Min est/Adj/Max est"
+msgstr "EST / นาที adj EST Max /"
+
+#. module: auction
+#: field:auction.lots,lot_est1:0
+msgid "Minimum Estimation"
+msgstr "การประมาณค่าต่ำสุด"
+
+#. module: auction
+#: model:ir.model,name:auction.model_auction_lots_sms_send
+msgid "Sms send "
+msgstr "ส่ง Sms"
+
+#. module: auction
+#: view:auction.lots.auction.move:0
+#: model:ir.actions.act_window,name:auction.action_auction_lots_auction_move
+msgid "Change Auction Date"
+msgstr "เปลี่ยนวันที่ประมูล"
+
+#. module: auction
+#: field:auction.artists,birth_death_dates:0
+msgid "Lifespan"
+msgstr "อายุ"
+
+#. module: auction
+#: view:auction.deposit:0
+#: field:auction.deposit,method:0
+msgid "Withdrawned method"
+msgstr "วิธี Withdrawned"
+
+#. module: auction
+#: view:auction.dates:0
+msgid "Buyer Commissions"
+msgstr "คณะกรรมการผู้ซื้อ"
+
+#. module: auction
+#: model:ir.actions.act_window,name:auction.action_report_auction
+#: model:ir.ui.menu,name:auction.menu_report_auction
+msgid "Auction Analysis"
+msgstr "การวิเคราะห์การประมูล"
+
+#. module: auction
+#: code:addons/auction/wizard/auction_pay_buy.py:80
+#, python-format
+msgid "Payment aborted !"
+msgstr "ยกเลิกการชำระเงิน!"
+
+#. module: auction
+#: field:auction.lot.history,price:0
+msgid "Withdrawn price"
+msgstr "ราคาถอน"
+
+#. module: auction
+#: view:auction.dates:0
+msgid "Beginning of the auction"
+msgstr "จุดเริ่มต้นของการประมูล"
+
+#. module: auction
+#: help:auction.pay.buy,statement_id3:0
+msgid "Third Bank Statement For Buyer"
+msgstr "บัญชีเงินฝากธนาคารที่สามสำหรับผู้ซื้อ"
+
+#. module: auction
+#: view:report.auction:0
+#: field:report.auction,month:0
+#: field:report.auction.object.date,month:0
+msgid "Month"
+msgstr "เดือน"
+
+#. module: auction
+#: report:auction.total.rml:0
+msgid "Max Estimate:"
+msgstr "ประมาณการสูงสุด :"
+
+#. module: auction
+#: view:auction.lots:0
+msgid "Statistical"
+msgstr "สถิติ"
+
+#. module: auction
+#: model:ir.model,name:auction.model_auction_deposit
+msgid "Auction Deposit Border"
+msgstr "ชายแดนเงินฝากประมูล"
+
+#. module: auction
+#: model:ir.actions.act_window,name:auction.action_report_object_encoded_tree
+msgid "Object statistics"
+msgstr "สถิติ Object"
+
+#. module: auction
+#: help:auction.lots,net_margin:0
+msgid "(Net Revenue * 100)/ Object Price"
+msgstr "(รายได้สุทธิ * 100) ราคาวัตถุ /"
+
+#. module: auction
+#: model:ir.model,name:auction.model_auction_lot_history
+msgid "Lot History"
+msgstr "ประวัติความเป็นมาจอด"
+
+#. module: auction
+#: view:auction.lots.make.invoice:0
+#: view:auction.lots.make.invoice.buyer:0
+msgid "Create invoices"
+msgstr "สร้างใบแจ้งหนี้"
+
+#. module: auction
+#: model:account.tax.code,name:auction.account_tax_code_id5
+msgid "VAT 5%"
+msgstr "5% ภาษีมูลค่าเพิ่ม"
+
+#. module: auction
+#: field:auction.dates,expo1:0
+msgid "First Exposition Day"
+msgstr "มหกรรมวันแรก"
+
+#. module: auction
+#: report:buyer.list:0
+msgid "Lot"
+msgstr "ที่จอด"
+
+#. module: auction
+#: model:ir.model,name:auction.model_auction_artists
+msgid "auction.artists"
+msgstr "auction.artists"
+
+#. module: auction
+#: field:report.auction,avg_price:0
+msgid "Avg Price."
+msgstr "ราคาเฉลี่ย"
+
+#. module: auction
+#: help:auction.pay.buy,statement_id2:0
+msgid "Second Bank Statement For Buyer"
+msgstr "บัญชีเงินฝากธนาคารที่สองสำหรับผู้ซื้อ"
+
+#. module: auction
+#: field:auction.dates,journal_id:0
+msgid "Buyer Journal"
+msgstr "วารสารผู้ซื้อ"
+
+#. module: auction
+#: selection:auction.lots,state:0
+#: selection:report.object.encoded,state:0
+msgid "Paid"
+msgstr "ทุนชำระแล้ว"
+
+#. module: auction
+#: report:bids.lots:0
+#: report:bids.phones.details:0
+msgid "Phone"
+msgstr "โทรศัพท์"
+
+#. module: auction
+#: field:auction.lot.category,active:0
+msgid "Active"
+msgstr "แอคทีฟ"
+
+#. module: auction
+#: view:auction.dates:0
+msgid "Exposition Dates"
+msgstr "วันมหกรรม"
+
+#. module: auction
+#: model:account.tax,name:auction.auction_tax1
+msgid "TVA"
+msgstr "TVA"
+
+#. module: auction
+#: field:auction.lots,important:0
+msgid "To be Emphatized"
+msgstr "การจะมีความ Emphatized"
+
+#. module: auction
+#: report:buyer.list:0
+msgid "Total:"
+msgstr "Total :"
+
+#. module: auction
+#: model:account.tax,name:auction.auction_tax2
+msgid "TVA1"
+msgstr "TVA1"
+
+#. module: auction
+#: view:report.auction.object.date:0
+msgid "Objects per Day"
+msgstr "อบเจกต์ต่อวัน"
+
+#. module: auction
+#: field:auction.dates,seller_invoice_history:0
+#: field:auction.lots,sel_inv_id:0
+#: view:auction.lots.make.invoice:0
+msgid "Seller Invoice"
+msgstr "ใบแจ้งหนี้ผู้ขาย"
+
+#. module: auction
+#: view:board.board:0
+msgid "Objects by day"
+msgstr "วัตถุตามวัน"
+
+#. module: auction
+#: help:auction.dates,expo2:0
+msgid "Last exposition date for auction"
+msgstr "วันสุดท้ายของการประมูลการแสดงออก"
+
+#. module: auction
+#: code:addons/auction/auction.py:571
+#: code:addons/auction/auction.py:686
+#, python-format
+msgid "Missed buyer !"
+msgstr "ผู้ซื้อพลาด!"
+
+#. module: auction
+#: report:auction.code_bar_lot:0
+msgid "Flagey"
+msgstr "Flagey"
+
+#. module: auction
+#: view:board.board:0
+msgid "Auction manager "
+msgstr "ผู้จัดการประมูล"
+
+#. module: auction
+#: code:addons/auction/wizard/auction_lots_invoice.py:68
+#, python-format
+msgid ""
+"Two different buyers for the same invoice !\n"
+"Please correct this problem before invoicing"
+msgstr "สองผู้ซื้อที่แตกต่างกันสำหรับใบแจ้งหนี้เดียวกัน! โปรดแก้ไขปัญหานี้ก่อนที่จะส่งใบแจ้งหนี้"
+
+#. module: auction
+#: view:auction.dates:0
+msgid "Invoice"
+msgstr "ใบกำกับสินค้า"
+
+#. module: auction
+#: field:auction.lots,vnd_lim:0
+msgid "Seller limit"
+msgstr "จำกัด ผู้ขาย"
+
+#. module: auction
+#: field:auction.deposit,transfer:0
+msgid "Transfer"
+msgstr "การโอน"
+
+#. module: auction
+#: view:auction.pay.buy:0
+msgid "Line3"
+msgstr "Line3"
+
+#. module: auction
+#: view:auction.pay.buy:0
+msgid "Line2"
+msgstr "line2"
+
+#. module: auction
+#: help:auction.lots,obj_ret:0
+msgid "Object Ret"
+msgstr "ret วัตถุ"
+
+#. module: auction
+#: view:report.auction.adjudication:0
+msgid "Total adjudication"
+msgstr "พิจารณาพิพากษารวม"
+
+#. module: auction
+#: selection:auction.deposit,method:0
+msgid "Contact the Seller"
+msgstr "ติดต่อผู้ขาย"
+
+#. module: auction
+#: field:auction.taken,lot_ids:0
+msgid "Lots Emportes"
+msgstr "Emportes จำนวนมาก"
+
+#. module: auction
+#: field:auction.lots,net_margin:0
+msgid "Net Margin (%)"
+msgstr "อัตรากำไรสุทธิ (%)"
+
+#. module: auction
+#: field:auction.lots,product_id:0
+msgid "Product"
+msgstr "ผลิตภัณฑ์"
+
+#. module: auction
+#: report:buyer.list:0
+msgid ")"
+msgstr ")"
+
+#. module: auction
+#: view:auction.lots:0
+msgid "Seller Information"
+msgstr "ข้อมูลผู้ขาย"
+
+#. module: auction
+#: view:auction.deposit:0
+#: field:auction.deposit,lot_id:0
+#: view:auction.lots:0
+#: model:ir.actions.act_window,name:auction.action_all_objects
+#: model:ir.ui.menu,name:auction.auction_all_objects_menu
+msgid "Objects"
+msgstr "วัตถุ"
+
+#. module: auction
+#: view:auction.dates:0
+msgid "Seller Invoices"
+msgstr "ใบแจ้งหนี้ผู้ขาย"
+
+#. module: auction
+#: report:auction.total.rml:0
+msgid "Paid:"
+msgstr "ชำระเงิน :"
+
+#. module: auction
+#: field:auction.deposit,total_neg:0
+msgid "Allow Negative Amount"
+msgstr "อนุญาตให้มีมูลค่าติดลบ"
+
+#. module: auction
+#: help:auction.pay.buy,amount2:0
+msgid "Amount For Second Bank Statement"
+msgstr "จำนวนเงินสำหรับบัญชีเงินฝากธนาคารที่สอง"
+
+#. module: auction
+#: field:auction.lot.history,auction_id:0
+#: field:report.auction,auction:0
+#: field:report.auction.adjudication,name:0
+msgid "Auction date"
+msgstr "วันที่ประมูล"
+
+#. module: auction
+#: view:auction.lots.sms.send:0
+msgid "SMS Text"
+msgstr "ข้อความ SMS"
+
+#. module: auction
+#: field:auction.dates,auction1:0
+msgid "First Auction Day"
+msgstr "วันประมูลครั้งแรก"
+
+#. module: auction
+#: view:auction.lots.make.invoice.buyer:0
+msgid "Create Invoices For Buyer"
+msgstr "สร้างใบแจ้งหนี้สำหรับผู้ซื้อ"
+
+#. module: auction
+#: view:auction.dates:0
+msgid "Names"
+msgstr "ชื่อ"
+
+#. module: auction
+#: view:auction.artists:0
+#: model:ir.ui.menu,name:auction.menu_auction_artist
+msgid "Artists"
+msgstr "ของศิลปิน"
+
+#. module: auction
+#: view:auction.pay.buy:0
+msgid "Pay Objects"
+msgstr "วัตถุการชำระเงิน"
+
+#. module: auction
+#: help:auction.dates,expo1:0
+msgid "Beginning exposition date for auction"
+msgstr "วันที่จุดเริ่มต้นสำหรับการประมูลงานแสดง"
+
+#. module: auction
+#: model:ir.actions.act_window,name:auction.act_auction_lot_line_open
+msgid "Open lots"
+msgstr "เปิดจำนวนมาก"
+
+#. module: auction
+#: model:ir.actions.act_window,name:auction.act_auction_lot_open_deposit
+msgid "Deposit slip"
+msgstr "ใบนำฝากเงิน"
+
+#. module: auction
+#: model:ir.model,name:auction.model_auction_lots_enable
+msgid "Lots Enable"
+msgstr "เปิดใช้งานจำนวนมาก"
+
+#. module: auction
+#: view:auction.lots:0
+msgid "Lots"
+msgstr "จำนวนมาก"
+
+#. module: auction
+#: field:auction.lots,seller_price:0
+msgid "Seller price"
+msgstr "ราคาขาย"
+
+#. module: auction
+#: model:ir.actions.report.xml,name:auction.buy_id_list
+msgid "Buyer List"
+msgstr "รายชื่อผู้ซื้อ"
+
+#. module: auction
+#: report:buyer.list:0
+msgid "Buyer costs("
+msgstr "ค่าใช้จ่าย (ผู้ซื้อ"
+
+#. module: auction
+#: field:auction.pay.buy,statement_id1:0
+#: field:auction.pay.buy,statement_id2:0
+#: field:auction.pay.buy,statement_id3:0
+msgid "Statement"
+msgstr "คำแถลง"
+
+#. module: auction
+#: help:auction.lots,seller_price:0
+#: help:auction.lots.make.invoice,amount:0
+msgid "Seller Price"
+msgstr "ราคาขาย"
+
+#. module: auction
+#: model:account.tax,name:auction.auction_tax20
+#: model:account.tax,name:auction.auction_tax6
+msgid "Frais de vente"
+msgstr "Frais de vente"
+
+#. module: auction
+#: model:account.tax.code,name:auction.account_tax_code_id1
+msgid "VAT 1%"
+msgstr "VAT 1%"
+
+#. module: auction
+#: model:account.tax,name:auction.auction_tax
+msgid "Droit d'auteur"
+msgstr "Droit d&#39; auteur"
+
+#. module: auction
+#: model:ir.model,name:auction.model_auction_lots_buyer_map
+msgid "Map Buyer"
+msgstr "ผู้ซื้อแผนที่"
+
+#. module: auction
+#: field:report.auction.object.date,name:0
+msgid "Created date"
+msgstr "วันที่สร้าง"
+
+#. module: auction
+#: help:auction.lots,bord_vnd_id:0
+msgid ""
+"Provide deposit information: seller, Withdrawned Method, Object, Deposit "
+"Costs"
+msgstr "ให้ข้อมูลเงินฝาก : ผู้ขาย Withdrawned วิธีการ, วัตถุ, ค่าใช้จ่ายดอกเบี้ยเงินฝาก"
+
+#. module: auction
+#: field:auction.lots,net_revenue:0
+#: field:report.object.encoded,net_revenue:0
+msgid "Net revenue"
+msgstr "รายได้สุทธิ"
+
+#. module: auction
+#: code:addons/auction/wizard/auction_catalog_flagey_report.py:63
+#: code:addons/auction/wizard/auction_pay_buy.py:87
+#, python-format
+msgid "Error!"
+msgstr "ข้อผิดพลาด"
+
+#. module: auction
+#: report:auction.total.rml:0
+msgid "# of items:"
+msgstr "# ของรายการ :"
+
+#. module: auction
+#: model:account.tax,name:auction.tax_buyer_author
+msgid "Author rights (4%)"
+msgstr "สิทธิผู้แต่ง (4%)"
+
+#. module: auction
+#: field:report.object.encoded,estimation:0
+msgid "Estimation"
+msgstr "การประมาณ"
+
+#. module: auction
+#: model:ir.module.module,description:auction.module_meta_information
+msgid ""
+"\n"
+"     This module manages the records of the artists,\n"
+"     the articles to be put up for auction,the buyers and\n"
+"     sellers.\n"
+"\n"
+"     It completely manages an auction such as managing bids,\n"
+"     keeping track of the sold articles along with the paid\n"
+"     and unpaid objects including delivery of the articles.\n"
+"     Dashboards for auction that includes:\n"
+"       * My Latest Objects (list)\n"
+"       * My Latest Deposits (list)\n"
+"       * Objects Statistics (list)\n"
+"       * My Objects By Day (list)\n"
+"    "
+msgstr "โมดูลนี้จะจัดการกับระเบียนของศิลปินสิ่งของที่จะใส่สำหรับการประมูลผู้ซื้อและผู้ขาย มันสมบูรณ์จัดการประมูลเช่นจัดการการเสนอราคา, การติดตามสิ่งของที่ขายพร้อมกับวัตถุที่ยังไม่ได้ชำระเงินและรวมทั้งการส่งมอบสิ่งของ แดชบอร์ดสำหรับการประมูลที่มี : * อบเจกต์ล่าสุดของฉัน (รายการ) * เงินฝากอัลบั้มของฉัน (รายการ) * วัตถุสถิติ (รายการ) * อบเจกต์ของฉันโดยวัน (รายการ)"
+
+#. module: auction
+#: view:auction.taken:0
+msgid "OK"
+msgstr "OK"
+
+#. module: auction
+#: model:ir.actions.report.xml,name:auction.buyer_form_id
+msgid "Buyer Form"
+msgstr "แบบฟอร์มผู้ซื้อ"
+
+#. module: auction
+#: field:auction.bid,partner_id:0
+msgid "Buyer Name"
+msgstr "ชื่อผู้ซื้อ"
+
+#. module: auction
+#: view:report.auction:0
+#: field:report.auction,day:0
+msgid "Day"
+msgstr "วัน"
+
+#. module: auction
+#: model:ir.actions.act_window,name:auction.action_auction_lots_make_invoice
+msgid "Invoice Seller objects"
+msgstr "วัตถุใบแจ้งหนี้ผู้ขาย"
+
+#. module: auction
+#: field:auction.lots,gross_margin:0
+msgid "Gross Margin (%)"
+msgstr "อัตรากำไรขั้นต้น (%)"
+
+#. module: auction
+#: selection:auction.dates,state:0
+#: selection:report.auction.adjudication,state:0
+msgid "Closed"
+msgstr "ปิด"
+
+#. module: auction
+#: view:auction.dates:0
+msgid "Search Next Auction Dates"
+msgstr "ค้นหาวันที่ประมูลถัดไป"
+
+#. module: auction
+#: view:auction.catalog.flagey:0
+msgid "Print Auction Catalog Flagey Report..."
+msgstr "ประมูลแคตตาล็อกพิมพ์รายงาน Flagey ..."
+
+#. module: auction
+#: field:auction.lots,ach_avance:0
+msgid "Buyer Advance"
+msgstr "Advance ผู้ซื้อ"
+
+#. module: auction
+#: field:auction.lots,obj_comm:0
+msgid "Commission"
+msgstr "ค่านายหน้า"
+
+#. module: auction
+#: view:board.board:0
+msgid "Min/Adj/Max"
+msgstr "นาที / adj / แม็กซ์"
+
+#. module: auction
+#: view:auction.catalog.flagey:0
+msgid "Catalog Flagey Report"
+msgstr "รายงาน Flagey รายการสินค้า"
+
+#. module: auction
+#: help:auction.lots,obj_price:0
+msgid "Object Price"
+msgstr "ราคาวัตถุ"
+
+#. module: auction
+#: view:auction.bid:0
+msgid "Bids Lines"
+msgstr "สายการเสนอราคา"
+
+#. module: auction
+#: view:auction.lots:0
+msgid "Catalog"
+msgstr "แค็ตตาล็อก"
+
+#. module: auction
+#: help:auction.lots,auction_id:0
+msgid "Auction for object"
+msgstr "ประมูลวัตถุ"
+
+#. module: auction
+#: field:auction.deposit.cost,account:0
+msgid "Destination Account"
+msgstr "บัญชีผู้ใช้ปลายทาง"
+
+#. module: auction
+#: model:ir.ui.menu,name:auction.auction_config_menu
+msgid "Configuration"
+msgstr "การกำหนดค่า"
+
+#. module: auction
+#: code:addons/auction/wizard/auction_pay_buy.py:80
+#, python-format
+msgid ""
+"You should pay all the total: \"%.2f\" are missing to accomplish the payment."
+msgstr "คุณควรจ่ายทั้งหมดรวม :\"% .2 f\"หายไปเพื่อให้บรรลุการชำระเงิน"
+
+#. module: auction
+#: model:ir.model,name:auction.model_auction_pay_buy
+msgid "Pay buy"
+msgstr "ชำระค่าซื้อ"
+
+#. module: auction
+#: model:ir.ui.menu,name:auction.auction_outils_menu
+msgid "Tools Bar Codes"
+msgstr "Tools บาร์โค้ด"
+
+#. module: auction
+#: field:auction.deposit.cost,deposit_id:0
+msgid "Deposit"
+msgstr "เงินฝาก"
+
+#. module: auction
+#: field:auction.dates,expo2:0
+msgid "Last Exposition Day"
+msgstr "มหกรรมวันล่าสุด"
+
+#. module: auction
+#: model:ir.model,name:auction.model_auction_lots_able
+msgid "Lots able"
+msgstr "จำนวนมากสามารถ"
+
+#. module: auction
+#: model:account.tax.code,name:auction.account_tax_code_id3
+msgid "VAT 10%"
+msgstr "10% ภาษีมูลค่าเพิ่ม"
+
+#. module: auction
+#: field:auction.artists,name:0
+msgid "Artist/Author Name"
+msgstr "ศิลปินชื่อผู้เขียน /"
+
+#. module: auction
+#: selection:report.auction,month:0
+msgid "December"
+msgstr "ธันวาคม"
+
+#. module: auction
+#: field:auction.lots,image:0
+msgid "Image"
+msgstr "รูปภาพ"
+
+#. module: auction
+#: help:auction.lots,buyer_price:0
+#: help:auction.lots.make.invoice.buyer,amount:0
+msgid "Buyer Price"
+msgstr "ราคาผู้ซื้อ"
+
+#. module: auction
+#: model:ir.model,name:auction.model_auction_lot_category
+msgid "Auction Lots Category"
+msgstr "หมวดประมูลจำนวนมาก"
+
+#. module: auction
+#: model:account.tax.code,name:auction.account_tax_code_id2
+msgid "VAT 20%"
+msgstr "20% ภาษีมูลค่าเพิ่ม"
+
+#. module: auction
+#: model:ir.model,name:auction.model_auction_payer_sel
+msgid "Auction payment for seller"
+msgstr "การชำระเงินสำหรับผู้ขายการประมูล"
+
+#. module: auction
+#: view:auction.lots:0
+#: selection:auction.lots,state:0
+msgid "Taken away"
+msgstr "เอาออกไป"
+
+#. module: auction
+#: model:ir.actions.report.xml,name:auction.seller_form_id
+msgid "Seller List"
+msgstr "รายชื่อผู้ขาย"
+
+#. module: auction
+#: view:auction.deposit:0
+msgid "Deposit Costs"
+msgstr "ค่าใช้จ่ายดอกเบี้ยเงินฝาก"
+
+#. module: auction
+#: field:auction.lot.category,name:0
+msgid "Category Name"
+msgstr "ชื่อหมวดหมู่"
+
+#. module: auction
+#: report:buyer.list:0
+msgid "........."
+msgstr "........."
+
+#. module: auction
+#: view:report.auction:0
+msgid "Auction Summary tree view"
+msgstr "มุมมองแบบต้นไม้สรุปการประมูล"
+
+#. module: auction
+#: report:report.auction.buyer.result:0
+msgid "Adj"
+msgstr "adj"
+
+#. module: auction
+#: view:auction.dates:0
+#: model:ir.model,name:auction.model_auction_dates
+msgid "Auction Dates"
+msgstr "วันที่ประมูล"
+
+#. module: auction
+#: model:ir.ui.menu,name:auction.menu_board_auction_open
+msgid "Auction DashBoard"
+msgstr "แดชบอร์ดประมูล"
+
+#. module: auction
+#: view:report.auction:0
+#: field:report.auction,user_id:0
+#: field:report.auction.adjudication,user_id:0
+#: field:report.auction.object.date,user_id:0
+#: field:report.object.encoded,user_id:0
+msgid "User"
+msgstr "ของผู้ใช้"
+
+#. module: auction
+#: view:auction.pay.buy:0
+msgid "Payment Lines"
+msgstr "สายการชําระเงิน"
+
+#. module: auction
+#: code:addons/auction/auction.py:692
+#, python-format
+msgid "Missed Address !"
+msgstr "พลาด! ที่อยู่"
+
+#. module: auction
+#: help:auction.lots,net_revenue:0
+msgid "Buyer Price - Seller Price - Indirect Cost"
+msgstr "ราคาซื้อ -- ราคาขาย -- ค่าใช้จ่ายทางอ้อม"
+
+#. module: auction
+#: model:ir.actions.act_window,name:auction.act_auction_lot_open_bid
+msgid "Open Bids"
+msgstr "การเสนอราคาเปิด"
+
+#. module: auction
+#: field:auction.artists,pseudo:0
+msgid "Pseudo"
+msgstr "หลอก"
+
+#. module: auction
+#: view:auction.lots:0
+msgid "Not sold"
+msgstr "ไม่มีจำหน่าย"
+
+#. module: auction
+#: model:account.tax,name:auction.auction_tax3
+#: field:auction.dates,buyer_costs:0
+msgid "Buyer Costs"
+msgstr "ค่าใช้จ่ายผู้ซื้อ"
+
+#. module: auction
+#: report:auction.total.rml:0
+msgid "Auction Date:"
+msgstr "วันที่ประมูล :"
+
+#. module: auction
+#: code:addons/auction/wizard/auction_aie_send.py:167
+#: code:addons/auction/wizard/auction_aie_send_result.py:116
+#: code:addons/auction/wizard/auction_lots_buyer_map.py:70
+#: code:addons/auction/wizard/auction_lots_numerotate.py:145
+#, python-format
+msgid "Error"
+msgstr "ความผิดพลาด"
+
+#. module: auction
+#: field:auction.dates,buyer_invoice_history:0
+#: field:auction.lots,ach_inv_id:0
+#: view:auction.lots.make.invoice.buyer:0
+msgid "Buyer Invoice"
+msgstr "ใบแจ้งหนี้ของผู้ซื้อ"
+
+#. module: auction
+#: report:auction.bids:0
+msgid "Tel"
+msgstr "Tel"
+
+#. module: auction
+#: field:auction.lots,artist_id:0
+msgid "Artist/Author"
+msgstr "ศิลปิน / ผู้แต่ง"
+
+#. module: auction
+#: model:ir.actions.report.xml,name:auction.total_result1
+msgid "Auction Totals with lists"
+msgstr "ผลรวมการประมูลที่มีรายการ"
+
+#. module: auction
+#: view:auction.deposit:0
+msgid "General Information"
+msgstr "ข้อมูลทั่วไป"
+
+#. module: auction
+#: view:auction.lots.auction.move:0
+#: view:auction.lots.buyer_map:0
+#: view:auction.lots.make.invoice:0
+#: view:auction.lots.make.invoice.buyer:0
+#: view:auction.lots.sms.send:0
+#: view:auction.pay.buy:0
+msgid "Close"
+msgstr "ปิด"
+
+#. module: auction
+#: model:ir.model,name:auction.model_report_object_encoded
+msgid "Object encoded"
+msgstr "วัตถุที่เข้ารหัส"
+
+#. module: auction
+#: view:auction.bid:0
+msgid "Search Auction Bid"
+msgstr "การเสนอราคาการประมูลการค้นหา"
+
+#. module: auction
+#: report:bids.phones.details:0
+msgid "Est"
+msgstr "สปก"
+
+#. module: auction
+#: view:auction.dates:0
+msgid "Seller Commissions"
+msgstr "คณะกรรมการการขาย"
+
+#. module: auction
+#: view:report.object.encoded:0
+msgid "Object statistic"
+msgstr "สถิติ Object"
+
+#. module: auction
+#: help:auction.dates,journal_seller_id:0
+msgid "Account journal for seller"
+msgstr "วารสารบัญชีสำหรับผู้ขาย"
+
+#. module: auction
+#: field:auction.dates,auction2:0
+msgid "Last Auction Day"
+msgstr "วันประมูลล่าสุด"
+
+#. module: auction
+#: view:auction.deposit:0
+msgid "Objects Description"
+msgstr "รายละเอียดวัตถุ"
+
+#. module: auction
+#: code:addons/auction/wizard/auction_pay_buy.py:87
+#, python-format
+msgid "No auction date for \"%s\": Please set one."
+msgstr "วันที่ประมูลไม่มี\"%s\": โปรดตั้งหนึ่ง"
+
+#. module: auction
+#: view:auction.deposit:0
+#: field:auction.deposit,info:0
+#: report:bids.phones.details:0
+msgid "Description"
+msgstr "ลักษณะ"
+
+#. module: auction
+#: selection:report.auction,month:0
+msgid "May"
+msgstr "เดือนพฤษภาคม"
+
+#. module: auction
+#: field:auction.lots,obj_price:0
+msgid "Adjudication price"
+msgstr "ราคาพิจารณาพิพากษา"
+
+#. module: auction
+#: field:auction.dates,acc_income:0
+msgid "Income Account"
+msgstr "บัญชีรายได้"
+
+#. module: auction
+#: field:auction.lots.sms.send,password:0
+msgid "Password"
+msgstr "รหัสผ่าน"
+
+#. module: auction
+#: selection:report.auction,month:0
+msgid "February"
+msgstr "กุมภาพันธ์"
+
+#. module: auction
+#: selection:report.auction,month:0
+msgid "April"
+msgstr "เมษายน"
+
+#. module: auction
+#: view:auction.pay.buy:0
+msgid "Pay objects"
+msgstr "วัตถุการชำระเงิน"
+
+#. module: auction
+#: view:report.object.encoded:0
+msgid "# objects"
+msgstr "# วัตถุ"
+
+#. module: auction
+#: report:auction.total.rml:0
+msgid "Adjudication:"
+msgstr "พิจารณาพิพากษา :"
+
+#. module: auction
+#: model:ir.actions.report.xml,name:auction.details_bids_phones
+msgid "Bids per lot (phone)"
+msgstr "การเสนอราคาต่อจำนวนมาก (โทรศัพท์)"
+
+#. module: auction
+#: field:report.auction,buyer_login:0
+msgid "Buyer Login"
+msgstr "ผู้ซื้อเข้าสู่ระบบ"
+
+#. module: auction
+#: field:auction.deposit,tax_id:0
+msgid "Expenses"
+msgstr "รายจ่าย"
+
+#. module: auction
+#: model:ir.model,name:auction.model_auction_payer
+msgid "Auction payer"
+msgstr "ผู้ชำระเงินการประมูล"
+
+#. module: auction
+#: report:auction.total.rml:0
+msgid "Auction name:"
+msgstr "ชื่อประมูล :"
+
+#. module: auction
+#: view:board.board:0
+msgid "Latest deposits"
+msgstr "เงินฝากล่าสุด"
+
+#. module: auction
+#: model:ir.actions.report.xml,name:auction.art2
+msgid "Artists Biography"
+msgstr "ประวัติศิลปิน"
+
+#. module: auction
+#: view:report.auction:0
+#: field:report.auction,year:0
+msgid "Year"
+msgstr "ปี"
+
+#. module: auction
+#: field:auction.lots,history_ids:0
+msgid "Auction history"
+msgstr "ประวัติการประมูล"
+

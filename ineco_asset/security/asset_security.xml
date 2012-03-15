@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="1">
+
+    <record id="base.group_asset_user" model="res.groups">
+        <field name="name">Asset User</field>
+    </record>
+
+    <record model="ir.ui.menu" id="ineco_asset.menu_asset_in_config_purchase">
+		<field name="groups_id" eval="[(6, 0, [ref('base.group_asset_user')])]" />
+    </record>
+
+</data>
+</openerp>

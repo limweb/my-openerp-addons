@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        
+        <menuitem id="menu_ineco_setup" name="INECO" sequence="40" 
+        	groups="base.group_ineco_configuration"
+        	icon="STOCK_PREFERENCES"
+			web_icon="images/tools.png"
+            web_icon_hover="images/tools-hover.png" />
+
+        <menuitem
+            id="menu_ineco_configuration" 
+            name="Configuration"
+            groups="base.group_ineco_configuration"
+            parent="menu_ineco_setup" sequence="50" />
+                        
+  	</data>
+</openerp>

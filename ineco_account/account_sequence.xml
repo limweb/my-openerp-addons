@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- Sequences for account.billingnote -->
+        <record id="seq_type_billing_note" model="ir.sequence.type">
+            <field name="name">Billing Note</field>
+            <field name="code">account.billingnote</field>
+        </record>
+
+        <record id="seq_billing_note" model="ir.sequence">
+            <field name="name">Billing Note</field>
+            <field name="code">account.billingnote</field>
+            <field name="prefix">BLN</field>
+            <field name="padding">4</field>
+        </record>
+        
+        <record id="seq_type_ineco_account_receipt_type" model="ir.sequence.type">
+            <field name="name">Account Receipt</field>
+            <field name="code">ineco.account.receipt.type</field>
+        </record>
+        
+        <record id="seq_ineco_account_receipt" model="ir.sequence">
+            <field name="name">Account Receipt Sequence</field>
+            <field name="code">ineco.account.receipt.type</field>
+            <field eval="7" name="padding"/>
+            <field name="prefix">RCP%(y)s%(month)s</field>
+        </record>
+
+        <record id="seq_type_ineco_account_tax_receipt_type" model="ir.sequence.type">
+            <field name="name">Account Tax Receipt</field>
+            <field name="code">ineco.account.tax.receipt.type</field>
+        </record>
+        
+        <record id="seq_ineco_account_tax_receipt" model="ir.sequence">
+            <field name="name">Account Tax Receipt Sequence</field>
+            <field name="code">ineco.account.tax.receipt.type</field>
+            <field eval="7" name="padding"/>
+            <field name="prefix">RCT%(y)s%(month)s</field>
+        </record>
+        
+        <!-- Journal -->
+        <record id="receipt_journal" model="account.journal">
+            <field name="name">Receipt Journal</field>
+            <field name="code">RCPJ</field>
+            <field name="type">receipt</field>
+            <field name="view_id" ref="account.account_journal_view"/>
+            <field name="sequence_id" ref="seq_ineco_account_receipt"/>
+            <field name="user_id" ref="base.user_root"/>
+        </record>
+
+        <record id="receipt_tax_journal" model="account.journal">
+            <field name="name">Tax Receipt Journal</field>
+            <field name="code">RCPTJ</field>
+            <field name="type">receipttax</field>
+            <field name="view_id" ref="account.account_journal_view"/>
+            <field name="sequence_id" ref="seq_ineco_account_tax_receipt"/>
+            <field name="user_id" ref="base.user_root"/>
+        </record>
+    </data>
+</openerp>

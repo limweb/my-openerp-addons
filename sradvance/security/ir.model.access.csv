@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_thick_all,sradvance.product.thick.all,model_product_thick,base.group_user,1,0,0,0
+access_product_thick_stock_receive,sradvance.product.thick.stock.receive,model_product_thick,base.group_sradvance_stockreceive,1,1,1,1
+access_stock_inventory_all,sradvance.stock.inventory.all,stock.model_stock_inventory,base.group_sradvance_stockreceive,1,1,1,1
+access_stock_inventory_line_all,sradvance.stock.inventory.line.all,stock.model_stock_inventory_line,base.group_sradvance_stockreceive,1,1,1,1
+access_stock_move_all,sradvance.stock.move.all,stock.model_stock_move,base.group_sradvance_stockreceive,1,1,1,1
+access_stock_picking_all,sradvance.stock.picking.all,stock.model_stock_picking,base.group_sradvance_stockreceive,1,1,1,1

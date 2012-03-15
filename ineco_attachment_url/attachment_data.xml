@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="1">
+	
+	    <record id="base.group_ineco_attachment" model="res.groups">
+	        <field name="name">INECO Attachment URL</field>
+	    </record>
+
+        <record id="secure_ineco_attachment_configuration" model="ir.model.access">
+            <field name="name">INECO Admin</field>
+            <field name="group_id" ref="base.group_ineco_attachment" />
+            <field name="model_id" ref="model_ineco_ir_attachment_configuration" />
+            <field name="perm_create" eval="1"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="perm_write" eval="1"/>
+        </record>
+
+        <record id="secure_ineco_ir_attachment" model="ir.model.access">
+            <field name="name">Employees</field>
+            <field name="group_id" ref="base.group_user" />
+            <field name="model_id" ref="model_ineco_ir_attachment" />
+            <field name="perm_create" eval="0"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="perm_write" eval="0"/>
+        </record>
+        	
+        <record id="data_ineco_attachment_default" model="ineco.ir.attachment.configuration">
+        	<field name="name">/var/www/images/</field>
+        	<field name="url_template">http://localhost/images/</field>
+        	<field name="active" eval="1"/>
+        </record>
+        
+        <record id="schedule_ineco_attachment" model="ir.cron">
+        	<field name="name">Convert Attachment Schedule</field>
+        	<field name="model">ineco.ir.attachment</field>
+        	<field name="function">schedule_attachment</field>
+        	<field name="active" eval="0"/>
+        </record>
+        	
+	</data>
+</openerp>

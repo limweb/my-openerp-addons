@@ -1,0 +1,7 @@
+"id";"name";"model_id:id";"group_id:id";"perm_read";"perm_write";"perm_create";"perm_unlink"
+"access_account_analytic_pr_user";"analytic.account.analytic.pr.user";"analytic.model_account_analytic_account";"purchase_requisition.group_purchase_requisition_user";1;0;0;0
+"access_account_analytic_pr_manager";"analytic.account.analytic.pr.manager";"analytic.model_account_analytic_account";"purchase_requisition.group_purchase_requisition_manager";1;0;0;0
+"access_account_line_pr_user";"analytic.account.line.pr.user";"analytic.model_account_analytic_line";"purchase_requisition.group_purchase_requisition_user";1;1;1;0
+"access_account_line_pr_manager";"analytic.account.line.pr.manager";"analytic.model_account_analytic_line";"purchase_requisition.group_purchase_requisition_manager";1;1;1;0
+"access_account_journal_pr_user";"account.analytic.journal.pr.user";"account.model_account_analytic_journal";"purchase_requisition.group_purchase_requisition_user";1;0;0;0
+"access_account_journal_pr_manager";"account.analytic.journal.pr.manager";"account.model_account_analytic_journal";"purchase_requisition.group_purchase_requisition_manager";1;0;0;0

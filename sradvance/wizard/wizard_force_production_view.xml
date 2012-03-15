@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+		<wizard
+			string="Force Production"
+			model="mrp.production"
+			name="wizard_force_production"
+			id="wizard_force_production_id"
+			keyword="client_action_multi"/>
+			
+	</data>
+
+</openerp>

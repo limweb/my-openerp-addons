@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+	    <record id="report_stock_picking_hr" model="ir.actions.report.xml">
+	        <field name="name">HR Issue Form</field>
+	        <field name="report_name">report.stock.picking.hr</field>
+	        <field name="model">stock.picking</field>
+	        <field name="report_type">ineco</field>
+	        <field name="jasper_url">http://localhost:8000/jasperserver/services/repository?wsdl</field>
+	        <field name="jasper_report_path"></field>
+	        <field name="jasper_username">jasperadmin</field>
+	        <field name="jasper_password">jasperadmin</field>
+	        <field name="groups_id" eval="[(4,ref('base.group_picking_hr'))]"/> 	        
+	    </record>
+
+	    <record id="report_stock_picking_material" model="ir.actions.report.xml">
+	        <field name="name">Material Issue Form</field>
+	        <field name="report_name">report.stock.picking.material</field>
+	        <field name="model">stock.picking</field>
+	        <field name="report_type">ineco</field>
+	        <field name="jasper_url">http://localhost:8000/jasperserver/services/repository?wsdl</field>
+	        <field name="jasper_report_path"></field>
+	        <field name="jasper_username">jasperadmin</field>
+	        <field name="jasper_password">jasperadmin</field>
+	        <field name="groups_id" eval="[(4,ref('base.group_picking_material'))]"/> 
+	    </record>
+	    
+	    <record id="report_stock_picking_wip" model="ir.actions.report.xml">
+	        <field name="name">WIP Issue Form</field>
+	        <field name="report_name">report.stock.picking.wip</field>
+	        <field name="model">stock.picking</field>
+	        <field name="report_type">ineco</field>
+	        <field name="jasper_url">http://localhost:8000/jasperserver/services/repository?wsdl</field>
+	        <field name="jasper_report_path"></field>
+	        <field name="jasper_username">jasperadmin</field>
+	        <field name="jasper_password">jasperadmin</field>
+	        <field name="groups_id" eval="[(4,ref('base.group_picking_wip'))]"/> 
+	    </record>
+
+	    <record id="report_stock_picking_hr_fa" model="ir.actions.report.xml">
+	        <field name="name">FA Issue Form</field>
+	        <field name="report_name">report.stock.picking.fa</field>
+	        <field name="model">stock.picking</field>
+	        <field name="report_type">ineco</field>
+	        <field name="jasper_url">http://localhost:8000/jasperserver/services/repository?wsdl</field>
+	        <field name="jasper_report_path"></field>
+	        <field name="jasper_username">jasperadmin</field>
+	        <field name="jasper_password">jasperadmin</field>
+	        <field name="groups_id" eval="[(4,ref('base.group_picking_fa'))]"/> 
+	    </record>
+	    
+	</data>
+</openerp>

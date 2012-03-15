@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="line_qty_view_location_form" model="ir.ui.view">
+       		<field name="name">line.qty.stock.location.form</field>
+       		<field name="model">stock.location</field>
+        	<field name="type">form</field>
+			<field name="inherit_id" ref="stock.view_location_form"/>
+       		<field name="arch" type="xml">
+       			<field name="comment" position="before">
+					<notebook colspan="4">
+						<page string="OMG Information">
+							<field name="chain_id" />
+							<field name="location_group_id" />
+							<field name="location_type_id" />
+							<field name="max_place_qty" />
+							<field name="store_code" />
+							<field name="path" />
+							<field name="name_thai" />
+							<field name="store_address_id"/>
+							<field name="omg_approve" groups="base.group_omg_location_approve"/>
+						</page>
+						<page string="OA Contact Address"><field name="oa_address_ids" nolabel="1"/></page>
+						<page string="Location Quantity"><field name="lineqty_ids" nolabel="1"/></page>
+						<page string="Booking History"><field name="booking_ids" nolabel="1"/></page>
+						<page string="Category Capacity"><field name="max_category_ids" nolabel="1"/></page>
+						<page string="Group Special"><field name="location_group_spedical_ids" nolabel="1" widget="many2many"/>
+						</page>
+					</notebook>
+       			</field>
+			</field>
+		</record>
+
+        <record id="ineco_view_location_search" model="ir.ui.view">
+            <field name="name">ineco.stock.location.search</field>
+			<field name="inherit_id" ref="stock.view_location_search"/>
+            <field name="model">stock.location</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+               	<field name="name" position="after">
+               		<field name="name_thai" />
+               		<field name="store_code" />
+               	</field>
+            </field>
+        </record>
+
+        <record id="ineco_namethai_view_location_tree2" model="ir.ui.view">
+            <field name="name">ineco.namethai.stock.location.tree</field>
+            <field name="model">stock.location</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="stock.view_location_tree2"/>
+            <field name="arch" type="xml">
+            	<field name="complete_name" position="after">
+            		<field name="name_thai" />
+            		<field name="store_code" />
+            	</field>
+            </field>
+        </record>
+        
+        <record id="ineco_namethai_view_location_tree3" model="ir.ui.view">
+            <field name="name">ineco.namethai2.stock.location.tree</field>
+            <field name="model">stock.location</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="stock.view_location_tree2"/>
+            <field name="arch" type="xml">
+            	<field name="usage" position="after">
+            		<field name="path" />
+            	</field>
+            </field>
+        </record>
+
+
+        <record id="ineco_stock_location_product_category_tree" model="ir.ui.view">
+            <field name="name">ineco.stock.location.category.max.tree</field>
+            <field name="model">ineco.stock.location.category.max</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+           		<tree>
+           			<field name="category_id" />
+           			<field name="quantity" />
+           		</tree>
+            </field>
+        </record>
+
+        <record id="ineco_stock_location_product_category_form" model="ir.ui.view">
+            <field name="name">ineco.stock.location.category.max.form</field>
+            <field name="model">ineco.stock.location.category.max</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+           		<form>
+           			<field name="category_id" domain="[('service_category','=',True)]" />
+           			<field name="quantity" />
+           		</form>
+            </field>
+        </record>
+
+<!-- 
+        <record id="line_qty_view_location_form_inherited" model="ir.ui.view">
+       		<field name="name">line.qty.stock.location.form.inherited</field>
+       		<field name="model">stock.location</field>
+        	<field name="type">form</field>
+			<field name="inherit_id" ref="stock.view_location_form"/>
+       		<field name="arch" type="xml">
+				<field name="location_id" position="after">
+					<field name="chain_id" />
+					<field name="location_group_id" />
+					<field name="location_type_id" />
+					<field name="max_place_qty" />
+					<field name="store_code" />
+					<field name="path" />
+					<field name="name_thai" />
+					<field name="store_address_id"/>
+					<field name="omg_approve"/>
+				</field>
+			</field>
+		</record>
+ -->
+ 
+	</data>
+</openerp>
+
+

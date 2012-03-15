@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data noupdate="1">
+
+    <record id="base.group_cancel" model="res.groups">
+        <field name="name">Transaction Cancel</field>
+    </record>
+
+    <record id="base.group_ineco_configuration" model="res.groups">
+        <field name="name">INECO Configuration</field>
+    </record>
+
+    <record id="secure_ineco_stock_report" model="ir.model.access">
+        <field name="name">Employees</field>
+        <field name="group_id" ref="base.group_user" />
+        <field name="model_id" ref="model_ineco_stock_report" />
+        <field name="perm_create" eval="0"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+        <field name="perm_write" eval="0"/>
+    </record>
+
+    <record id="secure_ineco_stock_tracking_line" model="ir.model.access">
+        <field name="name">Employees</field>
+        <field name="group_id" ref="base.group_user" />
+        <field name="model_id" ref="model_ineco_stock_tracking_line" />
+        <field name="perm_create" eval="1"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+        <field name="perm_write" eval="1"/>
+    </record>
+
+    <record id="secure_ineco_stock_kitting" model="ir.model.access">
+        <field name="name">Employees</field>
+        <field name="group_id" ref="base.group_user" />
+        <field name="model_id" ref="model_ineco_stock_kitting" />
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+        	
+    <record id="secure_ineco_stock_sticker_category" model="ir.model.access">
+        <field name="name">Employees</field>
+        <field name="group_id" ref="base.group_user" />
+        <field name="model_id" ref="model_ineco_stock_sticker_category" />
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>       
+       
+       	
+</data>
+</openerp>

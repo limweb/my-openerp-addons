@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_delivery_pack" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/openerp/report_delivery_pack"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8000/jasperserver/services/repository"/>
+	<parameter name="date_delivery" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select distinct
+              pt.name as customer_product_name,
+              pp.name_template as product_name,
+              spl.name as production_lot_id,
+              st.name as pack_id,
+              sl.name as location_id,
+              sp.ineco_delivery_date::timestamp as date_expected
+            from stock_move sm
+            left join stock_picking sp on sm.picking_id = sp.id
+            left join product_product pp on sm.product_id = pp.id
+            left join product_product pt on sp.customer_product_id = pt.id
+            left join stock_production_lot spl on sm.prodlot_id = spl.id
+            left join stock_tracking st on sm.tracking_id = st.id
+            left join stock_location sl on sm.location_id = sl.id
+            where
+              sp.type = 'out' and
+              sm.state not in ('cancel') and (sm.prodlot_id is not null or sm.tracking_id is not null)
+	    and to_char(sp.ineco_delivery_date, 'yyyy-mm-dd') = $P{date_delivery}
+            order by
+              pt.name, pp.name_template, spl.name, st.name, sl.name]]>
+	</queryString>
+	<field name="customer_product_name" class="java.lang.String"/>
+	<field name="product_name" class="java.lang.String"/>
+	<field name="production_lot_id" class="java.lang.String"/>
+	<field name="pack_id" class="java.lang.String"/>
+	<field name="location_id" class="java.lang.String"/>
+	<field name="date_expected" class="java.sql.Timestamp"/>
+	<group name="Customer Product">
+		<groupExpression><![CDATA[$F{customer_product_name}]]></groupExpression>
+		<groupHeader>
+			<band height="58">
+				<staticText>
+					<reportElement x="0" y="0" width="94" height="16"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Delivery Date:]]></text>
+				</staticText>
+				<textField pattern="MMMMM dd, yyyy">
+					<reportElement x="133" y="0" width="154" height="16"/>
+					<textElement>
+						<font fontName="Tahoma" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{date_expected}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="16" width="133" height="16"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Customer Product:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="133" y="16" width="422" height="16"/>
+					<textElement>
+						<font fontName="Tahoma" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{customer_product_name}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="42" width="287" height="16"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Product Name]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="287" y="42" width="100" height="16"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Lot]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="387" y="42" width="100" height="16"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Pack]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="487" y="42" width="68" height="16"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Location]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="293" y="0" width="94" height="16"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Printed Date:]]></text>
+				</staticText>
+				<textField pattern="MMMMM dd, yyyy  HH:mm:ss">
+					<reportElement x="387" y="0" width="168" height="16"/>
+					<textElement>
+						<font fontName="Tahoma" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.sql.Timestamp"><![CDATA[new Date()]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="17">
+				<line>
+					<reportElement x="0" y="5" width="555" height="1"/>
+					<graphicElement>
+						<pen lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="31"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="18"/>
+				</textElement>
+				<text><![CDATA[Report Delivery Packing]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="487" y="0" width="43" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<text><![CDATA[Page:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="530" y="0" width="25" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="287" height="16"/>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{product_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="287" y="0" width="100" height="16"/>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{production_lot_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="0" width="100" height="16"/>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{pack_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="487" y="0" width="68" height="16"/>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{location_id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

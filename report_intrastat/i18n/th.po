@@ -1,0 +1,357 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* report_intrastat
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:16+0000\n"
+"PO-Revision-Date: 2009-02-03 06:26+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-01-15 05:27+0000\n"
+"X-Generator: Launchpad (build 12177)\n"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Cancelled Invoice"
+msgstr "ยกเลิกใบแจ้งหนี้"
+
+#. module: report_intrastat
+#: selection:report.intrastat,month:0
+msgid "June"
+msgstr "เดือนมิถุนายน"
+
+#. module: report_intrastat
+#: sql_constraint:res.country:0
+msgid "The code of the country must be unique !"
+msgstr "รหัสของประเทศต้องไม่ซ้ำกัน!"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Disc. (%)"
+msgstr "Disc (%)"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Supplier Invoice"
+msgstr "ใบแจ้งหนี้ของผู้ผลิต"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Unit Price"
+msgstr "ราคาต่อหน่วย"
+
+#. module: report_intrastat
+#: constraint:product.template:0
+msgid ""
+"Error: The default UOM and the purchase UOM must be in the same category."
+msgstr "ข้อผิดพลาด : คลิกกลับหน้าแรกเริ่มต้นและคลิกกลับหน้าแรกซื้อจะต้องอยู่ในประเภทเดียวกัน"
+
+#. module: report_intrastat
+#: selection:report.intrastat,type:0
+msgid "Import"
+msgstr "การนำเข้า"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "VAT :"
+msgstr "VAT :"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Document"
+msgstr "เอกสาร"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "PRO-FORMA"
+msgstr "PRO - FORMA"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Taxes:"
+msgstr "ภาษี :"
+
+#. module: report_intrastat
+#: selection:report.intrastat,month:0
+msgid "March"
+msgstr "เดือนมีนาคม"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+#: field:report.intrastat.code,description:0
+msgid "Description"
+msgstr "ลักษณะ"
+
+#. module: report_intrastat
+#: selection:report.intrastat,month:0
+msgid "May"
+msgstr "เดือนพฤษภาคม"
+
+#. module: report_intrastat
+#: field:report.intrastat,type:0
+msgid "Type"
+msgstr "ประเภท"
+
+#. module: report_intrastat
+#: model:ir.actions.report.xml,name:report_intrastat.invoice_intrastat_id
+msgid "Invoice Intrastat"
+msgstr "Intrastat ใบแจ้งหนี้"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Invoice Date"
+msgstr "วันที่ใบแจ้งหนี้"
+
+#. module: report_intrastat
+#: model:ir.module.module,shortdesc:report_intrastat.module_meta_information
+msgid "Intrastat Reporting - Reporting"
+msgstr "รายงาน Intrastat -- การรายงาน"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Tel. :"
+msgstr "Tel :"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Quantity"
+msgstr "ปริมาณ"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Base"
+msgstr "ฐาน"
+
+#. module: report_intrastat
+#: view:report.intrastat:0
+msgid "This Year"
+msgstr "ในปีนี้"
+
+#. module: report_intrastat
+#: selection:report.intrastat,month:0
+msgid "January"
+msgstr "เดือนมกราคม"
+
+#. module: report_intrastat
+#: selection:report.intrastat,month:0
+msgid "July"
+msgstr "กรกฎาคม"
+
+#. module: report_intrastat
+#: model:ir.model,name:report_intrastat.model_report_intrastat_code
+#: field:product.template,intrastat_id:0
+#: field:report.intrastat,intrastat_id:0
+#: view:report.intrastat.code:0
+msgid "Intrastat code"
+msgstr "รหัส Intrastat"
+
+#. module: report_intrastat
+#: view:report.intrastat:0
+msgid "This Month"
+msgstr "เดือนนี้"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Partner Ref."
+msgstr "Ref Partner"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Total (inclu. taxes):"
+msgstr "รวม (รวมภาษี inclu. ) :"
+
+#. module: report_intrastat
+#: selection:report.intrastat,month:0
+msgid "February"
+msgstr "กุมภาพันธ์"
+
+#. module: report_intrastat
+#: selection:report.intrastat,month:0
+msgid "October"
+msgstr "เดือนตุลาคม"
+
+#. module: report_intrastat
+#: model:ir.model,name:report_intrastat.model_report_intrastat
+msgid "Intrastat report"
+msgstr "รายงาน Intrastat"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Invoice"
+msgstr "ใบกำกับสินค้า"
+
+#. module: report_intrastat
+#: model:ir.module.module,description:report_intrastat.module_meta_information
+msgid ""
+"\n"
+"    A module that adds intrastat reports.\n"
+"    This module gives the details of the goods traded between the countries "
+"of European Union "
+msgstr "โมดูลที่เพิ่มรายงาน Intrastat โมดูลนี้จะช่วยให้รายละเอียดของสินค้าที่ซื้อขายระหว่างประเทศของสหภาพยุโรป"
+
+#. module: report_intrastat
+#: model:ir.model,name:report_intrastat.model_res_country
+msgid "Country"
+msgstr "ประเทศ"
+
+#. module: report_intrastat
+#: sql_constraint:res.country:0
+msgid "The name of the country must be unique !"
+msgstr "ชื่อของประเทศต้องไม่ซ้ำกัน!"
+
+#. module: report_intrastat
+#: selection:report.intrastat,month:0
+msgid "September"
+msgstr "กันยายน"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Taxes"
+msgstr "ค่าภาษี"
+
+#. module: report_intrastat
+#: selection:report.intrastat,month:0
+msgid "April"
+msgstr "เมษายน"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Amount"
+msgstr "จำนวน"
+
+#. module: report_intrastat
+#: view:report.intrastat:0
+msgid "Intrastat Data"
+msgstr "ข้อมูล Intrastat"
+
+#. module: report_intrastat
+#: field:report.intrastat,value:0
+msgid "Value"
+msgstr "มูลค่า"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+#: model:ir.actions.act_window,name:report_intrastat.action_report_intrastat_tree_all
+#: model:ir.ui.menu,name:report_intrastat.menu_report_intrastat_all
+msgid "Intrastat"
+msgstr "Intrastat"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Draft Invoice"
+msgstr "ใบแจ้งหนี้ฉบับร่าง"
+
+#. module: report_intrastat
+#: field:report.intrastat,supply_units:0
+msgid "Supply Units"
+msgstr "หน่วยซัพพลาย"
+
+#. module: report_intrastat
+#: selection:report.intrastat,month:0
+msgid "November"
+msgstr "พฤศจิกายน"
+
+#. module: report_intrastat
+#: selection:report.intrastat,month:0
+msgid "August"
+msgstr ""
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Refund"
+msgstr ""
+
+#. module: report_intrastat
+#: field:report.intrastat,ref:0
+msgid "Source document"
+msgstr ""
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Fiscal Position Remark :"
+msgstr ""
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+#: field:report.intrastat,weight:0
+msgid "Weight"
+msgstr ""
+
+#. module: report_intrastat
+#: model:ir.model,name:report_intrastat.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: report_intrastat
+#: field:res.country,intrastat:0
+msgid "Intrastat member"
+msgstr ""
+
+#. module: report_intrastat
+#: selection:report.intrastat,month:0
+msgid "December"
+msgstr ""
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Tax"
+msgstr ""
+
+#. module: report_intrastat
+#: field:report.intrastat,code:0
+msgid "Country code"
+msgstr ""
+
+#. module: report_intrastat
+#: field:report.intrastat,month:0
+msgid "Month"
+msgstr "เดือน"
+
+#. module: report_intrastat
+#: field:report.intrastat,currency_id:0
+msgid "Currency"
+msgstr "เงินตรา"
+
+#. module: report_intrastat
+#: selection:report.intrastat,type:0
+msgid "Export"
+msgstr "ส่งออก"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Fax :"
+msgstr "โทรสาร :"
+
+#. module: report_intrastat
+#: field:report.intrastat,name:0
+msgid "Year"
+msgstr "ปี"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Supplier Refund"
+msgstr "Supplier การคืนเงิน"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Total (excl. taxes):"
+msgstr "รวม (ไม่รวมภาษี) :"
+
+#. module: report_intrastat
+#: report:account.invoice.intrastat:0
+msgid "Price"
+msgstr "ราคา"
+
+#. module: report_intrastat
+#: model:ir.actions.act_window,name:report_intrastat.action_report_intrastat_code_tree
+#: model:ir.ui.menu,name:report_intrastat.menu_report_intrastat_code
+#: field:report.intrastat.code,name:0
+msgid "Intrastat Code"
+msgstr "รหัส Intrastat"
+

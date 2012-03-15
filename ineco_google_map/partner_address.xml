@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+        <record id="view_ineco_partner_address_tree" model="ir.ui.view">
+            <field name="name">ineco.res.partner.address.tree</field>
+            <field name="model">res.partner.address</field>
+	    <field name="inherit_id" ref="base.view_partner_address_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+		<field name="country_id" position="after">	
+			<field name="latitude" />
+			<field name="longtitude" />
+		</field>
+            </field>
+        </record>
+
+        <record id="view_ineco_partner_address_form1" model="ir.ui.view">
+            <field name="name">ineco.res.partner.address.form1</field>
+            <field name="model">res.partner.address</field>
+	    <field name="inherit_id" ref="base.view_partner_address_form1"/>
+            <field name="type">form</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+			<field name = "email" position="after">
+				<field name="latitude" />
+				<field name="longtitude" />
+				<label string="Google Map" />
+                        	<button name="%(wizard_google_map)d" string="Map" type="action" icon="gtk-zoom-in"/>
+			</field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_partner_form_inheritg">
+            <field name="name">res.partner.form.inheritg</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+             	<xpath expr="/form/notebook/page/field/form/group/field[@name='email']" position="after">
+			<field name="latitude" />
+			<field name="longtitude" />
+            	</xpath>
+	    </field>
+        </record>
+
+	
+</data>
+</openerp>

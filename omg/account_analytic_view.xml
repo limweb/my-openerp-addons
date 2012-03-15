@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+       <record model="ir.ui.view" id="view_omg_budget_tree">
+            <field name="name">omg.budget.tree</field>
+            <field name="model">account.analytic.account</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<tree colors="blue:type in ('view');red:(date&lt;current_date);black:(date&gt;=current_date);black:(date==False)" string="Budget Control" toolbar="1">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="debit"/>
+                    <field name="credit"/>
+                    <field name="balance"/>
+                    <field groups="base.group_extended" name="currency_id"/>
+                    <field name="default_budget"/>
+                    <field invisible="1" name="date"/>
+                    <field invisible="1" name="user_id"/>
+                    <field invisible="1" name="partner_id"/>
+                    <field invisible="1" name="parent_id"/>
+					<field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_omg_asset_form">
+            <field name="name">omg.budget.form</field>
+            <field name="model">account.analytic.account</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<form string="Budget Control">
+                    <group colspan="4" col="6">
+                        <field name="name" select="1" colspan="4"/>
+                        <field name="code" select="1"/>
+                        <field name="parent_id" on_change="on_change_parent(parent_id)" groups="base.group_extended" domain="[('type','=','view')]"/>
+                        <field name="company_id" on_change="on_change_company(company_id)" select="2" widget="selection" groups="base.group_multi_company" attrs="{'required': [('type','&lt;&gt;','view')]}"/>
+                        <field name="type" select="2"/>
+                        <field name="default_budget" />
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Account Data">
+                            <field name="partner_id" select="1"/>
+                            <field name="currency_id" select="1"/>
+                            <newline/>
+                            <field name="date_start"/>
+                            <field name="date" select="2"/>
+                            <newline/>
+                            <field name="quantity_max"/>
+                            <field name="user_id"/>
+                        </page>
+                        <page string="Description">
+                            <field colspan="4" name="description" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </form>            
+			</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_omg_budget">
+            <field name="name">Budget</field>
+            <field name="res_model">account.analytic.account</field>
+<!--			<field name="view_id" ref="view_omg_budget_tree"></field>  -->
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_omg_budget_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_omg_budget_tree"/>
+            <field name="act_window_id" ref="action_omg_budget"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_omg_budget_form">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_omg_asset_form"/>
+            <field name="act_window_id" ref="action_omg_budget"/>
+        </record>
+
+      	<menuitem
+			name="Budget"
+            parent="purchase.menu_procurement_management"
+            id="menu_omg_budget"
+            action="action_omg_budget"
+	 	 />
+
+   	 	<record model="ir.ui.menu" id="menu_omg_budget">
+			<field name="groups_id" eval="[(6, 0, [ref('purchase.group_purchase_manager'), ref('purchase.group_purchase_user'),ref('purchase_requisition.group_purchase_requisition_manager'),ref('purchase_requisition.group_purchase_requisition_user'),ref('account.group_account_user')])]" />
+    	</record>
+
+
+       <record model="ir.ui.view" id="view_omg_budget_line_tree">
+            <field name="name">omg.budget.line.tree</field>
+            <field name="model">account.analytic.line</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<tree editable="top" string="Budget Line">
+                    <field name="date"/>
+                    <field invisible="context.get('to_invoice', False)" name="ref"/>
+                    <field name="name"/>
+                    <field invisible="context.get('to_invoice', False)" name="journal_id"/>
+                    <field invisible="context.get('to_invoice', False)" name="amount" sum="Total"/>
+                    <field invisible="not context.get('to_invoice', False)" name="product_id" on_change="on_change_unit_amount(product_id, unit_amount, company_id, product_uom_id, journal_id)"/>
+                    <field invisible="not context.get('to_invoice', False)" name="unit_amount" on_change="on_change_unit_amount(product_id, unit_amount, company_id, product_uom_id)" sum="Total Quantity"/>
+                    <field invisible="not context.get('to_invoice', False)" name="product_uom_id" on_change="on_change_unit_amount(product_id, unit_amount, company_id, product_uom_id)"/>
+                    <field domain="[('type','=','normal')]" name="account_id"/>
+                    <field invisible="context.get('to_invoice', False)" name="general_account_id"/>
+                    <field invisible="1" name="user_id"/><field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_omg_budget_line">
+            <field name="name">Budget Line</field>
+            <field name="res_model">account.analytic.line</field>
+			<field name="view_id" ref="view_omg_budget_line_tree"></field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+      	<menuitem
+			name="Budget Line"
+            parent="purchase.menu_procurement_management"
+            id="menu_omg_budget_line"
+            action="action_omg_budget_line"
+	 	 />
+
+   	 	<record model="ir.ui.menu" id="menu_omg_budget_line">
+			<field name="groups_id" eval="[(6, 0, [ref('account.group_account_user')])]" />
+    	</record>
+
+	</data>
+</openerp>

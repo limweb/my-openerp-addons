@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record model="ir.ui.menu" id="base.menu_purchase_root">
+		<field name="groups_id" eval="[(6, 0, [ref('purchase.group_purchase_manager'), ref('purchase.group_purchase_user'),ref('purchase_requisition.group_purchase_requisition_manager'),ref('purchase_requisition.group_purchase_requisition_user')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="purchase.menu_purchase_rfq">
+		<field name="groups_id" eval="[(6, 0, [ref('purchase.group_purchase_manager'), ref('purchase.group_purchase_user')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="purchase.menu_purchase_form_action">
+		<field name="groups_id" eval="[(6, 0, [ref('purchase.group_purchase_manager'), ref('purchase.group_purchase_user')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="purchase_requisition.menu_purchase_requisition_pro_mgt">
+		<field name="groups_id" eval="[(6, 0, [ref('purchase.group_purchase_manager'), ref('purchase.group_purchase_user'),ref('purchase_requisition.group_purchase_requisition_manager'),ref('purchase_requisition.group_purchase_requisition_user')])]" />
+    </record>
+
+
+</data>
+</openerp>

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_delivery_kitting" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/openerp/report_logistic_summary"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8000/jasperserver/services/repository"/>
+	<parameter name="date_delivery" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+  sp.name as delivery_no,
+  pp2.name_template as customer_product_name,
+  sp.ineco_delivery_date,
+  sp.date_arrival,
+  ilp.name as logistic_path,
+  sl.name as location_name,
+  pp.name_template as product_name,
+  ineco_get_stock(sm.product_uom, sum(sm.product_qty)) as total,
+  ineco_get_stock(sm.product_uom, sum(sm.product_qty)) * pt.volume as gross_volume,
+  ineco_get_stock(sm.product_uom, sum(sm.product_qty)) * pt.weight as gross_weight,
+  pu.name as uom_name,
+  osp.name || '(' || to_char(osp.date_start,'dd/mm/yyyy') || ' - ' || to_char(osp.date_finish, 'dd/mm/yyyy') || ')' as period_name,
+  ineco_convert_stock(pp.warehouse_uom, ineco_get_stock(sm.product_uom, sum(sm.product_qty))) as packs,
+  ineco_get_stock(sm.product_uom, sum(sm.product_qty)) -
+  ineco_get_stock(pp.warehouse_uom, ineco_convert_stock(pp.warehouse_uom, ineco_get_stock(sm.product_uom, sum(sm.product_qty)))) as splits,
+  ineco_get_stock(pp.warehouse_uom, ineco_convert_stock(pp.warehouse_uom, ineco_get_stock(sm.product_uom, sum(sm.product_qty)))) * pt.volume as splits_volume
+from stock_move sm
+join stock_picking sp on sm.picking_id = sp.id
+join product_product pp on sm.product_id = pp.id
+join product_template pt on pp.id = pt.id
+left join product_product pp2 on sp.customer_product_id = pp2.id
+left join ineco_logistic_path ilp on sp.ineco_logistic_path = ilp.id
+left join stock_location sl on sp.location_store_id = sl.id
+left join product_uom pu on pt.uom_id = pu.id
+left join omg_sale_period osp on sp.period_id = osp.id
+where sm.state <> 'cancel' and sp.type = 'out' and sp.state <> 'cancel'
+and to_char(sp.ineco_delivery_date, 'yyyy-mm-dd') = $P{date_delivery}
+group by
+  sp.name,
+  customer_product_name,
+  sp.ineco_delivery_date,
+  sp.date_arrival,
+  ilp.name,
+  sl.name,
+  pp.name_template,
+  pt.volume,
+  pt.weight,
+  sm.product_uom,
+  pu.name,
+  pp.warehouse_uom,
+  osp.name,
+  osp.date_start,
+  osp.date_finish
+order by logistic_path, delivery_no]]>
+	</queryString>
+	<field name="delivery_no" class="java.lang.String"/>
+	<field name="customer_product_name" class="java.lang.String"/>
+	<field name="ineco_delivery_date" class="java.sql.Date"/>
+	<field name="date_arrival" class="java.sql.Date"/>
+	<field name="logistic_path" class="java.lang.String"/>
+	<field name="location_name" class="java.lang.String"/>
+	<field name="product_name" class="java.lang.String"/>
+	<field name="total" class="java.lang.Double"/>
+	<field name="gross_volume" class="java.lang.Double"/>
+	<field name="gross_weight" class="java.lang.Double"/>
+	<field name="uom_name" class="java.lang.String"/>
+	<field name="period_name" class="java.lang.String"/>
+	<field name="packs" class="java.lang.Double"/>
+	<field name="splits" class="java.lang.Double"/>
+	<field name="splits_volume" class="java.lang.Double"/>
+	<variable name="gross_volume_1" class="java.lang.Double" resetType="Group" resetGroup="Delivery Order" calculation="Sum">
+		<variableExpression><![CDATA[$F{gross_volume}]]></variableExpression>
+	</variable>
+	<variable name="gross_volume_2" class="java.lang.Double" resetType="Group" resetGroup="Logistic Path" calculation="Sum">
+		<variableExpression><![CDATA[$F{gross_volume}]]></variableExpression>
+	</variable>
+	<variable name="gross_weight_1" class="java.lang.Double" resetType="Group" resetGroup="Delivery Order" calculation="Sum">
+		<variableExpression><![CDATA[$F{gross_weight}]]></variableExpression>
+	</variable>
+	<variable name="gross_weight_2" class="java.lang.Double" resetType="Group" resetGroup="Logistic Path" calculation="Sum">
+		<variableExpression><![CDATA[$F{gross_weight}]]></variableExpression>
+	</variable>
+	<group name="Logistic Path">
+		<groupExpression><![CDATA[$F{logistic_path}]]></groupExpression>
+		<groupHeader>
+			<band height="32">
+				<rectangle>
+					<reportElement x="0" y="0" width="572" height="30" backcolor="#C0C0C0"/>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement x="16" y="16" width="83" height="14"/>
+					<textElement>
+						<font fontName="Tahoma" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Delivery No]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="99" y="16" width="258" height="14"/>
+					<textElement>
+						<font fontName="Tahoma" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Customer Product]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="357" y="16" width="61" height="14"/>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="418" y="16" width="75" height="14"/>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Gross Volume]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="80" y="2" width="143" height="14"/>
+					<textElement>
+						<font fontName="Tahoma"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{logistic_path}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="3" y="2" width="70" height="14"/>
+					<textElement>
+						<font fontName="Tahoma" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Logistic Path:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="494" y="16" width="75" height="14"/>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Gross Weight]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="25">
+				<textField>
+					<reportElement x="357" y="3" width="61" height="14"/>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{Logistic Path_COUNT}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="429" y="3" width="64" height="14"/>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{gross_volume_2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="500" y="3" width="69" height="14"/>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{gross_weight_2}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="154" y="3" width="49" height="14"/>
+					<textElement>
+						<font fontName="Tahoma" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="203" y="3" width="140" height="14"/>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{logistic_path}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="356" y="2" width="216" height="1"/>
+				</line>
+				<line>
+					<reportElement x="357" y="17" width="216" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Delivery Order">
+		<groupExpression><![CDATA[$F{delivery_no}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="14">
+				<textField isBlankWhenNull="true">
+					<reportElement x="99" y="0" width="258" height="14"/>
+					<textElement>
+						<font fontName="Tahoma"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{customer_product_name}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="16" y="0" width="83" height="14"/>
+					<textElement>
+						<font fontName="Tahoma"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{delivery_no}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="357" y="0" width="61" height="14"/>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{Delivery Order_COUNT}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="429" y="0" width="64" height="14"/>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{gross_volume_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="500" y="0" width="69" height="14"/>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{gross_weight_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="30"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="24"/>
+				</textElement>
+				<text><![CDATA[LOGISTIC SUMMARY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="75" height="14"/>
+				<textElement>
+					<font fontName="Tahoma" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Delivery Date:]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="75" y="30" width="192" height="14"/>
+				<textElement>
+					<font fontName="Tahoma" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{ineco_delivery_date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="36" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

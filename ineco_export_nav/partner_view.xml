@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record id="view_ineco_res_partner_export_nav_form" model="ir.ui.view">
+			<field name="name">ineco.res.partner.form</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook" position="inside">
+					<page string="Posting Group">
+						<field name="gen_bus_posting_group_id" domain="[('group_nav','=','general')]"/>
+						<field name="vat_bus_posting_group_id" domain="[('group_nav','=','vat')]"/>
+						<field name="wht_bus_posting_group_id" domain="[('group_nav','=','wht')]"/>
+						<newline />
+						<field name="customer_posting_group_id" domain="[('group_nav','=','customer')]" attrs="{'invisible':[('customer','=',0)]}" />
+						<field name="supplier_posting_group_id" domain="[('group_nav','=','vendor')]" attrs="{'invisible':[('supplier','=',0)]}" />
+					</page>
+				</xpath>
+			</field>
+		</record> 
+    	
+    </data>
+</openerp>

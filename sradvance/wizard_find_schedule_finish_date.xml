@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+		<wizard
+			string="Finding Schedule Finish Date"
+			model="sale.order"
+			name="finding_schedule_finish_date"
+			id="wizard_finding_schedule_finish_date"
+			keyword="client_action_multi"/>
+	</data>
+
+</openerp>

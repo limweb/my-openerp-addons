@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+	<record id="view_ineco_partner_form" model="ir.ui.view">
+	    <field name="name">ineco.partner.form</field>
+	    <field name="model">res.partner</field>
+	    <field name="type">form</field>
+	    <field name="inherit_id" ref="base.view_partner_form"/>
+	    <field name="arch" type="xml">
+	        <page string="Accounting" position="inside">
+	            <field name="tax_id"/>
+	            <field name="personal_id"/>
+	            <field name="round_method" />
+	        </page>
+	    </field>
+	</record>
+<!-- 
+	<record id="view_ineco_partner_form_inherit" model="ir.ui.view">
+	    <field name="name">ineco.partner.form.inherit</field>
+	    <field name="model">res.partner</field>
+	    <field name="type">form</field>
+	    <field name="inherit_id" ref="base.view_partner_form"/>
+	    <field name="arch" type="xml">
+	        <xpath expr="/form/notebook/page[@string='Sale & Purchases']/field[@name='date']" position="after">
+	      		<field name="round_method" />
+	      	</xpath>
+	    </field>
+	</record>
+ -->
+ 
+</data>
+</openerp>

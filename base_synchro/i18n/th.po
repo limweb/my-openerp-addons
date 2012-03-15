@@ -1,0 +1,287 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* base_synchro
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.0-rc2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:14:57+0000\n"
+"PO-Revision-Date: 2011-01-11 11:14:57+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base_synchro
+#: model:ir.actions.act_window,name:base_synchro.action_view_base_synchro
+msgid "Base Synchronization"
+msgstr "ฐานข้อมูลให้ตรงกัน"
+
+#. module: base_synchro
+#: field:base.synchro.server,server_db:0
+msgid "Server Database"
+msgstr "Database Server"
+
+#. module: base_synchro
+#: view:base.synchro.server:0
+#: model:ir.model,name:base_synchro.model_base_synchro_server
+msgid "Synchronized server"
+msgstr "•ถ่ายโอนข้อมูลเซิร์ฟเวอร์"
+
+#. module: base_synchro
+#: field:base.synchro.obj.avoid,name:0
+msgid "Field Name"
+msgstr "ชื่อเขตข้อมูล"
+
+#. module: base_synchro
+#: field:base.synchro.obj,synchronize_date:0
+msgid "Latest Synchronization"
+msgstr "การประสานข้อมูลล่าสุด"
+
+#. module: base_synchro
+#: field:base.synchro,user_id:0
+msgid "Send Result To"
+msgstr "ผลส่งไปยัง"
+
+#. module: base_synchro
+#: model:ir.model,name:base_synchro.model_base_synchro_obj_avoid
+msgid "Fields to not synchronize"
+msgstr "เขตข้อมูลที่ไม่ตรงกัน"
+
+#. module: base_synchro
+#: view:base.synchro:0
+msgid "_Close"
+msgstr "_Close"
+
+#. module: base_synchro
+#: view:base.synchro:0
+msgid "Transfer Data To Server"
+msgstr "การถ่ายโอนข้อมูลไปยังเซิร์ฟเวอร์"
+
+#. module: base_synchro
+#: model:ir.model,name:base_synchro.model_base_synchro_obj
+msgid "Register Class"
+msgstr "Class ลงทะเบียน"
+
+#. module: base_synchro
+#: view:base.synchro.obj:0
+#: model:ir.actions.act_window,name:base_synchro.action_transfer_tree
+#: model:ir.ui.menu,name:base_synchro.transfer_menu_id
+msgid "Synchronized objects"
+msgstr "วัตถุ Synchronized"
+
+#. module: base_synchro
+#: field:base.synchro.server,obj_ids:0
+msgid "Models"
+msgstr "โมเดล"
+
+#. module: base_synchro
+#: field:base.synchro.obj.avoid,obj_id:0
+#: view:base.synchro.obj.line:0
+#: field:base.synchro.obj.line,obj_id:0
+msgid "Object"
+msgstr "วัตถุ"
+
+#. module: base_synchro
+#: field:base.synchro.server,login:0
+msgid "User Name"
+msgstr "ชื่อผู้ใช้"
+
+#. module: base_synchro
+#: view:base.synchro.obj:0
+#: view:base.synchro.obj.line:0
+msgid "Group By"
+msgstr "จัดกลุ่มตาม"
+
+#. module: base_synchro
+#: selection:base.synchro.obj,action:0
+msgid "Upload"
+msgstr "Upload"
+
+#. module: base_synchro
+#: view:base.synchro.obj:0
+msgid "Latest synchronization"
+msgstr "อัพเดทข้อมูลล่าสุด"
+
+#. module: base_synchro
+#: model:ir.module.module,description:base_synchro.module_meta_information
+msgid "Synchronization with all objects."
+msgstr "การประสานข้อมูลกับวัตถุทั้งหมด"
+
+#. module: base_synchro
+#: view:base.synchro.obj.line:0
+#: field:base.synchro.obj.line,name:0
+msgid "Date"
+msgstr "วันที่"
+
+#. module: base_synchro
+#: field:base.synchro.server,password:0
+msgid "Password"
+msgstr "รหัสผ่าน"
+
+#. module: base_synchro
+#: field:base.synchro.obj,avoid_ids:0
+msgid "Fields Not Sync."
+msgstr "เขตข้อมูลที่ไม่ตรงกัน"
+
+#. module: base_synchro
+#: selection:base.synchro.obj,action:0
+msgid "Both"
+msgstr "ทั้งสอง"
+
+#. module: base_synchro
+#: field:base.synchro.obj,name:0
+msgid "Name"
+msgstr "ชื่อ"
+
+#. module: base_synchro
+#: view:base.synchro.obj:0
+msgid "Fields"
+msgstr "เขตข้อมูล"
+
+#. module: base_synchro
+#: view:base.synchro.obj.line:0
+msgid "Transfered Ids Details"
+msgstr "รหัสรายละเอียดการโอน"
+
+#. module: base_synchro
+#: field:base.synchro.obj,action:0
+msgid "Synchronisation direction"
+msgstr "ทิศทาง Synchronisation"
+
+#. module: base_synchro
+#: field:base.synchro.obj,server_id:0
+msgid "Server"
+msgstr "Server"
+
+#. module: base_synchro
+#: model:ir.actions.act_window,name:base_synchro.action_base_synchro_obj_line_tree
+#: model:ir.model,name:base_synchro.model_base_synchro_obj_line
+#: model:ir.ui.menu,name:base_synchro.menu_action_base_synchro_obj_line_tree
+msgid "Synchronized instances"
+msgstr "อินสแตนซ์ Synchronized"
+
+#. module: base_synchro
+#: field:base.synchro.obj,active:0
+msgid "Active"
+msgstr "แอคทีฟ"
+
+#. module: base_synchro
+#: view:base.synchro.obj:0
+#: field:base.synchro.obj,model_id:0
+msgid "Object to synchronize"
+msgstr "วัตถุเพื่อประสาน"
+
+#. module: base_synchro
+#: model:ir.module.module,shortdesc:base_synchro.module_meta_information
+msgid "Base Synchro"
+msgstr "ซิงโครฐาน"
+
+#. module: base_synchro
+#: model:ir.actions.act_window,name:base_synchro.action_base_synchro_server_tree
+#: model:ir.ui.menu,name:base_synchro.synchro_server_tree_menu_id
+msgid "Servers to be synchronized"
+msgstr "เซิร์ฟเวอร์ที่จะทำข้อมูลให้ตรงกัน"
+
+#. module: base_synchro
+#: view:base.synchro.obj:0
+msgid "Transfer Details"
+msgstr "รายละเอียดการโอน"
+
+#. module: base_synchro
+#: field:base.synchro.obj.line,remote_id:0
+msgid "Remote Id"
+msgstr "รหัสระยะไกล"
+
+#. module: base_synchro
+#: field:base.synchro.obj,line_id:0
+msgid "Ids Affected"
+msgstr "รหัสได้รับผลกระทบ"
+
+#. module: base_synchro
+#: model:ir.ui.menu,name:base_synchro.next_id_63
+msgid "History"
+msgstr "ประวัติ"
+
+#. module: base_synchro
+#: model:ir.ui.menu,name:base_synchro.next_id_62
+#: model:ir.ui.menu,name:base_synchro.synch_config
+msgid "Synchronization"
+msgstr "การประสานข้อมูล"
+
+#. module: base_synchro
+#: field:base.synchro.obj,domain:0
+msgid "Domain"
+msgstr "โดเมน"
+
+#. module: base_synchro
+#: view:base.synchro:0
+msgid "_Synchronize"
+msgstr "_Synchronize"
+
+#. module: base_synchro
+#: view:base.synchro:0
+msgid "OK"
+msgstr "OK"
+
+#. module: base_synchro
+#: field:base.synchro.server,name:0
+msgid "Server name"
+msgstr "ชื่อเซิร์ฟเวอร์"
+
+#. module: base_synchro
+#: field:base.synchro.obj,sequence:0
+msgid "Sequence"
+msgstr "ลำดับ"
+
+#. module: base_synchro
+#: view:base.synchro:0
+msgid "The synchronisation has been started.You will receive a request when it's done."
+msgstr "ทำข้อมูลให้ตรงกันได้รับการ started.You จะได้รับการร้องขอเมื่อเสร็จสิ้น"
+
+#. module: base_synchro
+#: field:base.synchro.server,server_port:0
+msgid "Server Port"
+msgstr "Port Server"
+
+#. module: base_synchro
+#: model:ir.ui.menu,name:base_synchro.menu_action_view_base_synchro
+msgid "Synchronize objects"
+msgstr "วัตถุประสาน"
+
+#. module: base_synchro
+#: view:base.synchro:0
+msgid "Synchronization Complited!"
+msgstr "การประสานข้อมูล Complited!"
+
+#. module: base_synchro
+#: model:ir.model,name:base_synchro.model_base_synchro
+msgid "base.synchro"
+msgstr "base.synchro"
+
+#. module: base_synchro
+#: field:base.synchro.obj.line,local_id:0
+msgid "Local Id"
+msgstr "รหัสท้องถิ่น"
+
+#. module: base_synchro
+#: model:ir.actions.act_window,name:base_synchro.actions_regclass_tree
+#: model:ir.actions.act_window,name:base_synchro.actions_transfer_line_form
+msgid "Filters"
+msgstr "ตัวกรอง"
+
+#. module: base_synchro
+#: selection:base.synchro.obj,action:0
+msgid "Download"
+msgstr "ดาวน์โหลด"
+
+#. module: base_synchro
+#: field:base.synchro,server_url:0
+#: field:base.synchro.server,server_url:0
+msgid "Server URL"
+msgstr "URL Server"
+
+

@@ -1,0 +1,135 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* profile_tools
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.0-rc2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:15:50+0000\n"
+"PO-Revision-Date: 2011-01-11 11:15:50+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: profile_tools
+#: help:misc_tools.installer,idea:0
+msgid "Promote ideas of the employees, votes and discussion on best ideas."
+msgstr "ส่งเสริมความคิดของพนักงานคะแนนเสียงและการอภิปรายเกี่ยวกับความคิดที่ดีที่สุด"
+
+#. module: profile_tools
+#: help:misc_tools.installer,share:0
+msgid "Allows you to give restricted access to your OpenERP documents to external users, such as customers, suppliers, or accountants. You can share any OpenERP Menu such as your project tasks, support requests, invoices, etc."
+msgstr "ช่วยให้คุณสามารถที่จะให้ จำกัด การเข้าถึงเอกสาร OpenERP ของคุณให้กับผู้ใช้ภายนอกเช่นลูกค้าผู้ขายหรือบัญชี คุณสามารถใช้ใด ๆ OpenERP เมนูเช่นงานโครงการของคุณให้ขอรับการสนับสนุนใบแจ้งหนี้ ฯลฯ"
+
+#. module: profile_tools
+#: help:misc_tools.installer,lunch:0
+msgid "A simple module to help you to manage Lunch orders."
+msgstr "โมดูลง่ายๆในการช่วยคุณในการจัดการคำสั่งซื้ออาหารกลางวัน"
+
+#. module: profile_tools
+#: field:misc_tools.installer,subscription:0
+msgid "Recurring Documents"
+msgstr "เอกสารที่เกิดขึ้นประจำ"
+
+#. module: profile_tools
+#: model:ir.model,name:profile_tools.model_misc_tools_installer
+msgid "misc_tools.installer"
+msgstr "misc_tools.installer"
+
+#. module: profile_tools
+#: model:ir.module.module,description:profile_tools.module_meta_information
+msgid "Installs tools for lunch,survey,subscription and audittrail\n"
+"    module\n"
+"    "
+msgstr "เครื่องมือติดตั้งสำหรับมื้อกลางวัน, การสำรวจ, การสมัครและโมดูล audittrail"
+
+#. module: profile_tools
+#: view:misc_tools.installer:0
+msgid "Extra Tools are applications that can help you improve your organization although they are not key for company management."
+msgstr "Tools เป็นโปรแกรมเสริมที่สามารถช่วยคุณในการปรับปรุงองค์กรของคุณถึงแม้ว่าพวกเขาจะไม่สำคัญสำหรับการจัดการ บริษัท"
+
+#. module: profile_tools
+#: view:misc_tools.installer:0
+msgid "Configure"
+msgstr "การกำหนดค่า"
+
+#. module: profile_tools
+#: help:misc_tools.installer,survey:0
+msgid "Allows you to organize surveys."
+msgstr "ช่วยให้คุณสามารถจัดระเบียบสํารวจ"
+
+#. module: profile_tools
+#: model:ir.module.module,shortdesc:profile_tools.module_meta_information
+msgid "Miscellaneous Tools"
+msgstr "เครื่องมือเบ็ดเตล็ด"
+
+#. module: profile_tools
+#: help:misc_tools.installer,pad:0
+msgid "This module creates a tighter integration between a Pad instance of your choosing and your OpenERP Web Client by letting you easily link pads to OpenERP objects via OpenERP attachments."
+msgstr "โมดูลนี้จะสร้างบูรณาการที่เข้มงวดมากขึ้นระหว่างอินสแตนซ์ Pad ของการเลือกและ OpenERP บนเว็บของคุณโดยการให้ลูกค้าของคุณสามารถเชื่อมโยงไปยังวัตถุ OpenERP ผ้าผ่านทางสิ่งที่แนบมา OpenERP"
+
+#. module: profile_tools
+#: field:misc_tools.installer,lunch:0
+msgid "Lunch"
+msgstr "อาหารกลางวัน"
+
+#. module: profile_tools
+#: view:misc_tools.installer:0
+msgid "Extra Tools Configuration"
+msgstr "การกำหนดค่าเครื่องมือพิเศษ"
+
+#. module: profile_tools
+#: field:misc_tools.installer,idea:0
+msgid "Ideas Box"
+msgstr "กล่องไอเดีย"
+
+#. module: profile_tools
+#: help:misc_tools.installer,subscription:0
+msgid "Helps to generate automatically recurring documents."
+msgstr "ช่วยในการสร้างเอกสารที่เกิดขึ้นประจำโดยอัตโนมัติ"
+
+#. module: profile_tools
+#: model:ir.actions.act_window,name:profile_tools.action_misc_tools_installer
+msgid "Tools Configuration"
+msgstr "เครื่องมือการกำหนดค่า"
+
+#. module: profile_tools
+#: field:misc_tools.installer,pad:0
+msgid "Collaborative Note Pads"
+msgstr "ผ้าหมายเหตุความร่วมมือ"
+
+#. module: profile_tools
+#: field:misc_tools.installer,survey:0
+msgid "Survey"
+msgstr "การสำรวจ"
+
+#. module: profile_tools
+#: view:misc_tools.installer:0
+msgid "Configure Extra Tools"
+msgstr "กำหนดค่าเครื่องมือพิเศษ"
+
+#. module: profile_tools
+#: field:misc_tools.installer,progress:0
+msgid "Configuration Progress"
+msgstr "ความคืบหน้าการกำหนดค่า"
+
+#. module: profile_tools
+#: field:misc_tools.installer,config_logo:0
+msgid "Image"
+msgstr "รูปภาพ"
+
+#. module: profile_tools
+#: view:misc_tools.installer:0
+msgid "title"
+msgstr "ชื่อเรื่อง"
+
+#. module: profile_tools
+#: field:misc_tools.installer,share:0
+msgid "Web Share"
+msgstr "Share เว็บ"
+
+

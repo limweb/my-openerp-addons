@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+		<wizard
+			string="Create Cost Line"
+			model="sale.order.line"
+			name="create_cost_line_run"
+			id="wizard_create_cost_line"
+			keyword="client_action_multi"/>
+	</data>
+
+</openerp>

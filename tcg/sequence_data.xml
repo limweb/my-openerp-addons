@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="seq_stock_journal_type_raw" model="ir.sequence.type">
+            <field name="name">RAW Material</field>
+            <field name="code">ineco.type.stock.journal.raw</field>
+        </record>
+
+        <record id="seq_stock_journal_type_wip" model="ir.sequence.type">
+            <field name="name">WIP</field>
+            <field name="code">ineco.type.stock.journal.wip</field>
+        </record>
+        
+        <record id="seq_stock_journal_type_hr" model="ir.sequence.type">
+            <field name="name">HR</field>
+            <field name="code">ineco.type.stock.journal.hr</field>
+        </record>
+        
+        <record id="seq_stock_journal_type_fa" model="ir.sequence.type">
+            <field name="name">FA</field>
+            <field name="code">ineco.type.stock.journal.fa</field>
+        </record>
+        
+        <record id="seq_stock_journal_material" model="ir.sequence">
+            <field name="name">Raw Material Sequence</field>
+            <field name="code">ineco.type.stock.journal.raw</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">RIN%(y)s%(month)s-</field>
+        </record>
+        
+        <record id="seq_stock_journal_wip" model="ir.sequence">
+            <field name="name">WIP Sequence</field>
+            <field name="code">ineco.type.stock.journal.wip</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">WIN%(y)s%(month)s-</field>
+        </record>
+
+        <record id="seq_stock_journal_fa" model="ir.sequence">
+            <field name="name">FA Sequence</field>
+            <field name="code">ineco.type.stock.journal.fa</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">FIN%(y)s%(month)s-</field>
+        </record>
+        
+        <record id="seq_stock_journal_hr" model="ir.sequence">
+            <field name="name">HR Sequence</field>
+            <field name="code">ineco.type.stock.journal.hr</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">HIN%(y)s%(month)s-</field>
+        </record>
+
+    </data>
+</openerp>

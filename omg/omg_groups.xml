@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+	    <record id="base.group_omg_location_approve" model="res.groups">
+	        <field name="name">OMG / Location Approval</field>
+	    </record>
+
+	    <record id="omg_location_approval_rule" model="ir.rule">
+	        <field name="name">Approval Location</field>
+	        <field ref="model_stock_location" name="model_id"/>
+	        <field name="domain_force">[(1,'=',1)]</field>
+	        <field name="groups" eval="[(4, ref('base.group_omg_location_approve'))]"/>
+	    </record>
+	    
+	    <record id="base.group_omg_lock_period" model="res.groups">
+	        <field name="name">OMG / Lock Period</field>
+	    </record>
+	    
+<!-- 
+	    <record id="omg_location_employee_rule" model="ir.rule">
+	        <field name="name">Employee Location</field>
+	        <field ref="model_stock_location" name="model_id"/>
+	        <field name="domain_force">[('omg_approve','=',True)]</field>
+	        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+	    </record>
+ -->	
+    </data>
+</openerp>

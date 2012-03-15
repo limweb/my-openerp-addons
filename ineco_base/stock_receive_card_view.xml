@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="ineco_view_stock_receive_card_wizard" model="ir.ui.view">
+            <field name="name">Load Pack No</field>
+            <field name="model">ineco.stock.receive.card</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Load Pack No">
+                <separator string="Load Pack No into new Internal Move" colspan="4"/>
+                <field name="location_dest_id"/>
+                <field name="tracking_id"/>
+                <button icon='gtk-cancel' special="cancel"
+                    string="_Cancel" />
+                <button name="load" string="Ok"
+                    type="object" icon="gtk-ok" />
+            </form>
+            </field>
+        </record>
+        
+        <record id="stock_receive_card_load" model="ir.actions.act_window">
+            <field name="name">Load Pack No</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.stock.receive.card</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+    </data>
+</openerp>

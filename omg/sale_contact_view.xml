@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+    
+    <record model="ir.ui.view" id="view_omg_sale_reserve_contact_form">
+        <field name="name">omg.sale.reserve.contact.form</field>
+        <field name="type">form</field>
+        <field name="model">omg.sale.reserve.contact</field>
+        <field name="arch" type="xml">
+		<form string="Reservation Contact">
+			<field name="name" />
+			<field name="contact_date" />
+			<field name="customer_id" />
+			<field name="product_id" domain="[('customer_product','=',True)]"/>
+			<field name="service_id" domain="[('service_type','=',True)]"/>
+			<field name="saleman_id" />
+			<field name="sale_admin_id" />
+			<notebook colspan="4">
+				<page string="Reservation Lines">
+					<group colspan="4" col="6">						
+						<button name="%(wizard_search_all)d" string="Search" type="action" icon="gtk-zoom-in" colspan="2"/>
+						<button name="%(wizard_search_special)d" string="Special" type="action" icon="gtk-zoom-in" colspan="2"/>
+						<button name="%(action_booking_checkprice_wizard)d" string="Compute" type="action" icon="gtk-zoom-in" colspan="2"/>
+					</group>
+					<field name="line_ids" colspan="4" nolabel="1" attrs="{'readonly': [('currency_id','=',False)]}" context="{'service_id':service_id}"/>
+				</page>
+				<page string="Notes">
+					<field name="note" colspan="4" nolabel="1"/>
+				</page>
+			</notebook>
+			<field name="total" />
+			<button name="%(action_contact_merge_wizard)d" string="Merge Sale Order" type="action" icon="gtk-zoom-in" colspan="2"/>
+		</form>
+	</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_omg_sale_reserve_contact_tree">
+        <field name="name">omg.sale.reserve.contact.tree</field>
+        <field name="type">tree</field>
+        <field name="model">omg.sale.reserve.contact</field>
+        <field name="arch" type="xml">
+			<tree string="Reservation Contact">
+				<field name="name" />
+				<field name="contact_date" />
+				<field name="period_first" />
+				<field name="customer_id" />
+				<field name="product_id" />
+				<field name="service_id" />
+				<field name="saleman_id" />
+				<field name="total" />
+			</tree>
+		</field>
+    </record>
+    
+        <record id="view_omg_sale_reserve_contact_filter" model="ir.ui.view">
+            <field name="name">omg.sale.reserve.contact.search</field>
+            <field name="model">omg.sale.reserve.contact</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Reservation Contact">
+					<field name="name" />
+					<field name="contact_date" />
+					<field name="customer_id" />
+					<field name="product_id" />
+					<field name="service_id" />
+					<field name="saleman_id" />
+					<field name="total" />
+                </search>
+            </field>
+        </record>
+    
+
+    <record model="ir.ui.view" id="view_omg_sale_reserve_contact_line_tree">
+        <field name="name">omg.sale.reserve.contact.line.tree</field>
+        <field name="type">tree</field>
+        <field name="model">omg.sale.reserve.contact.line</field>
+        <field name="arch" type="xml">
+			<tree string="Reservation Line">
+				<field name="period_id" />
+				<field name="chain_id" />
+				<field name="location_list" />
+				<field name="sale_order_id" />
+				<field name="location_qty" />
+				<field name="unit_price" />
+				<field name="sub_total" />
+				<field name="state" />
+                <button name="action_process" states="reserve" string="Process" type="object" icon="gtk-go-forward"/>
+                <button name="action_done" states="inprogress" string="Complete" type="object" icon="gtk-yes"/>
+			</tree>
+		</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_omg_sale_reserve_contact_line_form">
+        <field name="name">omg.sale.reserve.contact.line.form</field>
+        <field name="type">form</field>
+        <field name="model">omg.sale.reserve.contact.line</field>
+        <field name="arch" type="xml">
+			<form string="Reservation Line">
+				<field name="period_id" attrs="{'readonly': [('state','in',('done','cancel'))]}" />
+				<field name="chain_id" attrs="{'readonly': [('state','in',('done','cancel'))]}"/>
+				<field name="location_list" attrs="{'readonly': [('state','in',('done','cancel'))]}"/>
+				<field name="allow_duplicate" />
+				<field name="client_price" invisible="1"/>
+				<notebook colspan="4" >
+					<page string="Location">
+						<field name="location_lines" nolabel="1" attrs="{'readonly': [('state','in',('done','cancel'))]}">
+							<tree string="Location List" editable="bottom">
+								<field name="location_id" domain="[('omg_approve','=',True)]"/>
+								<field name="group_name" />
+							</tree>
+						</field>
+					</page>
+					<page string="Product">
+						<field name="product_lines" nolabel="1" attrs="{'readonly': [('state','in',('done','cancel'))]}" >
+							<tree string="Product List" >
+								<field name="product_id" on_change="onchange_product_id(product_id)" domain="[('service_type','=',True)]" />
+								<field name="location_qty" />
+								<field name="day_qty" />
+								<field name="product_qty" />
+								<field name="sale_price" />
+								<field name="sub_total" />
+							</tree>
+							<form string="Product List">
+								<field name="product_id" on_change="onchange_product_id(product_id)" domain="[('service_type','=',True)]" />
+								<field name="product_qty" />
+								<field name="sale_price" />
+								<field name="sub_total" />
+							</form>
+						</field>
+					</page>
+					<page string="Summary">
+						<field name="summary_lines" nolabel="1" attrs="{'readonly': [('state','in',('done','cancel'))]}" >
+							<tree string="Summary List">
+								<field name="product_id"  on_change="onchange_product_id(product_id)" domain="[('service_type','=',True)]"/>
+								<field name="product_qty" />
+								<field name="sale_price" />
+								<field name="sub_total" />
+							</tree>
+							<form string="Summary List">
+								<field name="product_id" on_change="onchange_product_id(product_id)" domain="[('service_type','=',True)]"/>
+								<field name="product_qty" />
+								<field name="sale_price" />
+								<field name="sub_total" />
+							</form>
+						</field>
+					</page>
+				</notebook>
+				<field name="location_qty" attrs="{'readonly': [('state','in',('done','cancel'))]}" invisible="1"/>
+				<field name="unit_price" attrs="{'readonly': [('state','in',('done','cancel'))]}" invisible="1"/>
+				<field name="sub_total" attrs="{'readonly': [('state','in',('done','cancel'))]}" invisible="1"/>
+			</form>
+		</field>
+    </record>
+
+		<!--Period Master-->
+        <record id="act_sale_reserve_contact" model="ir.actions.act_window">
+            <field name="name">Reservation Contact</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">omg.sale.reserve.contact</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="act_sale_reserve_contact" id="menu_sale_reserve_contact" parent="base.menu_sales" />
+
+        <record id="view_omg_sale_reserve_contact_line_filter" model="ir.ui.view">
+            <field name="name">omg.sale.reserve.contact.line.search</field>
+            <field name="model">omg.sale.reserve.contact.line</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Reservation Contact Line">
+					<field name="period_id" />
+					<field name="chain_id" />
+					<field name="sale_order_id" />
+					<field name="state" />
+                </search>
+            </field>
+        </record>
+
+        <record id="act_sale_reserve_contact_line" model="ir.actions.act_window">
+            <field name="name">Reservation Contact Line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">omg.sale.reserve.contact.line</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem action="act_sale_reserve_contact_line" id="menu_sale_reserve_contact_line" parent="base.menu_sales" />
+    
+    </data>
+</openerp>

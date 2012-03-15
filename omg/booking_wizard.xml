@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+		<wizard
+			string="Check Total Price"
+			model="omg.sale.reserve.contact"
+			name="booking_checkprice_wizard"
+			id="wizard_booking_checkprice"
+			keyword="client_action_multi"/>
+
+	</data>
+
+</openerp>

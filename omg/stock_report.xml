@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report id="report_ineco_picking_list" model="stock.picking" name="report.ineco.picking.list" string="Ineco Packing list" rml="omg/report/picking.rml"/>
+    </data>
+</openerp>

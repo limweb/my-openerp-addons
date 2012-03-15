@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+	    <record model="ir.ui.view" id="view_ineco_purchase_order_line_form">
+            <field name="inherit_id" ref="purchase.purchase_order_line_form"/>
+            <field name="name">ineco.purchase.order.line.form</field>
+            <field name="model">purchase.order.line</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='Order Line']/field[@name='product_qty']" position="replace">
+                   	<field name="product_qty" />
+                   	<field name="uom_category_id" readonly="1"/>
+            	</xpath>	        	            	
+            </field>
+		</record>
+
+	    <record model="ir.ui.view" id="view_ineco_purchase_order_line_form2">
+            <field name="inherit_id" ref="purchase.purchase_order_line_form"/>
+            <field name="name">ineco.purchase.order.line.form2</field>
+            <field name="model">purchase.order.line</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='Order Line']/field[@name='product_uom']" position="replace">
+                   	<field name="product_uom" domain="[('category_id','=',uom_category_id)]" on_change="product_uom_change(parent.pricelist_id,product_id,product_qty,product_uom,parent.partner_id, parent.date_order,parent.fiscal_position,date_planned,name,price_unit,notes)" />
+            	</xpath>	        	            	
+            </field>
+		</record>
+
+	</data>
+</openerp>

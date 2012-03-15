@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data noupdate="1">
+    <record id="report_ineco_stock_report" model="ineco.report.config">
+        <field name="name">Stock Report</field>
+        <field name="description">Print Stock Report.</field>
+        <field name="active">1</field>
+        <field name="type">report.ineco.stock.report</field>
+    </record>        	
+</data>
+</openerp>

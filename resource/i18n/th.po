@@ -1,0 +1,334 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* resource
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.0-rc2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:16:01+0000\n"
+"PO-Revision-Date: 2011-01-11 11:16:01+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: resource
+#: help:resource.calendar.leaves,resource_id:0
+msgid "If empty, this is a generic holiday for the company. If a resource is set, the holiday/leave is only for this resource"
+msgstr "ถ้าว่างส่วนนี้จะเป็นวันหยุดทั่วไปสำหรับ บริษัท หากทรัพยากรมีการตั้งค่าวันหยุดออก / เป็นเพียงข้อมูลส่วนนี้"
+
+#. module: resource
+#: selection:resource.calendar.attendance,dayofweek:0
+msgid "Friday"
+msgstr "วันศุกร์"
+
+#. module: resource
+#: field:resource.resource,resource_type:0
+msgid "Resource Type"
+msgstr "ประเภททรัพยากร"
+
+#. module: resource
+#: model:ir.model,name:resource.model_resource_calendar_leaves
+#: view:resource.calendar.leaves:0
+msgid "Leave Detail"
+msgstr "ปล่อยให้รายละเอียด"
+
+#. module: resource
+#: model:ir.actions.act_window,name:resource.resource_calendar_resources_leaves
+msgid "Resources Leaves"
+msgstr "ใบทรัพยากร"
+
+#. module: resource
+#: view:resource.calendar:0
+#: field:resource.calendar,attendance_ids:0
+#: view:resource.calendar.attendance:0
+msgid "Working Time"
+msgstr "เวลาในการทำงาน"
+
+#. module: resource
+#: selection:resource.calendar.attendance,dayofweek:0
+msgid "Thursday"
+msgstr "วันพฤหัสบดี"
+
+#. module: resource
+#: view:resource.calendar.leaves:0
+#: view:resource.resource:0
+msgid "Group By..."
+msgstr "กลุ่มตาม ..."
+
+#. module: resource
+#: selection:resource.calendar.attendance,dayofweek:0
+msgid "Sunday"
+msgstr "วันอาทิตย์"
+
+#. module: resource
+#: view:resource.resource:0
+msgid "Search Resource"
+msgstr "ทรัพยากรการค้นหา"
+
+#. module: resource
+#: view:resource.resource:0
+msgid "Type"
+msgstr "ประเภท"
+
+#. module: resource
+#: model:ir.actions.act_window,name:resource.action_resource_resource_tree
+#: view:resource.resource:0
+msgid "Resources"
+msgstr "แหล่งข้อมูล"
+
+#. module: resource
+#: field:resource.calendar,manager:0
+msgid "Workgroup manager"
+msgstr "ผู้จัดการเวิร์กกรุ๊ป"
+
+#. module: resource
+#: help:resource.calendar.attendance,hour_from:0
+msgid "Working time will start from"
+msgstr "เวลาทำงานจะเริ่มต้นจาก"
+
+#. module: resource
+#: constraint:resource.calendar.leaves:0
+msgid "Error! leave start-date must be lower then leave end-date."
+msgstr "ข้อผิดพลาด ออกจากวันที่เริ่มต้นจะต้องลดลงแล้วออกจากวันที่สิ้นสุด -"
+
+#. module: resource
+#: model:ir.model,name:resource.model_resource_calendar
+msgid "Resource Calendar"
+msgstr "ปฏิทินกิจกรรมทรัพยากร"
+
+#. module: resource
+#: field:resource.calendar,company_id:0
+#: view:resource.calendar.leaves:0
+#: field:resource.calendar.leaves,company_id:0
+#: view:resource.resource:0
+#: field:resource.resource,company_id:0
+msgid "Company"
+msgstr "บริษัท"
+
+#. module: resource
+#: selection:resource.resource,resource_type:0
+msgid "Material"
+msgstr "วัสดุ"
+
+#. module: resource
+#: field:resource.calendar.attendance,dayofweek:0
+msgid "Day of week"
+msgstr "วันของสัปดาห์"
+
+#. module: resource
+#: help:resource.calendar.attendance,hour_to:0
+msgid "Working time will end at"
+msgstr "เวลาทำงานจะสิ้นสุดที่"
+
+#. module: resource
+#: field:resource.calendar.attendance,date_from:0
+msgid "Starting date"
+msgstr "เริ่มวันที่"
+
+#. module: resource
+#: view:resource.calendar:0
+msgid "Search Working Time"
+msgstr "ค้นหาการเวลา"
+
+#. module: resource
+#: view:resource.calendar.leaves:0
+msgid "Reason"
+msgstr "เหตุผล"
+
+#. module: resource
+#: view:resource.resource:0
+#: field:resource.resource,user_id:0
+msgid "User"
+msgstr "ของผู้ใช้"
+
+#. module: resource
+#: view:resource.calendar.leaves:0
+msgid "Date"
+msgstr "วันที่"
+
+#. module: resource
+#: view:resource.calendar.leaves:0
+msgid "Search Working Period Leaves"
+msgstr "ค้นหาระยะเวลาการทำงานใบ"
+
+#. module: resource
+#: field:resource.calendar.leaves,date_to:0
+msgid "End Date"
+msgstr "วันที่สิ้นสุด"
+
+#. module: resource
+#: model:ir.actions.act_window,name:resource.resource_calendar_closing_days
+msgid "Closing Days"
+msgstr "วันปิด"
+
+#. module: resource
+#: model:ir.module.module,shortdesc:resource.module_meta_information
+#: model:ir.ui.menu,name:resource.menu_resource_config
+#: view:resource.calendar.leaves:0
+#: field:resource.calendar.leaves,resource_id:0
+#: view:resource.resource:0
+msgid "Resource"
+msgstr "ทรัพยากร"
+
+#. module: resource
+#: view:resource.calendar:0
+#: field:resource.calendar,name:0
+#: field:resource.calendar.attendance,name:0
+#: field:resource.calendar.leaves,name:0
+#: field:resource.resource,name:0
+msgid "Name"
+msgstr "ชื่อ"
+
+#. module: resource
+#: model:ir.module.module,description:resource.module_meta_information
+msgid "\n"
+"    Module for resource management\n"
+"     A resource represent something that can be scheduled\n"
+"     (a developer on a task or a workcenter on manufacturing orders).\n"
+"     This module manages a resource calendar associated to every resource.\n"
+"     It also manages the leaves of every resource.\n"
+"\n"
+"    "
+msgstr "โมดูลสำหรับการจัดการทรัพยากรทรัพยากรเป็นตัวแทนบางสิ่งบางอย่างที่สามารถกำหนด (นักพัฒนางานหรือ workcenter ในการสั่งซื้อการผลิต) โมดูลนี้จะจัดการกับปฏิทินของทรัพยากรที่เกี่ยวข้องกับทรัพยากรทุก นอกจากนี้ยังจัดการกับใบของทรัพยากรทุก"
+
+#. module: resource
+#: selection:resource.calendar.attendance,dayofweek:0
+msgid "Wednesday"
+msgstr "วันพุธ"
+
+#. module: resource
+#: model:ir.actions.act_window,name:resource.action_resource_calendar_form
+#: view:resource.calendar.leaves:0
+#: view:resource.resource:0
+#: field:resource.resource,calendar_id:0
+msgid "Working Period"
+msgstr "อายุการทำงาน"
+
+#. module: resource
+#: model:ir.model,name:resource.model_resource_resource
+msgid "Resource Detail"
+msgstr "รายละเอียดทรัพยากร"
+
+#. module: resource
+#: field:resource.resource,active:0
+msgid "Active"
+msgstr "แอคทีฟ"
+
+#. module: resource
+#: help:resource.resource,active:0
+msgid "If the active field is set to False, it will allow you to hide the resource record without removing it."
+msgstr "ถ้าเขตข้อมูลที่ใช้อยู่กำหนดเป็นเท็จก็จะช่วยให้คุณสามารถซ่อนระเบียนทรัพยากรโดยไม่ลบออก"
+
+#. module: resource
+#: field:resource.calendar.attendance,calendar_id:0
+msgid "Resource's Calendar"
+msgstr "ปฏิทินกิจกรรมของทรัพยากร"
+
+#. module: resource
+#: help:resource.resource,user_id:0
+msgid "Related user name for the resource to manage its access."
+msgstr "ชื่อผู้ใช้ที่เกี่ยวข้องกับทรัพยากรในการจัดการการเข้าถึงของ"
+
+#. module: resource
+#: help:resource.resource,calendar_id:0
+msgid "Define the schedule of resource"
+msgstr "กำหนดตารางเวลาของทรัพยากร"
+
+#. module: resource
+#: field:resource.calendar.attendance,hour_from:0
+msgid "Work from"
+msgstr "การทำงานจาก"
+
+#. module: resource
+#: field:resource.resource,code:0
+msgid "Code"
+msgstr "รหัส"
+
+#. module: resource
+#: selection:resource.calendar.attendance,dayofweek:0
+msgid "Monday"
+msgstr "วันจันทร์"
+
+#. module: resource
+#: field:resource.calendar.attendance,hour_to:0
+msgid "Work to"
+msgstr "งานที่"
+
+#. module: resource
+#: help:resource.resource,time_efficiency:0
+msgid "This field depict the efficiency of the resource to complete tasks. e.g  resource put alone on a phase of 5 days with 5 tasks assigned to him, will show a load of 100% for this phase by default, but if we put a efficency of 200%, then his load will only be 50%."
+msgstr "ฟิลด์นี้จะแสดงถึงประสิทธิภาพของทรัพยากรเพื่อการงาน ทรัพยากรเช่นวางคนเดียวในระยะ 5 วันกับ 5 ได้รับมอบหมายให้เขาจะแสดงโหลดของ 100% สำหรับเฟสตามค่าเริ่มต้นนี้ แต่หากเราใส่ประสิทธิภาพของ 200% แล้วโหลดของเขาจะเป็น 50%"
+
+#. module: resource
+#: selection:resource.calendar.attendance,dayofweek:0
+msgid "Tuesday"
+msgstr "วันอังคาร"
+
+#. module: resource
+#: field:resource.calendar.leaves,calendar_id:0
+msgid "Working time"
+msgstr "เวลาทำงาน"
+
+#. module: resource
+#: model:ir.actions.act_window,name:resource.action_resource_calendar_leave_tree
+#: model:ir.ui.menu,name:resource.menu_view_resource_calendar_leaves_search
+msgid "Resource Leaves"
+msgstr "ใบ Resource"
+
+#. module: resource
+#: view:resource.resource:0
+msgid "General Information"
+msgstr "ข้อมูลทั่วไป"
+
+#. module: resource
+#: model:ir.actions.act_window,help:resource.action_resource_resource_tree
+msgid "Resources allow you to create and manage resources that should be involved in a specific project phase. You can also set their efficiency level and workload based on their weekly working hours."
+msgstr "ทรัพยากรช่วยให้คุณสามารถสร้างและจัดการทรัพยากรที่ควรจะมีส่วนร่วมในโครงการระยะที่เฉพาะเจาะจง นอกจากนี้คุณยังสามารถกำหนดระดับประสิทธิภาพและภาระงานตามชั่วโมงการทำงานของพวกเขาทุกสัปดาห์"
+
+#. module: resource
+#: view:resource.resource:0
+msgid "Inactive"
+msgstr "ไม่ใช้งาน"
+
+#. module: resource
+#: code:addons/resource/faces/resource.py:340
+#, python-format
+msgid "(vacation)"
+msgstr "(วันหยุด)"
+
+#. module: resource
+#: field:resource.resource,time_efficiency:0
+msgid "Efficiency factor"
+msgstr "ปัจจัยประสิทธิภาพ"
+
+#. module: resource
+#: selection:resource.resource,resource_type:0
+msgid "Human"
+msgstr "คน"
+
+#. module: resource
+#: model:ir.model,name:resource.model_resource_calendar_attendance
+msgid "Work Detail"
+msgstr "รายละเอียดการทำงาน"
+
+#. module: resource
+#: field:resource.calendar.leaves,date_from:0
+msgid "Start Date"
+msgstr "วันที่เริ่มต้น"
+
+#. module: resource
+#: code:addons/resource/resource.py:246
+#, python-format
+msgid " (copy)"
+msgstr "(คัดลอก)"
+
+#. module: resource
+#: selection:resource.calendar.attendance,dayofweek:0
+msgid "Saturday"
+msgstr "วันเสาร์"
+
+

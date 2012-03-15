@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+		<wizard
+			string="Find Location"
+			model="stock.location.set"
+			name="search_location_launch"
+			id="wizard_search_location"
+			keyword="client_action_multi"/>
+
+		<wizard
+			string="Find Location"
+			model="stock.location.set"
+			name="search_location_launch"
+			id="wizard_search_location"
+			keyword="client_action_multi"/>
+
+	</data>
+
+</openerp>

@@ -1,0 +1,135 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* profile_association
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:14+0000\n"
+"PO-Revision-Date: 2010-11-12 11:38+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-01-15 05:56+0000\n"
+"X-Generator: Launchpad (build 12177)\n"
+
+#. module: association
+#: field:profile.association.config.install_modules_wizard,wiki:0
+msgid "Wiki"
+msgstr "วิกิพีเดีย"
+
+#. module: association
+#: view:profile.association.config.install_modules_wizard:0
+msgid "Event Management"
+msgstr "Event Management"
+
+#. module: association
+#: field:profile.association.config.install_modules_wizard,project_gtd:0
+msgid "Getting Things Done"
+msgstr "ได้รับสิ่งที่เสร็จสิ้น"
+
+#. module: association
+#: model:ir.module.module,description:association.module_meta_information
+msgid "This module is to create Profile for Associates"
+msgstr "วิชานี้คือการสร้างข้อมูลส่วนตัวสำหรับ บริษัท ร่วม"
+
+#. module: association
+#: field:profile.association.config.install_modules_wizard,progress:0
+msgid "Configuration Progress"
+msgstr "ความคืบหน้าการกำหนดค่า"
+
+#. module: association
+#: view:profile.association.config.install_modules_wizard:0
+msgid ""
+"Here are specific applications related to the Association Profile you "
+"selected."
+msgstr "ต่อไปนี้เป็นโปรแกรมเฉพาะที่เกี่ยวข้องกับสมาคมรายละเอียดส่วนตัวที่คุณเลือก"
+
+#. module: association
+#: view:profile.association.config.install_modules_wizard:0
+msgid "title"
+msgstr "ชื่อเรื่อง"
+
+#. module: association
+#: help:profile.association.config.install_modules_wizard,event_project:0
+msgid "Helps you to manage and organize your events."
+msgstr "ช่วยให้คุณจัดการและจัดกิจกรรมของคุณ"
+
+#. module: association
+#: field:profile.association.config.install_modules_wizard,config_logo:0
+msgid "Image"
+msgstr "รูปภาพ"
+
+#. module: association
+#: help:profile.association.config.install_modules_wizard,hr_expense:0
+msgid ""
+"Tracks and manages employee expenses, and can automatically re-invoice "
+"clients if the expenses are project-related."
+msgstr "ติดตามและจัดการกับค่าใช้จ่ายพนักงานและลูกค้าสามารถใหม่โดยอัตโนมัติหากใบแจ้งหนี้ค่าใช้จ่ายเป็นโครงการที่เกี่ยวข้องกับ"
+
+#. module: association
+#: help:profile.association.config.install_modules_wizard,project_gtd:0
+msgid ""
+"GTD is a methodology to efficiently organise yourself and your tasks. This "
+"module fully integrates GTD principle with OpenERP's project management."
+msgstr "GTD เป็นวิธีการอย่างมีประสิทธิภาพด้วยตัวคุณเองและจัดระเบียบงานของคุณ วิชานี้อย่างเต็มที่รวมหลักการ GTD กับการจัดการโครงการ OpenERP ของ"
+
+#. module: association
+#: view:profile.association.config.install_modules_wizard:0
+msgid "Resources Management"
+msgstr "การจัดการทรัพยากร"
+
+#. module: association
+#: model:ir.module.module,shortdesc:association.module_meta_information
+msgid "Association profile"
+msgstr "โปรไฟล์ของสมาคม"
+
+#. module: association
+#: field:profile.association.config.install_modules_wizard,hr_expense:0
+msgid "Expenses Tracking"
+msgstr "ค่าใช้จ่ายในการติดตาม"
+
+#. module: association
+#: model:ir.actions.act_window,name:association.action_config_install_module
+#: view:profile.association.config.install_modules_wizard:0
+msgid "Association Application Configuration"
+msgstr "การกำหนดค่าสมัครสมาคม"
+
+#. module: association
+#: help:profile.association.config.install_modules_wizard,wiki:0
+msgid ""
+"Lets you create wiki pages and page groups in order to keep track of "
+"business knowledge and share it with and  between your employees."
+msgstr "ช่วยให้คุณสร้างหน้าเว็บวิกิพีเดียและกลุ่มเพจเพื่อติดตามความรู้ทางธุรกิจและใช้ร่วมกับและระหว่างพนักงานของคุณ"
+
+#. module: association
+#: help:profile.association.config.install_modules_wizard,project:0
+msgid ""
+"Helps you manage your projects and tasks by tracking them, generating "
+"plannings, etc..."
+msgstr "คุณช่วยจัดการโครงการและการงานของคุณโดยการติดตามพวกเขาสร้าง plannings ฯลฯ .."
+
+#. module: association
+#: model:ir.model,name:association.model_profile_association_config_install_modules_wizard
+msgid "profile.association.config.install_modules_wizard"
+msgstr "profile.association.config.install_modules_wizard"
+
+#. module: association
+#: field:profile.association.config.install_modules_wizard,event_project:0
+msgid "Events"
+msgstr "Events"
+
+#. module: association
+#: view:profile.association.config.install_modules_wizard:0
+#: field:profile.association.config.install_modules_wizard,project:0
+msgid "Project Management"
+msgstr "การบริหารจัดการโครงการ"
+
+#. module: association
+#: view:profile.association.config.install_modules_wizard:0
+msgid "Configure"
+msgstr "การกำหนดค่า"
+

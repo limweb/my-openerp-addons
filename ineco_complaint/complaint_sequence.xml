@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- Sequences for Complaint -->
+        <record id="seq_type_complaint" model="ir.sequence.type">
+            <field name="name">Complaint</field>
+            <field name="code">ineco.complaint</field>
+        </record>
+
+        <record id="seq_complaint" model="ir.sequence">
+            <field name="name">Complaint</field>
+            <field name="code">ineco.complaint</field>
+            <field name="prefix">PB%(year)s%(month)s-</field>
+            <field name="padding">4</field>
+        </record>
+
+    </data>
+</openerp>

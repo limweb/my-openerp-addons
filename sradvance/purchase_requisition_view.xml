@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+	    <record model="ir.ui.view" id="view_ineco_purchase_requisition_form">
+	        <field name="name">ineco.purchase.requisition.form</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+	        <field name="type">form</field>
+	        <field name="model">purchase.requisition</field>
+	        <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='Products']/field/tree/field[@name='product_uom_id']" position="replace">
+                   	<field name="uom_category_id" invisible="1"/>
+                   	<field name="product_uom_id" domain="[('category_id','=',uom_category_id)]"/>
+            	</xpath>	        	
+			</field>
+		</record>
+		
+	    <record model="ir.actions.act_window" id="purchase_requisition.action_purchase_requisition">
+	        <field name="context">{"search_default_create_uid":uid,'search_default_draft': 1,'search_default_user_id':uid}</field>
+	    </record>
+		
+	</data>
+</openerp>

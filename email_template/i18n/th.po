@@ -1,0 +1,1215 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* email_template
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.0-rc2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:15:10+0000\n"
+"PO-Revision-Date: 2011-01-11 11:15:10+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: email_template
+#: help:email_template.account,auto_delete:0
+msgid "Permanently delete emails after sending"
+msgstr "ลบอีเมล์หลังจากส่ง"
+
+#. module: email_template
+#: view:email_template.account:0
+msgid "Email Account Configuration"
+msgstr "ตั้งค่าบัญชีอีเมล"
+
+#. module: email_template
+#: code:addons/email_template/wizard/email_template_send_wizard.py:195
+#, python-format
+msgid "Emails for multiple items saved in outbox."
+msgstr "อีเมลสำหรับรายการหลายรายการที่บันทึกไว้ในถาดออก"
+
+#. module: email_template
+#: code:addons/email_template/wizard/email_template_send_wizard.py:59
+#: code:addons/email_template/wizard/email_template_send_wizard.py:60
+#, python-format
+msgid "No personal email accounts are configured for you. \n"
+"Either ask admin to enforce an account for this template or get yourself a personal email account."
+msgstr "ไม่มีบัญชีอีเมลส่วนบุคคลมีการกำหนดค่าสำหรับคุณ ไม่ว่าจะขอให้ผู้ดูแลระบบในการบังคับใช้บัญชีสำหรับแม่แบบนี้ได้ด้วยตัวคุณเองหรือบัญชีอีเมลส่วนบุคคล"
+
+#. module: email_template
+#: view:email_template.mailbox:0
+msgid "Personal Emails"
+msgstr "อีเมลส่วนบุคคล"
+
+#. module: email_template
+#: field:email.template,file_name:0
+msgid "Report Filename"
+msgstr "ชื่อไฟล์รายงาน"
+
+#. module: email_template
+#: view:email.template:0
+msgid "Email Content  "
+msgstr "อีเมล์ Content"
+
+#. module: email_template
+#: view:email_template.send.wizard:0
+msgid "Send mail Wizard"
+msgstr "ตัวช่วยสร้างการส่งจดหมาย"
+
+#. module: email_template
+#: selection:email_template.mailbox,mail_type:0
+msgid "Plain Text & HTML with no attachments"
+msgstr "ข้อความธรรมดาและ HTML ที่มีสิ่งที่แนบมาไม่"
+
+#. module: email_template
+#: help:email.template,model_object_field:0
+msgid "Select the field from the model you want to use.\n"
+"If it is a relationship field you will be able to choose the nested values in the box below\n"
+"(Note:If there are no values make sure you have selected the correct model)"
+msgstr "เลือกเขตข้อมูลจากรูปแบบที่คุณต้องการใช้ ถ้าเป็นเขตความสัมพันธ์คุณจะสามารถเลือกค่าที่ซ้อนกันในช่องด้านล่าง (หมายเหตุ : หากมีค่าไม่แน่ใจว่าคุณได้เลือกรูปแบบที่ถูกต้อง)"
+
+#. module: email_template
+#: field:email_template.preview,body_html:0
+#: field:email_template.preview,body_text:0
+#: field:email_template.send.wizard,body_html:0
+#: field:email_template.send.wizard,body_text:0
+msgid "Body"
+msgstr "ร่างกาย"
+
+#. module: email_template
+#: code:addons/email_template/email_template.py:304
+#, python-format
+msgid "Deletion of Record failed"
+msgstr "การลบบันทึกล้มเหลว"
+
+#. module: email_template
+#: help:email_template.account,company:0
+msgid "Select if this mail account does not belong to specific user but to the organization as a whole. eg: info@companydomain.com"
+msgstr "เลือกหากบัญชีนี้ไม่ได้เป็นของผู้ใช้เฉพาะ แต่ในองค์กรโดยรวม เช่น : info@companydomain.com"
+
+#. module: email_template
+#: view:email_template.send.wizard:0
+msgid "Send now"
+msgstr "ส่งตอนนี้"
+
+#. module: email_template
+#: selection:email_template.mailbox,state:0
+msgid "Not Applicable"
+msgstr "ไม่เกี่ยวข้อง"
+
+#. module: email_template
+#: view:email_template.account:0
+#: model:ir.ui.menu,name:email_template.menu_email_account_all_tools
+#: model:ir.ui.menu,name:email_template.menu_email_template_account_all
+msgid "Email Accounts"
+msgstr "Email Accounts"
+
+#. module: email_template
+#: view:email_template.send.wizard:0
+msgid "Send all mails"
+msgstr "ส่งเมลทั้งหมด"
+
+#. module: email_template
+#: help:email_template.account,smtpuname:0
+msgid "Specify the username if your SMTP server requires authentication, otherwise leave it empty."
+msgstr "ระบุชื่อผู้ใช้ถ้า SMTP เซิร์ฟเวอร์ของคุณต้องการการตรวจสอบมิฉะนั้นปล่อยให้มันว่างเปล่า"
+
+#. module: email_template
+#: field:email_template.mailbox,server_ref:0
+msgid "Server Reference of mail"
+msgstr "Server อ้างอิงของจดหมาย"
+
+#. module: email_template
+#: view:email_template.account:0
+#: selection:email_template.account,state:0
+msgid "Approved"
+msgstr "ได้รับอนุมัติ"
+
+#. module: email_template
+#: help:email.template,def_cc:0
+msgid "Carbon Copy address(es), comma-separated. Placeholders can be used here. e.g. ${object.email_cc}"
+msgstr "ที่อยู่ Carbon Copy (ES) คั่นด้วยเครื่องหมายจุลภาค Placeholders สามารถนำมาใช้ที่นี่ เช่น $ {object.email_cc}"
+
+#. module: email_template
+#: view:email.template:0
+msgid "Account"
+msgstr "บัญชี"
+
+#. module: email_template
+#: field:email.template,table_html:0
+msgid "HTML code"
+msgstr "รหัส HTML"
+
+#. module: email_template
+#: view:email_template.mailbox:0
+msgid "Send Mail"
+msgstr "ส่งจดหมาย"
+
+#. module: email_template
+#: help:email_template.account,name:0
+msgid "The description is used as the Sender name along with the provided From Email, unless it is already specified in the From Email, e.g: John Doe <john@doe.com>"
+msgstr "คำอธิบายนี้จะใช้เป็นชื่อผู้ส่งพร้อมกับได้มาจากอีเมล์นั้นหากระบุอยู่ในจากอีเมลเช่น : John Doe <john@doe.com>"
+
+#. module: email_template
+#: field:email.template,from_account:0
+msgid "Email Account"
+msgstr "บัญชีอีเมล"
+
+#. module: email_template
+#: code:addons/email_template/wizard/email_template_send_wizard.py:201
+#, python-format
+msgid "Email sending failed for one or more objects."
+msgstr "การส่งอีเมลล้มเหลวอย่างน้อยหนึ่งวัตถุ"
+
+#. module: email_template
+#: view:email_template.send.wizard:0
+msgid "Add here all attachments of the current document you want to include in the Email."
+msgstr "เพิ่มในที่นี้สิ่งที่แนบทั้งหมดของเอกสารปัจจุบันที่คุณต้องการรวมไว้ในอีเมล์"
+
+#. module: email_template
+#: help:email.template,lang:0
+msgid "The default language for the email. Placeholders can be used here. eg. ${object.partner_id.lang}"
+msgstr "ภาษาเริ่มต้นสำหรับอีเมล Placeholders สามารถนำมาใช้ที่นี่ เช่น $ {object.partner_id.lang}"
+
+#. module: email_template
+#: help:email.template,sub_model_object_field:0
+msgid "When you choose relationship fields this field will specify the sub value you can use."
+msgstr "เมื่อคุณเลือกเขตข้อมูลความสัมพันธ์ด้านนี้จะระบุค่าย่อยคุณสามารถใช้"
+
+#. module: email_template
+#: selection:email_template.send.wizard,state:0
+msgid "Wizard Complete"
+msgstr "ตัวช่วยสร้างเสร็จสมบูรณ์"
+
+#. module: email_template
+#: field:email.template,reply_to:0
+#: field:email_template.mailbox,reply_to:0
+#: field:email_template.preview,reply_to:0
+#: field:email_template.send.wizard,reply_to:0
+msgid "Reply-To"
+msgstr "ให้ตอบกลับ"
+
+#. module: email_template
+#: view:email.template:0
+msgid "Delete Action"
+msgstr "การกระทำลบ"
+
+#. module: email_template
+#: view:email_template.account:0
+msgid "Approve Account"
+msgstr "บัญชีอนุมัติ"
+
+#. module: email_template
+#: field:email_template.preview,rel_model_ref:0
+#: field:email_template.send.wizard,rel_model_ref:0
+msgid "Referred Document"
+msgstr "เอกสารอ้างอิง"
+
+#. module: email_template
+#: field:email_template.send.wizard,full_success:0
+msgid "Complete Success"
+msgstr "ความสำเร็จเสร็จสมบูรณ์"
+
+#. module: email_template
+#: selection:email_template.account,send_pref:0
+msgid "Both HTML & Text (Mixed)"
+msgstr "ทั้ง HTM​​L และ Text (Mixed)"
+
+#. module: email_template
+#: view:email_template.preview:0
+msgid "OK"
+msgstr "OK"
+
+#. module: email_template
+#: field:email_template.account,auto_delete:0
+msgid "Auto Delete"
+msgstr "ลบอัตโนมัติ"
+
+#. module: email_template
+#: selection:email_template.account,send_pref:0
+msgid "Both HTML & Text (Alternative)"
+msgstr "ทั้ง HTM​​L และ Text (Alternative)"
+
+#. module: email_template
+#: field:email_template.send.wizard,requested:0
+msgid "No of requested Mails"
+msgstr "จำนวนอีเมลที่ร้องขอ"
+
+#. module: email_template
+#: field:email.template,def_body_text:0
+#: view:email_template.mailbox:0
+#: field:email_template.mailbox,body_text:0
+msgid "Standard Body (Text)"
+msgstr "Body Standard (Text)"
+
+#. module: email_template
+#: field:email.template,attachment_ids:0
+msgid "Attached Files"
+msgstr "ไฟล์ที่แนบมา"
+
+#. module: email_template
+#: field:email_template.account,smtpssl:0
+msgid "SSL/TLS (only in python 2.6)"
+msgstr "SSL / TLS (เฉพาะใน Python 2.6)"
+
+#. module: email_template
+#: field:email_template.account,email_id:0
+msgid "From Email"
+msgstr "จากอีเมล"
+
+#. module: email_template
+#: code:addons/email_template/email_template.py:304
+#, python-format
+msgid "Warning"
+msgstr "การเตือน"
+
+#. module: email_template
+#: model:ir.actions.act_window,name:email_template.action_email_template_account_tree_all
+msgid "Accounts"
+msgstr "บัญชีผู้ใช้"
+
+#. module: email_template
+#: view:email_template.preview:0
+msgid "Body(Text)"
+msgstr "ร่างกาย (Text)"
+
+#. module: email_template
+#: view:email_template.mailbox:0
+msgid "Company Emails"
+msgstr "อีเมล์ บริษัท"
+
+#. module: email_template
+#: view:email_template.send.wizard:0
+msgid "Tip: Multiple emails are sent in the same language (the first one is proposed). We suggest you send emails in groups according to language."
+msgstr "เคล็ดลับ : อีเมลแต่ละรายการจะถูกส่งไปในภาษาเดียวกัน (คือคนแรกที่นำเสนอ) เราขอแนะนำให้คุณส่งอีเมลในกลุ่มตามภาษา"
+
+#. module: email_template
+#: help:email_template.preview,reply_to:0
+#: help:email_template.send.wizard,reply_to:0
+msgid "The address recipients should reply to, if different from the From address. Placeholders can be used here."
+msgstr "ผู้รับที่อยู่ควรตอบกลับหากแตกต่างจากที่อยู่จากที่ Placeholders สามารถนำมาใช้ที่นี่"
+
+#. module: email_template
+#: field:email.template,def_subject:0
+#: field:email_template.mailbox,subject:0
+#: field:email_template.preview,subject:0
+#: field:email_template.send.wizard,subject:0
+msgid "Subject"
+msgstr "เรื่อง"
+
+#. module: email_template
+#: code:addons/email_template/email_template_account.py:256
+#, python-format
+msgid "Reason: %s"
+msgstr "เหตุผล :%s"
+
+#. module: email_template
+#: field:email_template.mailbox,email_from:0
+msgid "From"
+msgstr "จาก"
+
+#. module: email_template
+#: field:email_template.preview,ref_template:0
+#: field:email_template.send.wizard,ref_template:0
+msgid "Template"
+msgstr "แบบ"
+
+#. module: email_template
+#: code:addons/email_template/email_template_account.py:367
+#, python-format
+msgid "Mail from Account %s failed. Probable Reason: Server Send Error\n"
+" Description: %s"
+msgstr "จดหมายจากบัญชี%s ล้มเหลว เหตุผล Probable : Server ส่งรายละเอียดข้อผิดพลาด :%s"
+
+#. module: email_template
+#: view:email.template:0
+msgid "Insert Simple Field"
+msgstr "แทรกเขตข้อมูลง่าย"
+
+#. module: email_template
+#: view:email_template.preview:0
+msgid "Body(Html)"
+msgstr "บอดี้ (HTML)"
+
+#. module: email_template
+#: help:email.template,def_bcc:0
+msgid "Blind Carbon Copy address(es), comma-separated. Placeholders can be used here. e.g. ${object.email_bcc}"
+msgstr "ที่อยู่ Blind Carbon Copy (ES) คั่นด้วยเครื่องหมายจุลภาค Placeholders สามารถนำมาใช้ที่นี่ เช่น $ {object.email_bcc}"
+
+#. module: email_template
+#: model:ir.actions.act_window,name:email_template.wizard_email_template_preview
+msgid "Template Preview"
+msgstr "แสดงตัวอย่างแม่แบบ"
+
+#. module: email_template
+#: field:email.template,def_body_html:0
+msgid "Body (Text-Web Client Only)"
+msgstr "ร่างกาย (Client ข้อความ Web - Only)"
+
+#. module: email_template
+#: field:email_template.account,state:0
+#: view:email_template.mailbox:0
+msgid "State"
+msgstr "ของรัฐ"
+
+#. module: email_template
+#: field:email.template,ref_ir_value:0
+msgid "Wizard Button"
+msgstr "ปุ่มตัวช่วยสร้าง"
+
+#. module: email_template
+#: help:email_template.account,email_id:0
+msgid "eg: 'john@doe.com' or 'John Doe <john@doe.com>'"
+msgstr "เช่น :&#39;john@doe.com&#39;หรือ&#39;John Doe <john@doe.com> &#39;"
+
+#. module: email_template
+#: view:email.template:0
+#: field:email.template,object_name:0
+msgid "Resource"
+msgstr "ทรัพยากร"
+
+#. module: email_template
+#: code:addons/email_template/email_template_account.py:255
+#, python-format
+msgid "Out going connection test failed"
+msgstr "ออกจะทดสอบการเชื่อมต่อล้มเหลว"
+
+#. module: email_template
+#: code:addons/email_template/email_template_account.py:371
+#, python-format
+msgid "Mail from Account %s successfully Sent."
+msgstr "จดหมายจากบัญชี%s เรียบร้อยแล้ว"
+
+#. module: email_template
+#: view:email_template.mailbox:0
+msgid "Standard Body"
+msgstr "บอดี้มาตรฐาน"
+
+#. module: email_template
+#: selection:email.template,template_language:0
+msgid "Mako Templates"
+msgstr "แม่แบบมะกอ"
+
+#. module: email_template
+#: help:email.template,def_body_html:0
+#: help:email.template,def_body_text:0
+msgid "The text version of the mail"
+msgstr "รูปแบบข้อความของจดหมาย"
+
+#. module: email_template
+#: code:addons/email_template/email_template.py:449
+#, python-format
+msgid " (Email Attachment)"
+msgstr "(เอกสารแนบอีเมล)"
+
+#. module: email_template
+#: selection:email_template.mailbox,folder:0
+msgid "Sent Items"
+msgstr "รายการที่ส่ง"
+
+#. module: email_template
+#: view:email_template.account:0
+msgid "Test Outgoing Connection"
+msgstr "ทดสอบการเชื่อมต่อขาออก"
+
+#. module: email_template
+#: model:ir.actions.act_window,name:email_template.action_email_template_mailbox
+msgid "Mailbox"
+msgstr "ตู้จดหมาย"
+
+#. module: email_template
+#: help:email.template,reply_to:0
+msgid "The address recipients should reply to, if different from the From address. Placeholders can be used here. e.g. ${object.email_reply_to}"
+msgstr "ผู้รับที่อยู่ควรตอบกลับหากแตกต่างจากที่อยู่จากที่ Placeholders สามารถนำมาใช้ที่นี่ เช่น {object.email_reply_to} $"
+
+#. module: email_template
+#: help:email.template,ref_ir_value:0
+msgid "Button in the side bar of the form view of this Resource that will invoke the Window Action"
+msgstr "ปุ่มในแถบด้านข้างของมุมมองรูปแบบของเว็บนี้ที่จะเรียกหน้าต่างการดำเนินการ"
+
+#. module: email_template
+#: field:email_template.mailbox,account_id:0
+msgid "User account"
+msgstr "บัญชีผู้ใช้"
+
+#. module: email_template
+#: field:email_template.send.wizard,signature:0
+msgid "Attach my signature to mail"
+msgstr "ลายเซ็นของฉันแนบกับจดหมาย"
+
+#. module: email_template
+#: code:addons/email_template/wizard/email_template_send_wizard.py:255
+#: view:email.template:0
+#, python-format
+msgid "Report"
+msgstr "รายงาน"
+
+#. module: email_template
+#: field:email.template,sub_model_object_field:0
+msgid "Sub Field"
+msgstr "เขตข้อมูลย่อย"
+
+#. module: email_template
+#: view:email.template:0
+#: view:email_template.mailbox:0
+msgid "Advanced"
+msgstr "ขั้นสูง"
+
+#. module: email_template
+#: view:email_template.mailbox:0
+msgid "My Emails"
+msgstr "อีเมลของฉัน"
+
+#. module: email_template
+#: view:email.template:0
+msgid "Expression Builder"
+msgstr "Expression Builder"
+
+#. module: email_template
+#: help:email.template,sub_object:0
+msgid "When a relation field is used this field will show you the type of field you have selected"
+msgstr "เมื่อเขตข้อมูลความสัมพันธ์จะใช้เขตข้อมูลนี้จะแสดงชนิดของเขตข้อมูลที่คุณได้เลือก"
+
+#. module: email_template
+#: selection:email_template.mailbox,mail_type:0
+msgid "HTML Body"
+msgstr "HTML ร่างกาย"
+
+#. module: email_template
+#: view:email_template.account:0
+msgid "Suspend Account"
+msgstr "ระงับบัญชี"
+
+#. module: email_template
+#: help:email.template,null_value:0
+msgid "This Value is used if the field is empty"
+msgstr "ค่านี้จะถูกใช้ถ้าสนามว่างเปล่า"
+
+#. module: email_template
+#: view:email.template:0
+msgid "Preview Template"
+msgstr "แสดงตัวอย่างแม่แบบ"
+
+#. module: email_template
+#: field:email_template.account,smtpserver:0
+msgid "Server"
+msgstr "Server"
+
+#. module: email_template
+#: help:email.template,copyvalue:0
+msgid "Copy and paste the value in the location you want to use a system value."
+msgstr "คัดลอกและวางค่าในตำแหน่งที่คุณต้องการใช้ค่าระบบ"
+
+#. module: email_template
+#: help:email.template,track_campaign_item:0
+msgid "Enable this is you wish to include a special tracking marker in outgoing emails so you can identify replies and link them back to the corresponding resource record. This is useful for CRM leads for example"
+msgstr "เปิดใช้งานนี้คือคุณต้องการให้มีการติดตามเครื่องหมายพิเศษในอีเมลขาออกเพื่อให้คุณสามารถระบุการตอบกลับและการเชื่อมโยงกลับไปยังระเบียนทรัพยากรที่สอดคล้องกัน ซึ่งจะเป็นประโยชน์สำหรับ CRM นำตัวอย่างเช่น"
+
+#. module: email_template
+#: view:email.template:0
+msgid "Body (Raw HTML)"
+msgstr "บอดี้ (HTML Raw)"
+
+#. module: email_template
+#: field:email.template,use_sign:0
+msgid "Signature"
+msgstr "ลายเซ็น"
+
+#. module: email_template
+#: field:email.template,sub_object:0
+msgid "Sub-model"
+msgstr "Sub - รูปแบบ"
+
+#. module: email_template
+#: view:email.template:0
+msgid "Options"
+msgstr "Options"
+
+#. module: email_template
+#: view:email_template.send.wizard:0
+msgid "Body (Plain Text)"
+msgstr "ร่างกาย (ข้อความธรรมดา)"
+
+#. module: email_template
+#: view:email.template:0
+msgid "Body (Text)"
+msgstr "ร่างกาย (Text)"
+
+#. module: email_template
+#: field:email_template.mailbox,date_mail:0
+msgid "Rec/Sent Date"
+msgstr "Rec / ส่งวันที่"
+
+#. module: email_template
+#: selection:email_template.account,state:0
+msgid "Initiated"
+msgstr "ริเริ่ม"
+
+#. module: email_template
+#: field:email.template,report_template:0
+msgid "Report to send"
+msgstr "รายงานการส่ง"
+
+#. module: email_template
+#: view:email_template.account:0
+msgid "Server Information"
+msgstr "ข้อมูลเซิร์ฟเวอร์"
+
+#. module: email_template
+#: field:email_template.send.wizard,generated:0
+msgid "No of generated Mails"
+msgstr "จำนวนอีเมลที่สร้างขึ้น"
+
+#. module: email_template
+#: view:email.template:0
+msgid "Mail Details"
+msgstr "Mail รายละเอียด"
+
+#. module: email_template
+#: code:addons/email_template/email_template_account.py:235
+#, python-format
+msgid "SMTP SERVER or PORT not specified"
+msgstr "SMTP Server หรือ PORT ที่ไม่ได้ระบุ"
+
+#. module: email_template
+#: view:email.template:0
+msgid "Note: This is Raw HTML."
+msgstr "หมายเหตุ : นี่เป็น Raw HTML"
+
+#. module: email_template
+#: view:email.template:0
+msgid "Group by..."
+msgstr "โดย ... กลุ่ม"
+
+#. module: email_template
+#: selection:email_template.send.wizard,state:0
+msgid "Multiple Mail Wizard Step 1"
+msgstr "หลายขั้นตอนที่ 1 ตัวช่วยสร้างจดหมาย"
+
+#. module: email_template
+#: field:email_template.account,user:0
+msgid "Related User"
+msgstr "ผู้ใช้ที่เกี่ยวข้อง"
+
+#. module: email_template
+#: field:email_template.mailbox,body_html:0
+msgid "Body (Rich Text Clients Only)"
+msgstr "ร่างกาย (ลูกค้า Rich Text Only)"
+
+#. module: email_template
+#: selection:email_template.account,company:0
+msgid "Yes"
+msgstr "ใช่"
+
+#. module: email_template
+#: field:email.template,ref_ir_act_window:0
+msgid "Window Action"
+msgstr "Action Window"
+
+#. module: email_template
+#: selection:email_template.account,send_pref:0
+msgid "HTML, otherwise Text"
+msgstr "HTML มิฉะนั้นข้อความ"
+
+#. module: email_template
+#: view:email_template.mailbox:0
+#: selection:email_template.mailbox,folder:0
+msgid "Drafts"
+msgstr "ร่างจดหมาย"
+
+#. module: email_template
+#: selection:email_template.account,company:0
+msgid "No"
+msgstr "ไม่มี"
+
+#. module: email_template
+#: field:email_template.account,smtpport:0
+msgid "SMTP Port"
+msgstr "Port SMTP"
+
+#. module: email_template
+#: field:email_template.mailbox,mail_type:0
+msgid "Mail Contents"
+msgstr "สารบัญ Mail"
+
+#. module: email_template
+#: sql_constraint:email.template:0
+msgid "The template name must be unique !"
+msgstr "ชื่อแม่ต้องไม่ซ้ำกัน!"
+
+#. module: email_template
+#: field:email.template,def_bcc:0
+#: field:email_template.mailbox,email_bcc:0
+#: field:email_template.preview,bcc:0
+#: field:email_template.send.wizard,bcc:0
+msgid "BCC"
+msgstr "BCC"
+
+#. module: email_template
+#: selection:email_template.mailbox,mail_type:0
+msgid "Plain Text"
+msgstr "ข้อความธรรมดา"
+
+#. module: email_template
+#: view:email_template.account:0
+msgid "Draft"
+msgstr "ร่าง"
+
+#. module: email_template
+#: field:email.template,model_int_name:0
+msgid "Model Internal Name"
+msgstr "Model ชื่อภายใน"
+
+#. module: email_template
+#: field:email.template,message_id:0
+#: field:email_template.mailbox,message_id:0
+#: field:email_template.preview,message_id:0
+#: field:email_template.send.wizard,message_id:0
+msgid "Message-ID"
+msgstr "Message - ID"
+
+#. module: email_template
+#: help:email_template.mailbox,server_ref:0
+msgid "Applicable for inward items only"
+msgstr "ใช้งานได้สำหรับรายการขาเข้าเท่านั้น"
+
+#. module: email_template
+#: view:email_template.send.wizard:0
+msgid "After clicking send all mails, mails will be sent to outbox and cleared in next Send/Recieve"
+msgstr "หลังจากคลิกส่งเมลทั้งหมด, จดหมายจะถูกส่งไปยังกล่องขาออกและลบในถัดไปส่ง / Recieve"
+
+#. module: email_template
+#: field:email_template.mailbox,state:0
+#: field:email_template.send.wizard,state:0
+msgid "Status"
+msgstr "สถานะ"
+
+#. module: email_template
+#: view:email_template.account:0
+msgid "Outgoing"
+msgstr "ขาออก"
+
+#. module: email_template
+#: code:addons/email_template/email_template_account.py:427
+#, python-format
+msgid "Datetime Extraction failed.Date:%s                       	Error:%s"
+msgstr "วันที่และเวลาสกัด failed.Date : ข้อผิดพลาดใน%s :%s"
+
+#. module: email_template
+#: help:email.template,use_sign:0
+msgid "the signature from the User details will be appended to the mail"
+msgstr "ลายเซ็นจากรายละเอียดผู้ใช้จะได้รับการผนวกเข้ากับอีเมล"
+
+#. module: email_template
+#: field:email_template.send.wizard,from:0
+msgid "From Account"
+msgstr "บัญชีผู้โอน"
+
+#. module: email_template
+#: selection:email_template.mailbox,mail_type:0
+msgid "Intermixed content"
+msgstr "เนื้อหา Intermixed"
+
+#. module: email_template
+#: view:email_template.account:0
+msgid "Request Re-activation"
+msgstr "ขอเปิดใช้งานอีกครั้ง"
+
+#. module: email_template
+#: view:email.template:0
+#: model:ir.actions.act_window,name:email_template.action_email_template_tree_all
+#: model:ir.ui.menu,name:email_template.menu_email_template_all
+#: model:ir.ui.menu,name:email_template.menu_email_template_all_tools
+msgid "Email Templates"
+msgstr "แม่แบบอีเมล์"
+
+#. module: email_template
+#: field:email_template.account,smtpuname:0
+msgid "User Name"
+msgstr "ชื่อผู้ใช้"
+
+#. module: email_template
+#: field:email_template.mailbox,user:0
+msgid "User"
+msgstr "ของผู้ใช้"
+
+#. module: email_template
+#: view:email.template:0
+msgid "Advanced Options"
+msgstr "ตัวเลือกขั้นสูง"
+
+#. module: email_template
+#: view:email_template.mailbox:0
+#: selection:email_template.mailbox,folder:0
+msgid "Outbox"
+msgstr "กล่องขาออก"
+
+#. module: email_template
+#: view:email_template.send.wizard:0
+msgid "Save in Drafts"
+msgstr "บันทึกในแบบร่าง"
+
+#. module: email_template
+#: code:addons/email_template/email_template_account.py:362
+#, python-format
+msgid "Mail from Account %s failed. Probable Reason:MIME Error\n"
+"Description: %s"
+msgstr "จดหมายจากบัญชี%s ล้มเหลว เหตุผล Probable : คำอธิบายข้อผิดพลาดไมม์ :%s"
+
+#. module: email_template
+#: field:email_template.account,smtptls:0
+msgid "TLS"
+msgstr "TLS"
+
+#. module: email_template
+#: field:email.template,lang:0
+msgid "Language"
+msgstr "ภาษา"
+
+#. module: email_template
+#: code:addons/email_template/email_template_account.py:275
+#: code:addons/email_template/email_template_account.py:280
+#: code:addons/email_template/email_template_account.py:362
+#: code:addons/email_template/email_template_account.py:371
+#: code:addons/email_template/email_template_account.py:374
+#: code:addons/email_template/email_template_account.py:424
+#: code:addons/email_template/wizard/email_template_send_wizard.py:201
+#: model:ir.ui.menu,name:email_template.menu_email_template
+#: model:ir.ui.menu,name:email_template.menu_email_template_config_tools
+#: model:ir.ui.menu,name:email_template.menu_email_template_configuration
+#: model:ir.ui.menu,name:email_template.menu_email_template_tools
+#, python-format
+msgid "Email Template"
+msgstr "แม่แบบอีเมล์"
+
+#. module: email_template
+#: view:email_template.account:0
+msgid "Send/Receive"
+msgstr "ส่ง / รับ"
+
+#. module: email_template
+#: model:ir.ui.menu,name:email_template.menu_email_template_personal_mails
+msgid "Personal Mails"
+msgstr "อีเมลส่วนบุคคล"
+
+#. module: email_template
+#: view:email_template.account:0
+#: selection:email_template.account,state:0
+msgid "Suspended"
+msgstr "ที่ถูกระงับ"
+
+#. module: email_template
+#: help:email.template,allowed_groups:0
+msgid "Only users from these groups will be allowed to send mails from this Template"
+msgstr "เฉพาะผู้ใช้จากกลุ่มคนเหล่านี้จะได้รับอนุญาตให้ส่งเมลได้จากแม่แบบนี้"
+
+#. module: email_template
+#: code:addons/email_template/email_template.py:284
+#, python-format
+msgid "Send Mail (%s)"
+msgstr "ส่ง Mail (%s)"
+
+#. module: email_template
+#: help:email.template,def_subject:0
+msgid "The subject of email. Placeholders can be used here."
+msgstr "หัวข้อของอีเมล Placeholders สามารถนำมาใช้ที่นี่"
+
+#. module: email_template
+#: field:email_template.send.wizard,report:0
+msgid "Report File Name"
+msgstr "ชื่อไฟล์รายงาน"
+
+#. module: email_template
+#: field:email.template,copyvalue:0
+msgid "Expression"
+msgstr "การแสดงออก"
+
+#. module: email_template
+#: view:email_template.mailbox:0
+#: field:email_template.mailbox,history:0
+msgid "History"
+msgstr "ประวัติ"
+
+#. module: email_template
+#: view:email.template:0
+#: view:email_template.mailbox:0
+#: field:email_template.mailbox,attachments_ids:0
+#: view:email_template.send.wizard:0
+#: field:email_template.send.wizard,attachment_ids:0
+msgid "Attachments"
+msgstr "สิ่งที่แนบมา"
+
+#. module: email_template
+#: field:email_template.preview,to:0
+#: field:email_template.send.wizard,to:0
+msgid "To"
+msgstr "เมื่อต้องการ"
+
+#. module: email_template
+#: selection:email_template.account,send_pref:0
+msgid "Text, otherwise HTML"
+msgstr "Text, HTML เป็นอย่างอื่น"
+
+#. module: email_template
+#: code:addons/email_template/email_template.py:319
+#, python-format
+msgid "Copy of template %s"
+msgstr "สำเนาแม่แบบ%s"
+
+#. module: email_template
+#: view:email_template.send.wizard:0
+msgid "Discard Mail"
+msgstr "Mail ยกเลิก"
+
+#. module: email_template
+#: model:ir.model,name:email_template.model_email_template
+msgid "Email Templates for Models"
+msgstr "อีเมล์แม่แบบสำหรับรุ่นที่"
+
+#. module: email_template
+#: view:email_template.send.wizard:0
+msgid "Close"
+msgstr "ปิด"
+
+#. module: email_template
+#: code:addons/email_template/email_template_mailbox.py:49
+#, python-format
+msgid "Error sending mail: %s"
+msgstr "ข้อผิดพลาดในการส่ง mail :%s"
+
+#. module: email_template
+#: constraint:email_template.account:0
+msgid "Error: You are not allowed to have more than 1 account."
+msgstr "ข้อผิดพลาด : คุณยังไม่ได้รับอนุญาตให้มีมากกว่า 1 บัญชี"
+
+#. module: email_template
+#: view:email_template.mailbox:0
+msgid "Body (HTML-Web Client Only)"
+msgstr "ร่างกาย (Client Web - HTML เท่านั้น)"
+
+#. module: email_template
+#: code:addons/email_template/wizard/email_template_send_wizard.py:253
+#, python-format
+msgid "%s (Email Attachment)"
+msgstr "%s (เอกสารแนบอีเมล)"
+
+#. module: email_template
+#: selection:email_template.mailbox,state:0
+msgid "Sending"
+msgstr "การส่ง"
+
+#. module: email_template
+#: model:ir.actions.act_window,help:email_template.action_email_template_mailbox
+msgid "An email template is an email document that will be sent as part of a marketing campaign. You can personalize it according to specific customer profile fields, so that a partner name or other partner related information may be inserted automatically."
+msgstr "แม่แบบอีเมล์เป็นเอกสารอีเมลที่จะถูกส่งเป็นส่วนหนึ่งของแคมเปญการตลาด คุณสามารถปรับได้ตามเขตข้อมูลที่เฉพาะเจาะจงกลุ่มลูกค้าเพื่อให้ชื่อเป็นหุ้นส่วนหรือพันธมิตรข้อมูลอื่น ๆ ที่เกี่ยวข้องอาจจะแทรกโดยอัตโนมัติ"
+
+#. module: email_template
+#: field:email.template,allowed_groups:0
+msgid "Allowed User Groups"
+msgstr "อนุญาติให้กลุ่มผู้ใช้"
+
+#. module: email_template
+#: field:email.template,model_object_field:0
+msgid "Field"
+msgstr "เขตข้อมูล"
+
+#. module: email_template
+#: view:email_template.account:0
+msgid "User Information"
+msgstr "ข้อมูลผู้ใช้"
+
+#. module: email_template
+#: view:email.template:0
+msgid "Actions"
+msgstr "การกระทำ"
+
+#. module: email_template
+#: code:addons/email_template/email_template_account.py:363
+#: code:addons/email_template/email_template_account.py:368
+#, python-format
+msgid "Server Send Error\n"
+"Description: %s"
+msgstr "Server ส่งรายละเอียดข้อผิดพลาด :%s"
+
+#. module: email_template
+#: help:email.template,file_name:0
+msgid "Name of the generated report file. Placeholders can be used in the filename. eg: 2009_SO003.pdf"
+msgstr "ชื่อของแฟ้มรายงานที่สร้างขึ้น Placeholders สามารถนำไปใช้ในชื่อไฟล์ เช่น : 2009_SO003.pdf"
+
+#. module: email_template
+#: help:email_template.mailbox,date_mail:0
+msgid "Date on which Email Sent or Received"
+msgstr "วันที่ส่งหรือได้รับอีเมล์"
+
+#. module: email_template
+#: view:email_template.mailbox:0
+#: selection:email_template.mailbox,folder:0
+msgid "Trash"
+msgstr "ขยะ"
+
+#. module: email_template
+#: model:ir.model,name:email_template.model_email_template_mailbox
+msgid "Email Mailbox"
+msgstr "กล่องจดหมายอีเมล"
+
+#. module: email_template
+#: code:addons/email_template/email_template_mailbox.py:116
+#, python-format
+msgid "Sending of Mail %s failed. Probable Reason:Could not login to server\n"
+"Error: %s"
+msgstr "การส่งจดหมายของ%s ล้มเหลว น่าจะเป็นเหตุผลที่ : ไม่สามารถเข้าสู่เซิร์ฟเวอร์เกิดข้อผิดพลาด :%s"
+
+#. module: email_template
+#: code:addons/email_template/wizard/email_template_send_wizard.py:60
+#, python-format
+msgid "Missing mail account"
+msgstr "บัญชีอีเมลที่หายไป"
+
+#. module: email_template
+#: code:addons/email_template/email_template_account.py:250
+#, python-format
+msgid "SMTP Test Connection Was Successful"
+msgstr "SMTP ทดสอบการเชื่อมต่อสำเร็จแล้ว"
+
+#. module: email_template
+#: model:ir.module.module,shortdesc:email_template.module_meta_information
+msgid "Email Template for OpenERP"
+msgstr "อีเมล์แม่แบบสำหรับ OpenERP"
+
+#. module: email_template
+#: field:email_template.account,name:0
+msgid "Description"
+msgstr "ลักษณะ"
+
+#. module: email_template
+#: view:email.template:0
+msgid "Create Action"
+msgstr "สร้างการกระทำ"
+
+#. module: email_template
+#: help:email_template.account,smtpserver:0
+msgid "Enter name of outgoing server, eg: smtp.yourdomain.com"
+msgstr "ป้อนชื่อของเซิร์ฟเวอร์ขาออก, เช่น : smtp.yourdomain.com"
+
+#. module: email_template
+#: help:email.template,attachment_ids:0
+msgid "You may attach existing files to this template, so they will be added in all emails created from this template"
+msgstr "คุณอาจจะแนบไฟล์ที่มีอยู่ให้กับแม่แบบนี้เพื่อให้พวกเขาจะถูกเพิ่มในอีเมลทั้งหมดที่สร้างขึ้นจากแม่แบบนี้"
+
+#. module: email_template
+#: help:email.template,message_id:0
+msgid "Specify the Message-ID SMTP header to use in outgoing emails. Please note that this overrides the Resource tracking option! Placeholders can be used here."
+msgstr "ระบุ Message - ID ส่วนหัวของ SMTP ที่จะใช้ในอีเมลขาออก โปรดทราบว่าตัวเลือกนี้จะแทนที่การติดตามทรัพยากร! Placeholders สามารถนำมาใช้ที่นี่"
+
+#. module: email_template
+#: field:email.template,def_to:0
+#: field:email_template.mailbox,email_to:0
+msgid "Recipient (To)"
+msgstr "ผู้รับ (To)"
+
+#. module: email_template
+#: field:email.template,null_value:0
+msgid "Null Value"
+msgstr "ค่า Null"
+
+#. module: email_template
+#: field:email.template,template_language:0
+msgid "Templating Language"
+msgstr "ภาษา Templating"
+
+#. module: email_template
+#: field:email.template,def_cc:0
+#: field:email_template.mailbox,email_cc:0
+#: field:email_template.preview,cc:0
+#: field:email_template.send.wizard,cc:0
+msgid "CC"
+msgstr "CC"
+
+#. module: email_template
+#: view:email_template.mailbox:0
+msgid "Sent"
+msgstr "ที่ถูกส่ง"
+
+#. module: email_template
+#: sql_constraint:email_template.account:0
+msgid "Another setting already exists with this email ID !"
+msgstr "การตั้งค่ากันอยู่แล้วกับ ID อีเมลนี้!"
+
+#. module: email_template
+#: help:email.template,ref_ir_act_window:0
+msgid "Action that will open this email template on Resource records"
+msgstr "การกระทำที่จะเปิดแม่แบบอีเมลในระเบียนทรัพยากร"
+
+#. module: email_template
+#: field:email_template.account,smtppass:0
+msgid "Password"
+msgstr "รหัสผ่าน"
+
+#. module: email_template
+#: help:email_template.preview,message_id:0
+#: help:email_template.send.wizard,message_id:0
+msgid "The Message-ID header value, if you need tospecify it, for example to automatically recognize the replies later. Placeholders can be used here."
+msgstr "ค่าส่วนหัว Message - ID หากคุณต้องการ tospecify มันเช่นเพื่อจะรับรู้การตอบกลับในภายหลัง Placeholders สามารถนำมาใช้ที่นี่"
+
+#. module: email_template
+#: view:email_template.mailbox:0
+#: model:ir.ui.menu,name:email_template.menu_email_template_mails_tools
+msgid "Emails"
+msgstr "อีเมล์"
+
+#. module: email_template
+#: view:email.template:0
+msgid "Templates"
+msgstr "แม่แบบ"
+
+#. module: email_template
+#: field:email_template.preview,report:0
+msgid "Report Name"
+msgstr "ชื่อรายงาน"
+
+#. module: email_template
+#: field:email.template,name:0
+msgid "Name"
+msgstr "ชื่อ"
+
+#. module: email_template
+#: field:email.template,track_campaign_item:0
+msgid "Resource Tracking"
+msgstr "ทรัพยากรการติดตาม"
+
+#. module: email_template
+#: model:ir.model,name:email_template.model_email_template_preview
+msgid "Email Template Preview"
+msgstr "แสดงตัวอย่างแม่แบบอีเมล์"
+
+#. module: email_template
+#: view:email_template.preview:0
+msgid "Email Preview"
+msgstr "อีเมล์ตัวอย่าง"
+
+#. module: email_template
+#: help:email.template,def_to:0
+msgid "The Recipient of email. Placeholders can be used here. e.g. ${object.email_to}"
+msgstr "ผู้รับของอีเมล Placeholders สามารถนำมาใช้ที่นี่ เช่น {object.email_to} $"
+
+#. module: email_template
+#: view:email.template:0
+msgid "Existing files"
+msgstr "ไฟล์ที่มีอยู่"
+
+#. module: email_template
+#: model:ir.module.module,description:email_template.module_meta_information
+msgid "\n"
+"    Email Template is extraction of Power Email basically just to send the emails.\n"
+"    "
+msgstr "อีเมล์เป็นแม่แบบของอีเมล์ Power สกัดพื้นเพียงแค่ส่งอีเมล"
+
+#. module: email_template
+#: view:email_template.send.wizard:0
+msgid "Body (HTML)"
+msgstr "บอดี้ (HTML)"
+
+#. module: email_template
+#: help:email.template,table_html:0
+msgid "Copy this html code to your HTML message body for displaying the info in your mail."
+msgstr "คัดลอกโค้ด HTML นี้กับตัวข้อความของคุณ HTML สำหรับการแสดงข้อมูลในจดหมายของคุณ"
+
+#. module: email_template
+#: model:ir.model,name:email_template.model_email_template_account
+msgid "email_template.account"
+msgstr "email_template.account"
+
+#. module: email_template
+#: field:email_template.preview,rel_model:0
+#: field:email_template.send.wizard,rel_model:0
+msgid "Model"
+msgstr "โมเดล"
+
+#. module: email_template
+#: code:addons/email_template/email_template_account.py:236
+#, python-format
+msgid "Core connection for the given ID does not exist"
+msgstr "การเชื่อมต่อ Core สำหรับ ID ที่กำหนดไม่พบ"
+
+#. module: email_template
+#: field:email_template.account,company:0
+msgid "Corporate"
+msgstr "Corporate"
+
+#. module: email_template
+#: code:addons/email_template/email_template_account.py:275
+#, python-format
+msgid "Mail from Account %s failed on login. Probable Reason:Could not login to server\n"
+"Error: %s"
+msgstr "จดหมายจากบัญชี%s ล้มเหลวในการเข้าสู่ระบบ น่าจะเป็นเหตุผลที่ : ไม่สามารถเข้าสู่เซิร์ฟเวอร์เกิดข้อผิดพลาด :%s"
+
+#. module: email_template
+#: model:ir.model,name:email_template.model_email_template_send_wizard
+msgid "This is the wizard for sending mail"
+msgstr "นี้เป็นตัวช่วยในการส่งจดหมาย"
+
+#. module: email_template
+#: view:email.template:0
+msgid "Addresses"
+msgstr "ที่อยู่ที่"
+
+#. module: email_template
+#: help:email.template,from_account:0
+msgid "Emails will be sent from this approved account."
+msgstr "อีเมลจะถูกส่งออกจากบัญชีนี้ได้รับการอนุมัติ"
+
+#. module: email_template
+#: field:email_template.account,send_pref:0
+msgid "Mail Format"
+msgstr "รูปแบบจดหมาย"
+
+#. module: email_template
+#: field:email_template.mailbox,folder:0
+msgid "Folder"
+msgstr "โฟลเดอร์"
+
+#. module: email_template
+#: view:email_template.account:0
+msgid "Company Accounts"
+msgstr "บัญชีของ บริษัท"
+
+#. module: email_template
+#: help:email_template.account,smtpport:0
+msgid "Enter port number, eg: 25 or 587"
+msgstr "ป้อนหมายเลขพอร์ตเช่น : 25 หรือ 587"
+
+#. module: email_template
+#: code:addons/email_template/wizard/email_template_send_wizard.py:59
+#, python-format
+msgid "email-template"
+msgstr "แม่แบบอีเมล"
+
+#. module: email_template
+#: code:addons/email_template/email_template_account.py:280
+#: code:addons/email_template/email_template_account.py:374
+#: code:addons/email_template/email_template_account.py:375
+#, python-format
+msgid "Mail from Account %s failed. Probable Reason:Account not approved"
+msgstr "จดหมายจากบัญชี%s ล้มเหลว น่าจะเป็นเหตุผล : บัญชีไม่ได้รับอนุมัติ"
+
+#. module: email_template
+#: selection:email_template.send.wizard,state:0
+msgid "Simple Mail Wizard Step 1"
+msgstr "แบบง่ายขั้นตอนที่ 1 ตัวช่วยสร้างจดหมาย"
+
+#. module: email_template
+#: selection:email_template.mailbox,mail_type:0
+msgid "Has Attachments"
+msgstr "มีสิ่งที่แนบมา"
+
+#. module: email_template
+#: code:addons/email_template/email_template.py:452
+#: code:addons/email_template/wizard/email_template_send_wizard.py:256
+#, python-format
+msgid "No Description"
+msgstr "ไม่มีคำอธิบาย"
+
+

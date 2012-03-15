@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+
+    <record model="ir.ui.view" id="view_sradvance_product_tree">
+        <field name="name">sradvance.product.product.tree</field>
+        <field name="type">tree</field>
+        <field name="model">product.product</field>
+		<field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+        	<field name="name" position="after">
+				<field name="thick" />
+				<field name="product_width" />
+				<field name="product_length" />
+				<field name="weight" />
+				<field name="product_ft2" />
+			</field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_sradvance_product_tree_inherited">
+        <field name="name">sradvance.product.product.tree</field>
+        <field name="type">tree</field>
+        <field name="model">product.product</field>
+		<field name="inherit_id" ref="view_sradvance_product_tree"/>
+        <field name="arch" type="xml">
+        	<field name="state" position="before">
+				<field name="product_amount" />		
+			</field>
+        </field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_sradvance_product_form">
+        <field name="name">sradvance.product.product.form</field>
+        <field name="type">form</field>
+        <field name="model">product.product</field>
+		<field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+             <xpath expr="/form/notebook/page/group[@name='status']" position="before">
+				<group name="glass" col="2" colspan="2">
+					<separator colspan="2" string="Glass"/>
+                	<field name="thick" on_change="onchange_glass(thick,product_width,product_length)"/>
+					<field name="product_width" on_change="onchange_glass(thick,product_width,product_length)"/>
+					<field name="product_length" on_change="onchange_glass(thick,product_width,product_length)"/>
+					<field name="product_ft2" readonly="True" />
+					<field name="product_use_ft2" />				
+					<field name="product_use_m2" />			
+					<field name="no_print" />	
+				</group>
+            </xpath>
+	</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_sradvance_product_form2">
+        <field name="name">sradvance.product.product.form2</field>
+        <field name="type">form</field>
+        <field name="model">product.product</field>
+		<field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+             <xpath expr="/form/notebook/page/group[@name='uom']" position="replace">
+             	<group colspan="2" col="2" name="uom">
+					<separator string="Unit of Measure" colspan="2"/>
+					<field name="uom_category_id" />
+                	<field name="uom_id" on_change="onchange_uom(uom_id,uom_po_id)" domain="[('category_id','=',uom_category_id)]" />
+                	<field name="uom_po_id" groups="base.group_extended" domain="[('category_id','=',uom_category_id)]"/>
+                </group>
+            </xpath>
+	</field>
+    </record>
+    
+    
+    </data>
+</openerp>

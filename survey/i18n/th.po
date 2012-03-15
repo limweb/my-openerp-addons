@@ -1,0 +1,1671 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* survey
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.0-rc2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:16:11+0000\n"
+"PO-Revision-Date: 2011-01-11 11:16:11+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: survey
+#: view:survey.print:0
+#: view:survey.print.answer:0
+msgid "Print Option"
+msgstr "ตัวเลือกการพิมพ"
+
+#. module: survey
+#: code:addons/survey/survey.py:422
+#, python-format
+msgid "Minimum Required Answer you                                     entered is greater than the number of answer.                                      Please use a number that is smaller than %d."
+msgstr "ต่ำสุดที่ต้องการคำตอบที่คุณป้อนมีค่ามากกว่าจำนวนคำตอบ โปรดใช้ตัวเลขที่มีขนาดเล็กกว่า% d."
+
+#. module: survey
+#: view:survey.question.wiz:0
+msgid "Your Messages"
+msgstr "ข้อความของคุณ"
+
+#. module: survey
+#: field:survey.question,comment_valid_type:0
+#: field:survey.question,validation_type:0
+msgid "Text Validation"
+msgstr "ข้อความการตรวจสอบ"
+
+#. module: survey
+#: code:addons/survey/survey.py:434
+#, python-format
+msgid "Maximum Required Answer you                                     entered for your maximum is greater than the number of answer.                                      Please use a number that is smaller than %d."
+msgstr "สูงสุดที่ต้องการคำตอบที่คุณป้อนสูงสุดของคุณมากกว่าจำนวนของคำตอบ โปรดใช้ตัวเลขที่มีขนาดเล็กกว่า% d."
+
+#. module: survey
+#: view:survey:0
+#: field:survey,invited_user_ids:0
+msgid "Invited User"
+msgstr "ผู้ใช้ที่ได้รับเชิญ"
+
+#. module: survey
+#: selection:survey.answer,type:0
+msgid "Character"
+msgstr "อักขระ"
+
+#. module: survey
+#: model:ir.actions.act_window,name:survey.action_survey_form1
+#: model:ir.ui.menu,name:survey.menu_print_survey_form
+#: model:ir.ui.menu,name:survey.menu_reporting
+#: model:ir.ui.menu,name:survey.menu_survey_form
+#: model:ir.ui.menu,name:survey.menu_surveys
+msgid "Surveys"
+msgstr "แบบสำรวจ"
+
+#. module: survey
+#: view:survey:0
+msgid "Set to draft"
+msgstr "ตั้งเป็นร่าง"
+
+#. module: survey
+#: field:survey.question,in_visible_answer_type:0
+msgid "Is Answer Type Invisible?"
+msgstr "พิมพ์คำตอบจะมองไม่เห็น?"
+
+#. module: survey
+#: view:survey:0
+#: view:survey.page:0
+#: view:survey.question:0
+#: view:survey.request:0
+msgid "Group By..."
+msgstr "กลุ่มตาม ..."
+
+#. module: survey
+#: view:survey.send.invitation.log:0
+msgid "Results :"
+msgstr "ผลการศึกษา :"
+
+#. module: survey
+#: view:survey.request:0
+msgid "Survey Request"
+msgstr "ขอสำรวจ"
+
+#. module: survey
+#: selection:survey.question,required_type:0
+msgid "A Range"
+msgstr "Range"
+
+#. module: survey
+#: view:survey.response.line:0
+msgid "Table Answer"
+msgstr "คำตอบตารางที่"
+
+#. module: survey
+#: field:survey.history,date:0
+msgid "Date started"
+msgstr "วันที่เริ่มต้น"
+
+#. module: survey
+#: field:survey,history:0
+msgid "History Lines"
+msgstr "สายประวัติศาสตร์"
+
+#. module: survey
+#: code:addons/survey/survey.py:448
+#, python-format
+msgid "You must enter one or more menu                                 choices in column heading (white spaces not allowed)"
+msgstr "คุณต้องป้อนอย่างน้อยหนึ่งตัวเลือกของเมนูในส่วนหัวของคอลัมน์ (ช่องว่างสีขาวไม่ได้รับอนุญาต)"
+
+#. module: survey
+#: field:survey.question.column.heading,in_visible_menu_choice:0
+msgid "Is Menu Choice Invisible??"
+msgstr "ตัวเลือกเมนูจะมองไม่เห็น?"
+
+#. module: survey
+#: field:survey.send.invitation,mail:0
+msgid "Body"
+msgstr "ร่างกาย"
+
+#. module: survey
+#: field:survey.question,allow_comment:0
+msgid "Allow Comment Field"
+msgstr "อนุญาตให้แสดงความคิดเห็นฟิลด์"
+
+#. module: survey
+#: selection:survey.print,paper_size:0
+#: selection:survey.print.answer,paper_size:0
+msgid "A4 (210mm x 297mm)"
+msgstr "A4 (210 มม. x 297 มม. )"
+
+#. module: survey
+#: field:survey.question,comment_maximum_date:0
+#: field:survey.question,validation_maximum_date:0
+msgid "Maximum date"
+msgstr "วันที่สูงสุด"
+
+#. module: survey
+#: field:survey.question,in_visible_menu_choice:0
+msgid "Is Menu Choice Invisible?"
+msgstr "ตัวเลือกเมนูจะมองไม่เห็น?"
+
+#. module: survey
+#: view:survey:0
+msgid "Completed"
+msgstr "เสร็จ"
+
+#. module: survey
+#: selection:survey.question,required_type:0
+msgid "Exactly"
+msgstr "เผง"
+
+#. module: survey
+#: view:survey:0
+msgid "Open Date"
+msgstr "วันที่เปิด"
+
+#. module: survey
+#: view:survey.request:0
+msgid "Set to Draft"
+msgstr "ตั้งเป็นร่าง"
+
+#. module: survey
+#: field:survey.question,is_comment_require:0
+msgid "Add Comment Field"
+msgstr "เพิ่มความคิดเห็นฟิลด์"
+
+#. module: survey
+#: code:addons/survey/survey.py:401
+#, python-format
+msgid "#Required Answer you entered                                     is greater than the number of answer.                                     Please use a number that is smaller than %d."
+msgstr "# ที่ต้องการคำตอบที่คุณป้อนมีค่ามากกว่าจำนวนคำตอบ โปรดใช้ตัวเลขที่มีขนาดเล็กกว่า% d."
+
+#. module: survey
+#: field:survey.question,tot_resp:0
+msgid "Total Answer"
+msgstr "ตอบกลับทั้งหมด"
+
+#. module: survey
+#: field:survey.tbl.column.heading,name:0
+msgid "Row Number"
+msgstr "หมายเลขแถว"
+
+#. module: survey
+#: model:ir.model,name:survey.model_survey_name_wiz
+msgid "survey.name.wiz"
+msgstr "survey.name.wiz"
+
+#. module: survey
+#: model:ir.actions.act_window,name:survey.action_survey_question_form
+msgid "Survey Questions"
+msgstr "คำถามที่สำรวจ"
+
+#. module: survey
+#: selection:survey.question,type:0
+msgid "Matrix of Choices (Only One Answers Per Row)"
+msgstr "เดอะเมทริกซ์ของตัวเลือก (เฉพาะคำตอบหนึ่งต่อ Row)"
+
+#. module: survey
+#: code:addons/survey/survey.py:475
+#, python-format
+msgid "Maximum Required Answer you entered for your maximum is greater than the number of answer. Please use a number that is smaller than %d."
+msgstr "สูงสุดที่ต้องการคำตอบที่คุณป้อนสูงสุดของคุณมากกว่าจำนวนของคำตอบ โปรดใช้ตัวเลขที่มีขนาดเล็กกว่า% d."
+
+#. module: survey
+#: model:ir.actions.act_window,name:survey.action_view_survey_question_message
+#: model:ir.model,name:survey.model_survey_question
+#: view:survey:0
+#: view:survey.page:0
+#: view:survey.question:0
+msgid "Survey Question"
+msgstr "ตอบแบบสำรวจ"
+
+#. module: survey
+#: view:survey.question.column.heading:0
+msgid "Use if question type is rating_scale"
+msgstr "หากใช้ประเภทของคำถาม rating_scale"
+
+#. module: survey
+#: field:survey.print,page_number:0
+#: field:survey.print.answer,page_number:0
+msgid "Include Page Number"
+msgstr "จำนวนหน้ารวม"
+
+#. module: survey
+#: view:survey.page:0
+#: view:survey.question:0
+#: view:survey.send.invitation.log:0
+msgid "Ok"
+msgstr "โอเค"
+
+#. module: survey
+#: field:survey.page,title:0
+msgid "Page Title"
+msgstr "ชื่อหน้า"
+
+#. module: survey
+#: model:ir.ui.menu,name:survey.menu_define_survey
+msgid "Define Surveys"
+msgstr "กำหนดแบบสำรวจ"
+
+#. module: survey
+#: model:ir.model,name:survey.model_survey_history
+msgid "Survey History"
+msgstr "ประวัติความเป็นมาการสำรวจ"
+
+#. module: survey
+#: field:survey.response.answer,comment:0
+#: field:survey.response.line,comment:0
+msgid "Notes"
+msgstr "Notes"
+
+#. module: survey
+#: view:survey:0
+#: view:survey.request:0
+msgid "Search Survey"
+msgstr "การสำรวจค้นหา"
+
+#. module: survey
+#: field:survey.response.answer,answer:0
+#: field:survey.tbl.column.heading,value:0
+msgid "Value"
+msgstr "มูลค่า"
+
+#. module: survey
+#: field:survey.question,column_heading_ids:0
+msgid " Column heading"
+msgstr "ส่วนหัวคอลัมน์"
+
+#. module: survey
+#: model:ir.ui.menu,name:survey.menu_run_survey_form
+msgid "Answer a Survey"
+msgstr "การสำรวจความคิดเห็น"
+
+#. module: survey
+#: code:addons/survey/wizard/survey_answer.py:92
+#, python-format
+msgid "Error!"
+msgstr "ข้อผิดพลาด"
+
+#. module: survey
+#: field:survey,tot_comp_survey:0
+msgid "Total Completed Survey"
+msgstr "รวมเสร็จสิ้นการสำรวจ"
+
+#. module: survey
+#: view:survey.response.answer:0
+msgid "(Use Only Question Type is matrix_of_drop_down_menus)"
+msgstr "(ใช้เฉพาะคำถามประเภทคือ matrix_of_drop_down_menus)"
+
+#. module: survey
+#: model:ir.actions.report.xml,name:survey.survey_analysis
+msgid "Survey Statistics"
+msgstr "สถิติการสำรวจ"
+
+#. module: survey
+#: selection:survey,state:0
+#: view:survey.request:0
+#: selection:survey.request,state:0
+msgid "Cancelled"
+msgstr "ยกเลิก"
+
+#. module: survey
+#: selection:survey.question,type:0
+msgid "Rating Scale"
+msgstr "ประเมินค่า"
+
+#. module: survey
+#: field:survey.question,comment_field_type:0
+msgid "Comment Field Type"
+msgstr "ฟิลด์ประเภทแสดงความคิดเห็น"
+
+#. module: survey
+#: code:addons/survey/survey.py:375
+#: code:addons/survey/survey.py:387
+#: code:addons/survey/survey.py:401
+#: code:addons/survey/survey.py:406
+#: code:addons/survey/survey.py:416
+#: code:addons/survey/survey.py:422
+#: code:addons/survey/survey.py:428
+#: code:addons/survey/survey.py:434
+#: code:addons/survey/survey.py:438
+#: code:addons/survey/survey.py:444
+#: code:addons/survey/survey.py:448
+#: code:addons/survey/survey.py:458
+#: code:addons/survey/survey.py:462
+#: code:addons/survey/survey.py:467
+#: code:addons/survey/survey.py:473
+#: code:addons/survey/survey.py:475
+#: code:addons/survey/survey.py:477
+#: code:addons/survey/survey.py:482
+#: code:addons/survey/survey.py:484
+#: code:addons/survey/survey.py:642
+#: code:addons/survey/wizard/survey_answer.py:124
+#: code:addons/survey/wizard/survey_answer.py:131
+#: code:addons/survey/wizard/survey_answer.py:699
+#: code:addons/survey/wizard/survey_answer.py:738
+#: code:addons/survey/wizard/survey_answer.py:758
+#: code:addons/survey/wizard/survey_answer.py:787
+#: code:addons/survey/wizard/survey_answer.py:792
+#: code:addons/survey/wizard/survey_answer.py:800
+#: code:addons/survey/wizard/survey_answer.py:811
+#: code:addons/survey/wizard/survey_answer.py:820
+#: code:addons/survey/wizard/survey_answer.py:825
+#: code:addons/survey/wizard/survey_answer.py:899
+#: code:addons/survey/wizard/survey_answer.py:935
+#: code:addons/survey/wizard/survey_answer.py:953
+#: code:addons/survey/wizard/survey_answer.py:981
+#: code:addons/survey/wizard/survey_answer.py:984
+#: code:addons/survey/wizard/survey_answer.py:987
+#: code:addons/survey/wizard/survey_answer.py:999
+#: code:addons/survey/wizard/survey_answer.py:1006
+#: code:addons/survey/wizard/survey_answer.py:1009
+#: code:addons/survey/wizard/survey_selection.py:134
+#: code:addons/survey/wizard/survey_selection.py:138
+#: code:addons/survey/wizard/survey_send_invitation.py:74
+#, python-format
+msgid "Warning !"
+msgstr "คำเตือน!"
+
+#. module: survey
+#: selection:survey.question,comment_field_type:0
+msgid "Single Line Of Text"
+msgstr "ข้อความบรรทัดเดียว"
+
+#. module: survey
+#: view:survey.send.invitation:0
+#: field:survey.send.invitation,send_mail_existing:0
+msgid "Send reminder for existing user"
+msgstr "ส่งการเตือนสำหรับผู้ใช้ที่มีอยู่"
+
+#. module: survey
+#: selection:survey.question,type:0
+msgid "Multiple Choice (Multiple Answer)"
+msgstr "ปรนัย (คำตอบหลาย)"
+
+#. module: survey
+#: view:survey:0
+msgid "Edit Survey"
+msgstr "แก้ไขการสำรวจ"
+
+#. module: survey
+#: view:survey.response.line:0
+msgid "Survey Answer Line"
+msgstr "Line การสำรวจความคิดเห็น"
+
+#. module: survey
+#: field:survey.question.column.heading,menu_choice:0
+msgid "Menu Choice"
+msgstr "ตัวเลือกเมนู"
+
+#. module: survey
+#: selection:survey.question,required_type:0
+msgid "At Most"
+msgstr "อย่างมากที่สุด"
+
+#. module: survey
+#: field:survey.question,is_validation_require:0
+msgid "Validate Text"
+msgstr "ข้อความตรวจสอบ"
+
+#. module: survey
+#: field:survey.response.line,single_text:0
+msgid "Text"
+msgstr "Text"
+
+#. module: survey
+#: constraint:res.users:0
+msgid "The chosen company is not in the allowed companies for this user"
+msgstr "บริษัท ที่เลือกไม่ได้อยู่ใน บริษัท ที่ได้รับอนุญาตสำหรับผู้ใช้นี้"
+
+#. module: survey
+#: selection:survey.print,paper_size:0
+#: selection:survey.print.answer,paper_size:0
+msgid "Letter (8.5\" x 11\")"
+msgstr "Letter (8.5\"x 11\")"
+
+#. module: survey
+#: view:survey:0
+#: field:survey,responsible_id:0
+msgid "Responsible"
+msgstr "รับผิดชอบ"
+
+#. module: survey
+#: model:ir.model,name:survey.model_survey_request
+msgid "survey.request"
+msgstr "survey.request"
+
+#. module: survey
+#: field:survey.send.invitation,mail_subject:0
+#: field:survey.send.invitation,mail_subject_existing:0
+msgid "Subject"
+msgstr "เรื่อง"
+
+#. module: survey
+#: field:survey.question,comment_maximum_float:0
+#: field:survey.question,validation_maximum_float:0
+msgid "Maximum decimal number"
+msgstr "จำนวนสูงสุดที่ทศนิยม"
+
+#. module: survey
+#: selection:survey.request,state:0
+msgid "Waiting Answer"
+msgstr "กำลังรอคำตอบ"
+
+#. module: survey
+#: view:survey.request:0
+msgid "Late"
+msgstr "ช้า"
+
+#. module: survey
+#: sql_constraint:res.users:0
+msgid "You can not have two users with the same login !"
+msgstr "คุณไม่สามารถมีสองผู้ใช้ที่เข้าสู่ระบบเดียวกัน!"
+
+#. module: survey
+#: field:survey.send.invitation,mail_from:0
+msgid "From"
+msgstr "จาก"
+
+#. module: survey
+#: selection:survey.question,comment_valid_type:0
+#: selection:survey.question,validation_type:0
+msgid "Don't Validate Comment Text."
+msgstr "ไม่ต้องตรวจสอบข้อความแสดงความคิดเห็น"
+
+#. module: survey
+#: selection:survey.question,comment_valid_type:0
+#: selection:survey.question,validation_type:0
+msgid "Must Be A Whole Number"
+msgstr "จะต้องเป็นตัวเลขทั้งหมด"
+
+#. module: survey
+#: field:survey.answer,question_id:0
+#: field:survey.page,question_ids:0
+#: field:survey.question,question:0
+#: field:survey.question.column.heading,question_id:0
+#: field:survey.response.line,question_id:0
+msgid "Question"
+msgstr "คำถาม"
+
+#. module: survey
+#: view:survey.page:0
+msgid "Search Survey Page"
+msgstr "หน้าสำรวจค้นหา"
+
+#. module: survey
+#: view:survey.send.invitation:0
+msgid "Send"
+msgstr "ส่ง"
+
+#. module: survey
+#: field:survey.question.wiz,name:0
+msgid "Number"
+msgstr "จำนวน"
+
+#. module: survey
+#: code:addons/survey/survey.py:444
+#, python-format
+msgid "You must enter one or more menu choices                                 in column heading"
+msgstr "คุณต้องป้อนอย่างน้อยหนึ่งตัวเลือกของเมนูในส่วนหัวของคอลัมน์"
+
+#. module: survey
+#: model:ir.actions.act_window,help:survey.action_survey_form1
+msgid "You can create survey for different purposes: recruitment interviews, employee's periodical evaluations, marketing campaigns, etc. A survey is made of pages containing questions of several types: text, multiple choices, etc. You can edit survey manually or click on the 'Edit Survey' for a WYSIWYG interface."
+msgstr "คุณสามารถสร้างการสำรวจเพื่อจุดประสงค์ที่แตกต่างกัน : การสัมภาษณ์การรับสมัครพนักงานของการประเมินผลเป็นระยะ, แคมเปญการตลาด ฯลฯ การสำรวจทำจากหน้าเว็บที่มีคำถามหลายประเภท : ข้อความทางเลือกหลาย ๆ ฯลฯ คุณสามารถแก้ไขการสำรวจด้วยตนเองหรือคลิกที่&#39;แก้ไข สำรวจ&#39;สำหรับอินเตอร์เฟซ WYSIWYG"
+
+#. module: survey
+#: view:survey:0
+#: view:survey.request:0
+#: field:survey.request,state:0
+msgid "State"
+msgstr "ของรัฐ"
+
+#. module: survey
+#: view:survey.request:0
+msgid "Evaluation Plan Phase"
+msgstr "แผนระยะที่การประเมินผล"
+
+#. module: survey
+#: view:survey:0
+#: view:survey.page:0
+#: view:survey.question:0
+msgid "Between"
+msgstr "ระหว่าง"
+
+#. module: survey
+#: view:survey.print:0
+#: view:survey.print.answer:0
+#: view:survey.print.statistics:0
+msgid "Print"
+msgstr "พิมพ์"
+
+#. module: survey
+#: field:survey.question,make_comment_field:0
+msgid "Make Comment Field an Answer Choice"
+msgstr "แสดงความคิดเห็นให้เลือกฟิลด์คำตอบ"
+
+#. module: survey
+#: view:survey:0
+#: field:survey,type:0
+msgid "Type"
+msgstr "ประเภท"
+
+#. module: survey
+#: selection:survey.answer,type:0
+msgid "Email"
+msgstr "Email"
+
+#. module: survey
+#: model:ir.ui.menu,name:survey.menu_answer_surveys
+msgid "Answer Surveys"
+msgstr "แบบสำรวจความคิดเห็น"
+
+#. module: survey
+#: selection:survey.response,state:0
+msgid "Not Finished"
+msgstr "ไม่เสร็จสิ้น"
+
+#. module: survey
+#: view:survey.print:0
+msgid "Survey Print"
+msgstr "พิมพ์สำรวจ"
+
+#. module: survey
+#: view:survey.send.invitation:0
+msgid "Select Partner"
+msgstr "เลือกผู้ร่วมงาน"
+
+#. module: survey
+#: field:survey.question,type:0
+msgid "Question Type"
+msgstr "พิมพ์คำถาม"
+
+#. module: survey
+#: code:addons/survey/wizard/survey_answer.py:131
+#, python-format
+msgid "You can not answer this survey more than %s times"
+msgstr "คุณไม่สามารถตอบแบบสำรวจนี้มากกว่า%s ครั้ง"
+
+#. module: survey
+#: model:ir.actions.act_window,name:survey.act_survey_answer
+msgid "Answers"
+msgstr "คำตอบ"
+
+#. module: survey
+#: model:ir.module.module,description:survey.module_meta_information
+msgid "\n"
+"    This module is used for surveying. It depends on the answers or reviews of some questions by different users.\n"
+"    A survey may have multiple pages. Each page may contain multiple questions and each question may have multiple answers.\n"
+"    Different users may give different answers of question and according to that survey is done. \n"
+"    Partners are also sent mails with user name and password for the invitation of the survey\n"
+"    "
+msgstr "โมดูลนี้ใช้สำหรับการสำรวจ มันขึ้นอยู่กับคำตอบหรือการแสดงความคิดเห็นของคำถามบางอย่างโดยผู้ใช้ที่แตกต่างกัน สํารวจอาจมีหลายหน้า แต่ละหน้าอาจมีหลายคำถามและแต่ละคำถามอาจมีคำตอบหลาย ๆ ผู้ใช้ที่แตกต่างกันอาจให้คำตอบของคำถามที่แตกต่างกันและสอดคล้องกับการสำรวจที่ทำ พาร์ทเนอร์ถูกส่งไปยังอีเมลด้วยชื่อผู้ใช้และรหัสผ่านสำหรับคำเชิญของการสำรวจ"
+
+#. module: survey
+#: code:addons/survey/wizard/survey_answer.py:124
+#, python-format
+msgid "You can not answer because the survey is not open"
+msgstr "คุณไม่สามารถตอบเพราะการสำรวจไม่ได้เปิด"
+
+#. module: survey
+#: selection:survey.response,response_type:0
+msgid "Link"
+msgstr "ลิงก์"
+
+#. module: survey
+#: model:ir.actions.act_window,name:survey.action_survey_type_form
+#: model:ir.model,name:survey.model_survey_type
+#: view:survey.type:0
+msgid "Survey Type"
+msgstr "ประเภทการสำรวจ"
+
+#. module: survey
+#: field:survey.page,sequence:0
+msgid "Page Nr"
+msgstr "Nr หน้า"
+
+#. module: survey
+#: view:survey:0
+#: view:survey.page:0
+#: view:survey.question:0
+#: field:survey.question,descriptive_text:0
+#: selection:survey.question,type:0
+msgid "Descriptive Text"
+msgstr "ข้อความอธิบาย"
+
+#. module: survey
+#: field:survey.question,minimum_req_ans:0
+msgid "Minimum Required Answer"
+msgstr "ต่ำสุดที่ต้องการคำตอบ"
+
+#. module: survey
+#: code:addons/survey/survey.py:484
+#, python-format
+msgid "You must enter one or more menu choices in column heading (white spaces not allowed)"
+msgstr "คุณต้องป้อนอย่างน้อยหนึ่งตัวเลือกของเมนูในส่วนหัวของคอลัมน์ (ช่องว่างสีขาวไม่ได้รับอนุญาต)"
+
+#. module: survey
+#: field:survey.question,req_error_msg:0
+msgid "Error Message"
+msgstr "ข้อความผิดพลาด"
+
+#. module: survey
+#: code:addons/survey/survey.py:482
+#, python-format
+msgid "You must enter one or more menu choices in column heading"
+msgstr "คุณต้องป้อนอย่างน้อยหนึ่งตัวเลือกของเมนูในส่วนหัวของคอลัมน์"
+
+#. module: survey
+#: field:survey.request,date_deadline:0
+msgid "Deadline date"
+msgstr "วันสุดท้ายของวันที่"
+
+#. module: survey
+#: selection:survey.question,comment_valid_type:0
+#: selection:survey.question,validation_type:0
+msgid "Must Be A Date"
+msgstr "ต้องเป็นวันที่"
+
+#. module: survey
+#: model:ir.model,name:survey.model_survey_print
+msgid "survey.print"
+msgstr "survey.print"
+
+#. module: survey
+#: view:survey.question.column.heading:0
+#: field:survey.question.column.heading,title:0
+msgid "Column Heading"
+msgstr "หัวเรื่องคอลัมน์"
+
+#. module: survey
+#: field:survey.question,is_require_answer:0
+msgid "Require Answer to Question"
+msgstr "กำหนดให้ผู้ตอบคำถาม"
+
+#. module: survey
+#: model:ir.actions.act_window,name:survey.action_survey_request_tree
+#: model:ir.ui.menu,name:survey.menu_survey_type_form1
+msgid "Survey Requests"
+msgstr "คำขอการสำรวจ"
+
+#. module: survey
+#: code:addons/survey/survey.py:375
+#: code:addons/survey/survey.py:462
+#, python-format
+msgid "You must enter one or more column heading."
+msgstr "คุณต้องป้อนอย่างน้อยหนึ่งส่วนหัวของคอลัมน์"
+
+#. module: survey
+#: code:addons/survey/wizard/survey_answer.py:758
+#: code:addons/survey/wizard/survey_answer.py:953
+#, python-format
+msgid "Please enter an integer value"
+msgstr "กรุณาป้อนค่าจำนวนเต็ม"
+
+#. module: survey
+#: model:ir.model,name:survey.model_survey_browse_answer
+msgid "survey.browse.answer"
+msgstr "survey.browse.answer"
+
+#. module: survey
+#: selection:survey.question,comment_field_type:0
+msgid "Paragraph of Text"
+msgstr "ย่อหน้าของข้อความ"
+
+#. module: survey
+#: code:addons/survey/survey.py:428
+#, python-format
+msgid "Maximum Required Answer you                                     entered for your maximum is greater than the number of answer.                                     Please use a number that is smaller than %d."
+msgstr "สูงสุดที่ต้องการคำตอบที่คุณป้อนสูงสุดของคุณมากกว่าจำนวนของคำตอบ โปรดใช้ตัวเลขที่มีขนาดเล็กกว่า% d."
+
+#. module: survey
+#: view:survey.request:0
+msgid "Watting Answer"
+msgstr "คำตอบ Watting"
+
+#. module: survey
+#: view:survey:0
+#: view:survey.page:0
+#: view:survey.question:0
+msgid "When the question is not answered, display this error message:"
+msgstr "เมื่อคำถามไม่ได้ตอบแสดงข้อความข้อผิดพลาดนี้ :"
+
+#. module: survey
+#: view:survey:0
+#: view:survey.page:0
+#: view:survey.question:0
+msgid "Options"
+msgstr "Options"
+
+#. module: survey
+#: model:ir.ui.menu,name:survey.menu_browse_survey_response
+msgid "Browse Answers"
+msgstr "คำตอบที่เรียกดู"
+
+#. module: survey
+#: field:survey.response.answer,comment_field:0
+#: view:survey.response.line:0
+msgid "Comment"
+msgstr "คิดเห็น"
+
+#. module: survey
+#: model:ir.model,name:survey.model_survey_answer
+#: model:ir.model,name:survey.model_survey_response_answer
+#: view:survey.answer:0
+#: view:survey.response:0
+#: view:survey.response.answer:0
+#: view:survey.response.line:0
+msgid "Survey Answer"
+msgstr "สำรวจความคิดเห็น"
+
+#. module: survey
+#: selection:survey.answer,type:0
+msgid "Selection"
+msgstr "การคัดเลือก"
+
+#. module: survey
+#: model:ir.actions.act_window,name:survey.action_browse_survey_response
+#: view:survey:0
+msgid "Answer Survey"
+msgstr "การสำรวจความคิดเห็น"
+
+#. module: survey
+#: view:survey:0
+#: view:survey.page:0
+#: view:survey.question:0
+msgid "Comment Field"
+msgstr "เขตข้อมูลความคิดเห็น"
+
+#. module: survey
+#: selection:survey.response,response_type:0
+msgid "Manually"
+msgstr "ด้วยตนเอง"
+
+#. module: survey
+#: help:survey,responsible_id:0
+msgid "User responsible for survey"
+msgstr "ผู้รับผิดชอบในการสำรวจ"
+
+#. module: survey
+#: field:survey.question,comment_column:0
+msgid "Add comment column in matrix"
+msgstr "เพิ่มความคิดเห็นคอลัมน์ในเมตริกซ์"
+
+#. module: survey
+#: field:survey.answer,response:0
+msgid "#Answer"
+msgstr "# ความคิดเห็นที่"
+
+#. module: survey
+#: field:survey.print,without_pagebreak:0
+#: field:survey.print.answer,without_pagebreak:0
+msgid "Print Without Page Breaks"
+msgstr "พิมพ์ไม่มีตัวแบ่งหน้า"
+
+#. module: survey
+#: view:survey:0
+#: view:survey.page:0
+#: view:survey.question:0
+msgid "When the comment is an invalid format, display this error message"
+msgstr "ถ้าความเห็นเป็นรูปแบบที่ไม่ถูกต้องแสดงข้อความแสดงข้อผิดพลาดนี้"
+
+#. module: survey
+#: code:addons/survey/wizard/survey_selection.py:138
+#, python-format
+msgid "You can not give more response. Please contact the author of this survey for further assistance."
+msgstr "คุณไม่สามารถให้การตอบสนองมากขึ้น โปรดติดต่อผู้สํารวจเพื่อขอความช่วยเหลือต่อไปนี้"
+
+#. module: survey
+#: model:ir.actions.act_window,name:survey.act_survey_page_question
+#: model:ir.actions.act_window,name:survey.act_survey_question
+msgid "Questions"
+msgstr "คำถามที่"
+
+#. module: survey
+#: help:survey,response_user:0
+msgid "Set to one if  you require only one Answer per user"
+msgstr "ชุดหนึ่งถ้าคุณต้องการเพียงหนึ่งคำตอบต่อผู้ใช้"
+
+#. module: survey
+#: field:survey,users:0
+msgid "Users"
+msgstr "ผู้ใช้งาน"
+
+#. module: survey
+#: view:survey.send.invitation:0
+msgid "Message"
+msgstr "ข้อความ"
+
+#. module: survey
+#: view:survey:0
+#: view:survey.request:0
+msgid "MY"
+msgstr "MY"
+
+#. module: survey
+#: field:survey.question,maximum_req_ans:0
+msgid "Maximum Required Answer"
+msgstr "สูงสุดที่ต้องการคำตอบ"
+
+#. module: survey
+#: field:survey.name.wiz,page_no:0
+msgid "Page Number"
+msgstr "จำนวนหน้า"
+
+#. module: survey
+#: code:addons/survey/wizard/survey_answer.py:92
+#, python-format
+msgid "Cannot locate survey for the question wizard!"
+msgstr "ไม่พบการสำรวจสำหรับตัวช่วยสร้างคำถาม!"
+
+#. module: survey
+#: view:survey:0
+#: view:survey.page:0
+#: view:survey.question:0
+msgid "and"
+msgstr "และการ"
+
+#. module: survey
+#: model:ir.actions.act_window,name:survey.action_view_survey_print_statistics
+#: view:survey.print.statistics:0
+msgid "Survey Print Statistics"
+msgstr "การสำรวจสถิติการพิมพ์"
+
+#. module: survey
+#: field:survey.send.invitation.log,note:0
+msgid "Log"
+msgstr "เข้าสู่ระบบ"
+
+#. module: survey
+#: view:survey:0
+#: view:survey.page:0
+#: view:survey.question:0
+msgid "When the choices do not add up correctly, display this error message"
+msgstr "เมื่อเลือกไม่ได้เพิ่มขึ้นอย่างถูกต้องแสดงข้อความข้อผิดพลาดนี้"
+
+#. module: survey
+#: field:survey,date_close:0
+msgid "Survey Close Date"
+msgstr "สำรวจวันที่ปิด"
+
+#. module: survey
+#: field:survey,date_open:0
+msgid "Survey Open Date"
+msgstr "สำรวจวันที่เปิด"
+
+#. module: survey
+#: field:survey.question.column.heading,in_visible_rating_weight:0
+msgid "Is Rating Scale Invisible ??"
+msgstr "ประเมินค่าจะมองไม่เห็น?"
+
+#. module: survey
+#: view:survey.browse.answer:0
+#: view:survey.name.wiz:0
+msgid "Start"
+msgstr "เริ่ม"
+
+#. module: survey
+#: code:addons/survey/survey.py:477
+#, python-format
+msgid "Maximum Required Answer is greater than Minimum Required Answer"
+msgstr "สูงสุดที่ต้องการคำตอบมากกว่าขั้นต่ำที่ต้องตอบ"
+
+#. module: survey
+#: field:survey.question,comment_maximum_no:0
+#: field:survey.question,validation_maximum_no:0
+msgid "Maximum number"
+msgstr "จำนวนสูงสุด"
+
+#. module: survey
+#: selection:survey,state:0
+#: selection:survey.request,state:0
+#: selection:survey.response.line,state:0
+msgid "Draft"
+msgstr "ร่าง"
+
+#. module: survey
+#: model:ir.model,name:survey.model_survey_print_statistics
+msgid "survey.print.statistics"
+msgstr "survey.print.statistics"
+
+#. module: survey
+#: selection:survey,state:0
+msgid "Closed"
+msgstr "ปิด"
+
+#. module: survey
+#: selection:survey.question,type:0
+msgid "Matrix of Drop-down Menus"
+msgstr "เมทริกซ์ของเมนูแบบหล่นลง"
+
+#. module: survey
+#: view:survey:0
+#: field:survey.answer,answer:0
+#: field:survey.name.wiz,response:0
+#: view:survey.page:0
+#: view:survey.print.answer:0
+#: field:survey.print.answer,response_ids:0
+#: view:survey.question:0
+#: field:survey.question,answer_choice_ids:0
+#: field:survey.request,response:0
+#: field:survey.response,question_ids:0
+#: field:survey.response.answer,answer_id:0
+#: field:survey.response.answer,response_id:0
+#: view:survey.response.line:0
+#: field:survey.response.line,response_answer_ids:0
+#: field:survey.response.line,response_id:0
+#: field:survey.response.line,response_table_ids:0
+#: field:survey.send.invitation,partner_ids:0
+#: field:survey.tbl.column.heading,response_table_id:0
+msgid "Answer"
+msgstr "คำตอบ"
+
+#. module: survey
+#: field:survey,max_response_limit:0
+msgid "Maximum Answer Limit"
+msgstr "จำกัด คำตอบสูงสุด"
+
+#. module: survey
+#: model:ir.actions.act_window,name:survey.action_act_view_survey_send_invitation
+msgid "Send Invitations"
+msgstr "ส่งคำเชิญ"
+
+#. module: survey
+#: field:survey.name.wiz,store_ans:0
+msgid "Store Answer"
+msgstr "คำตอบ Store"
+
+#. module: survey
+#: selection:survey.question,type:0
+msgid "Date and Time"
+msgstr "วันที่และเวลา"
+
+#. module: survey
+#: field:survey,state:0
+#: field:survey.response,state:0
+#: field:survey.response.line,state:0
+msgid "Status"
+msgstr "สถานะ"
+
+#. module: survey
+#: model:ir.actions.act_window,name:survey.action_view_survey_print
+msgid "Print Survey"
+msgstr "การสำรวจการพิมพ์"
+
+#. module: survey
+#: field:survey,send_response:0
+msgid "E-mail Notification on Answer"
+msgstr "ประกาศ E - mail ในคำตอบ"
+
+#. module: survey
+#: field:survey.response.answer,value_choice:0
+msgid "Value Choice"
+msgstr "Value Choice"
+
+#. module: survey
+#: view:survey:0
+msgid "Started"
+msgstr "การเริ่มต้น"
+
+#. module: survey
+#: model:ir.actions.act_window,name:survey.action_view_survey_print_answer
+#: view:survey:0
+#: view:survey.print.answer:0
+msgid "Print Answer"
+msgstr "พิมพ์คำตอบ"
+
+#. module: survey
+#: selection:survey.question,type:0
+msgid "Multiple Textboxes"
+msgstr "textboxes หลาย"
+
+#. module: survey
+#: selection:survey.print,orientation:0
+#: selection:survey.print.answer,orientation:0
+msgid "Landscape(Horizontal)"
+msgstr "Landscape (แนวนอน)"
+
+#. module: survey
+#: field:survey.question,no_of_rows:0
+msgid "No of Rows"
+msgstr "จำนวนแถว"
+
+#. module: survey
+#: view:survey:0
+#: view:survey.name.wiz:0
+msgid "Survey Details"
+msgstr "รายละเอียดการสำรวจ"
+
+#. module: survey
+#: selection:survey.question,type:0
+msgid "Multiple Textboxes With Different Type"
+msgstr "textboxes หลายชนิดที่แตกต่างกัน"
+
+#. module: survey
+#: view:survey.question.column.heading:0
+msgid "Menu Choices (each choice on separate lines)"
+msgstr "เมนูทางเลือก (ทางเลือกในบรรทัดแยกกันในแต่ละ)"
+
+#. module: survey
+#: field:survey.response,response_type:0
+msgid "Answer Type"
+msgstr "พิมพ์คำตอบ"
+
+#. module: survey
+#: view:survey:0
+#: view:survey.page:0
+#: view:survey.question:0
+msgid "Validation"
+msgstr "การตรวจสอบ"
+
+#. module: survey
+#: view:survey.request:0
+msgid "Waiting Answer"
+msgstr "กำลังรอคำตอบ"
+
+#. module: survey
+#: selection:survey.question,comment_valid_type:0
+#: selection:survey.question,validation_type:0
+msgid "Must Be A Decimal Number"
+msgstr "จะต้องเป็นเลขฐานสิบ"
+
+#. module: survey
+#: field:res.users,survey_id:0
+msgid "Groups"
+msgstr "Groups"
+
+#. module: survey
+#: selection:survey.answer,type:0
+#: selection:survey.question,type:0
+msgid "Date"
+msgstr "วันที่"
+
+#. module: survey
+#: selection:survey.answer,type:0
+msgid "Integer"
+msgstr "จำนวนเต็ม"
+
+#. module: survey
+#: model:ir.model,name:survey.model_survey_send_invitation
+msgid "survey.send.invitation"
+msgstr "survey.send.invitation"
+
+#. module: survey
+#: field:survey.history,user_id:0
+#: view:survey.request:0
+#: field:survey.request,user_id:0
+#: field:survey.response,user_id:0
+msgid "User"
+msgstr "ของผู้ใช้"
+
+#. module: survey
+#: field:survey.name.wiz,transfer:0
+msgid "Page Transfer"
+msgstr "โอนหน้า"
+
+#. module: survey
+#: selection:survey.response.line,state:0
+msgid "Skiped"
+msgstr "Skiped"
+
+#. module: survey
+#: field:survey.print,paper_size:0
+#: field:survey.print.answer,paper_size:0
+msgid "Paper Size"
+msgstr "ขนาดกระดาษ"
+
+#. module: survey
+#: field:survey.response.answer,column_id:0
+#: field:survey.tbl.column.heading,column_id:0
+msgid "Column"
+msgstr "คอลัมน์"
+
+#. module: survey
+#: model:ir.model,name:survey.model_survey_tbl_column_heading
+msgid "survey.tbl.column.heading"
+msgstr "survey.tbl.column.heading"
+
+#. module: survey
+#: model:ir.model,name:survey.model_survey_response_line
+msgid "Survey Response Line"
+msgstr "Line การตอบสนองการสำรวจ"
+
+#. module: survey
+#: code:addons/survey/wizard/survey_selection.py:134
+#, python-format
+msgid "You can not give response for this survey more than %s times"
+msgstr "คุณไม่สามารถให้การตอบสนองสำหรับการสำรวจครั้งนี้มากกว่าครั้ง%s"
+
+#. module: survey
+#: model:ir.actions.report.xml,name:survey.report_survey_form
+#: model:ir.model,name:survey.model_survey
+#: view:survey:0
+#: view:survey.browse.answer:0
+#: field:survey.browse.answer,survey_id:0
+#: field:survey.history,survey_id:0
+#: view:survey.name.wiz:0
+#: field:survey.name.wiz,survey_id:0
+#: view:survey.page:0
+#: field:survey.page,survey_id:0
+#: view:survey.print:0
+#: field:survey.print,survey_ids:0
+#: field:survey.print.statistics,survey_ids:0
+#: field:survey.question,survey:0
+#: view:survey.request:0
+#: field:survey.request,survey_id:0
+#: field:survey.response,survey_id:0
+msgid "Survey"
+msgstr "การสำรวจ"
+
+#. module: survey
+#: field:survey.question,in_visible_rating_weight:0
+msgid "Is Rating Scale Invisible?"
+msgstr "ประเมินค่าจะมองไม่เห็น?"
+
+#. module: survey
+#: selection:survey.question,type:0
+msgid "Numerical Textboxes"
+msgstr "textboxes เชิงตัวเลข"
+
+#. module: survey
+#: model:ir.model,name:survey.model_survey_question_wiz
+msgid "survey.question.wiz"
+msgstr "survey.question.wiz"
+
+#. module: survey
+#: view:survey:0
+msgid "History"
+msgstr "ประวัติ"
+
+#. module: survey
+#: help:survey.browse.answer,response_id:0
+msgid "If this field is empty, all answers of the selected survey will be print."
+msgstr "ถ้าฟิลด์นี้ว่างเปล่าคำตอบทั้งหมดของการสำรวจที่เลือกจะถูกพิมพ์"
+
+#. module: survey
+#: field:survey.type,code:0
+msgid "Code"
+msgstr "รหัส"
+
+#. module: survey
+#: model:ir.ui.menu,name:survey.menu_print_survey_statistics
+msgid "Surveys Statistics"
+msgstr "การสำรวจสถิติ"
+
+#. module: survey
+#: field:survey.print,orientation:0
+#: field:survey.print.answer,orientation:0
+msgid "Orientation"
+msgstr "ปฐมนิเทศ"
+
+#. module: survey
+#: view:survey:0
+#: view:survey.answer:0
+#: view:survey.page:0
+#: view:survey.question:0
+msgid "Seq"
+msgstr "seq"
+
+#. module: survey
+#: field:survey.request,email:0
+msgid "E-mail"
+msgstr "E - mail"
+
+#. module: survey
+#: field:survey.question,comment_minimum_no:0
+#: field:survey.question,validation_minimum_no:0
+msgid "Minimum number"
+msgstr "จำนวนขั้นต่ำ"
+
+#. module: survey
+#: field:survey.question,req_ans:0
+msgid "#Required Answer"
+msgstr "# ที่ต้องการคำตอบ"
+
+#. module: survey
+#: field:survey.answer,sequence:0
+#: field:survey.question,sequence:0
+msgid "Sequence"
+msgstr "ลำดับ"
+
+#. module: survey
+#: field:survey.question,comment_label:0
+msgid "Field Label"
+msgstr "ป้ายชื่อฟิลด์"
+
+#. module: survey
+#: view:survey:0
+msgid "Other"
+msgstr "อื่น ๆ"
+
+#. module: survey
+#: view:survey.request:0
+#: selection:survey.request,state:0
+msgid "Done"
+msgstr "เสร็จสิ้น"
+
+#. module: survey
+#: view:survey:0
+msgid "Test Survey"
+msgstr "การสำรวจการทดสอบ"
+
+#. module: survey
+#: field:survey.question,rating_allow_one_column_require:0
+msgid "Allow Only One Answer per Column (Forced Ranking)"
+msgstr "อนุญาตให้ใช้เพียงหนึ่งคำตอบต่อคอลัมน์ (Forced Ranking)"
+
+#. module: survey
+#: view:survey:0
+#: view:survey.browse.answer:0
+#: view:survey.name.wiz:0
+#: view:survey.print:0
+#: view:survey.print.answer:0
+#: view:survey.print.statistics:0
+#: view:survey.send.invitation:0
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+#. module: survey
+#: view:survey:0
+msgid "Close"
+msgstr "ปิด"
+
+#. module: survey
+#: field:survey.question,comment_minimum_float:0
+#: field:survey.question,validation_minimum_float:0
+msgid "Minimum decimal number"
+msgstr "ขั้นต่ำจำนวนทศนิยม"
+
+#. module: survey
+#: view:survey:0
+#: selection:survey,state:0
+msgid "Open"
+msgstr "เปิด"
+
+#. module: survey
+#: field:survey,tot_start_survey:0
+msgid "Total Started Survey"
+msgstr "รวมการเริ่มต้นการสำรวจ"
+
+#. module: survey
+#: code:addons/survey/survey.py:467
+#, python-format
+msgid "#Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d."
+msgstr "# ที่ต้องการคำตอบที่คุณป้อนมีค่ามากกว่าจำนวนคำตอบ โปรดใช้ตัวเลขที่มีขนาดเล็กกว่า% d."
+
+#. module: survey
+#: help:survey,max_response_limit:0
+msgid "Set to one if survey is answerable only once"
+msgstr "ตั้งเป็นหนึ่งหากการสำรวจเป็นที่ตอบได้เพียงครั้งเดียว"
+
+#. module: survey
+#: selection:survey.response,state:0
+msgid "Finished "
+msgstr "เสร็จ"
+
+#. module: survey
+#: model:ir.model,name:survey.model_survey_question_column_heading
+msgid "Survey Question Column Heading"
+msgstr "คอลัมน์ตอบแบบสำรวจหัวเรื่อง"
+
+#. module: survey
+#: field:survey.answer,average:0
+msgid "#Avg"
+msgstr "# เฉลี่ย"
+
+#. module: survey
+#: selection:survey.question,type:0
+msgid "Matrix of Choices (Multiple Answers Per Row)"
+msgstr "ทางเลือกของเมทริกซ์ (หลายคำตอบต่อแถว)"
+
+#. module: survey
+#: model:ir.actions.act_window,name:survey.action_view_survey_name
+msgid "Give Survey Answer"
+msgstr "ให้คำตอบการสำรวจ"
+
+#. module: survey
+#: model:ir.model,name:survey.model_res_users
+msgid "res.users"
+msgstr "res.users"
+
+#. module: survey
+#: view:survey:0
+msgid "Current"
+msgstr "ในปัจจุบัน"
+
+#. module: survey
+#: selection:survey.response.line,state:0
+msgid "Answered"
+msgstr "ตอบ"
+
+#. module: survey
+#: code:addons/survey/wizard/survey_answer.py:432
+#, python-format
+msgid "Complete Survey Answer"
+msgstr "คำตอบการสำรวจเสร็จสมบูรณ์"
+
+#. module: survey
+#: selection:survey.question,type:0
+msgid "Comment/Essay Box"
+msgstr "กล่องแสดงความคิดเห็นเรียงความ /"
+
+#. module: survey
+#: field:survey.answer,type:0
+msgid "Type of Answer"
+msgstr "ประเภทของคำตอบ"
+
+#. module: survey
+#: field:survey.question,required_type:0
+msgid "Respondent must answer"
+msgstr "ที่ตอบจะต้องตอบ"
+
+#. module: survey
+#: model:ir.actions.act_window,name:survey.action_view_survey_send_invitation
+#: view:survey.send.invitation:0
+msgid "Send Invitation"
+msgstr "ส่งคำเชิญ"
+
+#. module: survey
+#: code:addons/survey/wizard/survey_answer.py:792
+#, python-format
+msgid "You cannot select the same answer more than one time"
+msgstr "คุณไม่สามารถเลือกคำตอบเดียวกันมากกว่าหนึ่งครั้ง"
+
+#. module: survey
+#: view:survey.question:0
+msgid "Search Question"
+msgstr "ค้นหาคำถาม"
+
+#. module: survey
+#: field:survey,title:0
+msgid "Survey Title"
+msgstr "Title การสำรวจ"
+
+#. module: survey
+#: selection:survey.question,type:0
+msgid "Single Textbox"
+msgstr "Single Textbox"
+
+#. module: survey
+#: field:survey,note:0
+#: field:survey.name.wiz,note:0
+#: view:survey.page:0
+#: field:survey.page,note:0
+#: view:survey.response.line:0
+msgid "Description"
+msgstr "ลักษณะ"
+
+#. module: survey
+#: view:survey.name.wiz:0
+msgid "Select Survey"
+msgstr "การสำรวจการเลือก"
+
+#. module: survey
+#: selection:survey.question,required_type:0
+msgid "At Least"
+msgstr "อย่างน้อยที่สุด"
+
+#. module: survey
+#: model:ir.actions.act_window,name:survey.action_view_survey_send_invitation_log
+#: model:ir.model,name:survey.model_survey_send_invitation_log
+msgid "survey.send.invitation.log"
+msgstr "survey.send.invitation.log"
+
+#. module: survey
+#: selection:survey.print,orientation:0
+#: selection:survey.print.answer,orientation:0
+msgid "Portrait(Vertical)"
+msgstr "Portrait (แนวตั้ง)"
+
+#. module: survey
+#: selection:survey.question,comment_valid_type:0
+#: selection:survey.question,validation_type:0
+msgid "Must Be Specific Length"
+msgstr "ต้องมีความยาวเฉพาะ"
+
+#. module: survey
+#: view:survey:0
+#: view:survey.page:0
+#: field:survey.question,page_id:0
+msgid "Survey Page"
+msgstr "หน้าสำรวจ"
+
+#. module: survey
+#: view:survey:0
+#: view:survey.page:0
+#: view:survey.question:0
+msgid "Required Answer"
+msgstr "คำตอบที่ต้องการ"
+
+#. module: survey
+#: code:addons/survey/survey.py:473
+#, python-format
+msgid "Minimum Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d."
+msgstr "ต่ำสุดที่ต้องการคำตอบที่คุณป้อนมีค่ามากกว่าจำนวนคำตอบ โปรดใช้ตัวเลขที่มีขนาดเล็กกว่า% d."
+
+#. module: survey
+#: code:addons/survey/survey.py:458
+#, python-format
+msgid "You must enter one or more answer."
+msgstr "คุณต้องป้อนอย่างน้อยหนึ่งคำตอบ"
+
+#. module: survey
+#: model:ir.actions.report.xml,name:survey.survey_browse_response
+#: field:survey.browse.answer,response_id:0
+msgid "Survey Answers"
+msgstr "คำตอบการสำรวจ"
+
+#. module: survey
+#: view:survey.browse.answer:0
+msgid "Select Survey and related answer"
+msgstr "การสำรวจและเลือกคำตอบที่เกี่ยวข้อง"
+
+#. module: survey
+#: model:ir.ui.menu,name:survey.menu_print_survey_answer
+msgid "Surveys Answers"
+msgstr "คำตอบแบบสำรวจ"
+
+#. module: survey
+#: model:ir.actions.act_window,name:survey.act_survey_pages
+msgid "Pages"
+msgstr "Pages"
+
+#. module: survey
+#: code:addons/survey/survey.py:406
+#, python-format
+msgid "#Required Answer you entered is                                     greater than the number of answer.                                    Please use a number that is smaller than %d."
+msgstr "# ที่ต้องการคำตอบที่คุณป้อนมีค่ามากกว่าจำนวนคำตอบ โปรดใช้ตัวเลขที่มีขนาดเล็กกว่า% d."
+
+#. module: survey
+#: code:addons/survey/wizard/survey_answer.py:984
+#, python-format
+msgid "You cannot select same answer more than one time'"
+msgstr "คุณไม่สามารถเลือกคำตอบเดียวกันมากกว่าหนึ่งครั้ง&#39;"
+
+#. module: survey
+#: selection:survey.print,paper_size:0
+#: selection:survey.print.answer,paper_size:0
+msgid "Legal (8.5\" x 14\")"
+msgstr "Legal (8.5\"x 14\")"
+
+#. module: survey
+#: field:survey.type,name:0
+msgid "Name"
+msgstr "ชื่อ"
+
+#. module: survey
+#: view:survey.page:0
+msgid "#Questions"
+msgstr "คำถาม #"
+
+#. module: survey
+#: model:ir.model,name:survey.model_survey_response
+msgid "survey.response"
+msgstr "survey.response"
+
+#. module: survey
+#: field:survey.question,comment_valid_err_msg:0
+#: field:survey.question,make_comment_field_err_msg:0
+#: field:survey.question,numeric_required_sum_err_msg:0
+#: field:survey.question,validation_valid_err_msg:0
+msgid "Error message"
+msgstr "ข้อความผิดพลาด"
+
+#. module: survey
+#: model:ir.module.module,shortdesc:survey.module_meta_information
+msgid "Survey Module"
+msgstr "Module การสำรวจ"
+
+#. module: survey
+#: view:survey.send.invitation:0
+#: field:survey.send.invitation,send_mail:0
+msgid "Send mail for new user"
+msgstr "ส่งอีเมลสำหรับผู้ใช้ใหม่"
+
+#. module: survey
+#: code:addons/survey/survey.py:387
+#, python-format
+msgid "You must enter one or more Answer."
+msgstr "คุณต้องป้อนอย่างน้อยหนึ่งคำตอบ"
+
+#. module: survey
+#: code:addons/survey/survey.py:416
+#, python-format
+msgid "Minimum Required Answer                                     you entered is greater than the number of answer.                                    Please use a number that is smaller than %d."
+msgstr "ต่ำสุดที่ต้องการคำตอบที่คุณป้อนมีค่ามากกว่าจำนวนคำตอบ โปรดใช้ตัวเลขที่มีขนาดเล็กกว่า% d."
+
+#. module: survey
+#: field:survey.answer,menu_choice:0
+msgid "Menu Choices"
+msgstr "ตัวเลือกเมนู"
+
+#. module: survey
+#: field:survey,page_ids:0
+#: view:survey.question:0
+#: field:survey.response.line,page_id:0
+msgid "Page"
+msgstr "Page"
+
+#. module: survey
+#: code:addons/survey/survey.py:438
+#, python-format
+msgid "Maximum Required Answer is greater                                     than Minimum Required Answer"
+msgstr "สูงสุดที่ต้องการคำตอบมากกว่าขั้นต่ำที่ต้องตอบ"
+
+#. module: survey
+#: view:survey.send.invitation.log:0
+msgid "User creation"
+msgstr "การสร้างผู้ใช้"
+
+#. module: survey
+#: selection:survey.question,required_type:0
+msgid "All"
+msgstr "ทั้งหมด"
+
+#. module: survey
+#: selection:survey.question,comment_valid_type:0
+#: selection:survey.question,validation_type:0
+msgid "Must Be An Email Address"
+msgstr "จะต้องเป็นที่อยู่อีเมล์"
+
+#. module: survey
+#: selection:survey.question,type:0
+msgid "Multiple Choice (Only One Answer)"
+msgstr "ปรนัย (เฉพาะหนึ่งคำตอบ)"
+
+#. module: survey
+#: field:survey.answer,in_visible_answer_type:0
+msgid "Is Answer Type Invisible??"
+msgstr "พิมพ์คำตอบจะมองไม่เห็น?"
+
+#. module: survey
+#: model:ir.model,name:survey.model_survey_print_answer
+msgid "survey.print.answer"
+msgstr "survey.print.answer"
+
+#. module: survey
+#: view:survey.answer:0
+msgid "Menu Choices (each choice on separate by lines)"
+msgstr "เมนูทางเลือก (แต่ละตัวเลือกในการแยกตามสาย)"
+
+#. module: survey
+#: selection:survey.answer,type:0
+msgid "Float"
+msgstr "ลอย"
+
+#. module: survey
+#: view:survey.response.line:0
+msgid "Single Textboxes"
+msgstr "Single textboxes"
+
+#. module: survey
+#: code:addons/survey/wizard/survey_send_invitation.py:74
+#, python-format
+msgid "%sSurvey is not in open state"
+msgstr "sSurvey% ไม่ได้อยู่ในสถานะเปิด"
+
+#. module: survey
+#: field:survey.question.column.heading,rating_weight:0
+msgid "Weight"
+msgstr "น้ำหนัก"
+
+#. module: survey
+#: selection:survey.answer,type:0
+msgid "Date & Time"
+msgstr "วันที่และเวลา"
+
+#. module: survey
+#: field:survey.response,date_create:0
+#: field:survey.response.line,date_create:0
+msgid "Create Date"
+msgstr "วันที่สร้าง"
+
+#. module: survey
+#: field:survey.question,column_name:0
+msgid "Column Name"
+msgstr "ชื่อคอลัมน์"
+
+#. module: survey
+#: model:ir.actions.act_window,name:survey.action_survey_page_form
+#: model:ir.model,name:survey.model_survey_page
+#: model:ir.ui.menu,name:survey.menu_survey_page_form1
+#: view:survey.page:0
+msgid "Survey Pages"
+msgstr "หน้าสำรวจ"
+
+#. module: survey
+#: field:survey.question,numeric_required_sum:0
+msgid "Sum of all choices"
+msgstr "ผลรวมของตัวเลือกทั้งหมด"
+
+#. module: survey
+#: selection:survey.question,type:0
+#: view:survey.response.line:0
+msgid "Table"
+msgstr "ตาราง"
+
+#. module: survey
+#: code:addons/survey/survey.py:642
+#, python-format
+msgid "You cannot duplicate the resource!"
+msgstr "คุณไม่สามารถซ้ำกันทรัพยากร!"
+
+#. module: survey
+#: field:survey.question,comment_minimum_date:0
+#: field:survey.question,validation_minimum_date:0
+msgid "Minimum date"
+msgstr "วันที่ขั้นต่ำ"
+
+#. module: survey
+#: field:survey,response_user:0
+msgid "Maximum Answer per User"
+msgstr "คำตอบสูงสุดต่อผู้ใช้"
+
+#. module: survey
+#: field:survey.name.wiz,page:0
+msgid "Page Position"
+msgstr "ตำแหน่งหน้าที่"
+
+

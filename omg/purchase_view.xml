@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+       <record id="ineco_view_purchase_order_filter" model="ir.ui.view">
+            <field name="name">ineco.purchase.order.list.select</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>            
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                    <field name="product_id" position="after">
+                    	<field name="origin" />
+					</field>            
+			</field>
+		</record>
+		
+        <record id="purchase.purchase_rfq" model="ir.actions.act_window">
+            <field name="domain">[('manage','=',False)]</field>
+        </record>
+
+        <record id="action_ineco_project_management" model="ir.actions.act_window">
+            <field name="name">Project Management</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_type">form</field>
+            <field name="context">{'search_default_draft': 1}</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="domain">[('manage','=',True)]</field>
+            <field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+        </record>
+        <menuitem action="action_ineco_project_management" id="menu_ineco_project_management"
+            parent="purchase.menu_procurement_management"
+            sequence="6"/>
+
+		
+	</data>
+</openerp>
+         	

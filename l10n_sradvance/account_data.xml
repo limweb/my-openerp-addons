@@ -1,0 +1,2719 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+
+<!-- ACCOUNT TYPES -->
+
+<record id="acc_type_view" model="account.account.type">
+    <field name="name">View</field>
+    <field name="code">view</field>
+    <field name="close_method">none</field>
+</record>
+
+<record id="acc_type_reconciled" model="account.account.type">
+    <field name="name">Reconciled</field>
+    <field name="code">reconciled</field>
+    <field name="close_method">unreconciled</field>
+</record>
+
+<record id="acc_type_other" model="account.account.type">
+    <field name="name">Other</field>
+    <field name="code">other</field>
+    <field name="close_method">balance</field>
+</record>
+
+<!-- SR Advance Co.,Ltd. CHART OF ACCOUNTS -->
+
+<record id="sradvance_root" model="account.account.template">
+    <field name="code">0</field>
+    <field name="name">SR Advanced Co.,Ltd.</field>
+    <field name="parent_id" eval="False"/>
+    <field name="type">view</field>
+    <field name="user_type" ref="acc_type_view"/>
+</record>
+
+
+<!--SR Advance Co.,Ltd. Account -->
+<record id="100000" model="account.account.template">
+<field name="code">100000</field>
+<field name="name">**สินทรัพย์**</field>
+<field name="parent_id" ref="sradvance_root" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="110000" model="account.account.template">
+<field name="code">110000</field>
+<field name="parent_id" ref="100000" />
+<field name="name">**สินทรัพย์หมุนเวียน**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="111000" model="account.account.template">
+<field name="code">111000</field>
+<field name="parent_id" ref="110000" />
+<field name="name">เงินสดและเงินฝากธนาคาร</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="111010" model="account.account.template">
+<field name="code">111010</field>
+<field name="parent_id" ref="111000" />
+<field name="name">เงินสดในมือ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="111020" model="account.account.template">
+<field name="code">111020</field>
+<field name="parent_id" ref="111000" />
+<field name="name">เงินสดย่อย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="111030" model="account.account.template">
+<field name="code">111030</field>
+<field name="parent_id" ref="111000" />
+<field name="name">เงินทดรองจ่าย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="112010" model="account.account.template">
+<field name="code">112010</field>
+<field name="parent_id" ref="110000" />
+<field name="name">เงินฝากกระแสรายวัน-ธ.นครหลวงไทย/เพชรบุรี</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="112020" model="account.account.template">
+<field name="code">112020</field>
+<field name="parent_id" ref="110000" />
+<field name="name">เงินฝากออมทรัพย์-ธ.นครหลวงไทย/เพชรบุรี</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="112030" model="account.account.template">
+<field name="code">112030</field>
+<field name="parent_id" ref="110000" />
+<field name="name">เงินฝากกระแสรายวัน-ธ.กสิกรไทย/บางพลี</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="112040" model="account.account.template">
+<field name="code">112040</field>
+<field name="parent_id" ref="110000" />
+<field name="name">เงินฝากกระแสรายวัน-ธ.กสิกรไทย/นิคมฯบางปะกง</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="112050" model="account.account.template">
+<field name="code">112050</field>
+<field name="parent_id" ref="110000" />
+<field name="name">เช็ครับล่วงหน้า</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="112060" model="account.account.template">
+<field name="code">112060</field>
+<field name="parent_id" ref="110000" />
+<field name="name">เงินฝากประจำ-ธ.นครหลวงไทย/เพชรบุรี</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="112070" model="account.account.template">
+<field name="code">112070</field>
+<field name="parent_id" ref="110000" />
+<field name="name">เงินฝากออมทรัพย์-ธ.นครหลวงไทย/เพชรบุรี บัญชีที่  2</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120000" model="account.account.template">
+<field name="code">120000</field>
+<field name="parent_id" ref="100000" />
+<field name="name">ลูกหนี้การค้า</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120010" model="account.account.template">
+<field name="code">120010</field>
+<field name="parent_id" ref="120000" />
+<field name="name">ลูกหนี้การค้า-บจ.ชาวเวอร์คิง แมนูแฟคเจอริ่ง</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120020" model="account.account.template">
+<field name="code">120020</field>
+<field name="parent_id" ref="120000" />
+<field name="name">ลูกหนี้การค้า-อื่น</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120030" model="account.account.template">
+<field name="code">120030</field>
+<field name="parent_id" ref="120000" />
+<field name="name">สินค้าสำเร็จรูป</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120100" model="account.account.template">
+<field name="code">120100</field>
+<field name="parent_id" ref="120000" />
+<field name="name">ลูกหนี้อื่น</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120101" model="account.account.template">
+<field name="code">120101</field>
+<field name="parent_id" ref="120100" />
+<field name="name">ลูกหนี้กรมสรรพากร</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120200" model="account.account.template">
+<field name="code">120200</field>
+<field name="parent_id" ref="120000" />
+<field name="name">รายได้ค้างรับ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120300" model="account.account.template">
+<field name="code">120300</field>
+<field name="parent_id" ref="120000" />
+<field name="name">ลูกหนี้เงินยืมบริษัทในเครือและลูกจ้าง</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120400" model="account.account.template">
+<field name="code">120400</field>
+<field name="parent_id" ref="120000" />
+<field name="name">ลูกหนี้เงินยืมกรรมการ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120500" model="account.account.template">
+<field name="code">120500</field>
+<field name="parent_id" ref="120000" />
+<field name="name">วัตถุดิบ-กระจก</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120501" model="account.account.template">
+<field name="code">120501</field>
+<field name="parent_id" ref="120500" />
+<field name="name">วัตถุดิบ-สี</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120502" model="account.account.template">
+<field name="code">120502</field>
+<field name="parent_id" ref="120500" />
+<field name="name">วัตถุดิบ-อื่น</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120503" model="account.account.template">
+<field name="code">120503</field>
+<field name="parent_id" ref="120500" />
+<field name="name">วัตถุดิบระหว่างทาง</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120504" model="account.account.template">
+<field name="code">120504</field>
+<field name="parent_id" ref="120500" />
+<field name="name">วัตถุดิบ-ฟิล์มติดกระจก</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120505" model="account.account.template">
+<field name="code">120505</field>
+<field name="parent_id" ref="120500" />
+<field name="name">วัตถุดิบ-กระจกเงา</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120510" model="account.account.template">
+<field name="code">120510</field>
+<field name="parent_id" ref="120500" />
+<field name="name">วัตถุดิบกระจกปลายงวด</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120511" model="account.account.template">
+<field name="code">120511</field>
+<field name="parent_id" ref="120500" />
+<field name="name">วัตถุดิบสีปลายงวด</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120512" model="account.account.template">
+<field name="code">120512</field>
+<field name="parent_id" ref="120500" />
+<field name="name">วัตถุดิบอื่นปลายงวด</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120513" model="account.account.template">
+<field name="code">120513</field>
+<field name="parent_id" ref="120500" />
+<field name="name">วัตถุดิบระหว่างทางปลายงวด</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120514" model="account.account.template">
+<field name="code">120514</field>
+<field name="parent_id" ref="120500" />
+<field name="name">วัตถุดิบฟิล์มปลายงวด</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120600" model="account.account.template">
+<field name="code">120600</field>
+<field name="parent_id" ref="120000" />
+<field name="name">วัสดุโรงงาน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120700" model="account.account.template">
+<field name="code">120700</field>
+<field name="parent_id" ref="120000" />
+<field name="name">สินค้าซื้อมาเพื่อขาย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120800" model="account.account.template">
+<field name="code">120800</field>
+<field name="parent_id" ref="120000" />
+<field name="name">งานระหว่างทำ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="120900" model="account.account.template">
+<field name="code">120900</field>
+<field name="parent_id" ref="120000" />
+<field name="name">สินค้าสำเร็จรูป</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="130000" model="account.account.template">
+<field name="code">130000</field>
+<field name="parent_id" ref="100000" />
+<field name="name">**สินทรัพย์หมุนเวียนอื่น**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="130100" model="account.account.template">
+<field name="code">130100</field>
+<field name="parent_id" ref="130000" />
+<field name="name">**ภาษี**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="130101" model="account.account.template">
+<field name="code">130101</field>
+<field name="parent_id" ref="130100" />
+<field name="name">ภาษีหัก ณ ที่จ่ายจ่ายล่วงหน้า</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="130102" model="account.account.template">
+<field name="code">130102</field>
+<field name="parent_id" ref="130100" />
+<field name="name">ภาษีเงินได้นิติบุคคลจ่ายล่วงหน้า</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="130104" model="account.account.template">
+<field name="code">130104</field>
+<field name="parent_id" ref="130100" />
+<field name="name">ภาษีซื้อ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="130105" model="account.account.template">
+<field name="code">130105</field>
+<field name="parent_id" ref="130100" />
+<field name="name">ภาษีซื้อยังไม่ถึงกำหนด</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="130106" model="account.account.template">
+<field name="code">130106</field>
+<field name="parent_id" ref="130100" />
+<field name="name">ภาษีซื้อรอนำส่ง</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="130200" model="account.account.template">
+<field name="code">130200</field>
+<field name="parent_id" ref="130000" />
+<field name="name">**ค่าใช้จ่ายจ่ายล่วงหน้า**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="130201" model="account.account.template">
+<field name="code">130201</field>
+<field name="parent_id" ref="130200" />
+<field name="name">ค่าใช้จ่ายจ่ายล่วงหน้า</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="130202" model="account.account.template">
+<field name="code">130202</field>
+<field name="parent_id" ref="130200" />
+<field name="name">เงินเดือนจ่ายล่วงหน้า</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="130203" model="account.account.template">
+<field name="code">130203</field>
+<field name="parent_id" ref="130200" />
+<field name="name">บัญชีพัก</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="130204" model="account.account.template">
+<field name="code">130204</field>
+<field name="parent_id" ref="130200" />
+<field name="name">เงินมัดจำจ่ายล่วงหน้า</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="130205" model="account.account.template">
+<field name="code">130205</field>
+<field name="parent_id" ref="130200" />
+<field name="name">ค่าเบี้ยประกันจ่ายล่วงหน้า</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="130206" model="account.account.template">
+<field name="code">130206</field>
+<field name="parent_id" ref="130200" />
+<field name="name">ดอกเบี้ยเช่าซื้อรอตัดจ่าย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="130207" model="account.account.template">
+<field name="code">130207</field>
+<field name="parent_id" ref="130200" />
+<field name="name">ค่าภาษีจ่ายล่วงหน้า</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="130208" model="account.account.template">
+<field name="code">130208</field>
+<field name="parent_id" ref="130200" />
+<field name="name">ค่าเครื่องแบบและอุปกรณ์นิรภัยจ่ายล่วงหน้า</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="130209" model="account.account.template">
+<field name="code">130209</field>
+<field name="parent_id" ref="130200" />
+<field name="name">ค่าวัสดุสิ้นเปลืองจ่ายล่วงหน้า</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="130210" model="account.account.template">
+<field name="code">130210</field>
+<field name="parent_id" ref="130200" />
+<field name="name">ดอกเบี้เช่าซื้อรอตัดบัญชี ถึงกำหนด 1 ปี</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150000" model="account.account.template">
+<field name="code">150000</field>
+<field name="parent_id" ref="100000" />
+<field name="name">**สินทรัพย์ถาวร**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150100" model="account.account.template">
+<field name="code">150100</field>
+<field name="parent_id" ref="150000" />
+<field name="name">ที่ดิน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150200" model="account.account.template">
+<field name="code">150200</field>
+<field name="parent_id" ref="150000" />
+<field name="name">ส่วนเพิ่มเติมอาคารและสิ่งปลูกสร้าง</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150201" model="account.account.template">
+<field name="code">150201</field>
+<field name="parent_id" ref="150200" />
+<field name="name">รับเหมาก่อสร้าง</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150210" model="account.account.template">
+<field name="code">150210</field>
+<field name="parent_id" ref="150200" />
+<field name="name">ค่าเสื่อมราคาสะสม-ส่วนเพิ่มเติมอาคารและสิ่งฯ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150300" model="account.account.template">
+<field name="code">150300</field>
+<field name="parent_id" ref="150000" />
+<field name="name">อาคารและสิ่งปลูกสร้าง</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150310" model="account.account.template">
+<field name="code">150310</field>
+<field name="parent_id" ref="150300" />
+<field name="name">ค่าเสื่อมราคาสะสม-อาคารและสิ่งปลูกสร้าง</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150400" model="account.account.template">
+<field name="code">150400</field>
+<field name="parent_id" ref="150000" />
+<field name="name">เครื่องจักรและอุปกรณ์</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150410" model="account.account.template">
+<field name="code">150410</field>
+<field name="parent_id" ref="150400" />
+<field name="name">ค่าเสื่อมราคาสะสม-เครื่องจักรและอุปกรณ์</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150500" model="account.account.template">
+<field name="code">150500</field>
+<field name="parent_id" ref="150000" />
+<field name="name">เครื่องมือเครื่องใช้</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150510" model="account.account.template">
+<field name="code">150510</field>
+<field name="parent_id" ref="150500" />
+<field name="name">ค่าเสื่อมราคาสะสม-เครื่องมือเครื่องใช้</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150520" model="account.account.template">
+<field name="code">150520</field>
+<field name="parent_id" ref="150500" />
+<field name="name">วัสดุและอุปกรณ์</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150521" model="account.account.template">
+<field name="code">150521</field>
+<field name="parent_id" ref="150500" />
+<field name="name">ค่าเสื่อมราคาสะสม-วัสดุและอุปกรณ์</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150600" model="account.account.template">
+<field name="code">150600</field>
+<field name="parent_id" ref="150000" />
+<field name="name">เครื่องตกแต่งสำนักงาน</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150610" model="account.account.template">
+<field name="code">150610</field>
+<field name="parent_id" ref="150600" />
+<field name="name">ค่าเสื่อมราคาสะสม-เครื่องตกแต่งสำนักงาน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150700" model="account.account.template">
+<field name="code">150700</field>
+<field name="parent_id" ref="150000" />
+<field name="name">เครื่องใช้สำนักงาน</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150710" model="account.account.template">
+<field name="code">150710</field>
+<field name="parent_id" ref="150700" />
+<field name="name">ค่าเสื่อมราคาสะสม-เครื่องใช้สำนักงาน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150800" model="account.account.template">
+<field name="code">150800</field>
+<field name="parent_id" ref="150000" />
+<field name="name">ยานพาหนะ</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150801" model="account.account.template">
+<field name="code">150801</field>
+<field name="parent_id" ref="150800" />
+<field name="name">ส่วนเพิ่มเติมยานพาหนะ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150810" model="account.account.template">
+<field name="code">150810</field>
+<field name="parent_id" ref="150800" />
+<field name="name">ค่าเสื่อมราคาสะสม-ยานพาหนะ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150900" model="account.account.template">
+<field name="code">150900</field>
+<field name="parent_id" ref="150000" />
+<field name="name">ซอฟต์แวร์</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="150910" model="account.account.template">
+<field name="code">150910</field>
+<field name="parent_id" ref="150900" />
+<field name="name">ค่าเสื่อมราคาสะสม-ซอฟต์แวร์</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="160100" model="account.account.template">
+<field name="code">160100</field>
+<field name="parent_id" ref="100000" />
+<field name="name">งานระหว่างทำ</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="160110" model="account.account.template">
+<field name="code">160110</field>
+<field name="parent_id" ref="160100" />
+<field name="name">ค่าเผื่อหนี้สงสัยจะสูญ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+
+
+<record id="200000" model="account.account.template">
+<field name="code">200000</field>
+<field name="name">**หนี้สินและส่วนของผู้ถือหุ้น**</field>
+<field name="type">view</field>
+<field name="parent_id" ref="sradvance_root" />
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="210000" model="account.account.template">
+<field name="code">210000</field>
+<field name="parent_id" ref="200000" />
+<field name="name">**หนี้สินหมุนเวียน**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="210100" model="account.account.template">
+<field name="code">210100</field>
+<field name="parent_id" ref="210000" />
+<field name="name">เงินเบิกเกินบัญชีกระแสรายวัน-ธ.นครหลวงไทย/เพชรบุรี</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="210110" model="account.account.template">
+<field name="code">210110</field>
+<field name="parent_id" ref="210100" />
+<field name="name">รายได้รับล่วงหน้า</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="210200" model="account.account.template">
+<field name="code">210200</field>
+<field name="parent_id" ref="210000" />
+<field name="name">**เจ้าหนี้การค้า**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="210210" model="account.account.template">
+<field name="code">210210</field>
+<field name="parent_id" ref="210200" />
+<field name="name">เจ้าหนี้การค้า-ในประเทศ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="210220" model="account.account.template">
+<field name="code">210220</field>
+<field name="parent_id" ref="210200" />
+<field name="name">เจ้าหนี้การค้า-ต่างประเทศ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="210400" model="account.account.template">
+<field name="code">210400</field>
+<field name="parent_id" ref="210000" />
+<field name="name">เจ้าหนี้อื่น</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="21G001" model="account.account.template">
+<field name="code">21G001</field>
+<field name="parent_id" ref="210000" />
+<field name="name">เจ้าหนี้-ยูโร-เอเซียกลาสแมชชีนเวิร์ค</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="21F004" model="account.account.template">
+<field name="code">21F004</field>
+<field name="parent_id" ref="210000" />
+<field name="name">เจ้าหนี้-บจก.รุ่งแสงอิเล็คทริคแอร์ เซ็นเตอร์</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="21E001" model="account.account.template">
+<field name="code">21E001</field>
+<field name="parent_id" ref="210000" />
+<field name="name">เจ้าหนี้-บจก.ลีเรคโก*ประเทศไทย*</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="21D006" model="account.account.template">
+<field name="code">21D006</field>
+<field name="parent_id" ref="210000" />
+<field name="name">เจ้าหนี้-หจก.เวอร์คเพาเวอร์ฯ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="21C001" model="account.account.template">
+<field name="code">21C001</field>
+<field name="parent_id" ref="210000" />
+<field name="name">ห้างหุ้นส่วนจำกัด ศิริรักษ์ ทรานสปอร์ต แอนด์ เซอร์วิส</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="21B009" model="account.account.template">
+<field name="code">21B009</field>
+<field name="parent_id" ref="210000" />
+<field name="name">เจ้าหนี้-บจก.อมตะ วอเตอร์</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="21A013" model="account.account.template">
+<field name="code">21A013</field>
+<field name="parent_id" ref="210000" />
+<field name="name">เจ้าหนี้-บจก.เอ็ม.พี.ที. แมชชินเนอรี่</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="230000" model="account.account.template">
+<field name="code">230000</field>
+<field name="parent_id" ref="200000" />
+<field name="name">เจ้าหนี้ กรมศุลกากร</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="230100" model="account.account.template">
+<field name="code">230100</field>
+<field name="parent_id" ref="230000" />
+<field name="name">เจ้าหนี้กรมสรรพากร</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="240100" model="account.account.template">
+<field name="code">240100</field>
+<field name="parent_id" ref="200000" />
+<field name="name">ค่าใช้จ่ายค้างจ่าย</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="240101" model="account.account.template">
+<field name="code">240101</field>
+<field name="parent_id" ref="240100" />
+<field name="name">ค่าสวัสดิการค้างจ่าย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="240102" model="account.account.template">
+<field name="code">240102</field>
+<field name="parent_id" ref="240100" />
+<field name="name">ค่าโทรศัพท์ค้างจ่าย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="240103" model="account.account.template">
+<field name="code">240103</field>
+<field name="parent_id" ref="240100" />
+<field name="name">เงินปันผลค้างจ่าย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="240104" model="account.account.template">
+<field name="code">240104</field>
+<field name="parent_id" ref="240100" />
+<field name="name">ค่าน้ำมันค้างจ่าย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="240200" model="account.account.template">
+<field name="code">240200</field>
+<field name="parent_id" ref="210000" />
+<field name="name">เงินเดือน-ค่าจ้าง ค้างจ่าย</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="240201" model="account.account.template">
+<field name="code">240201</field>
+<field name="parent_id" ref="240200" />
+<field name="name">กองทุนสำรองเลี้ยงชีพค้างจ่าย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="240300" model="account.account.template">
+<field name="code">240300</field>
+<field name="parent_id" ref="210000" />
+<field name="name">เงินประกันสังคม ค้างจ่าย</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="240301" model="account.account.template">
+<field name="code">240301</field>
+<field name="parent_id" ref="240300" />
+<field name="name">ภาษีหัก ณ ที่จ่าย ค้างจ่าย*ภงด.2*</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="240400" model="account.account.template">
+<field name="code">240400</field>
+<field name="parent_id" ref="210000" />
+<field name="name">ภาษีหัก ณ ที่จ่าย ค้างจ่าย*ภงด.3*</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="240500" model="account.account.template">
+<field name="code">240500</field>
+<field name="parent_id" ref="210000" />
+<field name="name">ภาษีหัก ณ ที่จ่าย ค้างจ่าย*ภงด.53*</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="240600" model="account.account.template">
+<field name="code">240600</field>
+<field name="parent_id" ref="210000" />
+<field name="name">ภาษีหัก ณ ที่จ่าย ค้างจ่าย *ภงด.1*</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="240700" model="account.account.template">
+<field name="code">240700</field>
+<field name="parent_id" ref="210000" />
+<field name="name">ค่าสอบบัญชีค้างจ่าย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="240800" model="account.account.template">
+<field name="code">240800</field>
+<field name="parent_id" ref="210000" />
+<field name="name">ค่าที่ปรึกษาค้างจ่าย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="240900" model="account.account.template">
+<field name="code">240900</field>
+<field name="parent_id" ref="210000" />
+<field name="name">ดอกเบี้ยค้างจ่าย</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="240901" model="account.account.template">
+<field name="code">240901</field>
+<field name="parent_id" ref="240900" />
+<field name="name">ค่าภาษีค้างจ่าย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="250000" model="account.account.template">
+<field name="code">250000</field>
+<field name="parent_id" ref="200000" />
+<field name="name">เจ้าหนี้เงินยืมบริษัทในเครือ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="260000" model="account.account.template">
+<field name="code">260000</field>
+<field name="parent_id" ref="200000" />
+<field name="name">เจ้าหนี้เงินยืมกรรมการ</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="260100" model="account.account.template">
+<field name="code">260100</field>
+<field name="parent_id" ref="260000" />
+<field name="name">เจ้าหนี้เงินสดในมือกรรมการ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="260200" model="account.account.template">
+<field name="code">260200</field>
+<field name="parent_id" ref="260000" />
+<field name="name">เจ้าหนี้ -  ธนาคารนครหลวงไทย *ตั๋วสัญญาใช้เงิน*</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="260300" model="account.account.template">
+<field name="code">260300</field>
+<field name="parent_id" ref="260000" />
+<field name="name">เงินกู้ยืมระยะสั้น - ธ.นครหลวงไทย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="270000" model="account.account.template">
+<field name="code">270000</field>
+<field name="parent_id" ref="200000" />
+<field name="name">**หนี้สินระยะยาว**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="270100" model="account.account.template">
+<field name="code">270100</field>
+<field name="parent_id" ref="270000" />
+<field name="name">เงินกู้ยืมระยะยาว-ธ.นครหลวงไทย*ที่ดิน*</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="270200" model="account.account.template">
+<field name="code">270200</field>
+<field name="parent_id" ref="270000" />
+<field name="name">เงินกู้ยืมระยะยาว-ธ.นครหลวงไทย*เครื่องจักร*</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="270201" model="account.account.template">
+<field name="code">270201</field>
+<field name="parent_id" ref="270200" />
+<field name="name">เงินกู้ยืมระยะยาว-ธ.นครหลวงไทย*เครื่องจักร*ถึงกำหนด 1 ปี</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="270300" model="account.account.template">
+<field name="code">270300</field>
+<field name="parent_id" ref="270000" />
+<field name="name">เงินกู้ยืมระยะยาว-ธ.นครหลวงไทย*ก่อสร้าง*</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="270301" model="account.account.template">
+<field name="code">270301</field>
+<field name="parent_id" ref="270300" />
+<field name="name">เงินกู้ยืมระยะยาว-ธ.นครหลวงไทย*ก่อสร้าง*ถึงกำหนด 1 ปี</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="270400" model="account.account.template">
+<field name="code">270400</field>
+<field name="parent_id" ref="270000" />
+<field name="name">ตั๋วสัญญาใช้เงิน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="270500" model="account.account.template">
+<field name="code">270500</field>
+<field name="parent_id" ref="270000" />
+<field name="name">เงินกู้ยืมระยะยาว-บมจ.บัตรกรุงไทย</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="270501" model="account.account.template">
+<field name="code">270501</field>
+<field name="parent_id" ref="270500" />
+<field name="name">เงินกู้ยืมระยะยาว-บมจ.บัตรกรุงไทย ถึงกำหนด 1 ปี</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="270600" model="account.account.template">
+<field name="code">270600</field>
+<field name="parent_id" ref="270000" />
+<field name="name">เจ้าหนี้ - บจก. ยูโอบี ลีสซิ่ง *ไทย* *ค่าเครื่อง CNC*</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="270601" model="account.account.template">
+<field name="code">270601</field>
+<field name="parent_id" ref="270600" />
+<field name="name">เจ้าหนี้ - บจก. ยูโอบี ลีสซิ่ง *ไทย* ถึงกำหนด 1 ปี *ค่าเครื่อง CNC*</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="270602" model="account.account.template">
+<field name="code">270602</field>
+<field name="parent_id" ref="270600" />
+<field name="name">เจ้าหนี้ - บจก.ยูโอบี ลีสซิ่ง *ไทย* *เครื่องตัดกระจก*</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="270603" model="account.account.template">
+<field name="code">270603</field>
+<field name="parent_id" ref="270600" />
+<field name="name">เจ้าหนี้ - บจก.ยูโอบี ลีสซิ่ง *ไทย* ถึงกำหนด 1 ปี *เครื่องตัดกระจก*</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="280000" model="account.account.template">
+<field name="code">280000</field>
+<field name="parent_id" ref="200000" />
+<field name="name">**หนี้สินอื่น**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="280100" model="account.account.template">
+<field name="code">280100</field>
+<field name="parent_id" ref="280000" />
+<field name="name">เจ้าหนี้เงินมัดจำ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="280200" model="account.account.template">
+<field name="code">280200</field>
+<field name="parent_id" ref="280000" />
+<field name="name">เจ้าหนี้เงินประกันพนักงาน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="280300" model="account.account.template">
+<field name="code">280300</field>
+<field name="parent_id" ref="280000" />
+<field name="name">เจ้าหนี้ค่าชุดฟอร์ม</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="280400" model="account.account.template">
+<field name="code">280400</field>
+<field name="parent_id" ref="280000" />
+<field name="name">เจ้าหนี้ ค่างวดรถ *บจ.ไทยออโต้เซลส์*</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="280401" model="account.account.template">
+<field name="code">280401</field>
+<field name="parent_id" ref="280400" />
+<field name="name">เจ้าหนี้ค่างวดรถ*บจ.ไทยออโตเซลส์*ถึงกำหนด1ปี</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="280500" model="account.account.template">
+<field name="code">280500</field>
+<field name="parent_id" ref="280000" />
+<field name="name">เจ้าหนี้ ค่างวดรถ *บงท.ธนชาติ*</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="280501" model="account.account.template">
+<field name="code">280501</field>
+<field name="parent_id" ref="280500" />
+<field name="name">เจ้าหนี้ค่างวดรถ*บงท.ธนชาติ*ถึงกำหนด1ปี</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="280600" model="account.account.template">
+<field name="code">280600</field>
+<field name="parent_id" ref="280000" />
+<field name="name">เจ้าหนี้อื่น</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="280601" model="account.account.template">
+<field name="code">280601</field>
+<field name="parent_id" ref="280600" />
+<field name="name">เจ้าหนี้ค่างวดรถ*ธ.เกียรตินาคิน*</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="280611" model="account.account.template">
+<field name="code">280611</field>
+<field name="parent_id" ref="280600" />
+<field name="name">เจ้าหนี้ค่างวดรถ*ธ.เกียรตินาคิน*ถึงกำหนด 1 ปี</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="280700" model="account.account.template">
+<field name="code">280700</field>
+<field name="parent_id" ref="280000" />
+<field name="name">ภาษีขาย</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="280701" model="account.account.template">
+<field name="code">280701</field>
+<field name="parent_id" ref="280700" />
+<field name="name">ภาษีขายรอใบกำกับ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="280800" model="account.account.template">
+<field name="code">280800</field>
+<field name="parent_id" ref="280000" />
+<field name="name">เจ้าหนี้ค่างวดรถ*บจก.มิตรสยาม*</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="280801" model="account.account.template">
+<field name="code">280801</field>
+<field name="parent_id" ref="280800" />
+<field name="name">เจ้าหนี้ค่างวดรถ*บจก.มิตรสยาม*ถึงกำหนด1ปี</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="280900" model="account.account.template">
+<field name="code">280900</field>
+<field name="parent_id" ref="280000" />
+<field name="name">เจ้าหนี้ค่างวดรถ*บงท.สินอุตสาหกรรม*</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="280901" model="account.account.template">
+<field name="code">280901</field>
+<field name="parent_id" ref="280900" />
+<field name="name">เจ้าหนี้ค่างวดรถ*บงท.สินอุตสาหกรรม*ถึงกำหนด1ปี</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+
+<record id="300000" model="account.account.template">
+<field name="code">300000</field>
+<field name="name">**ทุน**</field>
+<field name="type">view</field>
+<field name="parent_id" ref="sradvance_root" />
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="310000" model="account.account.template">
+<field name="code">310000</field>
+<field name="parent_id" ref="300000" />
+<field name="name">หุ้นสามัญ 1,500,000  หุ้นๆ ละ 10 บาท</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="320000" model="account.account.template">
+<field name="code">320000</field>
+<field name="parent_id" ref="300000" />
+<field name="name">สำรองตามกฏหมาย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="330000" model="account.account.template">
+<field name="code">330000</field>
+<field name="parent_id" ref="300000" />
+<field name="name">กำไร(ขาดทุน)สะสม</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="340000" model="account.account.template">
+<field name="code">340000</field>
+<field name="parent_id" ref="300000" />
+<field name="name">กำไร(ขาดทุน)สุทธิ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="350000" model="account.account.template">
+<field name="code">350000</field>
+<field name="parent_id" ref="300000" />
+<field name="name">กำไร(ขาดทุน)จากอัตราแลกเปลี่ยน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="360000" model="account.account.template">
+<field name="code">360000</field>
+<field name="parent_id" ref="300000" />
+<field name="name">กำไร(ขาดทุน)จากการขายทรัพย์สิน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="370000" model="account.account.template">
+<field name="code">370000</field>
+<field name="parent_id" ref="300000" />
+<field name="name">ส่วนเกินทุนจากการปรับมูลค่าสินทรัพย์</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="400000" model="account.account.template">
+<field name="code">400000</field>
+<field name="name">**รายได้**</field>
+<field name="parent_id" ref="sradvance_root" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="410000" model="account.account.template">
+<field name="code">410000</field>
+<field name="parent_id" ref="400000" />
+<field name="name">รายได้จากการขาย</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="410100" model="account.account.template">
+<field name="code">410100</field>
+<field name="parent_id" ref="410000" />
+<field name="name">รายได้จากการรับจ้างอบกระจก</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="420000" model="account.account.template">
+<field name="code">420000</field>
+<field name="parent_id" ref="400000" />
+<field name="name">ส่วนลดจ่าย</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="420100" model="account.account.template">
+<field name="code">420100</field>
+<field name="parent_id" ref="420000" />
+<field name="name">รับคืน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="430000" model="account.account.template">
+<field name="code">430000</field>
+<field name="parent_id" ref="400000" />
+<field name="name">รายได้อื่น</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="440000" model="account.account.template">
+<field name="code">440000</field>
+<field name="parent_id" ref="400000" />
+<field name="name">รายได้ค่าปรับพนักงาน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="450000" model="account.account.template">
+<field name="code">450000</field>
+<field name="parent_id" ref="400000" />
+<field name="name">ดอกเบี้ยรับ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="460000" model="account.account.template">
+<field name="code">460000</field>
+<field name="parent_id" ref="400000" />
+<field name="name">รายได้ค่าไฟฟ้า</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="470000" model="account.account.template">
+<field name="code">470000</field>
+<field name="parent_id" ref="400000" />
+<field name="name">รายได้ค่าบริการวงจรสื่อสัญญาณ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="480000" model="account.account.template">
+<field name="code">480000</field>
+<field name="parent_id" ref="400000" />
+<field name="name">กำไรจากอัตราแลกเปลี่ยน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="490000" model="account.account.template">
+<field name="code">490000</field>
+<field name="parent_id" ref="400000" />
+<field name="name">กำไรจากการจำหน่ายสินทรัพย์</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="500000" model="account.account.template">
+<field name="code">500000</field>
+<field name="name">**ต้นทุนการผลิต*</field>
+<field name="type">view</field>
+<field name="parent_id" ref="sradvance_root" />
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="500001" model="account.account.template">
+<field name="code">500001</field>
+<field name="parent_id" ref="500000" />
+<field name="name">ต้นทุนการผลิต</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="500100" model="account.account.template">
+<field name="code">500100</field>
+<field name="parent_id" ref="500000" />
+<field name="name">ค่าใช้จ่ายซื้อวัตถุดิบ</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="500101" model="account.account.template">
+<field name="code">500101</field>
+<field name="parent_id" ref="500100" />
+<field name="name">ต้นทุนวัตถุดิบใช้ไป</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="500110" model="account.account.template">
+<field name="code">500110</field>
+<field name="parent_id" ref="500100" />
+<field name="name">ส่งคืน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="500120" model="account.account.template">
+<field name="code">500120</field>
+<field name="parent_id" ref="500100" />
+<field name="name">ส่วนลดรับ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="500130" model="account.account.template">
+<field name="code">500130</field>
+<field name="parent_id" ref="500100" />
+<field name="name">ค่าบริการติดตั้ง-ระบบแลน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="500140" model="account.account.template">
+<field name="code">500140</field>
+<field name="parent_id" ref="500100" />
+<field name="name">ค่าบริการวงจรสื่อสัญญาณความเร็วสูง</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="500300" model="account.account.template">
+<field name="code">500300</field>
+<field name="parent_id" ref="500000" />
+<field name="name">แรงงานการผลิต</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="500301" model="account.account.template">
+<field name="code">500301</field>
+<field name="parent_id" ref="500300" />
+<field name="name">ค่าจ้างเหมา-บุคคลภายนอก</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="500400" model="account.account.template">
+<field name="code">500400</field>
+<field name="parent_id" ref="500000" />
+<field name="name">ค่าล่วงเวลาการผลิต</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510000" model="account.account.template">
+<field name="code">510000</field>
+<field name="parent_id" ref="500000" />
+<field name="name">**ต้นทุนขาย**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510100" model="account.account.template">
+<field name="code">510100</field>
+<field name="parent_id" ref="510000" />
+<field name="name">ค่าวัสดุโรงงาน</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510101" model="account.account.template">
+<field name="code">510101</field>
+<field name="parent_id" ref="510100" />
+<field name="name">ค่าซ่อมแซมและบำรุงรักษา-เครื่องจักร</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510102" model="account.account.template">
+<field name="code">510102</field>
+<field name="parent_id" ref="510100" />
+<field name="name">ค่าซ่อมแซมและบำรุงรักษา-โรงงาน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510103" model="account.account.template">
+<field name="code">510103</field>
+<field name="parent_id" ref="510100" />
+<field name="name">ค่าไฟฟ้า-โรงงาน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510104" model="account.account.template">
+<field name="code">510104</field>
+<field name="parent_id" ref="510100" />
+<field name="name">ค่าวัสดุสิ้นเปลืองในโรงงาน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510105" model="account.account.template">
+<field name="code">510105</field>
+<field name="parent_id" ref="510100" />
+<field name="name">ค่าเสื่อมราคา-เครื่องจักร</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510106" model="account.account.template">
+<field name="code">510106</field>
+<field name="parent_id" ref="510100" />
+<field name="name">ค่าเสื่อมราคา-เครื่องมือเครื่องใช้</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510107" model="account.account.template">
+<field name="code">510107</field>
+<field name="parent_id" ref="510100" />
+<field name="name">ค่าเสื่อมราคา-วัสดุและอุปกรณ์</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510108" model="account.account.template">
+<field name="code">510108</field>
+<field name="parent_id" ref="510100" />
+<field name="name">ค่าซ่อมแซมบำรุงรักษา-เครื่องมือและอุปกรณ์</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510109" model="account.account.template">
+<field name="code">510109</field>
+<field name="parent_id" ref="510100" />
+<field name="name">ค่าซ่อมแซมระบบสาธารณูปโภคและสิ่งก่อสร้าง</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510110" model="account.account.template">
+<field name="code">510110</field>
+<field name="parent_id" ref="510100" />
+<field name="name">ต้นทุนสินค้าซื้อมาเพื่อขาย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510111" model="account.account.template">
+<field name="code">510111</field>
+<field name="parent_id" ref="510100" />
+<field name="name">ค่าจ้างทำของ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510112" model="account.account.template">
+<field name="code">510112</field>
+<field name="parent_id" ref="510100" />
+<field name="name">ขาดทุนจากการจำหน่ายสินทรัพย์</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510113" model="account.account.template">
+<field name="code">510113</field>
+<field name="parent_id" ref="510100" />
+<field name="name">ขาดทุนจากอัตราแลกเปลี่ยน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510114" model="account.account.template">
+<field name="code">510114</field>
+<field name="parent_id" ref="510100" />
+<field name="name">ภาษีเงินได้</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510115" model="account.account.template">
+<field name="code">510115</field>
+<field name="parent_id" ref="510100" />
+<field name="name">วัสดุสื้นเปลืองในการซ่อมบำรุงเครื่องจักร</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510116" model="account.account.template">
+<field name="code">510116</field>
+<field name="parent_id" ref="510100" />
+<field name="name">วัสดุสิ้นเปลืองไฟฟ้า</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510117" model="account.account.template">
+<field name="code">510117</field>
+<field name="parent_id" ref="510100" />
+<field name="name">วัสดุสิ้นเปลืองในการติดตั้งเครื่องจักร</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="510200" model="account.account.template">
+<field name="code">510200</field>
+<field name="parent_id" ref="510000" />
+<field name="name">ค่าใช้จ่ายในการผลิต/ค่าใช้จ่ายในโรงงาน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520000" model="account.account.template">
+<field name="code">520000</field>
+<field name="parent_id" ref="500000" />
+<field name="name">**ค่าใช้จ่ายในการขาย**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520100" model="account.account.template">
+<field name="code">520100</field>
+<field name="parent_id" ref="520000" />
+<field name="name">ค่าใช้จ่ายในการออกของ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520101" model="account.account.template">
+<field name="code">520101</field>
+<field name="parent_id" ref="520000" />
+<field name="name">ค่าขนส่ง</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520102" model="account.account.template">
+<field name="code">520102</field>
+<field name="parent_id" ref="520000" />
+<field name="name">ค่าโฆษณาและส่งเสริมการขาย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520103" model="account.account.template">
+<field name="code">520103</field>
+<field name="parent_id" ref="520000" />
+<field name="name">ค่าพาหนะ,น้ำมันรถและทางด่วน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520104" model="account.account.template">
+<field name="code">520104</field>
+<field name="parent_id" ref="520000" />
+<field name="name">ค่าใช้จ่ายในการเดินทางและที่พัก</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520105" model="account.account.template">
+<field name="code">520105</field>
+<field name="parent_id" ref="520000" />
+<field name="name">ค่ารับรอง</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520106" model="account.account.template">
+<field name="code">520106</field>
+<field name="parent_id" ref="520000" />
+<field name="name">ค่านายหน้า</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520107" model="account.account.template">
+<field name="code">520107</field>
+<field name="parent_id" ref="520000" />
+<field name="name">ค่าบริการติดสัญญาณยานพาหนะ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520108" model="account.account.template">
+<field name="code">520108</field>
+<field name="parent_id" ref="520000" />
+<field name="name">ค่าเช่าตู้</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520109" model="account.account.template">
+<field name="code">520109</field>
+<field name="parent_id" ref="520000" />
+<field name="name">ค่าเช่าโกดัง</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520110" model="account.account.template">
+<field name="code">520110</field>
+<field name="parent_id" ref="520000" />
+<field name="name">ค่าอากรขาเข้า</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520111" model="account.account.template">
+<field name="code">520111</field>
+<field name="parent_id" ref="520000" />
+<field name="name">เงินขาดเกินบัญชี</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520112" model="account.account.template">
+<field name="code">520112</field>
+<field name="parent_id" ref="520000" />
+<field name="name">ค่าเช่ารถโฟลท์คลิฟ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520113" model="account.account.template">
+<field name="code">520113</field>
+<field name="parent_id" ref="520000" />
+<field name="name">ค่าเช่ารถ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520114" model="account.account.template">
+<field name="code">520114</field>
+<field name="parent_id" ref="520000" />
+<field name="name">ค่าเช่าเครื่องจักร</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520115" model="account.account.template">
+<field name="code">520115</field>
+<field name="parent_id" ref="520000" />
+<field name="name">ค่าบริการรถโฟลท์ลิฟ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520116" model="account.account.template">
+<field name="code">520116</field>
+<field name="parent_id" ref="520000" />
+<field name="name">ค่าคอมมิชชั่น</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="520117" model="account.account.template">
+<field name="code">520117</field>
+<field name="parent_id" ref="520000" />
+<field name="name">ค่าซ่อมแซมรถโฟร์คลิฟท์</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="540000" model="account.account.template">
+<field name="code">540000</field>
+<field name="parent_id" ref="500000" />
+<field name="name">**ค่าใช้จ่ายในการดำเนินงาน**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="540001" model="account.account.template">
+<field name="code">540001</field>
+<field name="parent_id" ref="540000" />
+<field name="name">**เงินเดือนและเงินพิเศษอื่น**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="540100" model="account.account.template">
+<field name="code">540100</field>
+<field name="parent_id" ref="540001" />
+<field name="name">เงินเดือน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="540101" model="account.account.template">
+<field name="code">540101</field>
+<field name="parent_id" ref="540001" />
+<field name="name">โบนัส</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="540102" model="account.account.template">
+<field name="code">540102</field>
+<field name="parent_id" ref="540001" />
+<field name="name">เงินพิเศษอื่น</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="540103" model="account.account.template">
+<field name="code">540103</field>
+<field name="parent_id" ref="540001" />
+<field name="name">ค่าล่วงเวลา</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="540104" model="account.account.template">
+<field name="code">540104</field>
+<field name="parent_id" ref="540001" />
+<field name="name">ค่าเบี้ยขยัน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="540105" model="account.account.template">
+<field name="code">540105</field>
+<field name="parent_id" ref="540001" />
+<field name="name">ค่าสวัสดิการพนักงาน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="540106" model="account.account.template">
+<field name="code">540106</field>
+<field name="parent_id" ref="540001" />
+<field name="name">ค่าเครื่องแบบพนักงานและอุปกรณ์นิรภัย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="540107" model="account.account.template">
+<field name="code">540107</field>
+<field name="parent_id" ref="540001" />
+<field name="name">เงินเดือนฝ่ายขาย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="541000" model="account.account.template">
+<field name="code">541000</field>
+<field name="parent_id" ref="540000" />
+<field name="name">ค่าบริการวงจรสื่อสัญญาณความเร็วสูง</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="541001" model="account.account.template">
+<field name="code">541001</field>
+<field name="parent_id" ref="541000" />
+<field name="name">ค่าไฟฟ้าสำนักงาน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="541002" model="account.account.template">
+<field name="code">541002</field>
+<field name="parent_id" ref="541000" />
+<field name="name">ค่าน้ำประปา</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="541003" model="account.account.template">
+<field name="code">541003</field>
+<field name="parent_id" ref="541000" />
+<field name="name">ค่าบำรุงรักษา(ส่วนกลาง)</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="541004" model="account.account.template">
+<field name="code">541004</field>
+<field name="parent_id" ref="541000" />
+<field name="name">ค่าโทรศัพท์สำนักงาน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="541005" model="account.account.template">
+<field name="code">541005</field>
+<field name="parent_id" ref="541000" />
+<field name="name">ค่าบริการน้ำเสีย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="541006" model="account.account.template">
+<field name="code">541006</field>
+<field name="parent_id" ref="541000" />
+<field name="name">ค่าบริการงานจัดสวน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="541007" model="account.account.template">
+<field name="code">541007</field>
+<field name="parent_id" ref="541000" />
+<field name="name">ค่าบริการทำความสะอาด</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="541008" model="account.account.template">
+<field name="code">541008</field>
+<field name="parent_id" ref="541000" />
+<field name="name">ค่าบริการสอบเทียบ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="541009" model="account.account.template">
+<field name="code">541009</field>
+<field name="parent_id" ref="541000" />
+<field name="name">ค่าบริการถ่ายเอกสาร</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="541010" model="account.account.template">
+<field name="code">541010</field>
+<field name="parent_id" ref="541000" />
+<field name="name">ค่ารักษาความปลอดภัย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="542000" model="account.account.template">
+<field name="code">542000</field>
+<field name="parent_id" ref="540000" />
+<field name="name">**ค่าใช้จ่ายสำนักงาน**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="542001" model="account.account.template">
+<field name="code">542001</field>
+<field name="parent_id" ref="542000" />
+<field name="name">ค่าเครื่องเขียนแบบพิมพ์</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="542002" model="account.account.template">
+<field name="code">542002</field>
+<field name="parent_id" ref="542000" />
+<field name="name">ค่าวัสดุสิ้นเปลือง</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="542003" model="account.account.template">
+<field name="code">542003</field>
+<field name="parent_id" ref="542000" />
+<field name="name">ค่าไปรษณีย์,โทรเลข,และอากร</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="542004" model="account.account.template">
+<field name="code">542004</field>
+<field name="parent_id" ref="542000" />
+<field name="name">ค่าใช้จ่ายเบ็ดเตล็ด</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="542005" model="account.account.template">
+<field name="code">542005</field>
+<field name="parent_id" ref="542000" />
+<field name="name">ส่วนลดเงินสดรับ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="542006" model="account.account.template">
+<field name="code">542006</field>
+<field name="parent_id" ref="542000" />
+<field name="name">หนี้สูญ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="542007" model="account.account.template">
+<field name="code">542007</field>
+<field name="parent_id" ref="542000" />
+<field name="name">ค่าบริการจัดการ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="543000" model="account.account.template">
+<field name="code">543000</field>
+<field name="parent_id" ref="540000" />
+<field name="name">**ค่าธรรมเนียม**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="543001" model="account.account.template">
+<field name="code">543001</field>
+<field name="parent_id" ref="543000" />
+<field name="name">ค่าธรรมเนียมธนาคาร</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="543002" model="account.account.template">
+<field name="code">543002</field>
+<field name="parent_id" ref="543000" />
+<field name="name">ค่าธรรมเนียมราชการ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="543003" model="account.account.template">
+<field name="code">543003</field>
+<field name="parent_id" ref="543000" />
+<field name="name">ค่าเบี้ยปรับและเงินเพิ่ม</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="543004" model="account.account.template">
+<field name="code">543004</field>
+<field name="parent_id" ref="543000" />
+<field name="name">ค่าธรรมเนียมอื่น ๆ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="543005" model="account.account.template">
+<field name="code">543005</field>
+<field name="parent_id" ref="543000" />
+<field name="name">ภาษีป้ายและภาษีโรงเรือน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="543006" model="account.account.template">
+<field name="code">543006</field>
+<field name="parent_id" ref="543000" />
+<field name="name">ค่าภาษีรถยนต์</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="544000" model="account.account.template">
+<field name="code">544000</field>
+<field name="parent_id" ref="540000" />
+<field name="name">**ค่าซ่อมแซมและบำรุงรักษา**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="544001" model="account.account.template">
+<field name="code">544001</field>
+<field name="parent_id" ref="544000" />
+<field name="name">ค่าซ่อมแซมและบำรุงรักษา-เครื่องใช้สำนักงาน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="544002" model="account.account.template">
+<field name="code">544002</field>
+<field name="parent_id" ref="544000" />
+<field name="name">ค่าซ่อมแซมและบำรุงรักษา-อาคารสำนักงาน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="544003" model="account.account.template">
+<field name="code">544003</field>
+<field name="parent_id" ref="544000" />
+<field name="name">ค่าซ่อมแซมและบำรุงรักษา-รถยนต์</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="545000" model="account.account.template">
+<field name="code">545000</field>
+<field name="parent_id" ref="540000" />
+<field name="name">**ค่าใช้จ่าย อื่น ๆ**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="545001" model="account.account.template">
+<field name="code">545001</field>
+<field name="parent_id" ref="545000" />
+<field name="name">ค่าที่ปรึกษาและวิชาชีพอื่น</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="545002" model="account.account.template">
+<field name="code">545002</field>
+<field name="parent_id" ref="545000" />
+<field name="name">ค่าสอบบัญชี</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="545003" model="account.account.template">
+<field name="code">545003</field>
+<field name="parent_id" ref="545000" />
+<field name="name">ค่าติดต่อสื่อสาร-อินเตอร์เน็ท</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="545004" model="account.account.template">
+<field name="code">545004</field>
+<field name="parent_id" ref="545000" />
+<field name="name">ค่าเงินสมทบประกันสังคม</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="545005" model="account.account.template">
+<field name="code">545005</field>
+<field name="parent_id" ref="545000" />
+<field name="name">ค่าเงินสมทบกองทุนเงินทดแทน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="545006" model="account.account.template">
+<field name="code">545006</field>
+<field name="parent_id" ref="545000" />
+<field name="name">ค่าอบรมและสัมมนา</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="545007" model="account.account.template">
+<field name="code">545007</field>
+<field name="parent_id" ref="545000" />
+<field name="name">ขาดทุนจากอัตราแลกเปลี่ยน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="545008" model="account.account.template">
+<field name="code">545008</field>
+<field name="parent_id" ref="545000" />
+<field name="name">ขาดทุนจากการจำหน่ายทรัพย์สิน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="545009" model="account.account.template">
+<field name="code">545009</field>
+<field name="parent_id" ref="545000" />
+<field name="name">เงินกองทุนสำรองเลี้ยงชีพ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="546000" model="account.account.template">
+<field name="code">546000</field>
+<field name="parent_id" ref="540000" />
+<field name="name">**ภาษี**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="546001" model="account.account.template">
+<field name="code">546001</field>
+<field name="parent_id" ref="546000" />
+<field name="name">ภาษีซื้อที่ไม่ขอคืน / คชจ.ภาษีมูลค่าเพิ่ม</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="546002" model="account.account.template">
+<field name="code">546002</field>
+<field name="parent_id" ref="546000" />
+<field name="name">ค่าใช้จ่าย &quot;ภาษีหัก ณ ที่จ่าย&quot;</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="547000" model="account.account.template">
+<field name="code">547000</field>
+<field name="parent_id" ref="540000" />
+<field name="name">**ค่าเบี้ยประกัน**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="547001" model="account.account.template">
+<field name="code">547001</field>
+<field name="parent_id" ref="547000" />
+<field name="name">ค่าเบี้ยประกันอัคคีภัย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="547002" model="account.account.template">
+<field name="code">547002</field>
+<field name="parent_id" ref="547000" />
+<field name="name">ค่าเบี้ยประกันชีวิต</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="547003" model="account.account.template">
+<field name="code">547003</field>
+<field name="parent_id" ref="547000" />
+<field name="name">ค่าเบี้ยประกันภัยรถยนต์</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="547004" model="account.account.template">
+<field name="code">547004</field>
+<field name="parent_id" ref="547000" />
+<field name="name">ค่าเบี้ยประกันภัยเครื่องจักร</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="548000" model="account.account.template">
+<field name="code">548000</field>
+<field name="parent_id" ref="540000" />
+<field name="name">ค่าเสื่อมราคา</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="548001" model="account.account.template">
+<field name="code">548001</field>
+<field name="parent_id" ref="548000" />
+<field name="name">ค่าเสื่อมราคา-อาคารและสิ่งปลูกสร้าง</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="548002" model="account.account.template">
+<field name="code">548002</field>
+<field name="parent_id" ref="548000" />
+<field name="name">ค่าเสื่อมราคา-ยานพาหนะ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="548003" model="account.account.template">
+<field name="code">548003</field>
+<field name="parent_id" ref="548000" />
+<field name="name">ค่าเสื่อมราคา-เครื่องใช้สำนักงาน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="548004" model="account.account.template">
+<field name="code">548004</field>
+<field name="parent_id" ref="548000" />
+<field name="name">ค่าเสื่อมราคา-เครื่องตกแต่งสำนักงาน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="548005" model="account.account.template">
+<field name="code">548005</field>
+<field name="parent_id" ref="548000" />
+<field name="name">ค่าเสื่อมราคา-ส่วนต่อเติมอาคารและสิ่งปลูกสร้าง</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="548006" model="account.account.template">
+<field name="code">548006</field>
+<field name="parent_id" ref="548000" />
+<field name="name">ค่าเสื่อมราคา-ซอฟต์แวร์</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="548007" model="account.account.template">
+<field name="code">548007</field>
+<field name="parent_id" ref="548000" />
+<field name="name">หนี้สงสัยจะสูญ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="548009" model="account.account.template">
+<field name="code">548009</field>
+<field name="parent_id" ref="548000" />
+<field name="name">หนี้สูญ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="549000" model="account.account.template">
+<field name="code">549000</field>
+<field name="parent_id" ref="540000" />
+<field name="name">**ดอกเบี้ยจ่าย **</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="549001" model="account.account.template">
+<field name="code">549001</field>
+<field name="parent_id" ref="549000" />
+<field name="name">ดอกเบี้ยจ่าย (ก่อสร้าง)</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="549002" model="account.account.template">
+<field name="code">549002</field>
+<field name="parent_id" ref="549000" />
+<field name="name">ดอกเบี้ยจ่าย (เครื่องจักร)</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="549003" model="account.account.template">
+<field name="code">549003</field>
+<field name="parent_id" ref="549000" />
+<field name="name">ดอกเบี้ยจ่ายจากการซื้อยานพาหนะ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="549004" model="account.account.template">
+<field name="code">549004</field>
+<field name="parent_id" ref="549000" />
+<field name="name">ดอกเบี้ยจ่ายค่าสินค้า</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="549005" model="account.account.template">
+<field name="code">549005</field>
+<field name="parent_id" ref="549000" />
+<field name="name">ดอกเบี้ยจ่ายเงินเบิกเกินบัญชี</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="549006" model="account.account.template">
+<field name="code">549006</field>
+<field name="parent_id" ref="549000" />
+<field name="name">ดอกเบี้ยจ่ายตั๋วสัญญาใช้เงิน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="549007" model="account.account.template">
+<field name="code">549007</field>
+<field name="parent_id" ref="549000" />
+<field name="name">ดอกเบี้ยจ่ายเงินยืมกรรมการ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="549008" model="account.account.template">
+<field name="code">549008</field>
+<field name="parent_id" ref="549000" />
+<field name="name">ดอกเบี้ยจ่ายเงินยืมบริษัทในเครือ</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="549009" model="account.account.template">
+<field name="code">549009</field>
+<field name="parent_id" ref="549000" />
+<field name="name">ดอกเบี้ยจ่ายเงินกู้ยืมบมจ.บัตรกรุงไทย</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="549010" model="account.account.template">
+<field name="code">549010</field>
+<field name="parent_id" ref="549000" />
+<field name="name">ดอกเบี้ยจ่ายตามสัญญาเช่าซื้อเครื่องจักร</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="551000" model="account.account.template">
+<field name="code">551000</field>
+<field name="parent_id" ref="500000" />
+<field name="name">ค่าใช้จ่ายต้องห้าม</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="552000" model="account.account.template">
+<field name="code">552000</field>
+<field name="parent_id" ref="500000" />
+<field name="name">**ค่าใช้จ่ายในการวิจัยและพัฒนา**</field>
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="552001" model="account.account.template">
+<field name="code">552001</field>
+<field name="parent_id" ref="552000" />
+<field name="name">ค่าใช้จ่ายในการวิจัยและพัฒนา</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="600000" model="account.account.template">
+<field name="code">600000</field>
+<field name="name">อื่นๆ</field>
+<field name="parent_id" ref="sradvance_root" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="600300" model="account.account.template">
+<field name="code">600300</field>
+<field name="parent_id" ref="600000" />
+<field name="name">แรงงานการผลิต - ลามิเนต</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="610101" model="account.account.template">
+<field name="code">610101</field>
+<field name="parent_id" ref="600000" />
+<field name="name">ค่าซ่อมแซมและบำรุงรักษา-เครื่องจักร(ลามิเนต)</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="610102" model="account.account.template">
+<field name="code">610102</field>
+<field name="parent_id" ref="600000" />
+<field name="name">ค่าซ่อมแซมและบำรุงรักษา-โรงงาน(ลามิเนต)</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="610103" model="account.account.template">
+<field name="code">610103</field>
+<field name="parent_id" ref="600000" />
+<field name="name">ค่าไฟฟ้าโรงงาน (ลามิเนต)</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="610104" model="account.account.template">
+<field name="code">610104</field>
+<field name="parent_id" ref="600000" />
+<field name="name">วัสดุสิ้นเปลืองในโรงงาน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="610105" model="account.account.template">
+<field name="code">610105</field>
+<field name="parent_id" ref="600000" />
+<field name="name">ค่าเสื่อมราคา-เครื่องจักร</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="610106" model="account.account.template">
+<field name="code">610106</field>
+<field name="parent_id" ref="600000" />
+<field name="name">ค่าเสื่อมราคา-เครื่องมือเครื่องใช้</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="610107" model="account.account.template">
+<field name="code">610107</field>
+<field name="parent_id" ref="600000" />
+<field name="name">ค่าเสื่อมราคา-วัสดุและอุปกรณ์(ลามิเนต)</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="610111" model="account.account.template">
+<field name="code">610111</field>
+<field name="parent_id" ref="600000" />
+<field name="name">ค่าจ้างทำของ(ลามิเนต)</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="610115" model="account.account.template">
+<field name="code">610115</field>
+<field name="parent_id" ref="600000" />
+<field name="name">วัสดุสิ้นเปลืองในการซ่อมบำรุงเครื่องจักร</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="610116" model="account.account.template">
+<field name="code">610116</field>
+<field name="parent_id" ref="600000" />
+<field name="name">วัสดุสิ้นเปลืองไฟฟ้า</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="610117" model="account.account.template">
+<field name="code">610117</field>
+<field name="parent_id" ref="600000" />
+<field name="name">วัสดุสิ้นเปลืองในการติดตั้งเครื่องจักร</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="610200" model="account.account.template">
+<field name="code">610200</field>
+<field name="parent_id" ref="600000" />
+<field name="name">ค่าใช้จ่ายในโรงงาน</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="648001" model="account.account.template">
+<field name="code">648001</field>
+<field name="parent_id" ref="600000" />
+<field name="name">ค่าเสื่อมราคา-อาคารและสิ่งปลูกสร้าง(ลามิเนต)</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="648002" model="account.account.template">
+<field name="code">648002</field>
+<field name="parent_id" ref="600000" />
+<field name="name">ค่าเสื่อมราคา-ยานพาหนะ(ลามิเนต)</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="648003" model="account.account.template">
+<field name="code">648003</field>
+<field name="parent_id" ref="600000" />
+<field name="name">ค่าเสื่อมราคา-เครื่องใช้สำนักงาน(ลามิเนต)</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="648004" model="account.account.template">
+<field name="code">648004</field>
+<field name="parent_id" ref="600000" />
+<field name="name">ค่าเสื่อมราคา-เครื่องตกแต่งสำนักงาน(ลามิเนต)</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="648005" model="account.account.template">
+<field name="code">648005</field>
+<field name="parent_id" ref="600000" />
+<field name="name">ค่าเสื่อมราคา-ส่วนต่อเติมอาคารและสิ่งปลูกสร้าง(ลามิเนต)</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="648006" model="account.account.template">
+<field name="code">648006</field>
+<field name="parent_id" ref="600000" />
+<field name="name">ค่าเสื่อมราคา-ซอฟต์แวร์(ลามิเนต)</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="649001" model="account.account.template">
+<field name="code">649001</field>
+<field name="parent_id" ref="600000" />
+<field name="name">ดอกเบี้ยจ่าย (ค่าก่อสร้าง)</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+<record id="649002" model="account.account.template">
+<field name="code">649002</field>
+<field name="parent_id" ref="600000" />
+<field name="name">ดอกเบี้ยจ่าย (ค่าเครื่องจักร)</field>
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+<field name="reconcile">1</field>
+</record>
+
+
+<!-- CHART OF TAXES -->
+
+<record id="sradvance_tc_root" model="account.tax.code.template">
+    <field name="name">SR Advance Co.,Ltd. - Chart of Taxes</field>
+    <field name="parent_id" eval="False"/>
+</record>
+
+<!-- TAXABLE AMOUNTS -->
+
+<record id="sradvance_tc_base" model="account.tax.code.template">
+    <field name="name">Taxable amounts</field>
+    <field name="parent_id" ref="sradvance_tc_root"/>
+</record>
+
+<!-- VAT -->
+
+<record id="sradvance_tc_base_vat" model="account.tax.code.template">
+    <field name="name">Value Added Tax</field>
+    <field name="parent_id" eval="sradvance_tc_base"/>
+</record>
+
+<record id="sradvance_tc_base_output" model="account.tax.code.template">
+    <field name="name">Output VAT</field>
+    <field name="code">outvat</field>
+    <field name="parent_id" ref="sradvance_tc_base_vat"/>
+</record>
+
+<record id="sradvance_tc_base_input" model="account.tax.code.template">
+    <field name="name">Input VAT</field>
+    <field name="code">invat</field>
+    <field name="parent_id" ref="sradvance_tc_base_vat"/>
+</record>
+
+<!-- TAXES TO BE PAID -->
+
+<!-- VAT -->
+
+<record id="sradvance_tc_tax" model="account.tax.code.template">
+    <field name="name">Taxes to be paid</field>
+    <field name="parent_id" ref="sradvance_tc_root"/>
+</record>
+
+<record id="sradvance_tc_tax_vat" model="account.tax.code.template">
+    <field name="name">Value Added Tax</field>
+    <field name="parent_id" eval="sradvance_tc_tax"/>
+</record>
+
+<record id="sradvance_tc_tax_vat_output" model="account.tax.code.template">
+    <field name="name">Output VAT</field>
+    <field name="code">PP30_5</field>
+    <field name="parent_id" ref="sradvance_tc_tax_vat"/>
+</record>
+
+<record id="sradvance_tc_tax_vat_input" model="account.tax.code.template">
+    <field name="name">Input VAT</field>
+    <field name="code">PP30_7</field>
+    <field name="parent_id" ref="sradvance_tc_tax_vat"/>
+    <field name="sign" eval="-1"/>
+</record>
+
+<!-- CHART OF ACCOUNTS/TAXES -->
+
+<record id="sradvance_chart" model="account.chart.template">
+    <field name="name">SR Advanced Co.,Ltd. - Chart of Accounts</field>
+    <field name="account_root_id" ref="sradvance_root"/>
+    <field name="tax_code_root_id" ref="sradvance_tc_root"/>
+
+    <field name="bank_account_view_id" ref="111030"/>
+
+    <field name="property_account_receivable" ref="120020"/>
+    <field name="property_account_payable" ref="210210"/>
+
+    <field name="property_account_expense_categ" ref="500001"/>
+    <field name="property_account_income_categ" ref="410000"/>
+
+    <field name="property_account_expense" ref="500001"/>
+    <field name="property_account_income" ref="410000"/>
+</record>
+
+<!-- TAXES -->
+
+<record id="sradvance_tax_input_vat" model="account.tax.template">
+    <field name="chart_template_id" ref="sradvance_chart"/>
+    <field name="name">Input VAT</field>
+    <field name="type">percent</field>
+    <field name="amount" eval="0.07"/>
+    <field name="account_collected_id" ref="130104"/>
+    <field name="account_paid_id" ref="130104"/>
+    <field name="base_code_id" ref="sradvance_tc_base_input"/>
+    <field name="tax_code_id" ref="sradvance_tc_tax_vat_input"/>
+    <field name="type_tax_use">purchase</field>
+</record>
+
+<record id="sradvance_tax_output_vat" model="account.tax.template">
+    <field name="chart_template_id" ref="sradvance_chart"/>
+    <field name="name">Output VAT</field>
+    <field name="type">percent</field>
+    <field name="amount" eval="0.07"/>
+    <field name="account_collected_id" ref="280701"/>
+    <field name="account_paid_id" ref="280701"/>
+    <field name="base_code_id" ref="sradvance_tc_base_output"/>
+    <field name="tax_code_id" ref="sradvance_tc_tax_vat_output"/>
+    <field name="type_tax_use">sale</field>
+</record>
+
+<!-- INSTALL ACTION -->
+
+<record id="config_call_account_template_sradvance" model="ir.actions.todo">
+    <field name="name">Generate Chart of Accounts from a Chart Template</field>
+    <field name="note">Generate Chart of Accounts from a Chart Template. You will be asked to pass the name of the company, the chart template to follow, the no. of digits to generate the code for your accounts and Bank account, currency to create Journals. Thus,the pure copy of chart Template is generated.
+This is the same wizard that runs from Financial Management/Configuration/Financial Accounting/Financial Accounts/Generate Chart of Accounts from a Chart Template.</field>
+    <field name="action_id" ref="account.action_wizard_multi_chart"/>
+    <field name="state">open</field>
+</record>
+
+</data>
+</openerp>
+<!-- vim: set fdm=marker : -->

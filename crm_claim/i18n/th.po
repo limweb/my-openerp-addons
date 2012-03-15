@@ -1,0 +1,727 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* crm_claim
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.0-rc2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:15:03+0000\n"
+"PO-Revision-Date: 2011-01-11 11:15:03+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: crm_claim
+#: field:crm.claim.report,nbr:0
+msgid "# of Cases"
+msgstr "# ของคดี"
+
+#. module: crm_claim
+#: view:crm.claim:0
+#: view:crm.claim.report:0
+msgid "Group By..."
+msgstr "กลุ่มตาม ..."
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Responsibilities"
+msgstr "ความรับผิดชอบ"
+
+#. module: crm_claim
+#: field:crm.claim,date_action_next:0
+msgid "Next Action Date"
+msgstr "วันที่การดำเนินการต่อไป"
+
+#. module: crm_claim
+#: field:crm.claim.report,probability:0
+msgid "Probability"
+msgstr "ความน่าจะเป็น"
+
+#. module: crm_claim
+#: selection:crm.claim.report,month:0
+msgid "March"
+msgstr "เดือนมีนาคม"
+
+#. module: crm_claim
+#: field:crm.claim.report,delay_close:0
+msgid "Delay to close"
+msgstr "หน่วงเวลาปิด"
+
+#. module: crm_claim
+#: field:crm.claim,resolution:0
+msgid "Resolution"
+msgstr "ความละเอียด"
+
+#. module: crm_claim
+#: field:crm.claim,company_id:0
+#: view:crm.claim.report:0
+#: field:crm.claim.report,company_id:0
+msgid "Company"
+msgstr "บริษัท"
+
+#. module: crm_claim
+#: field:crm.claim,email_cc:0
+msgid "Watchers Emails"
+msgstr "นักดูอีเมล์"
+
+#. module: crm_claim
+#: view:crm.claim.report:0
+msgid "#Claim"
+msgstr "# เรียกร้องสิทธิ"
+
+#. module: crm_claim
+#: model:ir.actions.act_window,help:crm_claim.crm_claim_stage_act
+msgid "You can create claim stages to categorize the status of every claim entered in the system. The stages define all the steps required for the resolution of a claim."
+msgstr "คุณสามารถสร้างขั้นตอนการเรียกร้องเพื่อจำแนกสถานะของการเรียกร้องทุกครั้งที่ป้อนในระบบ ขั้นตอนการกำหนดขั้นตอนทั้งหมดที่จำเป็นสำหรับการแก้ปัญหาการเรียกร้อง"
+
+#. module: crm_claim
+#: selection:crm.claim,priority:0
+#: selection:crm.claim.report,priority:0
+msgid "Highest"
+msgstr "สูงสุด"
+
+#. module: crm_claim
+#: view:crm.claim.report:0
+#: field:crm.claim.report,day:0
+msgid "Day"
+msgstr "วัน"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Add Internal Note"
+msgstr "เพิ่มหมายเหตุภายใน"
+
+#. module: crm_claim
+#: help:crm.claim,section_id:0
+msgid "Sales team to which Case belongs to.Define Responsible user and Email account for mail gateway."
+msgstr "ทีมขายที่เป็นของ to.Define กรณีผู้ใช้มีความรับผิดชอบและบัญชีอีเมลสำหรับเกตเวย์ mail"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Claim Description"
+msgstr "รายละเอียดการอ้างสิทธิ์"
+
+#. module: crm_claim
+#: field:crm.claim,message_ids:0
+msgid "Messages"
+msgstr "ข้อความที่"
+
+#. module: crm_claim
+#: model:crm.case.categ,name:crm_claim.categ_claim1
+msgid "Factual Claims"
+msgstr "สิทธิเรียกร้องเป็นความจริง"
+
+#. module: crm_claim
+#: selection:crm.claim,state:0
+#: selection:crm.claim.report,state:0
+msgid "Cancelled"
+msgstr "ยกเลิก"
+
+#. module: crm_claim
+#: model:crm.case.resource.type,name:crm_claim.type_claim2
+msgid "Preventive"
+msgstr "การป้องกัน"
+
+#. module: crm_claim
+#: model:crm.case.stage,name:crm_claim.stage_claim2
+msgid "Fixed"
+msgstr "Fixed"
+
+#. module: crm_claim
+#: field:crm.claim,partner_address_id:0
+msgid "Partner Contact"
+msgstr "ติดต่อร่วมงาน"
+
+#. module: crm_claim
+#: field:crm.claim.report,date_closed:0
+msgid "Close Date"
+msgstr "วันที่ปิด"
+
+#. module: crm_claim
+#: view:crm.claim.report:0
+msgid "   Month   "
+msgstr "เดือน"
+
+#. module: crm_claim
+#: field:crm.claim,ref:0
+msgid "Reference"
+msgstr "การอ้างอิง"
+
+#. module: crm_claim
+#: field:crm.claim,action_next:0
+msgid "Next Action"
+msgstr "การดำเนินการต่อไป"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Reset to Draft"
+msgstr "Reset ที่ร่างจดหมาย"
+
+#. module: crm_claim
+#: view:crm.claim:0
+#: field:crm.claim,date_deadline:0
+#: field:crm.claim.report,date_deadline:0
+msgid "Deadline"
+msgstr "กำหนดเวลา"
+
+#. module: crm_claim
+#: view:crm.claim:0
+#: field:crm.claim,partner_id:0
+#: view:crm.claim.report:0
+#: field:crm.claim.report,partner_id:0
+msgid "Partner"
+msgstr "หุ้นส่วน"
+
+#. module: crm_claim
+#: selection:crm.claim,type_action:0
+#: selection:crm.claim.report,type_action:0
+msgid "Preventive Action"
+msgstr "การดำเนินการป้องกัน"
+
+#. module: crm_claim
+#: field:crm.claim.report,section_id:0
+msgid "Section"
+msgstr "มาตรา"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Root Causes"
+msgstr "ทำให้เกิดราก"
+
+#. module: crm_claim
+#: field:crm.claim,user_fault:0
+msgid "Trouble Responsible"
+msgstr "ปัญหาความรับผิดชอบในการ"
+
+#. module: crm_claim
+#: field:crm.claim,priority:0
+#: view:crm.claim.report:0
+#: field:crm.claim.report,priority:0
+msgid "Priority"
+msgstr "ลำดับความสำคัญ"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Send New Email"
+msgstr "ส่งอีเมล์ใหม่"
+
+#. module: crm_claim
+#: field:crm.claim.report,delay_expected:0
+msgid "Overpassed Deadline"
+msgstr "วันสุดท้ายของ Overpassed"
+
+#. module: crm_claim
+#: view:crm.claim:0
+#: view:crm.claim.report:0
+msgid "Type"
+msgstr "ประเภท"
+
+#. module: crm_claim
+#: field:crm.claim,email_from:0
+msgid "Email"
+msgstr "Email"
+
+#. module: crm_claim
+#: selection:crm.claim,priority:0
+#: selection:crm.claim.report,priority:0
+msgid "Lowest"
+msgstr "ต่ำที่สุด"
+
+#. module: crm_claim
+#: field:crm.claim,create_date:0
+msgid "Creation Date"
+msgstr "วันที่สร้าง"
+
+#. module: crm_claim
+#: field:crm.claim,name:0
+msgid "Claim Subject"
+msgstr "เรื่องเรียกร้องสิทธิ"
+
+#. module: crm_claim
+#: model:ir.actions.act_window,help:crm_claim.action_report_crm_claim
+msgid "Have a general overview of all claims processed in the system by sorting them with specific criteria."
+msgstr "มีภาพรวมทั่วไปของการประมวลผลการเรียกร้องทั้งหมดในระบบด้วยการจัดเรียงพวกเขากับเกณฑ์ที่ระบุ"
+
+#. module: crm_claim
+#: selection:crm.claim.report,month:0
+msgid "July"
+msgstr "กรกฎาคม"
+
+#. module: crm_claim
+#: model:ir.actions.act_window,name:crm_claim.crm_claim_stage_act
+msgid "Claim Stages"
+msgstr "ขั้นตอนการเรียกร้องสิทธิ"
+
+#. module: crm_claim
+#: model:ir.ui.menu,name:crm_claim.menu_crm_case_claim-act
+msgid "Categories"
+msgstr "หมวดหมู่สินค้า"
+
+#. module: crm_claim
+#: view:crm.claim:0
+#: field:crm.claim,stage_id:0
+#: view:crm.claim.report:0
+#: field:crm.claim.report,stage_id:0
+msgid "Stage"
+msgstr "เวที"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "History Information"
+msgstr "ข้อมูลประวัติความเป็นมา"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Dates"
+msgstr "วันที่"
+
+#. module: crm_claim
+#: view:crm.claim.report:0
+msgid "    Month-1    "
+msgstr "เดือน - 1"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Contact"
+msgstr "ติดต่อ"
+
+#. module: crm_claim
+#: model:ir.ui.menu,name:crm_claim.menu_crm_claim_stage_act
+msgid "Stages"
+msgstr "ขั้นตอนการ"
+
+#. module: crm_claim
+#: model:ir.ui.menu,name:crm_claim.menu_report_crm_claim_tree
+msgid "Claims Analysis"
+msgstr "การวิเคราะห์การเรียกร้อง"
+
+#. module: crm_claim
+#: help:crm.claim.report,delay_close:0
+msgid "Number of Days to close the case"
+msgstr "จำนวนวันที่จะปิดกรณี"
+
+#. module: crm_claim
+#: model:ir.model,name:crm_claim.model_crm_claim_report
+msgid "CRM Claim Report"
+msgstr "รายงานการเรียกร้องสิทธิ CRM"
+
+#. module: crm_claim
+#: model:crm.case.stage,name:crm_claim.stage_claim1
+msgid "Accepted as Claim"
+msgstr "ได้รับการยอมรับเป็นเรียกร้องสิทธิ"
+
+#. module: crm_claim
+#: model:crm.case.resource.type,name:crm_claim.type_claim1
+msgid "Corrective"
+msgstr "แก้ไขปัญหา"
+
+#. module: crm_claim
+#: selection:crm.claim.report,month:0
+msgid "September"
+msgstr "กันยายน"
+
+#. module: crm_claim
+#: selection:crm.claim.report,month:0
+msgid "December"
+msgstr "ธันวาคม"
+
+#. module: crm_claim
+#: view:crm.claim.report:0
+#: field:crm.claim.report,month:0
+msgid "Month"
+msgstr "เดือน"
+
+#. module: crm_claim
+#: field:crm.claim,type_action:0
+#: field:crm.claim.report,type_action:0
+msgid "Action Type"
+msgstr "ประเภทการกระทำ"
+
+#. module: crm_claim
+#: field:crm.claim,write_date:0
+msgid "Update Date"
+msgstr "วันที่ปรับปรุง"
+
+#. module: crm_claim
+#: view:crm.claim.report:0
+msgid "Salesman"
+msgstr "พนักงานขาย"
+
+#. module: crm_claim
+#: field:crm.claim,categ_id:0
+#: view:crm.claim.report:0
+#: field:crm.claim.report,categ_id:0
+msgid "Category"
+msgstr "หมวด"
+
+#. module: crm_claim
+#: model:crm.case.categ,name:crm_claim.categ_claim2
+msgid "Value Claims"
+msgstr "สิทธิเรียกร้องค่า"
+
+#. module: crm_claim
+#: view:crm.claim.report:0
+msgid "  Year  "
+msgstr "ปี"
+
+#. module: crm_claim
+#: help:crm.claim,email_cc:0
+msgid "These email addresses will be added to the CC field of all inbound and outbound emails for this record before being sent. Separate multiple email addresses with a comma"
+msgstr "เหล่านี้ที่อยู่อีเมลจะได้รับการบันทึกอยู่ในเขต CC ของอีเมลขาเข้าและขาออกทั้งหมดสำหรับบันทึกนี้ก่อนที่จะส่ง แยกอีเมลจำนวนมากที่อยู่ด้วยเครื่องหมายจุลภาค"
+
+#. module: crm_claim
+#: selection:crm.claim,state:0
+#: view:crm.claim.report:0
+#: selection:crm.claim.report,state:0
+msgid "Draft"
+msgstr "ร่าง"
+
+#. module: crm_claim
+#: selection:crm.claim,priority:0
+#: selection:crm.claim.report,priority:0
+msgid "Low"
+msgstr "ต่ำ"
+
+#. module: crm_claim
+#: field:crm.claim,date_closed:0
+#: selection:crm.claim,state:0
+#: selection:crm.claim.report,state:0
+msgid "Closed"
+msgstr "ปิด"
+
+#. module: crm_claim
+#: view:crm.claim:0
+#: selection:crm.claim,state:0
+#: view:crm.claim.report:0
+#: selection:crm.claim.report,state:0
+msgid "Pending"
+msgstr "รอดำเนินการ"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Communication & History"
+msgstr "การสื่อสารและประวัติความเป็นมา"
+
+#. module: crm_claim
+#: selection:crm.claim.report,month:0
+msgid "August"
+msgstr "สิงหาคม"
+
+#. module: crm_claim
+#: selection:crm.claim,priority:0
+#: selection:crm.claim.report,priority:0
+msgid "Normal"
+msgstr "ปกติ"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Global CC"
+msgstr "CC ทั่วโลก"
+
+#. module: crm_claim
+#: model:ir.module.module,shortdesc:crm_claim.module_meta_information
+msgid "Customer & Supplier Relationship Management"
+msgstr "บริหารความสัมพันธ์กับลูกค้าและซัพพลายเออร์"
+
+#. module: crm_claim
+#: selection:crm.claim.report,month:0
+msgid "June"
+msgstr "เดือนมิถุนายน"
+
+#. module: crm_claim
+#: field:crm.claim,partner_phone:0
+msgid "Phone"
+msgstr "โทรศัพท์"
+
+#. module: crm_claim
+#: field:crm.claim.report,user_id:0
+msgid "User"
+msgstr "ของผู้ใช้"
+
+#. module: crm_claim
+#: model:crm.case.stage,name:crm_claim.stage_claim5
+msgid "Awaiting Response"
+msgstr "รอการตอบสนอง"
+
+#. module: crm_claim
+#: model:ir.actions.act_window,name:crm_claim.crm_claim_categ_action
+msgid "Claim Categories"
+msgstr "หมวดหมู่เรียกร้องสิทธิ"
+
+#. module: crm_claim
+#: selection:crm.claim.report,month:0
+msgid "November"
+msgstr "พฤศจิกายน"
+
+#. module: crm_claim
+#: view:crm.claim.report:0
+msgid "Extended Filters..."
+msgstr "ตัวกรอง Extended ..."
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Closure"
+msgstr "การปิด"
+
+#. module: crm_claim
+#: view:crm.claim.report:0
+msgid "Search"
+msgstr "Search"
+
+#. module: crm_claim
+#: selection:crm.claim.report,month:0
+msgid "October"
+msgstr "เดือนตุลาคม"
+
+#. module: crm_claim
+#: model:ir.module.module,description:crm_claim.module_meta_information
+msgid "\n"
+"This modules allows you to track your customers/suppliers claims and flames.\n"
+"It is fully integrated with the email gateway so that you can create\n"
+"automatically new claims based on incoming emails.\n"
+"    "
+msgstr "โมดูลนี้จะช่วยให้คุณสามารถติดตามลูกค้าของคุณ / อ้างซัพพลายเออร์และเปลวไฟ มันเป็นแบบครบวงจรกับเกตเวย์ของอีเมลเพื่อให้คุณสามารถสร้างการเรียกร้องใหม่โดยอัตโนมัติตามอีเมลที่เข้ามา"
+
+#. module: crm_claim
+#: selection:crm.claim.report,month:0
+msgid "January"
+msgstr "เดือนมกราคม"
+
+#. module: crm_claim
+#: view:crm.claim:0
+#: field:crm.claim,date:0
+msgid "Claim Date"
+msgstr "วันที่เรียกร้องสิทธิ"
+
+#. module: crm_claim
+#: help:crm.claim,email_from:0
+msgid "These people will receive email."
+msgstr "คนเหล่านี้จะได้รับอีเมล"
+
+#. module: crm_claim
+#: view:crm.claim:0
+#: view:crm.claim.report:0
+#: model:ir.actions.act_window,name:crm_claim.action_report_crm_claim
+#: model:ir.actions.act_window,name:crm_claim.crm_case_categ_claim0
+#: model:ir.ui.menu,name:crm_claim.menu_crm_case_claims
+msgid "Claims"
+msgstr "สิทธิเรียกร้อง"
+
+#. module: crm_claim
+#: selection:crm.claim,type_action:0
+#: selection:crm.claim.report,type_action:0
+msgid "Corrective Action"
+msgstr "วิธีการแก้ไข"
+
+#. module: crm_claim
+#: model:crm.case.categ,name:crm_claim.categ_claim3
+msgid "Policy Claims"
+msgstr "นโยบายสิทธิเรียกร้อง"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "History"
+msgstr "ประวัติ"
+
+#. module: crm_claim
+#: model:ir.model,name:crm_claim.model_crm_claim
+#: model:ir.ui.menu,name:crm_claim.menu_config_claim
+msgid "Claim"
+msgstr "อ้าง"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Attachments"
+msgstr "สิ่งที่แนบมา"
+
+#. module: crm_claim
+#: model:ir.model,name:crm_claim.model_crm_case_stage
+msgid "Stage of case"
+msgstr "ขั้นตอนการกรณี"
+
+#. module: crm_claim
+#: view:crm.claim:0
+#: field:crm.claim,state:0
+#: view:crm.claim.report:0
+#: field:crm.claim.report,state:0
+msgid "State"
+msgstr "ของรัฐ"
+
+#. module: crm_claim
+#: view:crm.claim:0
+#: view:crm.claim.report:0
+msgid "Done"
+msgstr "เสร็จสิ้น"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Claim Reporter"
+msgstr "Reporter เรียกร้องสิทธิ"
+
+#. module: crm_claim
+#: view:crm.claim:0
+#: view:crm.claim.report:0
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Close"
+msgstr "ปิด"
+
+#. module: crm_claim
+#: view:crm.claim:0
+#: selection:crm.claim,state:0
+#: view:crm.claim.report:0
+#: selection:crm.claim.report,state:0
+msgid "Open"
+msgstr "เปิด"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "In Progress"
+msgstr "กำลังดำเนินการ"
+
+#. module: crm_claim
+#: view:crm.claim:0
+#: field:crm.claim,user_id:0
+msgid "Responsible"
+msgstr "รับผิดชอบ"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Current"
+msgstr "ในปัจจุบัน"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Details"
+msgstr "รายละเอียด"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Reply"
+msgstr "ตอบ"
+
+#. module: crm_claim
+#: field:crm.claim,cause:0
+msgid "Root Cause"
+msgstr "สาเหตุที่แท้จริง"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Claim/Action Description"
+msgstr "รายละเอียดการดำเนินการเรียกร้องสิทธิ /"
+
+#. module: crm_claim
+#: field:crm.claim,description:0
+msgid "Description"
+msgstr "ลักษณะ"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Search Claims"
+msgstr "สิทธิเรียกร้องการค้นหา"
+
+#. module: crm_claim
+#: field:crm.claim,section_id:0
+#: view:crm.claim.report:0
+msgid "Sales Team"
+msgstr "ทีมงานฝ่ายขาย"
+
+#. module: crm_claim
+#: selection:crm.claim.report,month:0
+msgid "May"
+msgstr "เดือนพฤษภาคม"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Resolution Actions"
+msgstr "การกระทำความละเอียด"
+
+#. module: crm_claim
+#: model:ir.actions.act_window,name:crm_claim.act_claim_partner
+#: model:ir.actions.act_window,name:crm_claim.act_claim_partner_address
+msgid "Report a Claim"
+msgstr "รายงานการเรียกร้องสิทธิ"
+
+#. module: crm_claim
+#: model:ir.actions.act_window,help:crm_claim.crm_case_categ_claim0
+msgid "Record and track your customers' claims. Claims may be linked to a sales order or a lot. You can send emails with attachments and keep the full history for a claim (emails sent, intervention type and so on). Claims may automatically be linked to an email address using the mail gateway module."
+msgstr "บันทึกและตรวจสอบการเรียกร้องของลูกค้า สิทธิเรียกร้องอาจเชื่อมโยงกับคำสั่งซื้อหรือขายจำนวนมาก คุณสามารถส่งอีเมลพร้อมแนบและเก็บประวัติอย่างเต็มที่สำหรับการเรียกร้อง (อีเมล์ที่ส่งให้พิมพ์การแทรกแซงและอื่น ๆ ) อาจเรียกร้องโดยอัตโนมัติจะเชื่อมโยงกับที่อยู่อีเมลโดยใช้โมดูลประตู mail"
+
+#. module: crm_claim
+#: field:crm.claim.report,email:0
+msgid "# Emails"
+msgstr "อีเมล์ #"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Follow Up"
+msgstr "ตามงาน"
+
+#. module: crm_claim
+#: help:crm.claim,state:0
+msgid "The state is set to 'Draft', when a case is created.                                  \n"
+"If the case is in progress the state is set to 'Open'.                                  \n"
+"When the case is over, the state is set to 'Done'.                                  \n"
+"If the case needs to be reviewed then the state is set to 'Pending'."
+msgstr "รัฐถูกตั้งค่าเป็น&#39;ฉบับร่าง&#39;เมื่อกรณีที่มีการสร้าง หากกรณีนี้เป็นความคืบหน้าของรัฐถูกตั้งค่าเป็น&#39;เปิด&#39; เมื่อกรณีที่จบไปแล้วรัฐถูกตั้งไว้ที่&#39;เสร็จสิ้น&#39; หากกรณีที่จะต้องมีการตรวจสอบแล้วรัฐถูกตั้งค่าเป็น&#39;รอ&#39;"
+
+#. module: crm_claim
+#: selection:crm.claim.report,month:0
+msgid "February"
+msgstr "กุมภาพันธ์"
+
+#. module: crm_claim
+#: model:crm.case.stage,name:crm_claim.stage_claim3
+msgid "Won't fix"
+msgstr "จะไม่สามารถแก้ไข"
+
+#. module: crm_claim
+#: selection:crm.claim.report,month:0
+msgid "April"
+msgstr "เมษายน"
+
+#. module: crm_claim
+#: view:crm.claim.report:0
+msgid "My Case(s)"
+msgstr "กรณีของฉัน (s)"
+
+#. module: crm_claim
+#: field:crm.claim,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: crm_claim
+#: view:crm.claim:0
+msgid "Actions"
+msgstr "การกระทำ"
+
+#. module: crm_claim
+#: selection:crm.claim,priority:0
+#: selection:crm.claim.report,priority:0
+msgid "High"
+msgstr "สูง"
+
+#. module: crm_claim
+#: model:ir.actions.act_window,help:crm_claim.crm_claim_categ_action
+msgid "Create claim categories to better manage and classify your claims. Some example of claims can be: preventive action, corrective action."
+msgstr "สร้างหมวดหมู่ของการเรียกร้องเพื่อจัดการและแยกประเภทการเรียกร้องของคุณ ตัวอย่างของการเรียกร้องบางคนสามารถเป็น : การดำเนินการป้องกันการกระทำที่ถูกต้อง"
+
+#. module: crm_claim
+#: field:crm.claim.report,create_date:0
+msgid "Create Date"
+msgstr "วันที่สร้าง"
+
+#. module: crm_claim
+#: view:crm.claim.report:0
+#: field:crm.claim.report,name:0
+msgid "Year"
+msgstr "ปี"
+
+

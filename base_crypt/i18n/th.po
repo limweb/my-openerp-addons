@@ -1,0 +1,65 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* base_crypt
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.0-rc2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:14:54+0000\n"
+"PO-Revision-Date: 2011-01-11 11:14:54+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base_crypt
+#: sql_constraint:res.users:0
+msgid "You can not have two users with the same login !"
+msgstr "คุณไม่สามารถมีสองผู้ใช้ที่เข้าสู่ระบบเดียวกัน!"
+
+#. module: base_crypt
+#: model:ir.model,name:base_crypt.model_res_users
+msgid "res.users"
+msgstr "res.users"
+
+#. module: base_crypt
+#: constraint:res.users:0
+msgid "The chosen company is not in the allowed companies for this user"
+msgstr "บริษัท ที่เลือกไม่ได้อยู่ใน บริษัท ที่ได้รับอนุญาตสำหรับผู้ใช้นี้"
+
+#. module: base_crypt
+#: code:addons/base_crypt/crypt.py:132
+#, python-format
+msgid "Please specify the password !"
+msgstr "กรุณาระบุรหัสผ่าน!"
+
+#. module: base_crypt
+#: model:ir.module.module,shortdesc:base_crypt.module_meta_information
+msgid "Base - Password Encryption"
+msgstr "Base -- การเข้ารหัสรหัสผ่าน"
+
+#. module: base_crypt
+#: code:addons/base_crypt/crypt.py:132
+#, python-format
+msgid "Error"
+msgstr "ความผิดพลาด"
+
+#. module: base_crypt
+#: model:ir.module.module,description:base_crypt.module_meta_information
+msgid "This module replaces the cleartext password in the database with a password hash,\n"
+"preventing anyone from reading the original password.\n"
+"For your existing user base, the removal of the cleartext passwords occurs the first time\n"
+"a user logs into the database, after installing base_crypt.\n"
+"After installing this module it won't be possible to recover a forgotten password for your\n"
+"users, the only solution is for an admin to set a new password.\n"
+"\n"
+"Note: installing this module does not mean you can ignore basic security measures,\n"
+"as the password is still transmitted unencrypted on the network (by the client),\n"
+"unless you are using a secure protocol such as XML-RPCS.\n"
+"                    "
+msgstr "โมดูลนี้จะแทนที่รหัสผ่าน cleartext ในฐานข้อมูลที่มีกัญชารหัสผ่าน, ป้องกันทุกคนจากการอ่านรห​​ัสผ่านเดิม สำหรับฐานผู้ใช้ของคุณที่มีอยู่ให้ลบรหัสผ่าน cleartext เกิดขึ้นครั้งแรกที่ผู้ใช้บันทึกลงในฐานข้อมูลหลังจากติดตั้ง base_crypt หลังจากติดตั้งโมดูลนี้มันจะไม่เป็นไปได้ที่จะกู้คืนรหัสผ่านลืมสำหรับผู้ใช้ของคุณแก้ปัญหาเพียงอย่างเดียวคือสำหรับผู้ดูแลระบบเพื่อตั้งค่ารหัสผ่านใหม่ หมายเหตุ : การติดตั้งโมดูลนี้ไม่ได้หมายความว่าคุณสามารถละเว้นมาตรการรักษาความปลอดภัยขั้นพื้นฐานเป็นรหัสผ่านที่ส่งยังไม่ได้เข้ารหัสบนเครือข่าย (จากลูกค้า) ยกเว้นกรณีที่คุณกำลังใช้โปรโตคอลการรักษาความปลอดภัยเช่น XML - RPCS"
+
+

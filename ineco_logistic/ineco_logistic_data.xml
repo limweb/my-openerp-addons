@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data noupdate="1">
+
+    <record id="report_ineco_logistic_delivery_pack" model="ineco.report.config">
+        <field name="name">Delivery Packing List</field>
+        <field name="description">Summary packing report for Delivery.</field>
+        <field name="active">1</field>
+        <field name="type">report.delivery.pack</field>
+    </record>
+
+    <record id="report_ineco_logistic_kitting" model="ineco.report.config">
+        <field name="name">Kitting List</field>
+        <field name="description">List of Kitting for delivery.</field>
+        <field name="active">1</field>
+        <field name="type">report.kitting</field>
+    </record>
+
+    <record id="report_ineco_logistic_dispatch" model="ineco.report.config">
+        <field name="name">Dispatch List</field>
+        <field name="description">List of dispatch for delivery.</field>
+        <field name="active">1</field>
+        <field name="type">report.dispatch</field>
+    </record>
+
+    <record id="report_ineco_logistic_summary" model="ineco.report.config">
+        <field name="name">Logistic Summary</field>
+        <field name="description">Logistic summary for delivery.</field>
+        <field name="active">1</field>
+        <field name="type">report.logistic.summary</field>
+    </record>
+
+	<record id="report_ineco_kitting_slip" model="ineco.report.config">
+        <field name="name">Kitting Slip</field>
+        <field name="description">Kitting Slip.</field>
+        <field name="active">1</field>
+        <field name="type">report.kitting.slip</field>
+    </record>
+        	
+</data>
+</openerp>
