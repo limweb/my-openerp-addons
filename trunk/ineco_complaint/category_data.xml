@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="categ1" model="ineco.complaint.category">
+            <field name="name">ความกระตือรือร้นของพนักงาน</field>
+        </record>
+        <record id="categ2" model="ineco.complaint.category">
+            <field name="name">ความประพฤติของพนักงานสาธิต</field>
+        </record>
+        <record id="categ3" model="ineco.complaint.category">
+            <field name="name">วิธีการ ขั้นตอนการสาธิต สูตร อุณหภูมิ</field>
+        </record>
+        <record id="categ4" model="ineco.complaint.category">
+            <field name="name">ความรู้เกี่ยวกับสินค้า/การสาธิต/โปรโมชั่น</field>
+        </record>
+        <record id="categ5" model="ineco.complaint.category">
+            <field name="name">วิธีการสาธิต</field>
+        </record>
+        <record id="categ6" model="ineco.complaint.category">
+            <field name="name">อุปกรณ์</field>
+        </record>
+    </data>
+</openerp>

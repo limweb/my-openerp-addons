@@ -1,0 +1,142 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* thunderbird
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.0-rc2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:16:12+0000\n"
+"PO-Revision-Date: 2011-01-11 11:16:12+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: thunderbird
+#: field:thunderbird.installer,plugin_file:0
+#: field:thunderbird.installer,thunderbird:0
+msgid "Thunderbird Plug-in"
+msgstr "Plug - Thunderbird ใน"
+
+#. module: thunderbird
+#: help:thunderbird.installer,plugin_file:0
+msgid "Thunderbird plug-in file. Save as this file and install this plug-in in thunderbird."
+msgstr "ปลั๊ก Thunderbird ในไฟล์ บันทึกเป็นไฟล์นี้และติดตั้งปลั๊กอินนี้ใน Thunderbird"
+
+#. module: thunderbird
+#: help:thunderbird.installer,thunderbird:0
+msgid "Allows you to select an object that you would like to add to your email and its attachments."
+msgstr "ช่วยให้คุณสามารถเลือกวัตถ​​ุที่คุณต้องการที่จะเพิ่มสิ่งที่แนบมากับอีเมลและ บริษัท ของคุณ"
+
+#. module: thunderbird
+#: help:thunderbird.installer,pdf_file:0
+msgid "The documentation file :- how to install Thunderbird Plug-in."
+msgstr "แฟ้มเอกสาร : -- วิธีการติดตั้ง Thunderbird Plug - in"
+
+#. module: thunderbird
+#: model:ir.model,name:thunderbird.model_email_server_tools
+msgid "Email Server Tools"
+msgstr "Email เครื่องมือ Server"
+
+#. module: thunderbird
+#: view:thunderbird.installer:0
+msgid "_Close"
+msgstr "_Close"
+
+#. module: thunderbird
+#: field:thunderbird.installer,pdf_file:0
+msgid "Installation Manual"
+msgstr "คู่มือการติดตั้ง"
+
+#. module: thunderbird
+#: field:thunderbird.installer,description:0
+msgid "Description"
+msgstr "ลักษณะ"
+
+#. module: thunderbird
+#: view:thunderbird.installer:0
+msgid "title"
+msgstr "ชื่อเรื่อง"
+
+#. module: thunderbird
+#: model:ir.ui.menu,name:thunderbird.menu_base_config_plugins_thunderbird
+#: view:thunderbird.installer:0
+msgid "Thunderbird Plug-In"
+msgstr "Thunderbird Plug - In"
+
+#. module: thunderbird
+#: view:thunderbird.installer:0
+msgid "This plug-in allows you to link your e-mail to OpenERP's documents. You can attach it to any existing one in OpenERP or create a new one."
+msgstr "ปลั๊กนี้ในการช่วยให้คุณสามารถเชื่อมโยง E - mail ของคุณไปยังเอกสาร OpenERP ของ คุณสามารถแนบไปกับใด ๆ ที่มีอยู่ใน OpenERP หรือสร้างขึ้นใหม่"
+
+#. module: thunderbird
+#: model:ir.module.module,shortdesc:thunderbird.module_meta_information
+msgid "Thunderbird Interface"
+msgstr "Interface Thunderbird"
+
+#. module: thunderbird
+#: model:ir.model,name:thunderbird.model_thunderbird_installer
+msgid "thunderbird.installer"
+msgstr "thunderbird.installer"
+
+#. module: thunderbird
+#: field:thunderbird.installer,name:0
+#: field:thunderbird.installer,pdf_name:0
+msgid "File name"
+msgstr "ชื่อไฟล์"
+
+#. module: thunderbird
+#: view:thunderbird.installer:0
+msgid "Installation and Configuration Steps"
+msgstr "ขั้นตอนการติดตั้งและการกำหนดค่า"
+
+#. module: thunderbird
+#: field:thunderbird.installer,progress:0
+msgid "Configuration Progress"
+msgstr "ความคืบหน้าการกำหนดค่า"
+
+#. module: thunderbird
+#: model:ir.actions.act_window,name:thunderbird.action_thunderbird_installer
+#: model:ir.actions.act_window,name:thunderbird.action_thunderbird_wizard
+#: view:thunderbird.installer:0
+msgid "Thunderbird Plug-In Configuration"
+msgstr "Plug - Thunderbird ในการกำหนดค่า"
+
+#. module: thunderbird
+#: model:ir.model,name:thunderbird.model_thunderbird_partner
+msgid "Thunderbid Plugin Tools"
+msgstr "Thunderbid ปลั๊กอินเครื่องมือ"
+
+#. module: thunderbird
+#: view:thunderbird.installer:0
+msgid "Configure"
+msgstr "การกำหนดค่า"
+
+#. module: thunderbird
+#: view:thunderbird.installer:0
+msgid "Skip"
+msgstr "ข้าม"
+
+#. module: thunderbird
+#: field:thunderbird.installer,config_logo:0
+msgid "Image"
+msgstr "รูปภาพ"
+
+#. module: thunderbird
+#: model:ir.module.module,description:thunderbird.module_meta_information
+msgid "\n"
+"      This module is required for the thuderbird plug-in to work\n"
+"      properly.\n"
+"      The Plugin allows you archive email and its attachments to the selected \n"
+"      OpenERP objects. You can select a partner, a task, a project, an analytical\n"
+"      account,or any other object and attach selected mail as eml file in \n"
+"      attachment of selected record. You can create Documents for crm Lead,\n"
+"      HR Applicant and project issue from selected mails.\n"
+"\n"
+"      "
+msgstr "วิชานี้เป็นสิ่งจำเป็นสำหรับ thuderbird Plug - in ทำงานอย่างถูกต้อง ปลั๊กอินช่วยให้คุณเก็บอีเมลและเอกสารแนบในการเลือกวัตถ​​ุ OpenERP คุณสามารถเลือกพันธมิตร, งาน, โครงการ, บัญชีวิเคราะห์หรือวัตถุอื่น ๆ และแนบจดหมายที่เลือกไว้เป็นแฟ้ม EML ในสิ่งที่แนบมาของการบันทึกที่เลือก คุณสามารถสร้างเอกสารสำหรับตะกั่ว CRM, HR สมัครและปัญหาโครงการจากอีเมลที่เลือก"
+
+

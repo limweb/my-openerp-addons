@@ -1,0 +1,463 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* wiki
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:16+0000\n"
+"PO-Revision-Date: 2009-02-03 06:24+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-01-15 05:44+0000\n"
+"X-Generator: Launchpad (build 12177)\n"
+
+#. module: wiki
+#: field:wiki.groups,template:0
+msgid "Wiki Template"
+msgstr "แม่แบบวิกิพีเดีย"
+
+#. module: wiki
+#: model:ir.actions.act_window,name:wiki.action_wiki
+#: model:ir.ui.menu,name:wiki.menu_action_wiki_wiki
+msgid "Wiki Pages"
+msgstr "หน้าวิกิพีเดีย"
+
+#. module: wiki
+#: field:wiki.groups,method:0
+msgid "Display Method"
+msgstr "วิธีการแสดง"
+
+#. module: wiki
+#: view:wiki.wiki:0
+#: field:wiki.wiki,create_uid:0
+msgid "Author"
+msgstr "ผู้เขียน"
+
+#. module: wiki
+#: model:ir.actions.act_window,name:wiki.action_view_wiki_wiki_page_open
+#: view:wiki.wiki.page.open:0
+msgid "Open Page"
+msgstr "เปิดหน้าเว็บ"
+
+#. module: wiki
+#: field:wiki.groups,menu_id:0
+msgid "Menu"
+msgstr "เมนู"
+
+#. module: wiki
+#: field:wiki.wiki,section:0
+msgid "Section"
+msgstr "มาตรา"
+
+#. module: wiki
+#: help:wiki.wiki,toc:0
+msgid "Indicates that this pages have a table of contents or not"
+msgstr "ระบุว่าหน้านี้มีสารบัญหรือไม่"
+
+#. module: wiki
+#: model:ir.model,name:wiki.model_wiki_wiki_history
+#: view:wiki.wiki.history:0
+msgid "Wiki History"
+msgstr "ประวัติวิกิพีเดีย"
+
+#. module: wiki
+#: field:wiki.wiki,minor_edit:0
+msgid "Minor edit"
+msgstr "แก้ไขเล็กน้อย"
+
+#. module: wiki
+#: view:wiki.wiki:0
+#: field:wiki.wiki,text_area:0
+msgid "Content"
+msgstr "Content"
+
+#. module: wiki
+#: field:wiki.wiki,child_ids:0
+msgid "Child Pages"
+msgstr "หน้าเด็ก"
+
+#. module: wiki
+#: field:wiki.wiki,parent_id:0
+msgid "Parent Page"
+msgstr "เพจระดับบน"
+
+#. module: wiki
+#: view:wiki.wiki:0
+#: field:wiki.wiki,write_uid:0
+msgid "Last Contributor"
+msgstr "ล่าสุดผู้สนับสนุน"
+
+#. module: wiki
+#: field:wiki.create.menu,menu_parent_id:0
+msgid "Parent Menu"
+msgstr "เมนูสำหรับผู้ปกครอง"
+
+#. module: wiki
+#: help:wiki.wiki,group_id:0
+msgid "Topic, also called Wiki Group"
+msgstr "หัวข้อที่เรียกว่ากลุ่มวิกิพีเดีย"
+
+#. module: wiki
+#: field:wiki.groups,name:0
+#: view:wiki.wiki:0
+#: field:wiki.wiki,group_id:0
+msgid "Wiki Group"
+msgstr "กลุ่มวิกิพีเดีย"
+
+#. module: wiki
+#: field:wiki.wiki,name:0
+msgid "Title"
+msgstr "ชื่อเรื่อง"
+
+#. module: wiki
+#: model:ir.model,name:wiki.model_wiki_create_menu
+msgid "Wizard Create Menu"
+msgstr "ตัวช่วยสร้างการสร้างเมนู"
+
+#. module: wiki
+#: field:wiki.wiki,history_id:0
+msgid "History Lines"
+msgstr "สายประวัติศาสตร์"
+
+#. module: wiki
+#: view:wiki.wiki:0
+msgid "Page Content"
+msgstr "เนื้อหาของเพจ"
+
+#. module: wiki
+#: code:addons/wiki/wiki.py:236
+#, python-format
+msgid "Warning !"
+msgstr "คำเตือน!"
+
+#. module: wiki
+#: code:addons/wiki/wiki.py:236
+#, python-format
+msgid "There are no changes in revisions"
+msgstr "ไม่มีการเปลี่ยนแปลงในการแก้ไข"
+
+#. module: wiki
+#: model:ir.module.module,shortdesc:wiki.module_meta_information
+msgid "Document Management - Wiki"
+msgstr "การจัดการเอกสาร -- วิกิพีเดีย"
+
+#. module: wiki
+#: field:wiki.create.menu,menu_name:0
+msgid "Menu Name"
+msgstr "ชื่อเมนู"
+
+#. module: wiki
+#: field:wiki.groups,notes:0
+msgid "Description"
+msgstr "ลักษณะ"
+
+#. module: wiki
+#: field:wiki.wiki,review:0
+msgid "Needs Review"
+msgstr "ตรวจสอบความต้องการ"
+
+#. module: wiki
+#: help:wiki.wiki,review:0
+msgid ""
+"Indicates that this page should be reviewed, raising the attention of other "
+"contributors"
+msgstr "ระบุว่าหน้านี้ควรจะตรวจสอบการเพิ่มความสนใจของผู้ร่วมให้ข้อมูลอื่น ๆ"
+
+#. module: wiki
+#: view:wiki.create.menu:0
+#: view:wiki.make.index:0
+msgid "Menu Information"
+msgstr "เมนูข้อมูล"
+
+#. module: wiki
+#: model:ir.actions.act_window,name:wiki.act_wiki_wiki_history
+msgid "Page History"
+msgstr "ประวัติหน้า"
+
+#. module: wiki
+#: selection:wiki.groups,method:0
+msgid "Tree"
+msgstr "ต้นไม้"
+
+#. module: wiki
+#: view:wiki.groups:0
+msgid "Page Template"
+msgstr "เทมเพลทของเพจ"
+
+#. module: wiki
+#: field:wiki.wiki,tags:0
+msgid "Keywords"
+msgstr "คำสำคัญ"
+
+#. module: wiki
+#: model:ir.actions.act_window,help:wiki.action_wiki
+msgid ""
+"With Wiki Pages you can share ideas and questions with your coworkers. You "
+"can create a new document that can be linked to one or several applications "
+"(CRM, Sales, etc.). You can use keywords to ease access to your wiki pages. "
+"There is a basic wiki editing for text format."
+msgstr "กับวิกิพีเดียหน้าเว็บที่คุณสามารถแลกเปลี่ยนความคิดเห็นและคำถามของคุณกับเพื่อนร่วมงาน คุณสามารถสร้างเอกสารใหม่ที่สามารถเชื่อมโยงไปยังโปรแกรมประยุกต์หนึ่งหรือหลาย (CRM, การขายและอื่น ๆ ) คุณสามารถใช้คำหลักเพื่อความสะดวกการเข้าถึงหน้าเว็บวิกิพีเดียของคุณ มีการแก้ไขวิกิพีเดียพื้นฐานสำหรับการจัดรูปแบบข้อความ"
+
+#. module: wiki
+#: code:addons/wiki/wizard/wiki_show_diff.py:54
+#, python-format
+msgid "Warning"
+msgstr "การเตือน"
+
+#. module: wiki
+#: field:wiki.wiki,create_date:0
+msgid "Created on"
+msgstr "สร้างเมื่อ"
+
+#. module: wiki
+#: field:wiki.wiki.history,create_date:0
+msgid "Date"
+msgstr "วันที่"
+
+#. module: wiki
+#: view:wiki.make.index:0
+msgid "Want to create a Index on Selected Pages ? "
+msgstr "ต้องการสร้างดัชนีที่เลือกหน้าได้หรือไม่"
+
+#. module: wiki
+#: model:ir.actions.act_window,name:wiki.action_view_wiki_show_diff
+#: model:ir.actions.act_window,name:wiki.action_view_wiki_show_diff_values
+#: view:wizard.wiki.history.show_diff:0
+msgid "Difference"
+msgstr "ผลต่าง"
+
+#. module: wiki
+#: field:wiki.groups,page_ids:0
+msgid "Pages"
+msgstr "Pages"
+
+#. module: wiki
+#: view:wiki.groups:0
+msgid "Group Description"
+msgstr "รายละเอียดของกลุ่ม"
+
+#. module: wiki
+#: help:wiki.wiki,section:0
+msgid "Use page section code like 1.2.1"
+msgstr "การใช้รหัสส่วนหน้าเหมือน 1.2.1"
+
+#. module: wiki
+#: view:wiki.wiki.page.open:0
+msgid "Want to open a wiki page? "
+msgstr "ต้องการเปิดหน้าวิกิ?"
+
+#. module: wiki
+#: field:wiki.groups,section:0
+msgid "Make Section ?"
+msgstr "ให้ตัดหรือไม่?"
+
+#. module: wiki
+#: field:wiki.wiki.history,text_area:0
+msgid "Text area"
+msgstr "พื้นที่ข้อความ"
+
+#. module: wiki
+#: view:wiki.wiki:0
+msgid "Meta Information"
+msgstr "ข้อมูลเมตา"
+
+#. module: wiki
+#: model:ir.module.module,description:wiki.module_meta_information
+msgid ""
+"\n"
+"The base module to manage documents(wiki)\n"
+"\n"
+"keep track for the wiki groups, pages, and history\n"
+"    "
+msgstr "โมดูลฐานในการจัดการเอกสาร (วิกิพีเดีย) ​​ติดตามสำหรับกลุ่มวิกิพีเดีย, หน้าเว็บและประวัติศาสตร์"
+
+#. module: wiki
+#: view:wiki.groups:0
+#: view:wizard.wiki.history.show_diff:0
+msgid "Notes"
+msgstr "Notes"
+
+#. module: wiki
+#: help:wiki.groups,home:0
+msgid "Required to select home page if display method is Home Page"
+msgstr "จำเป็นต้องเลือกหน้าบ้านถ้าวิธีการแสดงผลเป็นหน้าแรก"
+
+#. module: wiki
+#: selection:wiki.groups,method:0
+msgid "List"
+msgstr "รายการ"
+
+#. module: wiki
+#: field:wiki.wiki,summary:0
+#: field:wiki.wiki.history,summary:0
+msgid "Summary"
+msgstr "สรุป"
+
+#. module: wiki
+#: field:wiki.groups,create_date:0
+msgid "Created Date"
+msgstr "วันที่สร้าง"
+
+#. module: wiki
+#: model:ir.actions.act_window,name:wiki.action_history
+msgid "All Page Histories"
+msgstr "ทั้งหมดประวัติหน้า"
+
+#. module: wiki
+#: model:ir.model,name:wiki.model_wiki_wiki
+msgid "wiki.wiki"
+msgstr "wiki.wiki"
+
+#. module: wiki
+#: help:wiki.groups,method:0
+msgid "Define the default behaviour of the menu created on this group"
+msgstr "กําหนดการทำงานเริ่มต้นของเมนูที่สร้างขึ้นในกลุ่มนี้"
+
+#. module: wiki
+#: view:wizard.wiki.history.show_diff:0
+msgid "Close"
+msgstr "ปิด"
+
+#. module: wiki
+#: model:ir.model,name:wiki.model_wizard_wiki_history_show_diff
+msgid "wizard.wiki.history.show_diff"
+msgstr "wizard.wiki.history.show_diff"
+
+#. module: wiki
+#: field:wiki.wiki.history,wiki_id:0
+msgid "Wiki Id"
+msgstr "รหัสวิกิพีเดีย"
+
+#. module: wiki
+#: field:wiki.groups,home:0
+#: selection:wiki.groups,method:0
+msgid "Home Page"
+msgstr "หน้าแรก"
+
+#. module: wiki
+#: help:wiki.wiki,parent_id:0
+msgid "Allows you to link with the other page with in the current topic"
+msgstr "ช่วยให้คุณสามารถเชื่อมโยงกับหน้าอื่น ๆ ด้วยในหัวข้อปัจจุบัน"
+
+#. module: wiki
+#: view:wiki.wiki:0
+msgid "Modification Information"
+msgstr "ข้อมูลการปรับเปลี่ยน"
+
+#. module: wiki
+#: model:ir.ui.menu,name:wiki.menu_wiki_configuration
+#: view:wiki.wiki:0
+msgid "Wiki"
+msgstr "วิกิพีเดีย"
+
+#. module: wiki
+#: field:wiki.wiki,write_date:0
+msgid "Modification Date"
+msgstr "วันที่แก้ไข"
+
+#. module: wiki
+#: view:wiki.groups:0
+msgid "Configuration"
+msgstr "การกำหนดค่า"
+
+#. module: wiki
+#: model:ir.actions.act_window,name:wiki.action_view_wiki_make_index
+#: model:ir.actions.act_window,name:wiki.action_view_wiki_make_index_values
+#: model:ir.model,name:wiki.model_wiki_make_index
+#: view:wiki.make.index:0
+msgid "Create Index"
+msgstr "สร้างดัชนี"
+
+#. module: wiki
+#: code:addons/wiki/wizard/wiki_show_diff.py:54
+#, python-format
+msgid "You need to select minimum 1 or maximum 2 history revision!"
+msgstr "คุณต้องเลือกขั้นต่ำ 1 หรือสูงสุดประวัติการแก้ไข 2!"
+
+#. module: wiki
+#: view:wiki.wiki:0
+msgid "Group By..."
+msgstr "กลุ่มตาม ..."
+
+#. module: wiki
+#: model:ir.actions.act_window,name:wiki.action_wiki_create_menu
+#: view:wiki.create.menu:0
+#: view:wiki.groups:0
+#: view:wiki.make.index:0
+msgid "Create Menu"
+msgstr "สร้างเมนู"
+
+#. module: wiki
+#: field:wiki.wiki.history,minor_edit:0
+msgid "This is a major edit ?"
+msgstr "นี่คือหลักแก้ไขหรือไม่"
+
+#. module: wiki
+#: model:ir.actions.act_window,name:wiki.action_wiki_groups
+#: model:ir.actions.act_window,name:wiki.action_wiki_groups_browse
+#: model:ir.model,name:wiki.model_wiki_groups
+#: model:ir.ui.menu,name:wiki.menu_action_wiki_groups
+#: view:wiki.groups:0
+msgid "Wiki Groups"
+msgstr "กลุ่มวิกิพีเดีย"
+
+#. module: wiki
+#: view:wiki.wiki:0
+msgid "Topic"
+msgstr "Topic"
+
+#. module: wiki
+#: field:wiki.wiki.history,write_uid:0
+msgid "Modify By"
+msgstr "แก้ไขโดย"
+
+#. module: wiki
+#: code:addons/wiki/web/widgets/wikimarkup/__init__.py:1981
+#: field:wiki.wiki,toc:0
+#, python-format
+msgid "Table of Contents"
+msgstr "สารบัญ"
+
+#. module: wiki
+#: view:wiki.groups:0
+#: view:wiki.wiki.page.open:0
+msgid "Open Wiki Page"
+msgstr "เปิดหน้าวิกิพีเดีย"
+
+#. module: wiki
+#: model:ir.model,name:wiki.model_wiki_wiki_page_open
+msgid "wiz open page"
+msgstr "Wiz หน้าเปิด"
+
+#. module: wiki
+#: view:wiki.create.menu:0
+#: view:wiki.make.index:0
+#: view:wiki.wiki.page.open:0
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+#. module: wiki
+#: field:wizard.wiki.history.show_diff,file_path:0
+msgid "Diff"
+msgstr "Diff"
+
+#. module: wiki
+#: view:wiki.wiki:0
+msgid "Need Review"
+msgstr "ต้องการตรวจสอบ"
+
+#. module: wiki
+#: model:ir.actions.act_window,name:wiki.action_wiki_review
+msgid "Pages Waiting Review"
+msgstr "หน้ารอตรวจสอบ"
+
+#. module: wiki
+#: model:ir.actions.act_window,name:wiki.act_wiki_group_open
+msgid "Search Page"
+msgstr "หน้าค้นหา"
+

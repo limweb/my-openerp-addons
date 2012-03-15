@@ -1,0 +1,127 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* document_ftp
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.0-rc2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:15:08+0000\n"
+"PO-Revision-Date: 2011-01-11 11:15:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: document_ftp
+#: model:ir.model,name:document_ftp.model_document_ftp_configuration
+msgid "Auto Directory Configuration"
+msgstr "การกำหนดค่าออโต้ Directory"
+
+#. module: document_ftp
+#: view:document.ftp.configuration:0
+msgid "Indicate the network address on which your OpenERP server should be reachable for end-users. This depends on your network topology and configuration, and will only affect the links displayed to the users. The format is HOST:PORT and the default host (localhost) is only suitable for access from the server machine itself.."
+msgstr "ระบุที่อยู่เครือข่ายที่เซิร์ฟเวอร์ OpenERP ของคุณควรสามารถเข้าถึงได้สำหรับผู้ใช้ขั้นปลาย นี้ขึ้นอยู่กับโครงสร้างเครือข่ายและการกำหนดค่าของคุณและจะมีผลกับการเชื่อมโยงแสดงให้ผู้ใช้ รูปแบบเป็น HOST : PORT และโฮสต์เริ่มต้น (localhost) เพียงเหมาะสำหรับการเข้าใช้จากเครื่องเซิร์ฟเวอร์ตัวเอง .."
+
+#. module: document_ftp
+#: field:document.ftp.configuration,progress:0
+msgid "Configuration Progress"
+msgstr "ความคืบหน้าการกำหนดค่า"
+
+#. module: document_ftp
+#: model:ir.actions.url,name:document_ftp.action_document_browse
+msgid "Browse Files"
+msgstr "เรียกดูไฟล์"
+
+#. module: document_ftp
+#: field:document.ftp.configuration,config_logo:0
+msgid "Image"
+msgstr "รูปภาพ"
+
+#. module: document_ftp
+#: field:document.ftp.configuration,host:0
+msgid "Address"
+msgstr "ที่อยู่"
+
+#. module: document_ftp
+#: field:document.ftp.browse,url:0
+msgid "FTP Server"
+msgstr "FTP Server"
+
+#. module: document_ftp
+#: model:ir.actions.act_window,name:document_ftp.action_config_auto_directory
+msgid "FTP Server Configuration"
+msgstr "FTP Server Configuration"
+
+#. module: document_ftp
+#: model:ir.module.module,description:document_ftp.module_meta_information
+msgid "This is a support FTP Interface with document management system.\n"
+"    With this module you would not only be able to access documents through OpenERP\n"
+"    but you would also be able to connect with them through the file system using the\n"
+"    FTP client.\n"
+""
+msgstr "นี่คือการสนับสนุน FTP Interface กับระบบการจัดการเอกสาร ด้วยบทเรียนนี้คุณจะไม่เพียง แต่จะสามารถเข้าถึงเอกสารผ่าน OpenERP แต่คุณยังจะสามารถที่จะติดต่อกันผ่านทางระบบไฟล์โดยใช้โปรแกรม FTP client"
+
+#. module: document_ftp
+#: view:document.ftp.browse:0
+msgid "_Browse"
+msgstr "_Browse"
+
+#. module: document_ftp
+#: help:document.ftp.configuration,host:0
+msgid "Server address or IP and port to which users should connect to for DMS access"
+msgstr "ที่อยู่ของเซิร์ฟเวอร์หรือหมายเลขไอพีและพอร์ตที่ผู้ใช้ควรเชื่อมต่อกับการ DMS เข้าถึง"
+
+#. module: document_ftp
+#: model:ir.ui.menu,name:document_ftp.menu_document_browse
+msgid "Shared Repository (FTP)"
+msgstr "ที่ใช้ร่วมกัน (FTP) Repository"
+
+#. module: document_ftp
+#: view:document.ftp.browse:0
+msgid "_Cancel"
+msgstr "_Cancel"
+
+#. module: document_ftp
+#: view:document.ftp.configuration:0
+msgid "Configure FTP Server"
+msgstr "กำหนดค่า FTP Server"
+
+#. module: document_ftp
+#: model:ir.module.module,shortdesc:document_ftp.module_meta_information
+msgid "Integrated FTP Server with Document Management System"
+msgstr "FTP Server แบบบูรณาการกับระบบการจัดการเอกสาร"
+
+#. module: document_ftp
+#: view:document.ftp.configuration:0
+msgid "title"
+msgstr "ชื่อเรื่อง"
+
+#. module: document_ftp
+#: model:ir.model,name:document_ftp.model_document_ftp_browse
+msgid "Document FTP Browse"
+msgstr "FTP เรียกดูเอกสาร"
+
+#. module: document_ftp
+#: view:document.ftp.configuration:0
+msgid "Knowledge Application Configuration"
+msgstr "การกำหนดค่าการประยุกต์ใช้ความรู้"
+
+#. module: document_ftp
+#: model:ir.actions.act_window,name:document_ftp.action_ftp_browse
+msgid "Document Browse"
+msgstr "เรียกดูเอกสาร"
+
+#. module: document_ftp
+#: view:document.ftp.browse:0
+msgid "Browse Document"
+msgstr "เรียกดูเอกสาร"
+
+#. module: document_ftp
+#: view:document.ftp.configuration:0
+msgid "res_config_contents"
+msgstr "res_config_contents"
+
+

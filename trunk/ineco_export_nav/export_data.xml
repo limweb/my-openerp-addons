@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+		<!-- Dimensions -->
+        <record id="ineco_nav_dimension_group_company" model="ineco.nav.dimension.group">
+            <field name="name">Comapny</field>
+        </record>
+        <record id="ineco_nav_dimension_group_department" model="ineco.nav.dimension.group">
+            <field name="name">Department</field>
+        </record>
+        <record id="ineco_nav_dimension_group_project" model="ineco.nav.dimension.group">
+            <field name="name">Project</field>
+        </record>
+        <record id="ineco_nav_dimension_group_product" model="ineco.nav.dimension.group">
+            <field name="name">Product</field>
+        </record>
+        <record id="ineco_nav_dimension_group_retailer" model="ineco.nav.dimension.group">
+            <field name="name">Retailer</field>
+        </record>
+        <record id="ineco_nav_dimension_group_customer" model="ineco.nav.dimension.group">
+            <field name="name">Customer</field>
+        </record>
+        
+		<!-- Posting Group -->
+        <record id="ineco_nav_postmaster_group_vendor" model="ineco.nav.postmaster.group">
+            <field name="name">Vendor Posting Group</field>
+            <field name="code_nav">vendor</field>
+        </record>
+        <record id="ineco_nav_postmaster_group_general" model="ineco.nav.postmaster.group">
+            <field name="name">General Business Posting Group</field>
+            <field name="code_nav">general</field>
+        </record>
+        <record id="ineco_nav_postmaster_group_vat" model="ineco.nav.postmaster.group">
+            <field name="name">Vat Business Posting Group</field>
+            <field name="code_nav">vat</field>
+        </record>
+        <record id="ineco_nav_postmaster_group_wht" model="ineco.nav.postmaster.group">
+            <field name="name">With Holding Tax Business Posting Group</field>
+            <field name="code_nav">wht</field>
+        </record>
+
+    </data>
+</openerp>

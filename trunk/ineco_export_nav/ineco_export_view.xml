@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_ineco_export_config_form" model="ir.ui.view">
+            <field name="name">ineco.export.config.form</field>
+            <field name="model">ineco.export.config</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Export Configuration">
+				<field name="name" />
+				<field name="type" />
+				<field name="path" />
+				<field name="company_id" />
+            </form>
+            </field>
+        </record>
+
+        <record id="view_ineco_export_config_tree" model="ir.ui.view">
+            <field name="name">ineco.export.config.tree</field>
+            <field name="model">ineco.export.config</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+            <tree string="Export Configuration">
+				<field name="name" />
+				<field name="type" />
+				<field name="path" />
+				<field name="company_id" />
+            </tree>
+            </field>
+        </record>
+
+        <!-- Export Configuration Action  -->
+
+        <record id="view_ineco_nav_dimension_group_form" model="ir.ui.view">
+            <field name="name">ineco.nav.dimension.group.form</field>
+            <field name="model">ineco.nav.dimension.group</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Group of Dimensions">
+				<field name="name" />
+				<field name="active" />
+            </form>
+            </field>
+        </record>
+
+        <record id="view_ineco_nav_dimension_group_tree" model="ir.ui.view">
+            <field name="name">ineco.nav.dimension.group.tree</field>
+            <field name="model">ineco.nav.dimension.group</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+            <tree string="Group of Dimensions">
+				<field name="name" />
+				<field name="active" />
+            </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_ineco_export_config">
+            <field name="name">Export Configuration</field>
+            <field name="res_model">ineco.export.config</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem id="menu_ineco_export" name="Export" sequence="30" />
+        
+        <menuitem
+            id="menu_ineco_export_configuration" name="Configuration"
+            parent="menu_ineco_export" sequence="10"/>
+	
+      	<menuitem name="Export Configuration"
+            parent="menu_ineco_export_configuration"
+            id="menu_ineco_export_configurations"
+            action="action_ineco_export_config"/>
+
+        <!-- Dimension Group Action  -->
+        <record model="ir.actions.act_window" id="action_ineco_nav_dimension_group">
+            <field name="name">Group of Dimensions</field>
+            <field name="res_model">ineco.nav.dimension.group</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem
+            id="menu_ineco_export_dimension" name="Dimension"
+            parent="menu_ineco_export" sequence="20"/>
+
+<!--         <menuitem
+            id="menu_ineco_nav_dimension_group_menu" name="Dimension"
+            parent="menu_ineco_export_dimension" sequence="10"/> 
+             -->
+
+      	<menuitem name="Group of Dimensions"
+            parent="menu_ineco_export_dimension"
+            id="menu_ineco_nav_dimension_group"
+            action="action_ineco_nav_dimension_group"
+            sequence="10"/>
+            
+        <!-- Dimension -->
+        <record id="view_ineco_nav_dimension_form" model="ir.ui.view">
+            <field name="name">ineco.nav.dimension.form</field>
+            <field name="model">ineco.nav.dimension</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Dimensions">
+				<field name="name" />
+				<field name="code" />
+				<field name="group_dimension" />
+				<field name="active" />
+            </form>
+            </field>
+        </record>
+
+        <record id="view_ineco_nav_dimension_tree" model="ir.ui.view">
+            <field name="name">ineco.nav.dimension.tree</field>
+            <field name="model">ineco.nav.dimension</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+            <tree string="Dimensions">
+				<field name="name" />
+				<field name="code" />
+				<field name="group_dimension" />
+				<field name="active" />
+            </tree>
+            </field>
+        </record>
+        
+        <!-- Dimension Action  -->
+        <record model="ir.actions.act_window" id="action_ineco_nav_dimension">
+            <field name="name">Dimensions</field>
+            <field name="res_model">ineco.nav.dimension</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+      	<menuitem name="Dimensions"
+            parent="menu_ineco_export_dimension"
+            id="menu_ineco_nav_dimension"
+            action="action_ineco_nav_dimension"
+            sequence="20"/>
+
+        <!-- Group of Posting Group Master -->
+        <record id="view_ineco_nav_postmaster_group_form" model="ir.ui.view">
+            <field name="name">ineco.nav.postmaster.group.form</field>
+            <field name="model">ineco.nav.postmaster.group</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+	            <form string="Group of Posting Group">
+					<field name="name" />
+					<field name="code_nav" />
+					<field name="active" />
+	            </form>
+            </field>
+        </record>
+
+        <record id="view_ineco_nav_postmaster_group_tree" model="ir.ui.view">
+            <field name="name">ineco.nav.postmaster.group.tree</field>
+            <field name="model">ineco.nav.postmaster.group</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+	            <tree string="Group of Posting Group">
+					<field name="name" />
+					<field name="code_nav" />
+	            </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_ineco_nav_postmaster_group">
+            <field name="name">Group of Posting Group</field>
+            <field name="res_model">ineco.nav.postmaster.group</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+      	<menuitem name="Group of Posting Group"
+            parent="menu_ineco_export_configuration"
+            id="menu_ineco_nav_postmaster_group"
+            action="action_ineco_nav_postmaster_group"
+            sequence="30"/>
+        
+        <!-- Posting Group Master -->
+        <record id="view_ineco_nav_postmaster_form" model="ir.ui.view">
+            <field name="name">ineco.nav.postmaster.form</field>
+            <field name="model">ineco.nav.postmaster</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+	            <form string="Posting Group">
+					<field name="name" />
+					<field name="code_nav" />
+					<field name="group_nav" />
+					<field name="active" />
+	            </form>
+            </field>
+        </record>
+
+        <record id="view_ineco_nav_postmaster_tree" model="ir.ui.view">
+            <field name="name">ineco.nav.postmaster.tree</field>
+            <field name="model">ineco.nav.postmaster</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+	            <tree string="Posting Group">
+					<field name="name" />
+					<field name="code_nav" />
+					<field name="group_nav" />
+	            </tree>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_ineco_nav_postmaster">
+            <field name="name">Posting Group</field>
+            <field name="res_model">ineco.nav.postmaster</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+      	<menuitem name="Posting Group"
+            parent="menu_ineco_export_configuration"
+            id="menu_ineco_nav_postmaster"
+            action="action_ineco_nav_postmaster"
+            sequence="40"/>
+        
+    </data>
+</openerp>

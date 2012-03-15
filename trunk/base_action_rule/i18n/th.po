@@ -1,0 +1,476 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* base_action_rule
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.0-rc2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:14:51+0000\n"
+"PO-Revision-Date: 2011-04-14 20:38+0700\n"
+"Last-Translator: Tititab Srisookco <thitithup@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: base_action_rule
+#: help:base.action.rule,act_mail_to_user:0
+msgid "Check this if you want the rule to send an email to the responsible person."
+msgstr "เครื่องหมายนี้หากคุณต้องการให้กฎการส่งอีเมลไปยังผู้รับผิดชอบ"
+
+#. module: base_action_rule
+#: field:base.action.rule,act_remind_partner:0
+msgid "Remind Partner"
+msgstr "เตือนผู้ร่วมงาน"
+
+#. module: base_action_rule
+#: field:base.action.rule,trg_partner_categ_id:0
+msgid "Partner Category"
+msgstr "หมวดหมู่ผู้ร่วมงาน"
+
+#. module: base_action_rule
+#: field:base.action.rule,act_mail_to_watchers:0
+msgid "Mail to Watchers (CC)"
+msgstr "Mail to นักดู (CC)"
+
+#. module: base_action_rule
+#: field:base.action.rule,trg_state_to:0
+msgid "Button Pressed"
+msgstr "ปุ่มอัด"
+
+#. module: base_action_rule
+#: field:base.action.rule,model_id:0
+msgid "Object"
+msgstr "วัตถุ"
+
+#. module: base_action_rule
+#: field:base.action.rule,act_mail_to_email:0
+msgid "Mail to these Emails"
+msgstr "Mail อีเมลเหล่านี้"
+
+#. module: base_action_rule
+#: field:base.action.rule,act_state:0
+msgid "Set State to"
+msgstr "รัฐตั้ง"
+
+#. module: base_action_rule
+#: field:base.action.rule,act_email_from:0
+msgid "Email From"
+msgstr "อีเมลจาก"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "Email Body"
+msgstr "Email Body"
+
+#. module: base_action_rule
+#: selection:base.action.rule,trg_date_range_type:0
+msgid "Days"
+msgstr "วัน"
+
+#. module: base_action_rule
+#: field:base.action.rule,last_run:0
+msgid "Last Run"
+msgstr "การรันครั้งสุดท้าย"
+
+#. module: base_action_rule
+#: code:addons/base_action_rule/base_action_rule.py:313
+#, python-format
+msgid "Error!"
+msgstr "ข้อผิดพลาด"
+
+#. module: base_action_rule
+#: field:base.action.rule,act_reply_to:0
+msgid "Reply-To"
+msgstr "ให้ตอบกลับ"
+
+#. module: base_action_rule
+#: help:base.action.rule,act_email_cc:0
+msgid "These people will receive a copy of the future communication between partner and users by email"
+msgstr "คนเหล่านี้จะได้รับสำเนาของการสื่อสารในอนาคตระหว่างผู้ร่วมงานและผู้ใช้ทางอีเมล์"
+
+#. module: base_action_rule
+#: selection:base.action.rule,trg_date_range_type:0
+msgid "Minutes"
+msgstr "รายงานการประชุม"
+
+#. module: base_action_rule
+#: field:base.action.rule,name:0
+msgid "Rule Name"
+msgstr "ชื่อกฎ"
+
+#. module: base_action_rule
+#: help:base.action.rule,act_remind_partner:0
+msgid "Check this if you want the rule to send a reminder by email to the partner."
+msgstr "เครื่องหมายนี้หากคุณต้องการให้กฎการส่งการแจ้งเตือนทางอีเมลไปยังพันธมิตร"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "Conditions on Model Partner"
+msgstr "เงื่อนไขการร่วมรุ่น"
+
+#. module: base_action_rule
+#: selection:base.action.rule,trg_date_type:0
+msgid "Deadline"
+msgstr "กำหนดเวลา"
+
+#. module: base_action_rule
+#: field:base.action.rule,trg_partner_id:0
+msgid "Partner"
+msgstr "หุ้นส่วน"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "%(object_subject)s = Object subject"
+msgstr "% (object_subject) เรื่องของวัตถุ ="
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "Email Reminders"
+msgstr "การแจ้งเตือนอีเมล"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "Special Keywords to Be Used in The Body"
+msgstr "คำสำคัญพิเศษที่จะใช้ในร่างกาย"
+
+#. module: base_action_rule
+#: field:base.action.rule,trg_state_from:0
+msgid "State"
+msgstr "สถานะ"
+
+#. module: base_action_rule
+#: model:ir.actions.act_window,help:base_action_rule.base_action_rule_act
+msgid "Use automated actions to automatically trigger actions for various screens. Example: a lead created by a specific user may be automatically set to a specific sales team, or an opportunity which still has status pending after 14 days might trigger an automatic reminder email."
+msgstr "ใช้การกระทำโดยอัตโนมัติเพื่อเรียกการดำเนินการโดยอัตโนมัติสำหรับหน้าจอต่างๆ ตัวอย่าง : นำไปสร้างโดยผู้ใช้ที่เฉพาะเจาะจงอาจถูกตั้งโดยอัตโนมัติเพื่อให้ทีมขายเฉพาะเจาะจงหรือโอกาสที่ยังคงมีสถานะรอดำเนินการหลังจากที่ 14 วันอาจทำให้เกิดการแจ้งเตือนทางอีเมลโดยอัตโนมัติ"
+
+#. module: base_action_rule
+#: help:base.action.rule,act_mail_to_email:0
+msgid "Email-id of the persons whom mail is to be sent"
+msgstr "Email - ID ของคนผู้ที่ mail ที่จะส่ง"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+#: model:ir.module.module,shortdesc:base_action_rule.module_meta_information
+msgid "Action Rule"
+msgstr "กฎการดำเนินการ"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "Fields to Change"
+msgstr "ข้อมูลในการเปลี่ยน"
+
+#. module: base_action_rule
+#: selection:base.action.rule,trg_date_type:0
+msgid "Creation Date"
+msgstr "วันที่สร้าง"
+
+#. module: base_action_rule
+#: selection:base.action.rule,trg_date_type:0
+msgid "Last Action Date"
+msgstr "วันที่ล่าสุดที่มีการ"
+
+#. module: base_action_rule
+#: selection:base.action.rule,trg_date_range_type:0
+msgid "Hours"
+msgstr "เวลาทำการ"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "%(object_id)s = Object ID"
+msgstr "% (object_id) s = Object ID"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "Delay After Trigger Date"
+msgstr "หน่วงเวลาหลังจากวันที่ทริกเกอร์"
+
+#. module: base_action_rule
+#: field:base.action.rule,act_remind_attach:0
+msgid "Remind with Attachment"
+msgstr "เตือนด้วยเอกสารแนบ"
+
+#. module: base_action_rule
+#: constraint:ir.cron:0
+msgid "Invalid arguments"
+msgstr "อาร์กิวเมนต์ไม่ถูกต้อง"
+
+#. module: base_action_rule
+#: field:base.action.rule,act_user_id:0
+msgid "Set Responsible to"
+msgstr "ชุดหน้าที่และความรับผิดชอบ"
+
+#. module: base_action_rule
+#: selection:base.action.rule,trg_date_type:0
+msgid "None"
+msgstr "ไม่"
+
+#. module: base_action_rule
+#: help:base.action.rule,act_email_to:0
+msgid "Use a python expression to specify the right field on which one than we will use for the 'To' field of the header"
+msgstr "ใช้การแสดงออกหลามเพื่อระบุเขตข้อมูลที่ถูกต้องหนึ่งกว่าที่เราจะใช้สำหรับเขตข้อมูล&#39;ถึง&#39;ของส่วนหัว"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "%(object_user_phone)s = Responsible phone"
+msgstr "% (object_user_phone) s = ความรับผิดชอบในการโทรศัพท์"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "The rule uses the AND operator. The model must match all non-empty fields so that the rule executes the action described in the 'Actions' tab."
+msgstr "กฎการใช้ตัวดำเนินการและ รูปแบบจะต้องตรงกับเขตข้อมูลที่ไม่ว่างเปล่าทั้งหมดเพื่อให้กฎรันการกระทำที่อธิบายไว้ในแท็บ&#39;การกระทำ&#39;"
+
+#. module: base_action_rule
+#: field:base.action.rule,trg_date_range_type:0
+msgid "Delay type"
+msgstr "ประเภทของการหน่วงเวลา"
+
+#. module: base_action_rule
+#: help:base.action.rule,regex_name:0
+msgid ""
+"Regular expression for matching name of the resource\n"
+"e.g.: 'urgent.*' will search for records having name starting with the string 'urgent'\n"
+"Note: This is case sensitive search."
+msgstr "นิพจน์ปกติสำหรับการจับคู่ชื่อของทรัพยากรเช่น :&#39;เร่งด่วน .*&#39;จะค้นหาระเบียนที่มีชื่อขึ้นต้นด้วยหมายเหตุ&#39;เร่งด่วน&#39;STRING : นี่คือกรณีการค้นหามีความละเอียดอ่อน"
+
+#. module: base_action_rule
+#: field:base.action.rule,act_method:0
+msgid "Call Object Method"
+msgstr "โทรวิธี Object"
+
+#. module: base_action_rule
+#: field:base.action.rule,act_email_to:0
+msgid "Email To"
+msgstr "อีเมล"
+
+#. module: base_action_rule
+#: help:base.action.rule,act_mail_to_watchers:0
+msgid "Check this if you want the rule to mark CC(mail to any other person defined in actions)."
+msgstr "เครื่องหมายนี้หากคุณต้องการให้กฎในการทำเครื่องหมาย CC (อีเมลไปยังบุคคลอื่นใดที่กำหนดไว้ในการดำเนินการ)"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "%(partner)s = Partner name"
+msgstr "% (พันธมิตร) s = ชื่อผู้ร่วมงาน"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "Note"
+msgstr "หมายเหตุ"
+
+#. module: base_action_rule
+#: help:base.action.rule,act_email_from:0
+msgid "Use a python expression to specify the right field on which one than we will use for the 'From' field of the header"
+msgstr "ใช้การแสดงออกหลามเพื่อระบุเขตข้อมูลที่ถูกต้องหนึ่งกว่าที่เราจะใช้สำหรับเขตข้อมูล&#39;จาก&#39;ของส่วนหัว"
+
+#. module: base_action_rule
+#: field:base.action.rule,trg_date_range:0
+msgid "Delay after trigger date"
+msgstr "หน่วงเวลาหลังจากวันที่ทริกเกอร์"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "Conditions"
+msgstr "เงื่อนไข"
+
+#. module: base_action_rule
+#: help:base.action.rule,trg_date_range:0
+msgid "Delay After Trigger Date,specifies you can put a negative number. If you need a delay before the trigger date, like sending a reminder 15 minutes before a meeting."
+msgstr "หน่วงเวลาหลังจากเรียกวันที่ระบุคุณสามารถใส่จำนวนลบ ถ้าคุณต้องการความล่าช้าก่อนที่วันที่เรียกเช่นเดียวกับการส่งตัวเตือน 15 นาทีก่อนการประชุม"
+
+#. module: base_action_rule
+#: field:base.action.rule,active:0
+msgid "Active"
+msgstr "แอคทีฟ"
+
+#. module: base_action_rule
+#: code:addons/base_action_rule/base_action_rule.py:314
+#, python-format
+msgid "No E-Mail ID Found for your Company address!"
+msgstr "ไม่มี E - Mail ID พบที่อยู่ บริษัท ของคุณ"
+
+#. module: base_action_rule
+#: field:base.action.rule,act_remind_user:0
+msgid "Remind Responsible"
+msgstr "เตือนผู้รับผิดชอบ"
+
+#. module: base_action_rule
+#: model:ir.module.module,description:base_action_rule.module_meta_information
+msgid "This module allows to implement action rules for any object."
+msgstr "โมดูลนี้จะช่วยให้การใช้กฎการดำเนินการกับวัตถุใด ๆ"
+
+#. module: base_action_rule
+#: help:base.action.rule,sequence:0
+msgid "Gives the sequence order when displaying a list of rules."
+msgstr "เพื่อให้ลำดับเมื่อการแสดงรายชื่อของกฎ"
+
+#. module: base_action_rule
+#: selection:base.action.rule,trg_date_range_type:0
+msgid "Months"
+msgstr "เดือน"
+
+#. module: base_action_rule
+#: field:base.action.rule,filter_id:0
+msgid "Filter"
+msgstr "กรอง"
+
+#. module: base_action_rule
+#: selection:base.action.rule,trg_date_type:0
+msgid "Date"
+msgstr "วันที่"
+
+#. module: base_action_rule
+#: help:base.action.rule,server_action_id:0
+msgid ""
+"Describes the action name.\n"
+"eg:on which object which action to be taken on basis of which condition"
+msgstr "อธิบายถึงชื่อการกระทำ เช่น : ที่วัตถุที่กระทำจะต้องดำเนินการบนพื้นฐานของสภาพที่"
+
+#. module: base_action_rule
+#: model:ir.model,name:base_action_rule.model_ir_cron
+msgid "ir.cron"
+msgstr "ir.cron"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "%(object_description)s = Object description"
+msgstr "% (object_description) รายละเอียดของวัตถุ ="
+
+#. module: base_action_rule
+#: constraint:base.action.rule:0
+msgid "Error: The mail is not well formated"
+msgstr "ข้อผิดพลาด : อีเมล์ไม่ได้จัดรูปแบบดี"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "Email Actions"
+msgstr "การกระทำอีเมล์"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "Email Information"
+msgstr "ส่งข้อมูล"
+
+#. module: base_action_rule
+#: model:ir.model,name:base_action_rule.model_base_action_rule
+msgid "Action Rules"
+msgstr "หลักเกณฑ์การดำเนินการ"
+
+#. module: base_action_rule
+#: help:base.action.rule,act_mail_body:0
+msgid "Content of mail"
+msgstr "เนื้อหาของจดหมาย"
+
+#. module: base_action_rule
+#: field:base.action.rule,trg_user_id:0
+msgid "Responsible"
+msgstr "รับผิดชอบ"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "%(partner_email)s = Partner Email"
+msgstr "% (partner_email) s = อีเมล์ Partner"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "%(object_date)s = Creation date"
+msgstr "% (object_date) s = วันที่สร้าง"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "%(object_user_email)s = Responsible Email"
+msgstr "% (object_user_email) s = อีเมล์ที่รับผิดชอบ"
+
+#. module: base_action_rule
+#: field:base.action.rule,act_mail_body:0
+msgid "Mail body"
+msgstr "ร่างกาย Mail"
+
+#. module: base_action_rule
+#: help:base.action.rule,act_remind_user:0
+msgid "Check this if you want the rule to send a reminder by email to the user."
+msgstr "เครื่องหมายนี้หากคุณต้องการให้กฎการส่งการแจ้งเตือนทางอีเมลให้กับผู้ใช้"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "Server Action to be Triggered"
+msgstr "Action Server ที่จะถูกเรียกทำงาน"
+
+#. module: base_action_rule
+#: field:base.action.rule,act_mail_to_user:0
+msgid "Mail to Responsible"
+msgstr "Mail to ความรับผิดชอบ"
+
+#. module: base_action_rule
+#: field:base.action.rule,act_email_cc:0
+msgid "Add Watchers (Cc)"
+msgstr "นักดูเพิ่ม (Cc)"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "Conditions on Model Fields"
+msgstr "เงื่อนไขในเขตข้อมูลแบบ"
+
+#. module: base_action_rule
+#: model:ir.actions.act_window,name:base_action_rule.base_action_rule_act
+#: model:ir.ui.menu,name:base_action_rule.menu_base_action_rule_form
+msgid "Automated Actions"
+msgstr "การกระทำอัตโนมัติ"
+
+#. module: base_action_rule
+#: field:base.action.rule,server_action_id:0
+msgid "Server Action"
+msgstr "Action Server"
+
+#. module: base_action_rule
+#: field:base.action.rule,regex_name:0
+msgid "Regex on Resource Name"
+msgstr "Regex ​​ที่ชื่อทรัพยากร"
+
+#. module: base_action_rule
+#: help:base.action.rule,act_remind_attach:0
+msgid "Check this if you want that all documents attached to the object be attached to the reminder email sent."
+msgstr "ตรวจสอบนี้ถ้าคุณต้องการที่เอกสารทั้งหมดที่แนบกับวัตถุที่ถูกแนบมากับอีเมล์เตือนส่ง"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "Conditions on Timing"
+msgstr "เงื่อนไขในระยะเวลา"
+
+#. module: base_action_rule
+#: field:base.action.rule,sequence:0
+msgid "Sequence"
+msgstr "ลำดับ"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "Actions"
+msgstr "การกระทำ"
+
+#. module: base_action_rule
+#: help:base.action.rule,active:0
+msgid "If the active field is set to False, it will allow you to hide the rule without removing it."
+msgstr "ถ้าเขตข้อมูลที่ใช้อยู่กำหนดเป็นเท็จก็จะช่วยให้คุณสามารถซ่อนกฎโดยไม่ลบออก"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "%(object_user)s = Responsible name"
+msgstr "% (object_user) s = ชื่อผู้รับผิดชอบ"
+
+#. module: base_action_rule
+#: field:base.action.rule,create_date:0
+msgid "Create Date"
+msgstr "วันที่สร้าง"
+
+#. module: base_action_rule
+#: view:base.action.rule:0
+msgid "Conditions on States"
+msgstr "เงื่อนไขในการ States"
+
+#. module: base_action_rule
+#: field:base.action.rule,trg_date_type:0
+msgid "Trigger Date"
+msgstr "วันที่ทริกเกอร์"
+

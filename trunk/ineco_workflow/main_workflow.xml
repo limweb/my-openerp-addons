@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+		<!--Workflow -->
+    	<record model="workflow" id="wkf_ineco_main">
+    		<field name="name">workflow.ineco.main</field>
+    		<field name="osv">ineco.main</field>
+    		<field name="on_create">True</field>
+		</record>
+
+		<!-- Activity (Node) -->
+		<record model="workflow.activity" id="act_start">
+    		<field name="wkf_id" ref="wkf_ineco_main" />
+		    <field name="flow_start">True</field>
+		    <field name="name">start</field>
+		    <field name="kind">function</field>
+		    <field name="action">workflow_start()</field>
+		</record>
+
+		<record model="workflow.activity" id="act_open">
+		    <field name="wkf_id" ref="wkf_ineco_main" />
+		    <field name="name">open</field>
+		    <field name="kind">function</field>
+		    <field name="action">workflow_open()</field>
+		</record>
+
+		<record model="workflow.activity" id="act_done1">
+		    <field name="wkf_id" ref="wkf_ineco_main" />
+		    <field name="name">approve1</field>
+		    <field name="kind">function</field>
+		    <field name="action">workflow_done1()</field>
+			<field name="flow_stop">True</field>
+		</record>
+
+		<record model="workflow.activity" id="act_done2">
+		    <field name="wkf_id" ref="wkf_ineco_main" />
+		    <field name="name">approve2</field>
+		    <field name="kind">function</field>
+		    <field name="action">workflow_done2()</field>
+			<field name="flow_stop">True</field>
+		</record>
+
+		<!--Transition-->
+		<record model="workflow.transition" id="trn_start">
+		    <field name="act_from" ref="act_start" />
+		    <field name="act_to" ref="act_open" />
+		    <field name="signal">opened</field>
+		</record>
+
+		<record model="workflow.transition" id="trn_approve1">
+		    <field name="act_from" ref="act_open" />
+		    <field name="act_to" ref="act_done1" />
+		    <field name="signal">sale_approve</field>
+			<field name="condition">(total &lt;= 100000)</field>
+		</record>
+
+		<record model="workflow.transition" id="trn_approve2">
+		    <field name="act_from" ref="act_open" />
+		    <field name="act_to" ref="act_done2" />
+		    <field name="signal">manager_approve</field>
+			<field name="condition">(total &gt; 100000) or (total &lt;= 100000)</field>
+		</record>
+
+    </data>
+</openerp>

@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <!--  Complaint Category Tree view -->
+       <record model="ir.ui.view" id="view_ineco_complaint_category_tree">
+            <field name="name">ineco.complaint.category.tree</field>
+            <field name="model">ineco.complaint.category</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Complaint Category" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Complaint Category Form view -->
+        <record model="ir.ui.view" id="view_ineco_complaint_category_form">
+            <field name="name">ineco.complaint.category.form</field>
+            <field name="model">ineco.complaint.category</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Complaint Category">
+                     <field name="name"/>
+                </form>
+            </field>
+        </record>
+
+        <menuitem icon="terp-administration" id="menu_complaint"
+                  name="Complaint" sequence="60"
+                  web_icon="data/administration.png"
+                  web_icon_hover="data/administration-hover.png"
+				  groups="base.group_user" />
+
+        <menuitem id="menu_complaint_configuration" name="Configuration"
+            parent="menu_complaint" sequence="2"
+            groups="base.group_system,base.group_erp_manager"/>
+
+
+        <!-- Complaint Category Action  -->
+        <record model="ir.actions.act_window" id="action_ineco_complaint_category">
+            <field name="name">Complaint Category</field>
+            <field name="res_model">ineco.complaint.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id="menu_complaint_category" name="Complaint Category" action="action_ineco_complaint_category"
+            parent="menu_complaint_configuration" sequence="30"/>
+
+        <!--  Complaint Response Tree view -->
+       <record model="ir.ui.view" id="view_ineco_complaint_response_tree">
+            <field name="name">ineco.complaint.response.tree</field>
+            <field name="model">ineco.complaint.response</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Complaint Response" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Complaint Response Form view -->
+        <record model="ir.ui.view" id="view_ineco_complaint_response_form">
+            <field name="name">ineco.complaint.response.form</field>
+            <field name="model">ineco.complaint.response</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Complaint Response">
+                     <field name="name"/>
+                </form>
+            </field>
+        </record>
+
+        <!-- Complaint Response Action  -->
+        <record model="ir.actions.act_window" id="action_ineco_complaint_response">
+            <field name="name">Complaint Response</field>
+            <field name="res_model">ineco.complaint.response</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id="menu_complaint_response" name="Complaint Response" action="action_ineco_complaint_response"
+            parent="menu_complaint_configuration" sequence="30"/>
+
+        <!--  Complaint Tree view -->
+       <record model="ir.ui.view" id="view_ineco_complaint_tree">
+            <field name="name">ineco.complaint.tree</field>
+            <field name="model">ineco.complaint</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Complaint" >
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="type"/>
+                    <field name="problem"/>
+                    <field name="date_schedule"/>
+                    <field name="date_feedback"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Complaint Form view -->
+        <record model="ir.ui.view" id="view_ineco_complaint_form">
+            <field name="name">ineco.complaint.form</field>
+            <field name="model">ineco.complaint</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Complaint Response">
+		    		<group colspan="6" col="6" >
+                    	<field name="name" readonly="1"/>
+                    	<field name="date"/>
+                    	<field name="type"/>
+		    		</group>
+					<group colspan="6" col="1">
+						<notebook>
+							<page string="AE and Retailer" groups="base.group_complaint_user,base.group_complaint_pm,base.group_complaint_qm">
+								<separator string="Problem"/><newline/><field colspan="4" name="problem" nolabel="1"/>
+							</page>
+							<page string="Project Management" groups="base.group_complaint_pm,base.group_complaint_qm">
+								<group colspan="4" col="4" expand="1">
+									<field name="category_id" nolabel="1" />
+									<field name="response_id" nolabel="1" />
+								</group>
+								<group colspan="4" col="4">
+									<separator string="Notes"/><newline/><field colspan="4" name="notes" nolabel="1"/>
+								</group>
+							</page>
+							<page string="Quality Management" groups="base.group_complaint_qm">
+								<separator string="Comments"/><newline/><field colspan="4" name="comments" nolabel="1"/>
+							</page>
+						</notebook>
+                    	
+					</group>
+					<group colspan="6" col="6">
+						<field name="solving" />
+	                    <field name="date_schedule"/>
+	                    <field name="date_feedback"/>
+					</group>
+                </form>
+            </field>
+        </record>
+
+        <!-- Complaint Action  -->
+        <record model="ir.actions.act_window" id="action_ineco_complaint">
+            <field name="name">Complaint</field>
+            <field name="res_model">ineco.complaint</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id="menu_complaint_group" name="Complaint/Feedback" groups="base.group_user" 
+            parent="menu_complaint" sequence="1"/>
+
+        <menuitem
+            id="menu_complaint_complaint" name="Complaint" action="action_ineco_complaint" groups="base.group_user" 
+            parent="menu_complaint_group" sequence="30"/>
+
+    </data>
+</openerp>

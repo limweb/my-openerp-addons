@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+
+<!--  Date       ID         Message
+01-01-2012       POP-001    Create New
+ -->
+ 
+<openerp>
+	<data>
+
+        <!-- INECO LOGISTIC PATH-->
+        <record id="view_ineco_logistic_path_tree" model="ir.ui.view">
+            <field name="name">ineco.logistic.path.tree</field>
+            <field name="model">ineco.logistic.path</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<tree string="Logistic Path" colors="blue:type=='view'">
+					<field name="complete_name" />
+					<field name="name" />
+					<field name="path_id"/>
+					<field name="type" />
+					<field name="delivery_day" />
+					<field name="arrival_day" />
+				</tree>
+			</field>
+		</record>		
+
+        <record id="view_ineco_logistic_path_form" model="ir.ui.view">
+            <field name="name">ineco.logistic.path.form</field>
+            <field name="model">ineco.logistic.path</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<form string="Logistic Path">
+					<field name="name" />
+					<field name="path_id"/>
+					<field name="type" />
+					<field name="delivery_day" />
+					<field name="arrival_day" />
+				</form>
+			</field>
+		</record>		
+
+		
+         <record id="view_ineco_logistic_path_filter" model="ir.ui.view">
+            <field name="name">ineco.logistic.path.filter</field>
+            <field name="model">ineco.logistic.path</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Path">
+                    <group>
+						<field name="name" />
+						<field name="path_id" />
+						<field name="type" />
+                    </group>
+				</search>
+			</field>
+		</record>
+		
+        <record id="action_ineco_logistic_path" model="ir.actions.act_window">
+            <field name="name">Logistic Path</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.logistic.path</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_ineco_logistic_path_tree"/>
+            <field name="search_view_id" ref="view_ineco_logistic_path_filter" />
+        </record>
+        
+		<menuitem
+            id="menu_ineco_logistic_path" 
+            name="Logistic Path"
+            parent="stock.menu_warehouse_config" 
+            sequence="30"
+            action="action_ineco_logistic_path"/>   
+
+	</data>
+	
+</openerp>
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+	    <record id="base.group_picking_hr" model="res.groups">
+	        <field name="name">Warehouse / HR - Manager</field>
+	    </record>
+
+	    <record id="base.group_picking_hr_user" model="res.groups">
+	        <field name="name">Warehouse / HR - User</field>
+	    </record>
+
+	    <record id="base.group_picking_material" model="res.groups">
+	        <field name="name">Warehouse / Material - Manager</field>
+	    </record>
+
+	    <record id="base.group_picking_material_user" model="res.groups">
+	        <field name="name">Warehouse / Material - User</field>
+	    </record>
+	    
+	    <record id="base.group_picking_wip" model="res.groups">
+	        <field name="name">Warehouse / WIP - Manager</field>
+	    </record>
+
+	    <record id="base.group_picking_wip_user" model="res.groups">
+	        <field name="name">Warehouse / WIP - User</field>
+	    </record>
+
+	    <record id="base.group_picking_fa" model="res.groups">
+	        <field name="name">Warehouse / FA - Manager</field>
+	    </record>
+
+	    <record id="base.group_picking_fa_user" model="res.groups">
+	        <field name="name">Warehouse / FA - User</field>
+	    </record>
+	    
+	</data>
+</openerp>

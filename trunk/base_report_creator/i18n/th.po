@@ -1,0 +1,517 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* base_report_creator
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0dev_rc3\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:14+0000\n"
+"PO-Revision-Date: 2009-02-03 06:25+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-01-15 05:41+0000\n"
+"X-Generator: Launchpad (build 12177)\n"
+
+#. module: base_report_creator
+#: help:base_report_creator.report.filter,expression:0
+msgid ""
+"Provide an expression for the field based on which you want to filter the "
+"records.\n"
+" e.g. res_partner.id=3"
+msgstr "ให้การแสดงออกของเขตข้อมูลตามที่คุณต้องการกรองระเบียน res_partner.id เช่น = 3"
+
+#. module: base_report_creator
+#: model:ir.model,name:base_report_creator.model_report_menu_create
+msgid "Menu Create"
+msgstr "สร้างเมนู"
+
+#. module: base_report_creator
+#: field:base_report_creator.report,view_graph_type:0
+msgid "Graph Type"
+msgstr "ประเภทกราฟ"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+msgid "Used View"
+msgstr "View ใช้"
+
+#. module: base_report_creator
+#: wizard_view:base_report_creator.report_filter.fields,set_value_select_field:0
+msgid "Filter Values"
+msgstr "ค่าตัวกรอง"
+
+#. module: base_report_creator
+#: field:base_report_creator.report.fields,graph_mode:0
+msgid "Graph Mode"
+msgstr "โหมดกราฟ"
+
+#. module: base_report_creator
+#: code:addons/base_report_creator/base_report_creator.py:320
+#, python-format
+msgid ""
+"These is/are model(s) (%s) in selection which is/are not related to any "
+"other model"
+msgstr "เหล่านี้คือ / เป็นแบบจำลอง (s) (%s) ในการเลือกที่เป็น / ไม่เกี่ยวข้องกับรูปแบบอื่น ๆ"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+msgid "Legend"
+msgstr "ตำนาน"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+msgid "Graph View"
+msgstr "ดูกราฟ"
+
+#. module: base_report_creator
+#: field:base_report_creator.report.filter,expression:0
+msgid "Value"
+msgstr "มูลค่า"
+
+#. module: base_report_creator
+#: model:ir.actions.wizard,name:base_report_creator.wizard_set_filter_fields
+msgid "Set Filter Fields"
+msgstr "ตั้งค่าเขตข้อมูลตัวกรอง"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report.fields,calendar_mode:0
+msgid "Ending Date"
+msgstr "สิ้นสุดวันที่"
+
+#. module: base_report_creator
+#: model:ir.model,name:base_report_creator.model_base_report_creator_report_filter
+msgid "Report Filters"
+msgstr "ตัวกรองรายงาน"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+#: field:base_report_creator.report,sql_query:0
+msgid "SQL Query"
+msgstr "Query SQL"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+#: view:report.menu.create:0
+msgid "Create Menu"
+msgstr "สร้างเมนู"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report.fields,group_method:0
+msgid "Minimum"
+msgstr "ขั้นต่ำ"
+
+#. module: base_report_creator
+#: wizard_field:base_report_creator.report_filter.fields,set_value_select_field,operator:0
+msgid "Operator"
+msgstr "ผู้ประกอบการ"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report.filter,condition:0
+#: selection:base_report_creator.report_filter.fields,set_value_select_field,condition:0
+msgid "OR"
+msgstr "OR"
+
+#. module: base_report_creator
+#: model:ir.actions.act_window,name:base_report_creator.base_report_creator_action
+msgid "Custom Reports"
+msgstr "รายงานที่กำหนดเอง"
+
+#. module: base_report_creator
+#: code:addons/base_report_creator/base_report_creator.py:320
+#, python-format
+msgid "No Related Models!!"
+msgstr "ไม่มีโมเดลที่เกี่ยวข้อง!"
+
+#. module: base_report_creator
+#: view:report.menu.create:0
+msgid "Menu Information"
+msgstr "เมนูข้อมูล"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report.fields,group_method:0
+msgid "Sum"
+msgstr "ผลบวก"
+
+#. module: base_report_creator
+#: constraint:base_report_creator.report:0
+msgid "You must have to give calendar view's color,start date and delay."
+msgstr "คุณต้องมีเพื่อให้สีดูปฏิทินของวันที่เริ่มต้นและความล่าช้า"
+
+#. module: base_report_creator
+#: field:base_report_creator.report,model_ids:0
+msgid "Reported Objects"
+msgstr "วัตถุที่ได้รับรายงาน"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+msgid "Field List"
+msgstr "รายการเขตข้อมูล"
+
+#. module: base_report_creator
+#: field:base_report_creator.report,type:0
+msgid "Report Type"
+msgstr "ประเภทรายงาน"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+msgid "Add filter"
+msgstr "เพิ่มตัวกรอง"
+
+#. module: base_report_creator
+#: model:ir.actions.act_window,name:base_report_creator.action_report_menu_create
+msgid "Create Menu for Report"
+msgstr "สร้างเมนูสำหรับการรายงาน"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report,view_type1:0
+#: selection:base_report_creator.report,view_type2:0
+#: selection:base_report_creator.report,view_type3:0
+msgid "Form"
+msgstr "แบบฟอร์ม"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report,view_type2:0
+#: selection:base_report_creator.report,view_type3:0
+#: selection:base_report_creator.report.fields,calendar_mode:0
+#: selection:base_report_creator.report.fields,graph_mode:0
+msgid "/"
+msgstr "/"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+#: field:base_report_creator.report.fields,report_id:0
+#: field:base_report_creator.report.filter,report_id:0
+#: model:ir.model,name:base_report_creator.model_base_report_creator_report
+msgid "Report"
+msgstr "รายงาน"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report.fields,calendar_mode:0
+msgid "Starting Date"
+msgstr "เริ่มวันที่"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+msgid "Filters on Fields"
+msgstr "ตัวกรองบน​​พื้นที่"
+
+#. module: base_report_creator
+#: field:base_report_creator.report,group_ids:0
+msgid "Authorized Groups"
+msgstr "กลุ่มผู้มีอำนาจ"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report,view_type1:0
+#: selection:base_report_creator.report,view_type2:0
+#: selection:base_report_creator.report,view_type3:0
+msgid "Tree"
+msgstr "ต้นไม้"
+
+#. module: base_report_creator
+#: field:base_report_creator.report,view_graph_orientation:0
+msgid "Graph Orientation"
+msgstr "กราฟแสดงการวางแนว"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+msgid "Authorized Groups (empty for all)"
+msgstr "กลุ่มผู้มีอำนาจ (ว่างสำหรับทั้งหมด)"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+msgid "Security"
+msgstr "ความปลอดภัย"
+
+#. module: base_report_creator
+#: field:report.menu.create,menu_name:0
+msgid "Menu Name"
+msgstr "ชื่อเมนู"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report.filter,condition:0
+#: selection:base_report_creator.report_filter.fields,set_value_select_field,condition:0
+msgid "AND"
+msgstr "และการ"
+
+#. module: base_report_creator
+#: constraint:base_report_creator.report:0
+msgid "You can not display field which are not stored in Database."
+msgstr "คุณไม่สามารถแสดงเขตข้อมูลที่ไม่ได้จัดเก็บในฐานข้อมูล"
+
+#. module: base_report_creator
+#: field:base_report_creator.report.fields,calendar_mode:0
+msgid "Calendar Mode"
+msgstr "Mode ปฏิทินกิจกรรม"
+
+#. module: base_report_creator
+#: model:ir.model,name:base_report_creator.model_base_report_creator_report_fields
+msgid "Display Fields"
+msgstr "เขตข้อมูลที่แสดง"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report.fields,graph_mode:0
+msgid "Y Axis"
+msgstr "แกน Y"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report,view_type1:0
+#: selection:base_report_creator.report,view_type2:0
+#: selection:base_report_creator.report,view_type3:0
+msgid "Calendar"
+msgstr "ปฏิทิน"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report,view_type1:0
+#: selection:base_report_creator.report,view_type2:0
+#: selection:base_report_creator.report,view_type3:0
+msgid "Graph"
+msgstr "กราฟ"
+
+#. module: base_report_creator
+#: wizard_field:base_report_creator.report_filter.fields,set_value_select_field,field_id:0
+msgid "Field Name"
+msgstr "ชื่อเขตข้อมูล"
+
+#. module: base_report_creator
+#: wizard_view:base_report_creator.report_filter.fields,set_value_select_field:0
+msgid "Set Filter Values"
+msgstr "ตั้งค่าตัวกรอง"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report,view_graph_orientation:0
+msgid "Vertical"
+msgstr "แนวตั้ง"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report,type:0
+msgid "Rows And Columns Report"
+msgstr "แถวและคอลัมน์รายงาน"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+msgid "General Configuration"
+msgstr "การกำหนดค่าทั่วไป"
+
+#. module: base_report_creator
+#: help:base_report_creator.report.fields,sequence:0
+msgid "Gives the sequence order when displaying a list of fields."
+msgstr "เพื่อให้ลำดับเมื่อการแสดงรายการของเขตข้อมูล"
+
+#. module: base_report_creator
+#: wizard_view:base_report_creator.report_filter.fields,init:0
+msgid "Select Field to filter"
+msgstr "เลือกเขตข้อมูลที่จะกรอง"
+
+#. module: base_report_creator
+#: field:base_report_creator.report,active:0
+msgid "Active"
+msgstr "แอคทีฟ"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report,view_graph_orientation:0
+msgid "Horizontal"
+msgstr "ตามแนวนอน"
+
+#. module: base_report_creator
+#: field:base_report_creator.report.fields,group_method:0
+msgid "Grouping Method"
+msgstr "วิธีการจัดกลุ่ม"
+
+#. module: base_report_creator
+#: field:base_report_creator.report.filter,condition:0
+#: wizard_field:base_report_creator.report_filter.fields,set_value_select_field,condition:0
+msgid "Condition"
+msgstr "สภาพ"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report.fields,group_method:0
+msgid "Count"
+msgstr "นับ"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report.fields,graph_mode:0
+msgid "X Axis"
+msgstr "แกน X"
+
+#. module: base_report_creator
+#: field:report.menu.create,menu_parent_id:0
+msgid "Parent Menu"
+msgstr "เมนูสำหรับผู้ปกครอง"
+
+#. module: base_report_creator
+#: wizard_button:base_report_creator.report_filter.fields,set_value_select_field,set_value:0
+msgid "Confirm Filter"
+msgstr "ยืนยันตัวกรอง"
+
+#. module: base_report_creator
+#: field:base_report_creator.report.filter,name:0
+msgid "Filter Name"
+msgstr "ชื่อตัวกรอง"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+msgid "Open Report"
+msgstr "รายงานเปิด"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report.fields,group_method:0
+msgid "Grouped"
+msgstr "จัดกลุ่ม"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+#: model:ir.module.module,shortdesc:base_report_creator.module_meta_information
+msgid "Report Creator"
+msgstr "ผู้สร้างรายงาน"
+
+#. module: base_report_creator
+#: wizard_button:base_report_creator.report_filter.fields,init,end:0
+#: wizard_button:base_report_creator.report_filter.fields,set_value_select_field,end:0
+#: view:report.menu.create:0
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+#. module: base_report_creator
+#: constraint:base_report_creator.report:0
+msgid "You can apply aggregate function to the non calculated field."
+msgstr "คุณสามารถใช้ฟังก์ชันการรวมเพื่อคำนวณเขตข้อมูลที่ไม่ใช่"
+
+#. module: base_report_creator
+#: field:base_report_creator.report,menu_id:0
+msgid "Menu"
+msgstr "เมนู"
+
+#. module: base_report_creator
+#: field:base_report_creator.report,view_type1:0
+msgid "First View"
+msgstr "ดูแรก"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report.fields,calendar_mode:0
+msgid "Delay"
+msgstr "ความล่าช้า"
+
+#. module: base_report_creator
+#: field:base_report_creator.report.fields,field_id:0
+msgid "Field"
+msgstr "เขตข้อมูล"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report.fields,calendar_mode:0
+msgid "Unique Colors"
+msgstr "สีที่ไม่ซ้ำกัน"
+
+#. module: base_report_creator
+#: help:base_report_creator.report,active:0
+msgid ""
+"If the active field is set to False, it will allow you to hide the report "
+"without removing it."
+msgstr "ถ้าเขตข้อมูลที่ใช้อยู่กำหนดเป็นเท็จก็จะช่วยให้คุณสามารถซ่อนรายงานโดยไม่ลบออก"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report,view_graph_type:0
+msgid "Pie Chart"
+msgstr "แผนภูมิวงกลม"
+
+#. module: base_report_creator
+#: field:base_report_creator.report,view_type3:0
+msgid "Third View"
+msgstr "ดูที่สาม"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report.fields,calendar_mode:0
+msgid "End Date"
+msgstr "วันที่สิ้นสุด"
+
+#. module: base_report_creator
+#: field:base_report_creator.report,name:0
+msgid "Report Name"
+msgstr "ชื่อรายงาน"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+msgid "Fields"
+msgstr "เขตข้อมูล"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report.fields,group_method:0
+msgid "Average"
+msgstr "เฉลี่ย"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+msgid "Use %(uid)s to filter by the connected user"
+msgstr "% การใช้ (uid) s เพื่อกรองโดยผู้ใช้เชื่อมต่อ"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report.fields,group_method:0
+msgid "Maximum"
+msgstr "สูงสุด"
+
+#. module: base_report_creator
+#: wizard_button:base_report_creator.report_filter.fields,init,set_value_select_field:0
+msgid "Continue"
+msgstr "ต่อเนื่อง"
+
+#. module: base_report_creator
+#: wizard_field:base_report_creator.report_filter.fields,set_value_select_field,value:0
+msgid "Values"
+msgstr "ค่านิยม"
+
+#. module: base_report_creator
+#: selection:base_report_creator.report,view_graph_type:0
+msgid "Bar Chart"
+msgstr "แผนภูมิแท่ง"
+
+#. module: base_report_creator
+#: field:base_report_creator.report,view_type2:0
+msgid "Second View"
+msgstr "ดูที่สอง"
+
+#. module: base_report_creator
+#: view:report.menu.create:0
+msgid "Create Menu For This Report"
+msgstr "สร้างเมนูสำหรับรายงานนี้"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+msgid "View parameters"
+msgstr "ค่าดู"
+
+#. module: base_report_creator
+#: field:base_report_creator.report.fields,sequence:0
+msgid "Sequence"
+msgstr "ลำดับ"
+
+#. module: base_report_creator
+#: wizard_field:base_report_creator.report_filter.fields,init,field_id:0
+msgid "Filter Field"
+msgstr "ฟิลด์ตัวกรอง"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+#: field:base_report_creator.report,field_ids:0
+msgid "Fields to Display"
+msgstr "เขตข้อมูลที่จะแสดง"
+
+#. module: base_report_creator
+#: view:base_report_creator.report:0
+#: field:base_report_creator.report,filter_ids:0
+msgid "Filters"
+msgstr "ตัวกรอง"
+
+#. module: base_report_creator
+#: model:ir.module.module,description:base_report_creator.module_meta_information
+msgid ""
+"This module allows you to create any statistic\n"
+"report on several objects. It's a SQL query builder and browser\n"
+"for and users.\n"
+"\n"
+"After installing the module, it adds a menu to define custom report in\n"
+"the \"Dashboard\" menu.\n"
+msgstr "โมดูลนี้จะช่วยให้คุณสามารถสร้างรายงานสถิติการใด ๆ บนวัตถุหลาย ๆ มันเป็นตัวสร้างแบบสอบถาม SQL และเบราว์เซอร์และผู้ใช้สำหรับ หลังจากติดตั้งโมดูลจะเพิ่มเมนูเพื่อกำหนดรายงานที่กำหนดเองในเมนู\"Dashboard\""
+

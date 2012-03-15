@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="response1" model="ineco.complaint.response">
+            <field name="name">Service Operation</field>
+        </record>
+        <record id="response2" model="ineco.complaint.response">
+            <field name="name">Training</field>
+        </record>
+        <record id="response3" model="ineco.complaint.response">
+            <field name="name">Staffing</field>
+        </record>
+    </data>
+</openerp>

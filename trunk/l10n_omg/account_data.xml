@@ -1,0 +1,2697 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+<!-- ACCOUNT TYPES -->
+<record id="acc_type_view" model="account.account.type">
+    <field name="name">View</field>
+    <field name="code">view</field>
+    <field name="close_method">none</field>
+</record>
+
+<record id="acc_type_reconciled" model="account.account.type">
+    <field name="name">Reconciled</field>
+    <field name="code">reconciled</field>
+    <field name="close_method">unreconciled</field>
+</record>
+
+<record id="acc_type_other" model="account.account.type">
+    <field name="name">Other</field>
+    <field name="code">other</field>
+    <field name="close_method">balance</field>
+</record>
+
+<!-- CHART OF ACCOUNTS -->
+<record id="a_root" model="account.account.template">
+    <field name="code">0</field>
+    <field name="name">OMG chart of accounts</field>
+    <field name="parent_id" eval="False"/>
+    <field name="type">view</field>
+    <field name="user_type" ref="acc_type_view"/>
+</record>
+
+<record id="a100000" model="account.account.template">
+<field name="code">100000</field>
+<field name="name">Assets</field>
+<field name="parent_id" ref="a_root" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_view" />
+</record>
+
+<record id="a110000" model="account.account.template">
+<field name="code">110000</field>
+<field name="name">Current Assets</field>
+<field name="parent_id" ref="a100000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111000" model="account.account.template">
+<field name="code">111000</field>
+<field name="name">Cash and Deposit Bank</field>
+<field name="parent_id" ref="a110000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111100" model="account.account.template">
+<field name="code">111100</field>
+<field name="name">Petty Cash</field>
+<field name="parent_id" ref="a111000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111199" model="account.account.template">
+<field name="code">111199</field>
+<field name="name">Petty Cash - Ending</field>
+<field name="parent_id" ref="a111000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111200" model="account.account.template">
+<field name="code">111200</field>
+<field name="name">Saving Deposit</field>
+<field name="parent_id" ref="a110000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111201" model="account.account.template">
+<field name="code">111201</field>
+<field name="name">Saving Deposit - BBL-1</field>
+<field name="parent_id" ref="a111200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111202" model="account.account.template">
+<field name="code">111202</field>
+<field name="name">Saving Deposit - BBL-2</field>
+<field name="parent_id" ref="a111200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111203" model="account.account.template">
+<field name="code">111203</field>
+<field name="name">Saving Deposit - KBANK</field>
+<field name="parent_id" ref="a111200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111204" model="account.account.template">
+<field name="code">111204</field>
+<field name="name">Saving Deposit - KBANK</field>
+<field name="parent_id" ref="a111200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111205" model="account.account.template">
+<field name="code">111205</field>
+<field name="name">Saving Deposit - SCB</field>
+<field name="parent_id" ref="a111200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111206" model="account.account.template">
+<field name="code">111206</field>
+<field name="name">Saving Deposit - SCB</field>
+<field name="parent_id" ref="a111200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111207" model="account.account.template">
+<field name="code">111207</field>
+<field name="name">Saving Deposit - KTB</field>
+<field name="parent_id" ref="a111200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111208" model="account.account.template">
+<field name="code">111208</field>
+<field name="name">Saving Deposit - KTB</field>
+<field name="parent_id" ref="a111200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111209" model="account.account.template">
+<field name="code">111209</field>
+<field name="name">Saving Deposit - UOB</field>
+<field name="parent_id" ref="a111200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111210" model="account.account.template">
+<field name="code">111210</field>
+<field name="name">Saving Deposit - BAY</field>
+<field name="parent_id" ref="a111200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111299" model="account.account.template">
+<field name="code">111299</field>
+<field name="name">Saving Deposit - Ending</field>
+<field name="parent_id" ref="a111200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111300" model="account.account.template">
+<field name="code">111300</field>
+<field name="name">Current Deposit</field>
+<field name="parent_id" ref="a110000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111301" model="account.account.template">
+<field name="code">111301</field>
+<field name="name">Current Deposit - BBL</field>
+<field name="parent_id" ref="a111300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111302" model="account.account.template">
+<field name="code">111302</field>
+<field name="name">Current Deposit - BBL</field>
+<field name="parent_id" ref="a111300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111303" model="account.account.template">
+<field name="code">111303</field>
+<field name="name">Current Deposit - KBANK</field>
+<field name="parent_id" ref="a111300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111304" model="account.account.template">
+<field name="code">111304</field>
+<field name="name">Current Deposit - KBANK</field>
+<field name="parent_id" ref="a111300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111305" model="account.account.template">
+<field name="code">111305</field>
+<field name="name">Current Deposit - SCB</field>
+<field name="parent_id" ref="a111300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111306" model="account.account.template">
+<field name="code">111306</field>
+<field name="name">Current Deposit - SCB</field>
+<field name="parent_id" ref="a111300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111307" model="account.account.template">
+<field name="code">111307</field>
+<field name="name">Current Deposit - KTB</field>
+<field name="parent_id" ref="a111300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111308" model="account.account.template">
+<field name="code">111308</field>
+<field name="name">Current Deposit - KTB</field>
+<field name="parent_id" ref="a111300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111309" model="account.account.template">
+<field name="code">111309</field>
+<field name="name">Current Deposit - CitiBank</field>
+<field name="parent_id" ref="a111300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111310" model="account.account.template">
+<field name="code">111310</field>
+<field name="name">Current Deposit - UOB</field>
+<field name="parent_id" ref="a111300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111311" model="account.account.template">
+<field name="code">111311</field>
+<field name="name">Current Deposit - BAY</field>
+<field name="parent_id" ref="a111300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111399" model="account.account.template">
+<field name="code">111399</field>
+<field name="name">Current Deposit - Ending</field>
+<field name="parent_id" ref="a111300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111400" model="account.account.template">
+<field name="code">111400</field>
+<field name="name">Fixed Deposit</field>
+<field name="parent_id" ref="a110000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111401" model="account.account.template">
+<field name="code">111401</field>
+<field name="name">Fixed Deposit - BBL</field>
+<field name="parent_id" ref="a111400" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111402" model="account.account.template">
+<field name="code">111402</field>
+<field name="name">Fixed Deposit - KTB</field>
+<field name="parent_id" ref="a111400" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111499" model="account.account.template">
+<field name="code">111499</field>
+<field name="name">Fixed Deposit - Ending</field>
+<field name="parent_id" ref="a111400" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a111999" model="account.account.template">
+<field name="code">111999</field>
+<field name="name">Deposit Bank - Ending</field>
+<field name="parent_id" ref="a110000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a112000" model="account.account.template">
+<field name="code">112000</field>
+<field name="name">Financial Document</field>
+<field name="parent_id" ref="a100000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a112001" model="account.account.template">
+<field name="code">112001</field>
+<field name="name">Post Date Cheque</field>
+<field name="parent_id" ref="a112000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a112002" model="account.account.template">
+<field name="code">112002</field>
+<field name="name">Note Receivable</field>
+<field name="parent_id" ref="a112000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a112999" model="account.account.template">
+<field name="code">112999</field>
+<field name="name">Financial Document - Ending</field>
+<field name="parent_id" ref="a112000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a113000" model="account.account.template">
+<field name="code">113000</field>
+<field name="name">Trading A/C Receivable and Other</field>
+<field name="parent_id" ref="a100000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a113100" model="account.account.template">
+	<field name="code">113100</field>
+	<field name="name">Trading A/C Receivable</field>
+	<field name="parent_id" ref="a113000" />
+	<field name="type">receivable</field>
+	<field name="user_type" ref="acc_type_reconciled" />
+	<field name="reconcile" eval="True"/>
+</record>
+<record id="a113199" model="account.account.template">
+<field name="code">113199</field>
+<field name="name">Trading A/C Receivable and Other - Ending</field>
+<field name="parent_id" ref="a113000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a113200" model="account.account.template">
+<field name="code">113200</field>
+<field name="name">Other A/C Receivable</field>
+<field name="parent_id" ref="a100000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a113201" model="account.account.template">
+<field name="code">113201</field>
+<field name="name">A/R Intercompany</field>
+<field name="parent_id" ref="a113200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a113202" model="account.account.template">
+<field name="code">113202</field>
+<field name="name">A/R Revenue Department</field>
+<field name="parent_id" ref="a113200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a113300" model="account.account.template">
+<field name="code">113300</field>
+<field name="name">Allowance For Doubtful A/C</field>
+<field name="parent_id" ref="a113200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a113999" model="account.account.template">
+<field name="code">113999</field>
+<field name="name">Other A/C Receivable - Ending</field>
+<field name="parent_id" ref="a113200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a114000" model="account.account.template">
+<field name="code">114000</field>
+<field name="name">Inventory</field>
+<field name="parent_id" ref="a100000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a114100" model="account.account.template">
+<field name="code">114100</field>
+<field name="name">Raw Material</field>
+<field name="parent_id" ref="a114000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a114200" model="account.account.template">
+<field name="code">114200</field>
+<field name="name">Work in Process</field>
+<field name="parent_id" ref="a114000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a114300" model="account.account.template">
+<field name="code">114300</field>
+<field name="name">Finished Goods</field>
+<field name="parent_id" ref="a114000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a114400" model="account.account.template">
+<field name="code">114400</field>
+<field name="name">Field Supplies</field>
+<field name="parent_id" ref="a114000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a114999" model="account.account.template">
+<field name="code">114999</field>
+<field name="name">Inventory - Ending</field>
+<field name="parent_id" ref="a114000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a119999" model="account.account.template">
+<field name="code">119999</field>
+<field name="name">Current Assets - Ending</field>
+<field name="parent_id" ref="a100000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a120000" model="account.account.template">
+<field name="code">120000</field>
+<field name="name">Other Current Assets</field>
+<field name="parent_id" ref="a100000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a121000" model="account.account.template">
+<field name="code">121000</field>
+<field name="name">Advance, Loan and Investment</field>
+<field name="parent_id" ref="a120000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a121100" model="account.account.template">
+<field name="code">121100</field>
+<field name="name">Advance Payment</field>
+<field name="parent_id" ref="a121000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a121200" model="account.account.template">
+<field name="code">121200</field>
+<field name="name">Loan </field>
+<field name="parent_id" ref="a121000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a121300" model="account.account.template">
+<field name="code">121300</field>
+<field name="name">Investment</field>
+<field name="parent_id" ref="a121000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a121999" model="account.account.template">
+<field name="code">121999</field>
+<field name="name">Advance, Loan and Investment - Ending</field>
+<field name="parent_id" ref="a121000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a122000" model="account.account.template">
+<field name="code">122000</field>
+<field name="name">Deposit Payment</field>
+<field name="parent_id" ref="a120000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a122100" model="account.account.template">
+<field name="code">122100</field>
+<field name="name">Deposit Payment</field>
+<field name="parent_id" ref="a122000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a122199" model="account.account.template">
+<field name="code">122199</field>
+<field name="name">Deposit Payment - Ending</field>
+<field name="parent_id" ref="a122000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a123000" model="account.account.template">
+<field name="code">123000</field>
+<field name="name">Other Assets</field>
+<field name="parent_id" ref="a120000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a123100" model="account.account.template">
+<field name="code">123100</field>
+<field name="name">Prepaid Expense</field>
+<field name="parent_id" ref="a123000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a123110" model="account.account.template">
+<field name="code">123110</field>
+<field name="name">Prepaid Expense - Cost of Sales</field>
+<field name="parent_id" ref="a123100" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a123120" model="account.account.template">
+<field name="code">123120</field>
+<field name="name">Prepaid Expense - Administration</field>
+<field name="parent_id" ref="a123100" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a123130" model="account.account.template">
+<field name="code">123130</field>
+<field name="name">Deferred Charge Leasing</field>
+<field name="parent_id" ref="a123100" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a123199" model="account.account.template">
+<field name="code">123199</field>
+<field name="name">Prepaid Expense - Ending</field>
+<field name="parent_id" ref="a123100" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a123200" model="account.account.template">
+<field name="code">123200</field>
+<field name="name">Accrued Income</field>
+<field name="parent_id" ref="a123000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a123210" model="account.account.template">
+<field name="code">123210</field>
+<field name="name">Accrued Income Others</field>
+<field name="parent_id" ref="a123200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a123220" model="account.account.template">
+<field name="code">123220</field>
+<field name="name">Accrued Income Interest</field>
+<field name="parent_id" ref="a123200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a123299" model="account.account.template">
+<field name="code">123299</field>
+<field name="name">Accrued Income - Ending</field>
+<field name="parent_id" ref="a123200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a123300" model="account.account.template">
+<field name="code">123300</field>
+<field name="name">Prepaid Taxation</field>
+<field name="parent_id" ref="a123000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a123310" model="account.account.template">
+<field name="code">123310</field>
+<field name="name">Input VAT</field>
+<field name="parent_id" ref="a123300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a123320" model="account.account.template">
+<field name="code">123320</field>
+<field name="name">Suspensed Input VAT</field>
+<field name="parent_id" ref="a123300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a123330" model="account.account.template">
+<field name="code">123330</field>
+<field name="name">Withholding Income Tax</field>
+<field name="parent_id" ref="a123300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a123340" model="account.account.template">
+<field name="code">123340</field>
+<field name="name">Suspensed Withholding Income Tax</field>
+<field name="parent_id" ref="a123300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a123350" model="account.account.template">
+<field name="code">123350</field>
+<field name="name">Prepaid Income Tax</field>
+<field name="parent_id" ref="a123300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a123399" model="account.account.template">
+<field name="code">123399</field>
+<field name="name">Prepaid Taxation - Ending</field>
+<field name="parent_id" ref="a123300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a130000" model="account.account.template">
+<field name="code">130000</field>
+<field name="name">Fixed Assets</field>
+<field name="parent_id" ref="a100000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a131000" model="account.account.template">
+<field name="code">131000</field>
+<field name="name">Land Building and Equipment</field>
+<field name="parent_id" ref="a130000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a131010" model="account.account.template">
+<field name="code">131010</field>
+<field name="name">Land</field>
+<field name="parent_id" ref="a131000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a131020" model="account.account.template">
+<field name="code">131020</field>
+<field name="name">Building</field>
+<field name="parent_id" ref="a131000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a131030" model="account.account.template">
+<field name="code">131030</field>
+<field name="name">Office Equipment</field>
+<field name="parent_id" ref="a131000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a131040" model="account.account.template">
+<field name="code">131040</field>
+<field name="name">Operating Equipment &amp; Tool</field>
+<field name="parent_id" ref="a131000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a131050" model="account.account.template">
+<field name="code">131050</field>
+<field name="name">Furniture and Fixture</field>
+<field name="parent_id" ref="a131000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a131060" model="account.account.template">
+<field name="code">131060</field>
+<field name="name">Leasehold Improvement</field>
+<field name="parent_id" ref="a131000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a131070" model="account.account.template">
+<field name="code">131070</field>
+<field name="name">Computer - Hardware</field>
+<field name="parent_id" ref="a131000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a131080" model="account.account.template">
+<field name="code">131080</field>
+<field name="name">Computer - Software</field>
+<field name="parent_id" ref="a131000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a131090" model="account.account.template">
+<field name="code">131090</field>
+<field name="name">Vehicle</field>
+<field name="parent_id" ref="a131000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a131999" model="account.account.template">
+<field name="code">131999</field>
+<field name="name">Land Building and Equipment - Ending</field>
+<field name="parent_id" ref="a131000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a132000" model="account.account.template">
+<field name="code">132000</field>
+<field name="name">Accumalated Depreciation</field>
+<field name="parent_id" ref="a130000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a132020" model="account.account.template">
+<field name="code">132020</field>
+<field name="name">Accumalated Depreciation Building</field>
+<field name="parent_id" ref="a132000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a132030" model="account.account.template">
+<field name="code">132030</field>
+<field name="name">Accumalated Depreciation Office Equipment</field>
+<field name="parent_id" ref="a132000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a132040" model="account.account.template">
+<field name="code">132040</field>
+<field name="name">Accumalated Depreciation Operating Equipment &amp; Tool</field>
+<field name="parent_id" ref="a132000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a132050" model="account.account.template">
+<field name="code">132050</field>
+<field name="name">Accumalated Depreciation Furniture and Fixture</field>
+<field name="parent_id" ref="a132000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a132060" model="account.account.template">
+<field name="code">132060</field>
+<field name="name">Accumalated Depreciation Leasehold Improvement</field>
+<field name="parent_id" ref="a132000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a132070" model="account.account.template">
+<field name="code">132070</field>
+<field name="name">Accumalated Depreciation Computer - Hardware</field>
+<field name="parent_id" ref="a132000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a132080" model="account.account.template">
+<field name="code">132080</field>
+<field name="name">Accumalated Depreciation Computer - Software</field>
+<field name="parent_id" ref="a132000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a132090" model="account.account.template">
+<field name="code">132090</field>
+<field name="name">Accumalated Depreciation Vehicle</field>
+<field name="parent_id" ref="a132000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a132999" model="account.account.template">
+<field name="code">132999</field>
+<field name="name">Accumalated Depreciation - Ending</field>
+<field name="parent_id" ref="a132000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a140000" model="account.account.template">
+<field name="code">140000</field>
+<field name="name">Long Term Assets</field>
+<field name="parent_id" ref="a100000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a140001" model="account.account.template">
+<field name="code">140001</field>
+<field name="name">Long Term Assets</field>
+<field name="parent_id" ref="a140000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a149999" model="account.account.template">
+<field name="code">149999</field>
+<field name="name">Long Term Assets - Ending</field>
+<field name="parent_id" ref="a140000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a199999" model="account.account.template">
+<field name="code">199999</field>
+<field name="name">Assets - Ending</field>
+<field name="parent_id" ref="a100000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a200000" model="account.account.template">
+<field name="code">200000</field>
+<field name="name">Liabilities</field>
+<field name="parent_id" ref="a_root" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_view" />
+</record>
+<record id="a210000" model="account.account.template">
+<field name="code">210000</field>
+<field name="name">Current Liabilities</field>
+<field name="parent_id" ref="a200000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a211000" model="account.account.template">
+<field name="code">211000</field>
+<field name="name">Trading A/C Payable and Others</field>
+<field name="parent_id" ref="a210000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a211010" model="account.account.template">
+	<field name="code">211010</field>
+	<field name="name">Trading A/C Payable</field>
+	<field name="parent_id" ref="a211000" />
+	<field name="type">payable</field>
+	<field name="user_type" ref="acc_type_reconciled" />
+	<field name="reconcile" eval="True"/>
+</record>
+<record id="a211999" model="account.account.template">
+<field name="code">211999</field>
+<field name="name">Trading A/C Payable and Others - Ending</field>
+<field name="parent_id" ref="a211000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a212000" model="account.account.template">
+<field name="code">212000</field>
+<field name="name">Other A/C Payable</field>
+<field name="parent_id" ref="a210000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a212100" model="account.account.template">
+<field name="code">212100</field>
+<field name="name">A/P Intercompany</field>
+<field name="parent_id" ref="a212000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a212200" model="account.account.template">
+<field name="code">212200</field>
+<field name="name">A/P Revenue Department</field>
+<field name="parent_id" ref="a212000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a212999" model="account.account.template">
+<field name="code">212999</field>
+<field name="name">Other A/C Payable Ending</field>
+<field name="parent_id" ref="a212000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a213000" model="account.account.template">
+<field name="code">213000</field>
+<field name="name">Note Payable and Prepaid Cheque</field>
+<field name="parent_id" ref="a210000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a213001" model="account.account.template">
+<field name="code">213001</field>
+<field name="name">Note Payable</field>
+<field name="parent_id" ref="a213000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a213002" model="account.account.template">
+<field name="code">213002</field>
+<field name="name">Prepaid Cheque</field>
+<field name="parent_id" ref="a213000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a213999" model="account.account.template">
+<field name="code">213999</field>
+<field name="name">Note Payable and Prepaid Cheque - Ending</field>
+<field name="parent_id" ref="a213000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a214000" model="account.account.template">
+<field name="code">214000</field>
+<field name="name">Long Term Loan</field>
+<field name="parent_id" ref="a210000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a214010" model="account.account.template">
+<field name="code">214010</field>
+<field name="name">Long Term Loan - Bank</field>
+<field name="parent_id" ref="a214000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a214020" model="account.account.template">
+<field name="code">214020</field>
+<field name="name">Long Term Loan - Intercompany</field>
+<field name="parent_id" ref="a214000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a214030" model="account.account.template">
+<field name="code">214030</field>
+<field name="name">Long Term Loan - Others</field>
+<field name="parent_id" ref="a214000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a214999" model="account.account.template">
+<field name="code">214999</field>
+<field name="name">Long Term Loan - Ending </field>
+<field name="parent_id" ref="a214000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215000" model="account.account.template">
+<field name="code">215000</field>
+<field name="name">Other Current Liabilities</field>
+<field name="parent_id" ref="a210000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215100" model="account.account.template">
+<field name="code">215100</field>
+<field name="name">Advance</field>
+<field name="parent_id" ref="a215000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215110" model="account.account.template">
+<field name="code">215110</field>
+<field name="name">Advance Intercompany</field>
+<field name="parent_id" ref="a215100" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215120" model="account.account.template">
+<field name="code">215120</field>
+<field name="name">Advance Others</field>
+<field name="parent_id" ref="a215100" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215199" model="account.account.template">
+<field name="code">215199</field>
+<field name="name">Advance - Ending</field>
+<field name="parent_id" ref="a215100" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215200" model="account.account.template">
+<field name="code">215200</field>
+<field name="name">Accured Expense</field>
+<field name="parent_id" ref="a215000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215210" model="account.account.template">
+<field name="code">215210</field>
+<field name="name">Accured Expense - Cost of Sales</field>
+<field name="parent_id" ref="a215200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215220" model="account.account.template">
+<field name="code">215220</field>
+<field name="name">Accured Expense - Administration</field>
+<field name="parent_id" ref="a215200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215230" model="account.account.template">
+<field name="code">215230</field>
+<field name="name">Accured Expense - Interest</field>
+<field name="parent_id" ref="a215200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215299" model="account.account.template">
+<field name="code">215299</field>
+<field name="name">Accured Expense - Ending</field>
+<field name="parent_id" ref="a215200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215300" model="account.account.template">
+<field name="code">215300</field>
+<field name="name">Other Accrued - Withholding Tax and VAT</field>
+<field name="parent_id" ref="a215000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215301" model="account.account.template">
+<field name="code">215301</field>
+<field name="name">Withholding Tax Payable Tax 1</field>
+<field name="parent_id" ref="a215300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215302" model="account.account.template">
+<field name="code">215302</field>
+<field name="name">Withholding Tax Payable Tax 2</field>
+<field name="parent_id" ref="a215300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215303" model="account.account.template">
+<field name="code">215303</field>
+<field name="name">Withholding Tax Payable Tax 3</field>
+<field name="parent_id" ref="a215300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215304" model="account.account.template">
+<field name="code">215304</field>
+<field name="name">Withholding Tax Payable Tax 53</field>
+<field name="parent_id" ref="a215300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215305" model="account.account.template">
+<field name="code">215305</field>
+<field name="name">Withholding Tax Payable Tax 54</field>
+<field name="parent_id" ref="a215300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215306" model="account.account.template">
+<field name="code">215306</field>
+<field name="name">Accrued - Corporate Income Tax</field>
+<field name="parent_id" ref="a215300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215307" model="account.account.template">
+<field name="code">215307</field>
+<field name="name">Output VAT</field>
+<field name="parent_id" ref="a215300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215308" model="account.account.template">
+<field name="code">215308</field>
+<field name="name">Suspensed Output VAT</field>
+<field name="parent_id" ref="a215300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215399" model="account.account.template">
+<field name="code">215399</field>
+<field name="name">Other Accrued - Withholding Tax and VAT - Ending</field>
+<field name="parent_id" ref="a215300" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215400" model="account.account.template">
+<field name="code">215400</field>
+<field name="name">Deferred Income</field>
+<field name="parent_id" ref="a215000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215401" model="account.account.template">
+<field name="code">215401</field>
+<field name="name">Deferred Income</field>
+<field name="parent_id" ref="a215400" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a215499" model="account.account.template">
+<field name="code">215499</field>
+<field name="name">Deferred Income - Ending</field>
+<field name="parent_id" ref="a215400" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a219999" model="account.account.template">
+<field name="code">219999</field>
+<field name="name">Current Liabilities - Ending</field>
+<field name="parent_id" ref="a210000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a220000" model="account.account.template">
+<field name="code">220000</field>
+<field name="name">Long Term Liabilities</field>
+<field name="parent_id" ref="a200000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a221000" model="account.account.template">
+<field name="code">221000</field>
+<field name="name">Dividend Payable</field>
+<field name="parent_id" ref="a220000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a221999" model="account.account.template">
+<field name="code">221999</field>
+<field name="name">Dividend Payable - Ending</field>
+<field name="parent_id" ref="a220000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a222000" model="account.account.template">
+<field name="code">222000</field>
+<field name="name">Other Liabilities</field>
+<field name="parent_id" ref="a220000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a222001" model="account.account.template">
+<field name="code">222001</field>
+<field name="name">Other Liabilities</field>
+<field name="parent_id" ref="a222000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a222999" model="account.account.template">
+<field name="code">222999</field>
+<field name="name">Other Liabilities - Ending</field>
+<field name="parent_id" ref="a222000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a299999" model="account.account.template">
+<field name="code">299999</field>
+<field name="name">Liabilities - Ending</field>
+<field name="parent_id" ref="a200000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a300000" model="account.account.template">
+<field name="code">300000</field>
+<field name="name">Capital and Shareholders Equity</field>
+<field name="parent_id" ref="a_root" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_view" />
+</record>
+<record id="a310000" model="account.account.template">
+<field name="code">310000</field>
+<field name="name">Capital Stock</field>
+<field name="parent_id" ref="a300000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a311000" model="account.account.template">
+<field name="code">311000</field>
+<field name="name">Paid-Up Share Capital</field>
+<field name="parent_id" ref="a310000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a311001" model="account.account.template">
+<field name="code">311001</field>
+<field name="name">Ordinary Share Capital</field>
+<field name="parent_id" ref="a311000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a311002" model="account.account.template">
+<field name="code">311002</field>
+<field name="name">Preference Share Capital</field>
+<field name="parent_id" ref="a311000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a311999" model="account.account.template">
+<field name="code">311999</field>
+<field name="name">Paid-Up Share Capital - Ending</field>
+<field name="parent_id" ref="a311000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a312000" model="account.account.template">
+<field name="code">312000</field>
+<field name="name">Premium Share Capital</field>
+<field name="parent_id" ref="a310000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a312001" model="account.account.template">
+<field name="code">312001</field>
+<field name="name">Premium on Ordinary Share Capital</field>
+<field name="parent_id" ref="a312000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a312002" model="account.account.template">
+<field name="code">312002</field>
+<field name="name">Premium on Preference Share Capital</field>
+<field name="parent_id" ref="a312000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a312999" model="account.account.template">
+<field name="code">312999</field>
+<field name="name">Premium Share Capital - Ending</field>
+<field name="parent_id" ref="a312000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a319999" model="account.account.template">
+<field name="code">319999</field>
+<field name="name">Capital Stock - Ending</field>
+<field name="parent_id" ref="a310000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a320000" model="account.account.template">
+<field name="code">320000</field>
+<field name="name">Retained Earning</field>
+<field name="parent_id" ref="a300000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a321000" model="account.account.template">
+<field name="code">321000</field>
+<field name="name">Appropriated</field>
+<field name="parent_id" ref="a320000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a321001" model="account.account.template">
+<field name="code">321001</field>
+<field name="name">Appropriated</field>
+<field name="parent_id" ref="a321000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a321002" model="account.account.template">
+<field name="code">321002</field>
+<field name="name">Legal Reserve</field>
+<field name="parent_id" ref="a321000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a321003" model="account.account.template">
+<field name="code">321003</field>
+<field name="name">Other Reserve</field>
+<field name="parent_id" ref="a321000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a321004" model="account.account.template">
+<field name="code">321004</field>
+<field name="name">Revaluation Reserve</field>
+<field name="parent_id" ref="a321000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a321999" model="account.account.template">
+<field name="code">321999</field>
+<field name="name">Appropriated - Ending</field>
+<field name="parent_id" ref="a321000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a322000" model="account.account.template">
+<field name="code">322000</field>
+<field name="name">Non Appropriated</field>
+<field name="parent_id" ref="a320000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a322001" model="account.account.template">
+<field name="code">322001</field>
+<field name="name">Profit and Loss for the year</field>
+<field name="parent_id" ref="a322000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a322999" model="account.account.template">
+<field name="code">322999</field>
+<field name="name">Non Appropriated - Ending</field>
+<field name="parent_id" ref="a322000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a399999" model="account.account.template">
+<field name="code">399999</field>
+<field name="name">Capital and Shareholders Equity - Ending</field>
+<field name="parent_id" ref="a300000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a400000" model="account.account.template">
+<field name="code">400000</field>
+<field name="name">Income</field>
+<field name="parent_id" ref="a_root" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_view" />
+</record>
+<record id="a410000" model="account.account.template">
+<field name="code">410000</field>
+<field name="name">Sales</field>
+<field name="parent_id" ref="a400000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a411001" model="account.account.template">
+<field name="code">411001</field>
+<field name="name">Sales</field>
+<field name="parent_id" ref="a410000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a412001" model="account.account.template">
+<field name="code">412001</field>
+<field name="name">Purchasing Revenue</field>
+<field name="parent_id" ref="a410000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a419999" model="account.account.template">
+<field name="code">419999</field>
+<field name="name">Sales - Ending</field>
+<field name="parent_id" ref="a410000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a420000" model="account.account.template">
+<field name="code">420000</field>
+<field name="name">Service</field>
+<field name="parent_id" ref="a400000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a421000" model="account.account.template">
+<field name="code">421000</field>
+<field name="name">Professional Service Fee</field>
+<field name="parent_id" ref="a420000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a421001" model="account.account.template">
+<field name="code">421001</field>
+<field name="name">Design &amp; Creative Service</field>
+<field name="parent_id" ref="a421000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a421999" model="account.account.template">
+<field name="code">421999</field>
+<field name="name">Professional Service Fee - Ending</field>
+<field name="parent_id" ref="a421000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a422000" model="account.account.template">
+<field name="code">422000</field>
+<field name="name">Execution Service Fee</field>
+<field name="parent_id" ref="a420000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a422001" model="account.account.template">
+<field name="code">422001</field>
+<field name="name">Demonstration Service</field>
+<field name="parent_id" ref="a422000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a422002" model="account.account.template">
+<field name="code">422002</field>
+<field name="name">Media Service</field>
+<field name="parent_id" ref="a422000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a422003" model="account.account.template">
+<field name="code">422003</field>
+<field name="name">Installation &amp; Maintenance Service</field>
+<field name="parent_id" ref="a422000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a422004" model="account.account.template">
+<field name="code">422004</field>
+<field name="name">Loyalty Service (UMI Income)</field>
+<field name="parent_id" ref="a422000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a422005" model="account.account.template">
+<field name="code">422005</field>
+<field name="name">Audit Service Fee</field>
+<field name="parent_id" ref="a422000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a422006" model="account.account.template">
+<field name="code">422006</field>
+<field name="name">Printing &amp; Production</field>
+<field name="parent_id" ref="a422000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a422007" model="account.account.template">
+<field name="code">422007</field>
+<field name="name">Promoter Briefing/Training</field>
+<field name="parent_id" ref="a422000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a422999" model="account.account.template">
+<field name="code">422999</field>
+<field name="name">Execution Service Fee - Ending</field>
+<field name="parent_id" ref="a422000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a423000" model="account.account.template">
+<field name="code">423000</field>
+<field name="name">Information Service Fee</field>
+<field name="parent_id" ref="a420000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a423001" model="account.account.template">
+<field name="code">423001</field>
+<field name="name">Reseach &amp; Insight Stretegy Service</field>
+<field name="parent_id" ref="a423000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a423999" model="account.account.template">
+<field name="code">423999</field>
+<field name="name">Information Service Fee - Ending</field>
+<field name="parent_id" ref="a423000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a430000" model="account.account.template">
+<field name="code">430000</field>
+<field name="name">Management Fee/Surcharge</field>
+<field name="parent_id" ref="a400000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a431000" model="account.account.template">
+<field name="code">431000</field>
+<field name="name">Management Fee</field>
+<field name="parent_id" ref="a430000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a432000" model="account.account.template">
+<field name="code">432000</field>
+<field name="name">Rebate</field>
+<field name="parent_id" ref="a430000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a433000" model="account.account.template">
+<field name="code">433000</field>
+<field name="name">Surcharge</field>
+<field name="parent_id" ref="a430000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a433100" model="account.account.template">
+<field name="code">433100</field>
+<field name="name">Electric - Surcharge</field>
+<field name="parent_id" ref="a430000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a433200" model="account.account.template">
+<field name="code">433200</field>
+<field name="name">Surcharge - Others</field>
+<field name="parent_id" ref="a430000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a433999" model="account.account.template">
+<field name="code">433999</field>
+<field name="name">Management Fee/Surcharge - Ending</field>
+<field name="parent_id" ref="a430000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a439999" model="account.account.template">
+<field name="code">439999</field>
+<field name="name">Total Sales - Ending</field>
+<field name="parent_id" ref="a400000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a440000" model="account.account.template">
+<field name="code">440000</field>
+<field name="name">Rental Income</field>
+<field name="parent_id" ref="a400000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a441000" model="account.account.template">
+<field name="code">441000</field>
+<field name="name">Equipment Rental</field>
+<field name="parent_id" ref="a440000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a441100" model="account.account.template">
+<field name="code">441100</field>
+<field name="name">Equipment Rental - Electronic</field>
+<field name="parent_id" ref="a441000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a441200" model="account.account.template">
+<field name="code">441200</field>
+<field name="name">Equipment Rental - Non - Electronic</field>
+<field name="parent_id" ref="a441000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a441999" model="account.account.template">
+<field name="code">441999</field>
+<field name="name">Equipment Rental - Ending</field>
+<field name="parent_id" ref="a441000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a442000" model="account.account.template">
+<field name="code">442000</field>
+<field name="name">Space Rental</field>
+<field name="parent_id" ref="a440000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a442001" model="account.account.template">
+<field name="code">442001</field>
+<field name="name">Space Rental</field>
+<field name="parent_id" ref="a442000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a442999" model="account.account.template">
+<field name="code">442999</field>
+<field name="name">Space Rental - Ending</field>
+<field name="parent_id" ref="a442000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a443000" model="account.account.template">
+<field name="code">443000</field>
+<field name="name">Cruise Rental</field>
+<field name="parent_id" ref="a440000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a443001" model="account.account.template">
+<field name="code">443001</field>
+<field name="name">Cruise Rental</field>
+<field name="parent_id" ref="a443000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a443999" model="account.account.template">
+<field name="code">443999</field>
+<field name="name">Cruise Rental - Ending</field>
+<field name="parent_id" ref="a443000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a450000" model="account.account.template">
+<field name="code">450000</field>
+<field name="name">Delivery Revenue</field>
+<field name="parent_id" ref="a400000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a450001" model="account.account.template">
+<field name="code">450001</field>
+<field name="name">Delivery Revenue</field>
+<field name="parent_id" ref="a450000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a459999" model="account.account.template">
+<field name="code">459999</field>
+<field name="name">Delivery Revenue - Ending</field>
+<field name="parent_id" ref="a450000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a460000" model="account.account.template">
+<field name="code">460000</field>
+<field name="name">Operation Income</field>
+<field name="parent_id" ref="a400000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a460001" model="account.account.template">
+<field name="code">460001</field>
+<field name="name">Operation Income</field>
+<field name="parent_id" ref="a460000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a469999" model="account.account.template">
+<field name="code">469999</field>
+<field name="name">Operation Income - Ending</field>
+<field name="parent_id" ref="a460000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a470000" model="account.account.template">
+<field name="code">470000</field>
+<field name="name">Sales Discount</field>
+<field name="parent_id" ref="a400000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a470100" model="account.account.template">
+<field name="code">470100</field>
+<field name="name">Trade Discount</field>
+<field name="parent_id" ref="a470000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a470200" model="account.account.template">
+<field name="code">470200</field>
+<field name="name">Agency Discount</field>
+<field name="parent_id" ref="a470000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a470300" model="account.account.template">
+<field name="code">470300</field>
+<field name="name">Others Discount</field>
+<field name="parent_id" ref="a470000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a470999" model="account.account.template">
+<field name="code">470999</field>
+<field name="name">Sales Discount - Ending</field>
+<field name="parent_id" ref="a470000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a480000" model="account.account.template">
+<field name="code">480000</field>
+<field name="name">Other Income</field>
+<field name="parent_id" ref="a400000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a481000" model="account.account.template">
+<field name="code">481000</field>
+<field name="name">Gain on Exchange Rate</field>
+<field name="parent_id" ref="a480000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a481001" model="account.account.template">
+<field name="code">481001</field>
+<field name="name">Gain on Exchange Rate</field>
+<field name="parent_id" ref="a481000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a481999" model="account.account.template">
+<field name="code">481999</field>
+<field name="name">Gain on Exchange Rate - Ending</field>
+<field name="parent_id" ref="a481000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a482000" model="account.account.template">
+<field name="code">482000</field>
+<field name="name">Gain on Disposal of Fixed Assets</field>
+<field name="parent_id" ref="a480000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a482001" model="account.account.template">
+<field name="code">482001</field>
+<field name="name">Gain on Disposal of Fixed Assets</field>
+<field name="parent_id" ref="a482000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a482999" model="account.account.template">
+<field name="code">482999</field>
+<field name="name">Gain on Disposal of Fixed Assets - Ending</field>
+<field name="parent_id" ref="a482000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a483000" model="account.account.template">
+<field name="code">483000</field>
+<field name="name">Interest Income</field>
+<field name="parent_id" ref="a480000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a483100" model="account.account.template">
+<field name="code">483100</field>
+<field name="name">Interest Income - Bank</field>
+<field name="parent_id" ref="a483000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a483200" model="account.account.template">
+<field name="code">483200</field>
+<field name="name">Interest Income - Intercompany</field>
+<field name="parent_id" ref="a483000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a483300" model="account.account.template">
+<field name="code">483300</field>
+<field name="name">Interest Income - Others</field>
+<field name="parent_id" ref="a483000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a483999" model="account.account.template">
+<field name="code">483999</field>
+<field name="name">Interest Income - Ending</field>
+<field name="parent_id" ref="a483000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a484000" model="account.account.template">
+<field name="code">484000</field>
+<field name="name">Dividend Income</field>
+<field name="parent_id" ref="a480000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a484001" model="account.account.template">
+<field name="code">484001</field>
+<field name="name">Dividend Income</field>
+<field name="parent_id" ref="a484000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a484999" model="account.account.template">
+<field name="code">484999</field>
+<field name="name">Dividend Income - Ending</field>
+<field name="parent_id" ref="a484000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a485000" model="account.account.template">
+<field name="code">485000</field>
+<field name="name">Bad Debt Recovered Income</field>
+<field name="parent_id" ref="a480000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a485001" model="account.account.template">
+<field name="code">485001</field>
+<field name="name">Bad Debt Recovered Income</field>
+<field name="parent_id" ref="a485000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a485999" model="account.account.template">
+<field name="code">485999</field>
+<field name="name">Bad Debt Recovered Income - Ending</field>
+<field name="parent_id" ref="a485000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a486000" model="account.account.template">
+<field name="code">486000</field>
+<field name="name">Other Income</field>
+<field name="parent_id" ref="a480000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a486001" model="account.account.template">
+<field name="code">486001</field>
+<field name="name">Other Income</field>
+<field name="parent_id" ref="a486000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a486999" model="account.account.template">
+<field name="code">486999</field>
+<field name="name">Other Income - Ending</field>
+<field name="parent_id" ref="a486000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a499999" model="account.account.template">
+<field name="code">499999</field>
+<field name="name">Income - Ending</field>
+<field name="parent_id" ref="a400000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a500000" model="account.account.template">
+<field name="code">500000</field>
+<field name="name">Cost of Sales &amp; Expenses</field>
+<field name="parent_id" ref="a_root" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_view" />
+</record>
+<record id="a510000" model="account.account.template">
+<field name="code">510000</field>
+<field name="name">Cost of Sales</field>
+<field name="parent_id" ref="a500000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a511000" model="account.account.template">
+<field name="code">511000</field>
+<field name="name">Raw Material</field>
+<field name="parent_id" ref="a510000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a511100" model="account.account.template">
+<field name="code">511100</field>
+<field name="name">Purchasing Costs</field>
+<field name="parent_id" ref="a511000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a511200" model="account.account.template">
+<field name="code">511200</field>
+<field name="name">Material Costs</field>
+<field name="parent_id" ref="a511000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a511999" model="account.account.template">
+<field name="code">511999</field>
+<field name="name">Raw Material - Ending</field>
+<field name="parent_id" ref="a511000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a512000" model="account.account.template">
+<field name="code">512000</field>
+<field name="name">Overhead</field>
+<field name="parent_id" ref="a510000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a512010" model="account.account.template">
+<field name="code">512010</field>
+<field name="name">Field Supplies Expenses</field>
+<field name="parent_id" ref="a512000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a512020" model="account.account.template">
+<field name="code">512020</field>
+<field name="name">Printing &amp; Production Costs</field>
+<field name="parent_id" ref="a512000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a512030" model="account.account.template">
+<field name="code">512030</field>
+<field name="name">Delivery Costs</field>
+<field name="parent_id" ref="a512000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a512040" model="account.account.template">
+<field name="code">512040</field>
+<field name="name">Revenue/Profit Sharing</field>
+<field name="parent_id" ref="a512000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a512050" model="account.account.template">
+<field name="code">512050</field>
+<field name="name">Royalty Fee Costs</field>
+<field name="parent_id" ref="a512000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a512060" model="account.account.template">
+<field name="code">512060</field>
+<field name="name">Others Loyalty Costs (UMI Costs)</field>
+<field name="parent_id" ref="a512000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a512070" model="account.account.template">
+<field name="code">512070</field>
+<field name="name">Repair &amp; Maintainance</field>
+<field name="parent_id" ref="a512000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a512080" model="account.account.template">
+<field name="code">512080</field>
+<field name="name">Equipment</field>
+<field name="parent_id" ref="a512000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a512090" model="account.account.template">
+<field name="code">512090</field>
+<field name="name">Creative Costs</field>
+<field name="parent_id" ref="a512000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a512100" model="account.account.template">
+<field name="code">512100</field>
+<field name="name">Operation Costs</field>
+<field name="parent_id" ref="a512000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a512110" model="account.account.template">
+<field name="code">512110</field>
+<field name="name">Installation &amp; Maintenance Costs</field>
+<field name="parent_id" ref="a512000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a512120" model="account.account.template">
+<field name="code">512120</field>
+<field name="name">Electric Costs</field>
+<field name="parent_id" ref="a512000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a512999" model="account.account.template">
+<field name="code">512999</field>
+<field name="name">Overhead - Ending</field>
+<field name="parent_id" ref="a512000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a519999" model="account.account.template">
+<field name="code">519999</field>
+<field name="name">Cost of Sales - Ending</field>
+<field name="parent_id" ref="a510000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a520000" model="account.account.template">
+<field name="code">520000</field>
+<field name="name">Expenses</field>
+<field name="parent_id" ref="a500000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521000" model="account.account.template">
+<field name="code">521000</field>
+<field name="name">Staff Cost</field>
+<field name="parent_id" ref="a520000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521010" model="account.account.template">
+<field name="code">521010</field>
+<field name="name">Salary &amp; Wages</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521020" model="account.account.template">
+<field name="code">521020</field>
+<field name="name">Bonus</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521030" model="account.account.template">
+<field name="code">521030</field>
+<field name="name">Provident Funds</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521040" model="account.account.template">
+<field name="code">521040</field>
+<field name="name">Severance/Retrenchment/Compensation</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521050" model="account.account.template">
+<field name="code">521050</field>
+<field name="name">Social Security - Office Staff</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521060" model="account.account.template">
+<field name="code">521060</field>
+<field name="name">Recruitment</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521070" model="account.account.template">
+<field name="code">521070</field>
+<field name="name">Training</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521080" model="account.account.template">
+<field name="code">521080</field>
+<field name="name">Allowance - Travelling</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521090" model="account.account.template">
+<field name="code">521090</field>
+<field name="name">Allowance - Car Maintenance</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521100" model="account.account.template">
+<field name="code">521100</field>
+<field name="name">Allowance - Accommodation</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521110" model="account.account.template">
+<field name="code">521110</field>
+<field name="name">Allowance - Training (Promoter Briefing/Training)</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521120" model="account.account.template">
+<field name="code">521120</field>
+<field name="name">Allowance - Mobile</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521130" model="account.account.template">
+<field name="code">521130</field>
+<field name="name">Allowance - Others</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521140" model="account.account.template">
+<field name="code">521140</field>
+<field name="name">Staff Welfare</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521150" model="account.account.template">
+<field name="code">521150</field>
+<field name="name">Insurance</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521160" model="account.account.template">
+<field name="code">521160</field>
+<field name="name">Temporary Staff</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521170" model="account.account.template">
+<field name="code">521170</field>
+<field name="name">Medical</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521180" model="account.account.template">
+<field name="code">521180</field>
+<field name="name">Commission</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521190" model="account.account.template">
+<field name="code">521190</field>
+<field name="name">Staff Trips</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a521999" model="account.account.template">
+<field name="code">521999</field>
+<field name="name">Staff cost - Ending</field>
+<field name="parent_id" ref="a521000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a522000" model="account.account.template">
+<field name="code">522000</field>
+<field name="name">Management Fee</field>
+<field name="parent_id" ref="a520000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a522001" model="account.account.template">
+<field name="code">522001</field>
+<field name="name">Management Fee</field>
+<field name="parent_id" ref="a522000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a522099" model="account.account.template">
+<field name="code">522099</field>
+<field name="name">Management Fee - Ending</field>
+<field name="parent_id" ref="a522000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a522100" model="account.account.template">
+<field name="code">522100</field>
+<field name="name">Country Management Fee</field>
+<field name="parent_id" ref="a520000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a522101" model="account.account.template">
+<field name="code">522101</field>
+<field name="name">Country Management Fee</field>
+<field name="parent_id" ref="a522100" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a522199" model="account.account.template">
+<field name="code">522199</field>
+<field name="name">Country Management Fee - Ending</field>
+<field name="parent_id" ref="a522100" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a522200" model="account.account.template">
+<field name="code">522200</field>
+<field name="name">Regional Management Fee</field>
+<field name="parent_id" ref="a520000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a522201" model="account.account.template">
+<field name="code">522201</field>
+<field name="name">Regional Management Fee</field>
+<field name="parent_id" ref="a522200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a522299" model="account.account.template">
+<field name="code">522299</field>
+<field name="name">Regional Management Fee - Ending</field>
+<field name="parent_id" ref="a522200" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a523000" model="account.account.template">
+<field name="code">523000</field>
+<field name="name">Professional Fee</field>
+<field name="parent_id" ref="a520000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a523100" model="account.account.template">
+<field name="code">523100</field>
+<field name="name">Audit Fee</field>
+<field name="parent_id" ref="a523000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a523200" model="account.account.template">
+<field name="code">523200</field>
+<field name="name">Tax Consulting Fee</field>
+<field name="parent_id" ref="a523000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a523300" model="account.account.template">
+<field name="code">523300</field>
+<field name="name">Company Secretarial Fee</field>
+<field name="parent_id" ref="a523000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a523400" model="account.account.template">
+<field name="code">523400</field>
+<field name="name">Legal Fee</field>
+<field name="parent_id" ref="a523000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a523500" model="account.account.template">
+<field name="code">523500</field>
+<field name="name">Consulting Fee</field>
+<field name="parent_id" ref="a523000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a523999" model="account.account.template">
+<field name="code">523999</field>
+<field name="name">Professional Fee - Ending</field>
+<field name="parent_id" ref="a523000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a524000" model="account.account.template">
+<field name="code">524000</field>
+<field name="name">Marketing Expenses</field>
+<field name="parent_id" ref="a520000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a524100" model="account.account.template">
+<field name="code">524100</field>
+<field name="name">Bad Debts Written Off</field>
+<field name="parent_id" ref="a524000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a524200" model="account.account.template">
+<field name="code">524200</field>
+<field name="name">Provision for Doubtful Debts</field>
+<field name="parent_id" ref="a524000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a524300" model="account.account.template">
+<field name="code">524300</field>
+<field name="name">Entertainment</field>
+<field name="parent_id" ref="a524000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a524400" model="account.account.template">
+<field name="code">524400</field>
+<field name="name">Marketing Communication (Local)</field>
+<field name="parent_id" ref="a524000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a524500" model="account.account.template">
+<field name="code">524500</field>
+<field name="name">Marketing Communication (Regional)</field>
+<field name="parent_id" ref="a524000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a524600" model="account.account.template">
+<field name="code">524600</field>
+<field name="name">Market Development</field>
+<field name="parent_id" ref="a524000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a524700" model="account.account.template">
+<field name="code">524700</field>
+<field name="name">Travelling Cost</field>
+<field name="parent_id" ref="a524000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a524999" model="account.account.template">
+<field name="code">524999</field>
+<field name="name">Marketing Expenses - Ending</field>
+<field name="parent_id" ref="a524000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a525000" model="account.account.template">
+<field name="code">525000</field>
+<field name="name">Reseach &amp; Development Expenses</field>
+<field name="parent_id" ref="a520000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a525100" model="account.account.template">
+<field name="code">525100</field>
+<field name="name">Research</field>
+<field name="parent_id" ref="a525000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a525200" model="account.account.template">
+<field name="code">525200</field>
+<field name="name">Product Development</field>
+<field name="parent_id" ref="a525000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a525300" model="account.account.template">
+<field name="code">525300</field>
+<field name="name">Product Launch</field>
+<field name="parent_id" ref="a525000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a525999" model="account.account.template">
+<field name="code">525999</field>
+<field name="name">Reseach &amp; Development Expenses - Ending</field>
+<field name="parent_id" ref="a525000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a526000" model="account.account.template">
+<field name="code">526000</field>
+<field name="name">Financial Cost</field>
+<field name="parent_id" ref="a520000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a526010" model="account.account.template">
+<field name="code">526010</field>
+<field name="name">Lease Interest</field>
+<field name="parent_id" ref="a526000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a526020" model="account.account.template">
+<field name="code">526020</field>
+<field name="name">Hire-Purhcase Interest</field>
+<field name="parent_id" ref="a526000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a526030" model="account.account.template">
+<field name="code">526030</field>
+<field name="name">Intercompany Loan Interest</field>
+<field name="parent_id" ref="a526000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a526040" model="account.account.template">
+<field name="code">526040</field>
+<field name="name">Overdraft Interest</field>
+<field name="parent_id" ref="a526000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a526050" model="account.account.template">
+<field name="code">526050</field>
+<field name="name">Short Term Loan Interest</field>
+<field name="parent_id" ref="a526000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a526060" model="account.account.template">
+<field name="code">526060</field>
+<field name="name">Factoring Interest</field>
+<field name="parent_id" ref="a526000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a526070" model="account.account.template">
+<field name="code">526070</field>
+<field name="name">Realized Exchange Loss</field>
+<field name="parent_id" ref="a526000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a526080" model="account.account.template">
+<field name="code">526080</field>
+<field name="name">Unrealized Exchange Loss</field>
+<field name="parent_id" ref="a526000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a526999" model="account.account.template">
+<field name="code">526999</field>
+<field name="name">Financial Cost - Ending</field>
+<field name="parent_id" ref="a526000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a527000" model="account.account.template">
+<field name="code">527000</field>
+<field name="name">Depreciation</field>
+<field name="parent_id" ref="a520000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a527010" model="account.account.template">
+<field name="code">527010</field>
+<field name="name">Depreciation Building</field>
+<field name="parent_id" ref="a527000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a527020" model="account.account.template">
+<field name="code">527020</field>
+<field name="name">Depreciation Office Equipment</field>
+<field name="parent_id" ref="a527000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a527030" model="account.account.template">
+<field name="code">527030</field>
+<field name="name">Depreciation Operating Equipment &amp; Tool</field>
+<field name="parent_id" ref="a527000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a527040" model="account.account.template">
+<field name="code">527040</field>
+<field name="name">Depreciation Furniture and Fixture</field>
+<field name="parent_id" ref="a527000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a527050" model="account.account.template">
+<field name="code">527050</field>
+<field name="name">Depreciation Leasehold Improvement</field>
+<field name="parent_id" ref="a527000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a527060" model="account.account.template">
+<field name="code">527060</field>
+<field name="name">Depreciation Computer- Hardware</field>
+<field name="parent_id" ref="a527000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a527070" model="account.account.template">
+<field name="code">527070</field>
+<field name="name">Depreciation Computer - Software</field>
+<field name="parent_id" ref="a527000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a527080" model="account.account.template">
+<field name="code">527080</field>
+<field name="name">Depreciation Vehicle</field>
+<field name="parent_id" ref="a527000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a527999" model="account.account.template">
+<field name="code">527999</field>
+<field name="name">Depreciation - Ending</field>
+<field name="parent_id" ref="a527000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528000" model="account.account.template">
+<field name="code">528000</field>
+<field name="name">General Operating Expenses</field>
+<field name="parent_id" ref="a520000" />
+<field name="type">view</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528010" model="account.account.template">
+<field name="code">528010</field>
+<field name="name">Bank Charges</field>
+<field name="parent_id" ref="a528000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528020" model="account.account.template">
+<field name="code">528020</field>
+<field name="name">Courier &amp; Postage</field>
+<field name="parent_id" ref="a528000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528030" model="account.account.template">
+<field name="code">528030</field>
+<field name="name">Duty &amp; Taxes</field>
+<field name="parent_id" ref="a528000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528040" model="account.account.template">
+<field name="code">528040</field>
+<field name="name">Electricity &amp; Water</field>
+<field name="parent_id" ref="a528000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528050" model="account.account.template">
+<field name="code">528050</field>
+<field name="name">Insurance (Company)</field>
+<field name="parent_id" ref="a528000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528060" model="account.account.template">
+<field name="code">528060</field>
+<field name="name">Loss on Disposal of fixed Assets</field>
+<field name="parent_id" ref="a528000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528070" model="account.account.template">
+<field name="code">528070</field>
+<field name="name">Memberships &amp; Subscriptions</field>
+<field name="parent_id" ref="a528000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528080" model="account.account.template">
+<field name="code">528080</field>
+<field name="name">Miscellaneous/Others</field>
+<field name="parent_id" ref="a528000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528090" model="account.account.template">
+<field name="code">528090</field>
+<field name="name">Motor Vehicle Expenses</field>
+<field name="parent_id" ref="a528000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528100" model="account.account.template">
+<field name="code">528100</field>
+<field name="name">Penalties &amp; Fines</field>
+<field name="parent_id" ref="a528000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528110" model="account.account.template">
+<field name="code">528110</field>
+<field name="name">Printing &amp; Stationery </field>
+<field name="parent_id" ref="a528000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528120" model="account.account.template">
+<field name="code">528120</field>
+<field name="name">Rental - Equipment</field>
+<field name="parent_id" ref="a528000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528130" model="account.account.template">
+<field name="code">528130</field>
+<field name="name">Rental - Office </field>
+<field name="parent_id" ref="a528000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528140" model="account.account.template">
+<field name="code">528140</field>
+<field name="name">Rental - Warehouse</field>
+<field name="parent_id" ref="a528000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528150" model="account.account.template">
+<field name="code">528150</field>
+<field name="name">Repair &amp; Maintenance : Office &amp; Equipment</field>
+<field name="parent_id" ref="a528000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528160" model="account.account.template">
+<field name="code">528160</field>
+<field name="name">Data Center Costs</field>
+<field name="parent_id" ref="a528000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528170" model="account.account.template">
+<field name="code">528170</field>
+<field name="name">Telecommunication</field>
+<field name="parent_id" ref="a528000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a528999" model="account.account.template">
+<field name="code">528999</field>
+<field name="name">GOE - Ending</field>
+<field name="parent_id" ref="a528000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a529999" model="account.account.template">
+<field name="code">529999</field>
+<field name="name">Expenses - Ending</field>
+<field name="parent_id" ref="a520000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+<record id="a599999" model="account.account.template">
+<field name="code">599999</field>
+<field name="name">Cost of Sales &amp; Expenses - Ending</field>
+<field name="parent_id" ref="a500000" />
+<field name="type">other</field>
+<field name="user_type" ref="acc_type_other" />
+</record>
+
+
+<!-- CHART OF TAXES -->
+
+<record id="tc_root" model="account.tax.code.template">
+    <field name="name">OMG Chart of Taxes</field>
+    <field name="parent_id" eval="False"/>
+</record>
+
+<!-- TAXABLE AMOUNTS -->
+
+<record id="tc_base" model="account.tax.code.template">
+    <field name="name">Taxable amounts</field>
+    <field name="parent_id" ref="tc_root"/>
+</record>
+
+<!-- VAT -->
+
+<record id="tc_base_vat" model="account.tax.code.template">
+    <field name="name">Value Added Tax</field>
+    <field name="parent_id" eval="tc_base"/>
+</record>
+
+<record id="tc_base_output" model="account.tax.code.template">
+    <field name="name">Output VAT</field>
+    <field name="code">PP30_4</field>
+    <field name="parent_id" ref="tc_base_vat"/>
+</record>
+
+<record id="tc_base_input" model="account.tax.code.template">
+    <field name="name">Input VAT</field>
+    <field name="code">PP30_6</field>
+    <field name="parent_id" ref="tc_base_vat"/>
+</record>
+
+<!-- VAT -->
+
+<record id="tc_tax" model="account.tax.code.template">
+    <field name="name">Taxes to be paid</field>
+    <field name="parent_id" ref="tc_root"/>
+</record>
+
+<record id="tc_tax_vat" model="account.tax.code.template">
+    <field name="name">Value Added Tax</field>
+    <field name="parent_id" eval="tc_tax"/>
+</record>
+
+<record id="tc_tax_vat_output" model="account.tax.code.template">
+    <field name="name">Output VAT</field>
+    <field name="code">PP30_5</field>
+    <field name="parent_id" ref="tc_tax_vat"/>
+</record>
+
+<record id="tc_tax_vat_input" model="account.tax.code.template">
+    <field name="name">Input VAT</field>
+    <field name="code">PP30_7</field>
+    <field name="parent_id" ref="tc_tax_vat"/>
+    <field name="sign" eval="-1"/>
+</record>
+
+
+<!-- CHART OF ACCOUNTS/TAXES -->
+
+<record id="chart" model="account.chart.template">
+    <field name="name">OMG - Chart of Accounts</field>
+    <field name="account_root_id" ref="a_root"/>
+    <field name="tax_code_root_id" ref="tc_root"/>
+    <field name="bank_account_view_id" ref="a111100"/>
+    <field name="property_account_receivable" ref="a113100"/>
+    <field name="property_account_payable" ref="a211010"/>
+    <field name="property_account_expense_categ" ref="a511100"/>
+    <field name="property_account_income_categ" ref="a411001"/>
+    <field name="property_account_expense" ref="a511100"/>
+    <field name="property_account_income" ref="a411001"/>
+</record>
+
+<!-- TAXES -->
+
+<record id="tax_input_vat" model="account.tax.template">
+    <field name="chart_template_id" ref="chart"/>
+    <field name="name">Input VAT</field>
+    <field name="type">percent</field>
+    <field name="amount" eval="0.07"/>
+    <field name="account_collected_id" ref="a123310"/>
+    <field name="account_paid_id" ref="a123310"/>
+    <field name="base_code_id" ref="tc_base_input"/>
+    <field name="tax_code_id" ref="tc_tax_vat_input"/>
+    <field name="type_tax_use">purchase</field>
+</record>
+
+<record id="tax_output_vat" model="account.tax.template">
+    <field name="chart_template_id" ref="chart"/>
+    <field name="name">Output VAT</field>
+    <field name="type">percent</field>
+    <field name="amount" eval="0.07"/>
+    <field name="account_collected_id" ref="a215307"/>
+    <field name="account_paid_id" ref="a215307"/>
+    <field name="base_code_id" ref="tc_base_output"/>
+    <field name="tax_code_id" ref="tc_tax_vat_output"/>
+    <field name="type_tax_use">sale</field>
+</record>
+
+
+<!-- INSTALL ACTION -->
+
+<record id="omg_config_call_account_template_th" model="ir.actions.todo">
+    <field name="name">Generate Chart of Accounts from a Chart Template</field>
+    <field name="note">Generate Chart of Accounts from a Chart Template. You will be asked to pass the name of the company, the chart template to follow, the no. of digits to generate the code for your accounts and Bank account, currency to create Journals. Thus,the pure copy of chart Template is generated.
+This is the same wizard that runs from Financial Management/Configuration/Financial Accounting/Financial Accounts/Generate Chart of Accounts from a Chart Template.</field>
+    <field name="action_id" ref="account.action_wizard_multi_chart"/>
+    <field name="state">open</field>
+</record>
+
+</data>
+</openerp>

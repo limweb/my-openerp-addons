@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="view_omg_configuration_form" model="ir.ui.view">
+       		<field name="name">omg.configuration.form</field>
+       		<field name="model">omg.configuration</field>
+        	<field name="type">form</field>
+       		<field name="arch" type="xml">
+       			<form string="OMG Configuration">
+       				<field name="name" />
+       				<field name="host" />
+					<field name="type" />
+       				<field name="username" />
+       				<field name="password" />
+       				<field name="url" />
+       				<field name="enable" />
+       			</form>
+			</field>
+		</record>
+
+        <record id="view_omg_configuration_tree" model="ir.ui.view">
+       		<field name="name">omg.configuration.tree</field>
+       		<field name="model">omg.configuration</field>
+        	<field name="type">tree</field>
+       		<field name="arch" type="xml">
+       			<tree string="OMG Configuration">
+       				<field name="name" />
+       				<field name="host" />
+       				<field name="username" />
+       				<field name="password" />
+       				<field name="type" />
+       				<field name="url" />
+       			</tree>
+			</field>
+		</record>
+		
+        <record id="act_omg_configuration" model="ir.actions.act_window">
+            <field name="name">Configuration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">omg.configuration</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+		
+		<menuitem id="menu_omg" parent="base.menu_custom" name="OMG Setup"/>
+		<menuitem action="act_omg_configuration" id="menu_omg_configuration" parent="menu_omg" />
+
+        <record id="view_omg_configuration_purchase_email_form" model="ir.ui.view">
+       		<field name="name">omg.configuration.purchase.email.form</field>
+       		<field name="model">omg.configuration.purchase.email</field>
+        	<field name="type">form</field>
+       		<field name="arch" type="xml">
+       			<form string="OMG Purchase Configuration">
+       				<field name="name" />
+       				<field name="active" />
+       			</form>
+			</field>
+		</record>
+
+        <record id="view_omg_configuration_purchase_email_tree" model="ir.ui.view">
+       		<field name="name">omg.configuration.purchase.email.tree</field>
+       		<field name="model">omg.configuration.purchase.email</field>
+        	<field name="type">tree</field>
+       		<field name="arch" type="xml">
+       			<tree string="OMG Purchase Configuration">
+       				<field name="name" />
+       			</tree>
+			</field>
+		</record>
+
+        <record id="act_omg_configuration_purchase_email" model="ir.actions.act_window">
+            <field name="name">Purchasing Configuration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">omg.configuration.purchase.email</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+		
+		<menuitem action="act_omg_configuration_purchase_email" 
+		 	id="menu_omg_configuration_purchase_email" parent="menu_omg" />
+
+	</data>
+</openerp>
+
+

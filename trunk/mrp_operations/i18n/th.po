@@ -1,0 +1,779 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* mrp_operations
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1-dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-08-18 03:46+0000\n"
+"PO-Revision-Date: 2011-08-18 03:46+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mrp_operations
+#: model:ir.actions.act_window,name:mrp_operations.mrp_production_wc_action_form
+#: model:ir.ui.menu,name:mrp_operations.menu_mrp_production_wc_action_planning
+#: model:ir.ui.menu,name:mrp_operations.menu_mrp_production_wc_order
+#: view:mrp.production.workcenter.line:0
+#: view:mrp.workorder:0
+msgid "Work Orders"
+msgstr "ใบสั่งงาน"
+
+#. module: mrp_operations
+#: model:process.node,note:mrp_operations.process_node_canceloperation0
+msgid "Cancel the operation."
+msgstr "ยกเลิกการดำเนินการ"
+
+#. module: mrp_operations
+#: model:ir.model,name:mrp_operations.model_mrp_operations_operation_code
+msgid "mrp_operations.operation.code"
+msgstr "mrp_operations.operation.code"
+
+#. module: mrp_operations
+#: code:addons/mrp_operations/mrp_operations.py:134
+#, python-format
+msgid "Production Order Cannot start in [%s] state"
+msgstr "การผลิตการสั่งซื้อไม่สามารถเริ่มในสถานะ [%s]"
+
+#. module: mrp_operations
+#: view:mrp.production.workcenter.line:0
+#: view:mrp.workorder:0
+msgid "Group By..."
+msgstr "กลุ่มตาม ..."
+
+#. module: mrp_operations
+#: model:ir.actions.act_window,help:mrp_operations.mrp_production_wc_action_form
+msgid "Work Orders is the list of operations to be performed for each manufacturing order. Once you start the first work order of a manufacturing order, the manufacturing order is automatically marked as started. Once you finish the latest operation of a manufacturing order, the MO is automatically done and the related products are produced."
+msgstr "Work Orders is the list of operations to be performed for each manufacturing order. Once you start the first work order of a manufacturing order, the manufacturing order is automatically marked as started. Once you finish the latest operation of a manufacturing order, the MO is automatically done and the related products are produced."
+
+#. module: mrp_operations
+#: model:process.node,note:mrp_operations.process_node_workorder0
+msgid "Information from the routing definition."
+msgstr "ข้อมูลที่ได้จากการกำหนดเส้นทาง"
+
+#. module: mrp_operations
+#: selection:mrp.workorder,month:0
+msgid "March"
+msgstr "เดือนมีนาคม"
+
+#. module: mrp_operations
+#: model:ir.actions.act_window,name:mrp_operations.mrp_production_wc_resource_planning
+#: model:ir.ui.menu,name:mrp_operations.menu_mrp_production_wc_resource_planning
+msgid "Work Centers"
+msgstr "Work Centers"
+
+#. module: mrp_operations
+#: view:mrp.production:0
+#: view:mrp.production.workcenter.line:0
+#: selection:mrp_operations.operation.code,start_stop:0
+msgid "Resume"
+msgstr "Resume"
+
+#. module: mrp_operations
+#: report:mrp.code.barcode:0
+msgid "("
+msgstr "("
+
+#. module: mrp_operations
+#: view:mrp.production.workcenter.line:0
+msgid "Product to Produce"
+msgstr "Product to Produce"
+
+#. module: mrp_operations
+#: view:mrp.workorder:0
+#: field:mrp.workorder,product_qty:0
+msgid "Product Qty"
+msgstr "จำนวนสินค้า"
+
+#. module: mrp_operations
+#: field:mrp.production,allow_reorder:0
+msgid "Free Serialisation"
+msgstr "Serialisation"
+
+#. module: mrp_operations
+#: model:process.process,name:mrp_operations.process_process_mrpoperationprocess0
+msgid "Mrp Operations"
+msgstr "Mrp Operations"
+
+#. module: mrp_operations
+#: view:mrp.workorder:0
+#: field:mrp.workorder,day:0
+msgid "Day"
+msgstr "วัน"
+
+#. module: mrp_operations
+#: model:process.node,name:mrp_operations.process_node_productionorder0
+msgid "Production Order"
+msgstr "ใบสั่งผลิต"
+
+#. module: mrp_operations
+#: selection:mrp.production.workcenter.line,production_state:0
+msgid "Picking Exception"
+msgstr "ยกเว้นการหยิบ"
+
+#. module: mrp_operations
+#: model:process.transition,name:mrp_operations.process_transition_productionstart0
+msgid "Creation of the work order"
+msgstr "Creation of the work order"
+
+#. module: mrp_operations
+#: code:addons/mrp_operations/mrp_operations.py:468
+#, python-format
+msgid "You cannot Pause the Operation other then Start/Resume state !"
+msgstr "คุณไม่สามารถหยุดการดำเนินงานอื่น ๆ จากสถานะ เริ่มต้น / Resume !"
+
+#. module: mrp_operations
+#: model:process.transition,note:mrp_operations.process_transition_productionstart0
+msgid "The work orders are created on the basis of the production order."
+msgstr "คำสั่งงานจะถูกสร้างขึ้นบนพื้นฐานของการสั่งการผลิต"
+
+#. module: mrp_operations
+#: code:addons/mrp_operations/mrp_operations.py:134
+#: code:addons/mrp_operations/mrp_operations.py:468
+#: code:addons/mrp_operations/mrp_operations.py:472
+#: code:addons/mrp_operations/mrp_operations.py:484
+#: code:addons/mrp_operations/mrp_operations.py:487
+#, python-format
+msgid "Error!"
+msgstr "ข้อผิดพลาด"
+
+#. module: mrp_operations
+#: selection:mrp.production.workcenter.line,state:0
+#: selection:mrp.workorder,state:0
+#: selection:mrp_operations.operation.code,start_stop:0
+msgid "Cancelled"
+msgstr "ยกเลิก"
+
+#. module: mrp_operations
+#: model:ir.actions.act_window,name:mrp_operations.mrp_production_wc_confirm_action
+msgid "Confirmed Work Orders"
+msgstr "ยืนยันใบสั่งงาน"
+
+#. module: mrp_operations
+#: model:ir.actions.act_window,name:mrp_operations.mrp_production_operation_action
+#: view:mrp.production.workcenter.line:0
+msgid "Operations"
+msgstr "การดำเนินงาน"
+
+#. module: mrp_operations
+#: model:ir.model,name:mrp_operations.model_stock_move
+msgid "Stock Move"
+msgstr "ย้ายสต็อก"
+
+#. module: mrp_operations
+#: field:mrp.workorder,nbr:0
+msgid "# of Lines"
+msgstr "# ของสาย"
+
+#. module: mrp_operations
+#: view:mrp.production.workcenter.line:0
+#: selection:mrp.production.workcenter.line,production_state:0
+#: selection:mrp.production.workcenter.line,state:0
+#: selection:mrp.workorder,state:0
+msgid "Draft"
+msgstr "ร่าง"
+
+#. module: mrp_operations
+#: selection:mrp.production.workcenter.line,production_state:0
+msgid "In Production"
+msgstr "ในการผลิต"
+
+#. module: mrp_operations
+#: view:mrp.production.workcenter.line:0
+#: field:mrp.production.workcenter.line,state:0
+#: view:mrp.workorder:0
+#: field:mrp.workorder,state:0
+msgid "State"
+msgstr "สถานะ"
+
+#. module: mrp_operations
+#: model:ir.actions.act_window,name:mrp_operations.action_report_mrp_workorder
+#: model:ir.model,name:mrp_operations.model_mrp_production_workcenter_line
+msgid "Work Order"
+msgstr "ใบสั่งงาน"
+
+#. module: mrp_operations
+#: model:process.transition,note:mrp_operations.process_transition_workstartoperation0
+msgid "There is 1 work order per work center. The information about the number of cycles or the cycle time."
+msgstr "There is 1 work order per work center. The information about the number of cycles or the cycle time."
+
+#. module: mrp_operations
+#: view:mrp.workorder:0
+msgid "Month -1"
+msgstr "Month -1"
+
+#. module: mrp_operations
+#: help:mrp.production.workcenter.line,state:0
+msgid "* When a work order is created it is set in 'Draft' state.\n"
+"* When user sets work order in start mode that time it will be set in 'In Progress' state.\n"
+"* When work order is in running mode, during that time if user wants to stop or to make changes in order then can set in 'Pause' state.\n"
+"* When the user cancels the work order it will be set in 'Canceled' state.\n"
+"* When order is completely processed that time it is set in 'Finished' state."
+msgstr "* เมื่อสั่งงานจะถูกสร้างขึ้นนั้นตั้งอยู่ในรัฐ&#39;ฉบับร่าง&#39; * เมื่อผู้ใช้ชุดคำสั่งทำงานในโหมดเริ่มต้นที่เวลามันจะถูกตั้งค่าใน&#39;ในความคืบหน้า&#39;รัฐ * ทำงานเพื่อทำงานอยู่ในโหมดในช่วงเวลานั้นหากผู้ใช้ต้องการหยุดหรือการเปลี่ยนแปลงในคำสั่งสามารถกำหนดสถานะ&#39;หยุด&#39;ในเมื่อ * เมื่อผู้ใช้ยกเลิกการสั่งงานนั้นจะตั้งอยู่ในรัฐ&#39;ยกเลิก&#39; * เมื่อสั่งซื้อจะถูกประมวลผลอย่างสมบูรณ์ที่ครั้งที่กำหนดสถานะการดำเนินการเสร็จสิ้นใน"
+
+#. module: mrp_operations
+#: code:addons/mrp_operations/mrp_operations.py:477
+#, python-format
+msgid "You cannot finish the operation without Starting/Resuming it !"
+msgstr "คุณไม่สามารถจบการทำงานโดยไม่เริ่มต้น / กลับมาทำงานมัน!"
+
+#. module: mrp_operations
+#: view:mrp.production.workcenter.line:0
+msgid "Planned Date"
+msgstr "วันที่ตามแผน"
+
+#. module: mrp_operations
+#: code:addons/mrp_operations/mrp_operations.py:484
+#, python-format
+msgid "There is no Operation to be cancelled !"
+msgstr "มีการดำเนินงานให้มีการยกเลิกไม่เป็น!"
+
+#. module: mrp_operations
+#: view:mrp_operations.operation:0
+msgid "Production Operation"
+msgstr "Production Operation"
+
+#. module: mrp_operations
+#: selection:mrp.workorder,month:0
+msgid "July"
+msgstr "กรกฎาคม"
+
+#. module: mrp_operations
+#: field:mrp_operations.operation.code,name:0
+msgid "Operation Name"
+msgstr "ชื่อผู้ใช้งาน"
+
+#. module: mrp_operations
+#: field:mrp_operations.operation.code,start_stop:0
+msgid "Status"
+msgstr "สถานะ"
+
+#. module: mrp_operations
+#: help:mrp.production.workcenter.line,delay:0
+msgid "This is lead time between operation start and stop in this Work Center"
+msgstr "This is lead time between operation start and stop in this Work Center"
+
+#. module: mrp_operations
+#: field:mrp_operations.operation,order_date:0
+msgid "Order Date"
+msgstr "วันที่สั่ง"
+
+#. module: mrp_operations
+#: model:ir.actions.act_window,name:mrp_operations.mrp_production_wc_draft_action
+msgid "Future Work Orders"
+msgstr "ใบสั่งงานอนาคต"
+
+#. module: mrp_operations
+#: code:addons/mrp_operations/mrp_operations.py:464
+#, python-format
+msgid "Operation has already started !You  can either Pause /Finish/Cancel the operation"
+msgstr "การดำเนินงานได้เริ่มต้นอยู่แล้ว! คุณสามารถได้ทั้ง Pause / Finish / การดำเนินการยกเลิก"
+
+#. module: mrp_operations
+#: model:process.node,name:mrp_operations.process_node_canceloperation0
+msgid "Operation Cancelled"
+msgstr "ยกเลิกการดำเนินงาน"
+
+#. module: mrp_operations
+#: selection:mrp.workorder,month:0
+msgid "September"
+msgstr "กันยายน"
+
+#. module: mrp_operations
+#: selection:mrp.workorder,month:0
+msgid "December"
+msgstr "ธันวาคม"
+
+#. module: mrp_operations
+#: view:mrp.workorder:0
+#: field:mrp.workorder,month:0
+msgid "Month"
+msgstr "เดือน"
+
+#. module: mrp_operations
+#: selection:mrp.production.workcenter.line,production_state:0
+msgid "Canceled"
+msgstr "ยกเลิก"
+
+#. module: mrp_operations
+#: model:ir.model,name:mrp_operations.model_mrp_operations_operation
+msgid "mrp_operations.operation"
+msgstr "mrp_operations.operation"
+
+#. module: mrp_operations
+#: model:ir.model,name:mrp_operations.model_mrp_workorder
+msgid "Work Order Report"
+msgstr "รายงานใบสั่งงาน"
+
+#. module: mrp_operations
+#: field:mrp.production.workcenter.line,date_start:0
+#: field:mrp.production.workcenter.line,date_start_date:0
+#: field:mrp_operations.operation,date_start:0
+msgid "Start Date"
+msgstr "วันที่เริ่มต้น"
+
+#. module: mrp_operations
+#: selection:mrp.production.workcenter.line,production_state:0
+msgid "Waiting Goods"
+msgstr "กำลังรอสินค้า"
+
+#. module: mrp_operations
+#: view:mrp.production:0
+#: view:mrp.production.workcenter.line:0
+#: selection:mrp.production.workcenter.line,state:0
+#: selection:mrp.workorder,state:0
+#: selection:mrp_operations.operation.code,start_stop:0
+msgid "Pause"
+msgstr "หยุดชั่วคราว"
+
+#. module: mrp_operations
+#: view:mrp.production.workcenter.line:0
+#: selection:mrp.production.workcenter.line,state:0
+#: selection:mrp.workorder,state:0
+msgid "In Progress"
+msgstr "กำลังดำเนินการ"
+
+#. module: mrp_operations
+#: model:ir.model,name:mrp_operations.model_mrp_production
+msgid "Manufacturing Order"
+msgstr "ใบสั่งผลิต"
+
+#. module: mrp_operations
+#: view:mrp.production:0
+#: view:mrp.production.workcenter.line:0
+#: selection:mrp_operations.operation.code,start_stop:0
+msgid "Start"
+msgstr "เริ่ม"
+
+#. module: mrp_operations
+#: view:mrp_operations.operation:0
+msgid "Calendar View"
+msgstr "ดูปฏิทินกิจกรรม"
+
+#. module: mrp_operations
+#: model:process.transition,note:mrp_operations.process_transition_startcanceloperation0
+msgid "When the operation needs to be cancelled, you can do it in the work order form."
+msgstr "When the operation needs to be cancelled, you can do it in the work order form."
+
+#. module: mrp_operations
+#: view:mrp.production:0
+#: view:mrp.production.workcenter.line:0
+msgid "Set Draft"
+msgstr "ร่าง"
+
+#. module: mrp_operations
+#: view:mrp.workorder:0
+#: field:mrp.workorder,total_cycles:0
+msgid "Total Cycles"
+msgstr "จำนวนรอบ"
+
+#. module: mrp_operations
+#: view:mrp.production.workcenter.line:0
+msgid "Pending"
+msgstr "รอดำเนินการ"
+
+#. module: mrp_operations
+#: view:mrp_operations.operation.code:0
+msgid "Production Operation Code"
+msgstr "Production Operation Code"
+
+#. module: mrp_operations
+#: code:addons/mrp_operations/mrp_operations.py:472
+#, python-format
+msgid " You cannot Resume the operation other then Pause state !"
+msgstr "คุณไม่สามารถเริ่มดำเนินการอื่น ๆ แล้วรัฐหยุด!"
+
+#. module: mrp_operations
+#: selection:mrp.workorder,month:0
+msgid "August"
+msgstr "สิงหาคม"
+
+#. module: mrp_operations
+#: view:mrp.workorder:0
+msgid "Started"
+msgstr "การเริ่มต้น"
+
+#. module: mrp_operations
+#: selection:mrp.workorder,month:0
+msgid "June"
+msgstr "เดือนมิถุนายน"
+
+#. module: mrp_operations
+#: code:addons/mrp_operations/mrp_operations.py:487
+#, python-format
+msgid "Operation is already finished !"
+msgstr "ดำเนินการเสร็จสิ้นแล้ว!"
+
+#. module: mrp_operations
+#: selection:mrp.production.workcenter.line,production_state:0
+msgid "Ready to Produce"
+msgstr "พร้อมที่จะผลิต"
+
+#. module: mrp_operations
+#: field:stock.move,move_dest_id_lines:0
+msgid "Children Moves"
+msgstr "ย้ายเด็ก"
+
+#. module: mrp_operations
+#: model:ir.actions.act_window,name:mrp_operations.mrp_production_wc_action_planning
+msgid "Work Orders Planning"
+msgstr "วางแผนใบสั่งงาน"
+
+#. module: mrp_operations
+#: view:mrp.production.workcenter.line:0
+#: field:mrp.workorder,date:0
+msgid "Date"
+msgstr "วันที่"
+
+#. module: mrp_operations
+#: selection:mrp.workorder,month:0
+msgid "November"
+msgstr "พฤศจิกายน"
+
+#. module: mrp_operations
+#: view:mrp.workorder:0
+msgid "Search"
+msgstr "Search"
+
+#. module: mrp_operations
+#: selection:mrp.workorder,month:0
+msgid "October"
+msgstr "เดือนตุลาคม"
+
+#. module: mrp_operations
+#: selection:mrp.workorder,month:0
+msgid "January"
+msgstr "เดือนมกราคม"
+
+#. module: mrp_operations
+#: model:process.node,note:mrp_operations.process_node_doneoperation0
+msgid "Finish the operation."
+msgstr "การดำเนินการเสร็จสิ้น"
+
+#. module: mrp_operations
+#: code:addons/mrp_operations/mrp_operations.py:457
+#, python-format
+msgid "Operation is not started yet !"
+msgstr "งานจะเป็นยังไม่ได้!"
+
+#. module: mrp_operations
+#: model:process.node,note:mrp_operations.process_node_productionorder0
+msgid "Information from the production order."
+msgstr "ข้อมูลที่ได้จากคำสั่งผลิต"
+
+#. module: mrp_operations
+#: code:addons/mrp_operations/mrp_operations.py:457
+#: code:addons/mrp_operations/mrp_operations.py:464
+#: code:addons/mrp_operations/mrp_operations.py:477
+#: code:addons/mrp_operations/mrp_operations.py:480
+#, python-format
+msgid "Sorry!"
+msgstr "ขออภัย!"
+
+#. module: mrp_operations
+#: view:mrp.workorder:0
+msgid "Current"
+msgstr "ในปัจจุบัน"
+
+#. module: mrp_operations
+#: field:mrp_operations.operation,code_id:0
+#: field:mrp_operations.operation.code,code:0
+msgid "Code"
+msgstr "รหัส"
+
+#. module: mrp_operations
+#: code:addons/mrp_operations/mrp_operations.py:480
+#, python-format
+msgid "Operation is Already Cancelled  !"
+msgstr "ยกเลิกการใช้งานจะเป็นแล้ว!"
+
+#. module: mrp_operations
+#: model:ir.module.module,shortdesc:mrp_operations.module_meta_information
+msgid "Work Center Production start end workflow"
+msgstr "Work Center Production start end workflow"
+
+#. module: mrp_operations
+#: model:ir.actions.act_window,name:mrp_operations.mrp_production_code_action
+msgid "Operation Codes"
+msgstr "รหัสการดำเนินงาน"
+
+#. module: mrp_operations
+#: field:mrp.production.workcenter.line,qty:0
+msgid "Qty"
+msgstr "จำนวน"
+
+#. module: mrp_operations
+#: model:process.node,name:mrp_operations.process_node_doneoperation0
+msgid "Operation Done"
+msgstr "การดำเนินงานเสร็จสิ้น"
+
+#. module: mrp_operations
+#: selection:mrp.production.workcenter.line,production_state:0
+#: view:mrp.workorder:0
+#: selection:mrp_operations.operation.code,start_stop:0
+msgid "Done"
+msgstr "เสร็จสิ้น"
+
+#. module: mrp_operations
+#: model:ir.actions.report.xml,name:mrp_operations.report_code_barcode
+msgid "Start/Stop Barcode"
+msgstr "Start / Stop บาร์โค้ด"
+
+#. module: mrp_operations
+#: view:mrp.production:0
+#: view:mrp.production.workcenter.line:0
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+#. module: mrp_operations
+#: model:ir.actions.act_window,help:mrp_operations.mrp_production_wc_action_planning
+msgid "To manufacture or assemble products, and use raw materials and finished products you must also handle manufacturing operations. Manufacturing operations are often called Work Orders. The various operations will have different impacts on the costs of manufacturing and planning depending on the available workload."
+msgstr "To manufacture or assemble products, and use raw materials and finished products you must also handle manufacturing operations. Manufacturing operations are often called Work Orders. The various operations will have different impacts on the costs of manufacturing and planning depending on the available workload."
+
+#. module: mrp_operations
+#: model:process.node,name:mrp_operations.process_node_startoperation0
+msgid "Start Operation"
+msgstr "ดำเนินการเริ่มต้น"
+
+#. module: mrp_operations
+#: view:mrp.production.workcenter.line:0
+msgid "Information"
+msgstr "ข้อมูล"
+
+#. module: mrp_operations
+#: model:ir.actions.report.xml,name:mrp_operations.report_wc_barcode
+msgid "Work Centers Barcode"
+msgstr "Work Centers Barcode"
+
+#. module: mrp_operations
+#: constraint:stock.move:0
+msgid "You must assign a production lot for this product"
+msgstr "คุณต้องกำหนดจำนวนมากการผลิตสำหรับสินค้านี้"
+
+#. module: mrp_operations
+#: view:mrp.production.workcenter.line:0
+msgid "Late"
+msgstr "ช้า"
+
+#. module: mrp_operations
+#: field:mrp.workorder,delay:0
+msgid "Delay"
+msgstr "ความล่าช้า"
+
+#. module: mrp_operations
+#: view:mrp.production.workcenter.line:0
+#: view:mrp.workorder:0
+#: field:mrp.workorder,production_id:0
+#: field:mrp_operations.operation,production_id:0
+msgid "Production"
+msgstr "การผลิต"
+
+#. module: mrp_operations
+#: view:mrp.production.workcenter.line:0
+msgid "Search Work Orders"
+msgstr "Search Work Orders"
+
+#. module: mrp_operations
+#: view:mrp.production.workcenter.line:0
+#: view:mrp.workorder:0
+#: field:mrp.workorder,workcenter_id:0
+#: field:mrp_operations.operation,workcenter_id:0
+#: model:process.node,name:mrp_operations.process_node_workorder0
+msgid "Work Center"
+msgstr "Work Center"
+
+#. module: mrp_operations
+#: view:mrp.production.workcenter.line:0
+msgid "Real"
+msgstr "จริง"
+
+#. module: mrp_operations
+#: field:mrp.production.workcenter.line,date_planned:0
+msgid "Scheduled Date"
+msgstr "กำหนดการวันที่"
+
+#. module: mrp_operations
+#: field:mrp.production.workcenter.line,product:0
+#: view:mrp.workorder:0
+#: field:mrp.workorder,product_id:0
+msgid "Product"
+msgstr "ผลิตภัณฑ์"
+
+#. module: mrp_operations
+#: view:mrp.workorder:0
+#: field:mrp.workorder,total_hours:0
+msgid "Total Hours"
+msgstr "ชั่วโมงรวม"
+
+#. module: mrp_operations
+#: help:mrp.production,allow_reorder:0
+msgid "Check this to be able to move independently all production orders, without moving dependent ones."
+msgstr "ตรวจสอบนี้เพื่อให้สามารถเคลื่อนย้ายอิสระคำสั่งการผลิตทั้งหมดโดยไม่ต้องย้ายคนขึ้นอยู่กับ"
+
+#. module: mrp_operations
+#: report:mrp.code.barcode:0
+msgid ")"
+msgstr ")"
+
+#. module: mrp_operations
+#: model:ir.ui.menu,name:mrp_operations.menu_report_mrp_workorders_tree
+msgid "Work Order Analysis"
+msgstr "การวิเคราะห์สั่งงาน"
+
+#. module: mrp_operations
+#: view:mrp.production:0
+#: view:mrp.production.workcenter.line:0
+#: selection:mrp.production.workcenter.line,state:0
+#: selection:mrp.workorder,state:0
+msgid "Finished"
+msgstr "เสร็จ"
+
+#. module: mrp_operations
+#: field:mrp.production.workcenter.line,uom:0
+msgid "UOM"
+msgstr "หน่วยนับ"
+
+#. module: mrp_operations
+#: view:mrp.production.workcenter.line:0
+msgid "Hours by Work Center"
+msgstr "Hours by Work Center"
+
+#. module: mrp_operations
+#: field:mrp.production.workcenter.line,delay:0
+msgid "Working Hours"
+msgstr "ชั่วโมงทำงาน"
+
+#. module: mrp_operations
+#: field:mrp.production.workcenter.line,date_finished:0
+#: field:mrp.production.workcenter.line,date_planned_end:0
+#: field:mrp_operations.operation,date_finished:0
+msgid "End Date"
+msgstr "วันที่สิ้นสุด"
+
+#. module: mrp_operations
+#: selection:mrp.workorder,month:0
+msgid "February"
+msgstr "กุมภาพันธ์"
+
+#. module: mrp_operations
+#: model:process.transition,name:mrp_operations.process_transition_startcanceloperation0
+msgid "Operation cancelled"
+msgstr "การดำเนินถูกยกเลิก"
+
+#. module: mrp_operations
+#: model:process.node,note:mrp_operations.process_node_startoperation0
+msgid "Start the operation."
+msgstr "เริ่มดำเนินการ"
+
+#. module: mrp_operations
+#: selection:mrp.workorder,month:0
+msgid "April"
+msgstr "เมษายน"
+
+#. module: mrp_operations
+#: model:process.transition,name:mrp_operations.process_transition_startdoneoperation0
+msgid "Operation done"
+msgstr "การดำเนินการเสร็จสิ้น"
+
+#. module: mrp_operations
+#: view:mrp.workorder:0
+msgid "#Line Orders"
+msgstr "# รายการ"
+
+#. module: mrp_operations
+#: model:ir.module.module,description:mrp_operations.module_meta_information
+msgid "\n"
+"This module adds state, date_start,date_stop in production order operation lines (in the \"Work Centers\" tab).\n"
+"=============================================================================================================\n"
+"\n"
+"State: draft, confirm, done, cancel\n"
+"When finishing/confirming,cancelling production orders set all state lines to the according state\n"
+"Create menus:\n"
+"    Manufacturing > Manufacturing > Work Orders\n"
+"Which is a view on \"Work Centers\" lines in production order.\n"
+"\n"
+"Add buttons in the form view of production order under workcenter tab:\n"
+"    * start (set state to confirm), set date_start\n"
+"    * done (set state to done), set date_stop\n"
+"    * set to draft (set state to draft)\n"
+"    * cancel set state to cancel\n"
+"\n"
+"When the production order becomes \"ready to produce\", operations must\n"
+"become 'confirmed'. When the production order is done, all operations\n"
+"must become done.\n"
+"\n"
+"The field delay is the delay(stop date - start date).\n"
+"So that we can compare the theoretic delay and real delay.\n"
+"\n"
+"    "
+msgstr "\n"
+"This module adds state, date_start,date_stop in production order operation lines (in the \"Work Centers\" tab).\n"
+"=============================================================================================================\n"
+"\n"
+"State: draft, confirm, done, cancel\n"
+"When finishing/confirming,cancelling production orders set all state lines to the according state\n"
+"Create menus:\n"
+"    Manufacturing > Manufacturing > Work Orders\n"
+"Which is a view on \"Work Centers\" lines in production order.\n"
+"\n"
+"Add buttons in the form view of production order under workcenter tab:\n"
+"    * start (set state to confirm), set date_start\n"
+"    * done (set state to done), set date_stop\n"
+"    * set to draft (set state to draft)\n"
+"    * cancel set state to cancel\n"
+"\n"
+"When the production order becomes \"ready to produce\", operations must\n"
+"become 'confirmed'. When the production order is done, all operations\n"
+"must become done.\n"
+"\n"
+"The field delay is the delay(stop date - start date).\n"
+"So that we can compare the theoretic delay and real delay.\n"
+"\n"
+"    "
+
+#. module: mrp_operations
+#: model:process.transition,note:mrp_operations.process_transition_startdoneoperation0
+msgid "When the operation is finished, the operator updates the system by finishing the work order."
+msgstr "When the operation is finished, the operator updates the system by finishing the work order."
+
+#. module: mrp_operations
+#: selection:mrp.workorder,month:0
+msgid "May"
+msgstr "เดือนพฤษภาคม"
+
+#. module: mrp_operations
+#: model:process.transition,name:mrp_operations.process_transition_workstartoperation0
+msgid "Details of the work order"
+msgstr "รายละเอียดการสั่งงาน"
+
+#. module: mrp_operations
+#: field:mrp.production.workcenter.line,production_state:0
+msgid "Production State"
+msgstr "สถานะการผลิต"
+
+#. module: mrp_operations
+#: view:mrp.workorder:0
+#: field:mrp.workorder,year:0
+msgid "Year"
+msgstr "ปี"
+
+#. module: mrp_operations
+#: view:mrp.production.workcenter.line:0
+msgid "Duration"
+msgstr "ระยะเวลา"
+
+#. module: mrp_operations
+#: constraint:mrp.production:0
+msgid "Order quantity cannot be negative or zero !"
+msgstr "ปริมาณการสั่งซื้อไม่สามารถลบหรือศูนย์!"
+
+#. module: mrp_operations
+#: constraint:stock.move:0
+msgid "You try to assign a lot which is not from the same product"
+msgstr "คุณพยายามที่จะกำหนดจำนวนมากที่ไม่ได้จากผลิตภัณฑ์เดียวกัน"
+

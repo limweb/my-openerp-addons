@@ -1,0 +1,1091 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* scrum
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:15+0000\n"
+"PO-Revision-Date: 2009-02-03 06:26+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-03-18 04:42+0000\n"
+"X-Generator: Launchpad (build 12559)\n"
+
+#. module: project_scrum
+#: help:project.scrum.email,scrum_master_email:0
+msgid "Email Id of Scrum Master"
+msgstr "ID อีเมลของปริญญาโทการแย่งชิงกัน"
+
+#. module: project_scrum
+#: view:project.scrum.backlog.assign.sprint:0
+msgid "_Assign"
+msgstr "_Assign"
+
+#. module: project_scrum
+#: field:project.scrum.meeting,name:0
+msgid "Meeting Name"
+msgstr "ชื่อการประชุม"
+
+#. module: project_scrum
+#: model:process.transition,note:project_scrum.process_transition_backlogtask0
+msgid "From backlog create task."
+msgstr "สิ่งที่เหลือจากการสร้างงาน"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+#: field:project.scrum.product.backlog,user_id:0
+msgid "Author"
+msgstr "ผู้เขียน"
+
+#. module: project_scrum
+#: model:ir.module.module,description:project_scrum.module_meta_information
+msgid ""
+"\n"
+"    This module implements all concepts defined by the scrum project\n"
+"    management methodology for IT companies:\n"
+"    * Project with sprints, product owner, scrum master\n"
+"    * Sprints with reviews, daily meetings, feedbacks\n"
+"    * Product backlog\n"
+"    * Sprint backlog\n"
+"\n"
+"    It adds some concepts to the project management module:\n"
+"    * Mid-term, long-term road-map\n"
+"    * Customers/functional requests VS technical ones\n"
+"\n"
+"    It also creates a new reporting:\n"
+"    * Burn-down chart\n"
+"\n"
+"    The scrum projects and tasks inherit from the real projects and\n"
+"    tasks, so you can continue working on normal tasks that will also\n"
+"    include tasks from scrum projects.\n"
+"\n"
+"    More information on the methodology:\n"
+"    * http://controlchaos.com\n"
+"    "
+msgstr "โมดูลนี้จะนำไปปฏิบัติแนวความคิดทั้งหมดที่กำหนดโดยการแย่งชิงกันโครงการวิธีการจัดการสำหรับ บริษัท ไอที : โครงการ * กับ sprints, เจ้าของผลิตภัณฑ์การแย่งชิงกัน Sprints * ต้นแบบที่มีการแสดงความคิดเห็นการประชุมทุกวันตอบรับสินค้าที่ค้างส่งสินค้า * * สิ่งที่ค้าง Sprint จะเพิ่มแนวความคิดที่จะโมดูลการบริหารโครงการ : * ระยะกลาง, ระยะยาว Road Map - * ลูกค้า / งานด้านเทคนิคการร้องขอ VS คนที่ยังสร้างรายงานใหม่ : * เขียนลงแผนภูมิโครงการและการแย่งชิงกันรับช่วงงานจากโครงการจริงและงานต่างๆเพื่อให้คุณสามารถทำงานต่อไป กับงานปกติท​​ี่จะรวมถึงงานจากโครงการการแย่งชิงกัน ข้อมูลเพิ่มเติมเกี่ยวกับวิธีการ : http://controlchaos.com *"
+
+#. module: project_scrum
+#: view:project.scrum.meeting:0
+#: view:project.scrum.sprint:0
+msgid "What did you do since the last meeting?"
+msgstr "คุณทำอะไรนับตั้งแต่การประชุมนัดสุดท้าย?"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,help:project_scrum.action_sprint_all_tree
+msgid ""
+"The scrum agile methodology is used in software development projects. In "
+"this methodology, a sprint is a short period of time (e.g. one month) during "
+"which the team implements a list of product backlogs. The sprint review is "
+"organized when the team presents its work to the customer and product owner."
+msgstr "วิธีการแย่งชิงกันเปรียวจะใช้ในโครงการพัฒนาซอฟแวร์ ในวิธีการนี​​้วิ่งเป็นระยะเวลาสั้น ๆ (เช่นหนึ่งเดือน) ในระหว่างที่ทีมนำไปปฏิบัติ backlogs รายการสินค้า วิ่งการตรวจสอบครั้งนี้จะจัดเมื่อทีมงานนำเสนอผลงานของตนให้กับลูกค้าและเจ้าของสินค้า"
+
+#. module: project_scrum
+#: view:project.scrum.meeting:0
+#: view:project.scrum.product.backlog:0
+#: view:project.scrum.sprint:0
+msgid "Group By..."
+msgstr "กลุ่มตาม ..."
+
+#. module: project_scrum
+#: model:process.node,note:project_scrum.process_node_productbacklog0
+msgid "Create task from backlogs"
+msgstr "สร้างงานจาก backlogs"
+
+#. module: project_scrum
+#: model:ir.module.module,shortdesc:project_scrum.module_meta_information
+msgid "Scrum, Agile Development Method"
+msgstr "การแย่งชิงกัน, วิธีการพัฒนาเปรียว"
+
+#. module: project_scrum
+#: field:project.scrum.product.backlog,progress:0
+msgid "Progress"
+msgstr "ความคืบหน้า"
+
+#. module: project_scrum
+#: field:project.scrum.meeting,user_id:0
+#: view:project.scrum.sprint:0
+#: field:project.scrum.sprint,scrum_master_id:0
+msgid "Scrum Master"
+msgstr "ปริญญาโทการแย่งชิงกัน"
+
+#. module: project_scrum
+#: code:addons/project_scrum/project_scrum.py:83
+#, python-format
+msgid "The sprint '%s' has been opened."
+msgstr "&#39;%s&#39;วิ่งมีการเปิด"
+
+#. module: project_scrum
+#: constraint:project.project:0
+msgid "Error! project start-date must be lower then project end-date."
+msgstr "ข้อผิดพลาด โครงการวันที่เริ่มต้นจากนั้นจะต้องลดลงวันที่สิ้นสุดโครงการ -"
+
+#. module: project_scrum
+#: view:project.scrum.meeting:0
+#: view:project.scrum.sprint:0
+msgid "Are your Sprint Backlog estimate accurate ?"
+msgstr "มีการประเมินสิ่งที่ค้างของคุณ Sprint ถูกต้องหรือไม่"
+
+#. module: project_scrum
+#: view:project.scrum.sprint:0
+msgid "Retrospective"
+msgstr "หวนรำลึก"
+
+#. module: project_scrum
+#: view:project.scrum.meeting:0
+msgid "Send Email"
+msgstr "ส่งอีเมล์"
+
+#. module: project_scrum
+#: constraint:project.task:0
+msgid "Error ! You cannot create recursive tasks."
+msgstr "ข้อผิดพลาด คุณไม่สามารถสร้างงาน recursive"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.dblc_proj
+msgid "View project's backlog"
+msgstr "โครงการดูงานค้าง"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+#: view:project.scrum.sprint:0
+msgid "Set to Draft"
+msgstr "ตั้งเป็นร่าง"
+
+#. module: project_scrum
+#: model:ir.model,name:project_scrum.model_project_scrum_backlog_merge
+msgid "Merge Product Backlogs"
+msgstr "ผสาน Backlogs สินค้า"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.action_scrum_backlog_merge
+#: view:project.scrum.backlog.merge:0
+msgid "Merge Backlogs"
+msgstr "Backlogs ผสาน"
+
+#. module: project_scrum
+#: code:addons/project_scrum/wizard/project_scrum_email.py:53
+#, python-format
+msgid "Scrum Meeting : %s"
+msgstr "การประชุมการแย่งชิงกัน :%s"
+
+#. module: project_scrum
+#: view:project.task:0
+msgid "Backlog"
+msgstr "สินค้าที่ค้างส่ง"
+
+#. module: project_scrum
+#: model:ir.model,name:project_scrum.model_project_scrum_email
+msgid "project.scrum.email"
+msgstr "project.scrum.email"
+
+#. module: project_scrum
+#: constraint:project.project:0
+msgid "Error! You cannot assign escalation to the same project!"
+msgstr "ข้อผิดพลาด คุณไม่สามารถกำหนดปรับราคาให้กับโครงการเหมือนเดิม"
+
+#. module: project_scrum
+#: field:project.scrum.sprint,name:0
+msgid "Sprint Name"
+msgstr "ชื่อ Sprint"
+
+#. module: project_scrum
+#: model:ir.model,name:project_scrum.model_project_task
+msgid "Task"
+msgstr "งาน"
+
+#. module: project_scrum
+#: view:postpone.wizard:0
+msgid "Ok"
+msgstr "โอเค"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+msgid "Spent hours"
+msgstr "ชั่วโมงที่ใช้ไป"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,help:project_scrum.action_meeting_form
+msgid ""
+"The scrum agile methodology is used in software development projects. In "
+"this methodology, a daily meeting is organized by the scrum master with his "
+"team in order to detect the difficulties the team faced/will face."
+msgstr "วิธีการแย่งชิงกันเปรียวจะใช้ในโครงการพัฒนาซอฟแวร์ ในวิธีการนี​​้ได้มีการประชุมทุกวันจัดโดยหลักของการแย่งชิงกันกับทีมงานของเขาเพื่อที่จะตรวจพบความยากลำบากทีมงานประสบ / จะเผชิญ"
+
+#. module: project_scrum
+#: code:addons/project_scrum/project_scrum.py:316
+#, python-format
+msgid "Please provide email address for product owner defined on sprint."
+msgstr "โปรดระบุที่อยู่อีเมลสำหรับเจ้าของสินค้าที่กำหนดไว้ในการวิ่ง"
+
+#. module: project_scrum
+#: code:addons/project_scrum/project_scrum.py:327
+#, python-format
+msgid "Scrum Meeting of %s"
+msgstr "การประชุมการแย่งชิงกันของ%s"
+
+#. module: project_scrum
+#: code:addons/project_scrum/wizard/project_scrum_backlog_sprint.py:57
+#, python-format
+msgid "Product Backlog '%s' is converted into Task %d."
+msgstr "&#39;%s&#39;สินค้าค้างส่งจะถูกเปลี่ยนเป็น% งานดี"
+
+#. module: project_scrum
+#: code:addons/project_scrum/wizard/project_scrum_backlog_sprint.py:62
+#, python-format
+msgid "Product Backlog '%s' is assigned sprint:%s"
+msgstr "&#39;%s&#39;ถูกกำหนดให้สินค้าที่ค้างส่งสินค้าวิ่ง :%s"
+
+#. module: project_scrum
+#: code:addons/project_scrum/wizard/project_scrum_backlog_sprint.py:57
+#: code:addons/project_scrum/wizard/project_scrum_backlog_sprint.py:62
+#: model:ir.model,name:project_scrum.model_project_scrum_product_backlog
+#: view:project.scrum.product.backlog:0
+#: field:project.task,product_backlog_id:0
+#, python-format
+msgid "Product Backlog"
+msgstr "สินค้าที่ค้างส่งสินค้า"
+
+#. module: project_scrum
+#: model:ir.model,name:project_scrum.model_project_project
+#: field:project.scrum.backlog.merge,project_id:0
+#: field:project.scrum.meeting,project_id:0
+#: view:project.scrum.product.backlog:0
+#: field:project.scrum.product.backlog,project_id:0
+#: view:project.scrum.sprint:0
+#: field:project.scrum.sprint,project_id:0
+msgid "Project"
+msgstr "โครงการ"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+msgid "Start Task"
+msgstr "เริ่มงาน"
+
+#. module: project_scrum
+#: code:addons/project_scrum/wizard/project_scrum_email.py:90
+#: code:addons/project_scrum/wizard/project_scrum_email.py:93
+#: code:addons/project_scrum/wizard/project_scrum_email.py:96
+#, python-format
+msgid "None"
+msgstr "ไม่"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+msgid "Change Stage"
+msgstr "ขั้นตอนการเปลี่ยน"
+
+#. module: project_scrum
+#: view:project.scrum.sprint:0
+msgid "Sprint Info"
+msgstr "ข้อมูล Sprint"
+
+#. module: project_scrum
+#: field:project.scrum.sprint,date_stop:0
+msgid "Ending Date"
+msgstr "สิ้นสุดวันที่"
+
+#. module: project_scrum
+#: view:project.scrum.meeting:0
+#: view:project.scrum.sprint:0
+msgid "Links"
+msgstr "ลิ้งค์"
+
+#. module: project_scrum
+#: help:project.scrum.sprint,effective_hours:0
+msgid "Computed using the sum of the task work done."
+msgstr "คำนวณโดยใช้ผลรวมของการทำงานงานทำ"
+
+#. module: project_scrum
+#: code:addons/project_scrum/wizard/project_scrum_email.py:91
+#, python-format
+msgid "Task for Today"
+msgstr "สำหรับงานวันนี้"
+
+#. module: project_scrum
+#: field:project.scrum.backlog.assign.sprint,state_open:0
+msgid "Open Backlog"
+msgstr "สิ่งที่ค้างเปิด"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+msgid "Total Spent Hours"
+msgstr "รวมใช้เวลา"
+
+#. module: project_scrum
+#: field:project.scrum.sprint,date_start:0
+msgid "Starting Date"
+msgstr "เริ่มวันที่"
+
+#. module: project_scrum
+#: code:addons/project_scrum/wizard/project_scrum_email.py:94
+#, python-format
+msgid "Blocking points encountered:"
+msgstr "การปิดกั้นจุดที่พบ :"
+
+#. module: project_scrum
+#: view:project.scrum.sprint:0
+msgid "Planning"
+msgstr "การวางแผน"
+
+#. module: project_scrum
+#: view:project.scrum.backlog.assign.sprint:0
+#: view:project.scrum.backlog.create.task:0
+#: view:project.scrum.email:0
+msgid "_Cancel"
+msgstr "_Cancel"
+
+#. module: project_scrum
+#: help:project.scrum.sprint,scrum_master_id:0
+msgid "The person who is maintains the processes for the product"
+msgstr "บุคคลที่ดูแลกระบวนการสำหรับผลิตภัณฑ์"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+#: field:project.scrum.product.backlog,expected_hours:0
+#: field:project.scrum.sprint,expected_hours:0
+msgid "Planned Hours"
+msgstr "เวลาตามแผน"
+
+#. module: project_scrum
+#: field:project.scrum.email,subject:0
+msgid "Subject"
+msgstr "เรื่อง"
+
+#. module: project_scrum
+#: view:board.board:0
+#: model:ir.actions.act_window,name:project_scrum.action_sprint_all_dashboard_tree
+#: model:ir.actions.act_window,name:project_scrum.action_sprint_all_tree
+#: model:ir.ui.menu,name:project_scrum.menu_action_sprint_all_tree
+#: view:project.scrum.product.backlog:0
+#: view:project.scrum.sprint:0
+msgid "Sprints"
+msgstr "Sprints"
+
+#. module: project_scrum
+#: code:addons/project_scrum/project_scrum.py:314
+#, python-format
+msgid "Email notification could not be sent to the product owner %s"
+msgstr "แจ้งทางอีเมลไม่สามารถส่งไปยัง%s เจ้าของผลิตภัณฑ์"
+
+#. module: project_scrum
+#: field:project.scrum.backlog.assign.sprint,convert_to_task:0
+msgid "Convert To Task"
+msgstr "แปลงเป็นงาน"
+
+#. module: project_scrum
+#: view:project.scrum.backlog.merge:0
+msgid "Are you sure you want to merge these Backlogs?"
+msgstr "คุณแน่ใจหรือว่าต้องการผสาน Backlogs เหล่านี้หรือไม่"
+
+#. module: project_scrum
+#: help:project.scrum.backlog.create.task,user_id:0
+msgid "Responsible user who can work on task"
+msgstr "ความรับผิดชอบในการที่ผู้ใช้สามารถทำงานในงาน"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+#: field:project.scrum.product.backlog,state:0
+#: view:project.scrum.sprint:0
+#: field:project.scrum.sprint,state:0
+msgid "State"
+msgstr "ของรัฐ"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.action_sprint_task_open
+msgid "View sprint Tasks"
+msgstr "ดูงานวิ่ง"
+
+#. module: project_scrum
+#: field:project.scrum.sprint,meeting_ids:0
+msgid "Daily Scrum"
+msgstr "การทะเลาะกันทุกวัน"
+
+#. module: project_scrum
+#: view:project.scrum.backlog.create.task:0
+msgid "C_onvert"
+msgstr "C_onvert"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.action_product_backlog_form
+#: model:ir.ui.menu,name:project_scrum.menu_action_product_backlog_form
+#: view:project.scrum.product.backlog:0
+msgid "Product Backlogs"
+msgstr "Backlogs สินค้า"
+
+#. module: project_scrum
+#: code:addons/project_scrum/project_scrum.py:301
+#: code:addons/project_scrum/project_scrum.py:303
+#: code:addons/project_scrum/project_scrum.py:314
+#: code:addons/project_scrum/project_scrum.py:316
+#, python-format
+msgid "Error !"
+msgstr "ข้อผิดพลาด"
+
+#. module: project_scrum
+#: field:project.scrum.product.backlog,create_date:0
+msgid "Creation Date"
+msgstr "วันที่สร้าง"
+
+#. module: project_scrum
+#: view:project.scrum.meeting:0
+#: view:project.scrum.sprint:0
+msgid "Are there anything blocking you?"
+msgstr "มีอะไรปิดกั้นคุณหรือไม่"
+
+#. module: project_scrum
+#: model:ir.ui.menu,name:project_scrum.menu_scrum
+msgid "Scrum"
+msgstr "การแย่งชิงกัน"
+
+#. module: project_scrum
+#: field:project.scrum.meeting,question_today:0
+msgid "Tasks for today"
+msgstr "งานสำหรับวันนี้"
+
+#. module: project_scrum
+#: code:addons/project_scrum/wizard/project_scrum_email.py:88
+#: field:project.scrum.meeting,question_yesterday:0
+#, python-format
+msgid "Tasks since yesterday"
+msgstr "งานตั้งแต่เมื่อวาน"
+
+#. module: project_scrum
+#: code:addons/project_scrum/wizard/project_scrum_backlog_merger.py:39
+#: code:addons/project_scrum/wizard/project_scrum_backlog_merger.py:71
+#, python-format
+msgid "Warning"
+msgstr "การเตือน"
+
+#. module: project_scrum
+#: model:ir.model,name:project_scrum.model_project_scrum_backlog_assign_sprint
+msgid "Assign sprint to backlogs"
+msgstr "วิ่งมอบหมายให้ backlogs"
+
+#. module: project_scrum
+#: help:project.scrum.sprint,expected_hours:0
+msgid "Estimated time to do the task."
+msgstr "เวลาโดยประมาณเพื่อทำงาน"
+
+#. module: project_scrum
+#: field:project.scrum.product.backlog,task_hours:0
+msgid "Task Hours"
+msgstr "เวลางาน"
+
+#. module: project_scrum
+#: view:project.scrum.sprint:0
+msgid "Dates"
+msgstr "วันที่"
+
+#. module: project_scrum
+#: view:project.scrum.sprint:0
+msgid "Send to Scrum Master"
+msgstr "ส่งไปที่การแย่งชิงกันมาสเตอร์"
+
+#. module: project_scrum
+#: selection:project.scrum.product.backlog,state:0
+#: selection:project.scrum.sprint,state:0
+msgid "Cancelled"
+msgstr "ยกเลิก"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.dblc_proj2
+msgid "View project's tasks"
+msgstr "ดูงานโครงการ"
+
+#. module: project_scrum
+#: code:addons/project_scrum/wizard/project_scrum_email.py:56
+#, python-format
+msgid ""
+"Hello  , \n"
+"I am sending you Scrum Meeting : %s for the Sprint  '%s' of Project '%s'"
+msgstr "สวัสดี, ฉันส่งคุณการแย่งชิงกันประชุม :%s สำหรับ&#39;%s&#39;Sprint ของ&#39;%s&#39;โครงการ"
+
+#. module: project_scrum
+#: view:project.scrum.meeting:0
+msgid "Daily"
+msgstr "รายวัน"
+
+#. module: project_scrum
+#: field:project.scrum.sprint,backlog_ids:0
+msgid "Sprint Backlog"
+msgstr "สิ่งที่ค้าง Sprint"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+msgid "Delegate"
+msgstr "ผู้แทน"
+
+#. module: project_scrum
+#: view:board.board:0
+msgid "My Board"
+msgstr "คณะกรรมการของฉัน"
+
+#. module: project_scrum
+#: view:postpone.wizard:0
+msgid "Postpone Backlog"
+msgstr "สิ่งที่ค้างเลื่อน"
+
+#. module: project_scrum
+#: view:board.board:0
+#: model:ir.actions.act_window,name:project_scrum.action_view_task_progress_graph
+#: view:project.task:0
+msgid "Task Progress"
+msgstr "ความคืบหน้างาน"
+
+#. module: project_scrum
+#: field:project.scrum.meeting,date:0
+msgid "Meeting Date"
+msgstr "การประชุมวันที่"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.act_scrum_sprint_2_project_task
+#: view:project.scrum.meeting:0
+#: field:project.scrum.meeting,task_ids:0
+#: view:project.scrum.product.backlog:0
+#: view:project.scrum.sprint:0
+msgid "Tasks"
+msgstr "Tasks"
+
+#. module: project_scrum
+#: field:project.scrum.email,product_owner_email:0
+msgid "Product Owner Email"
+msgstr "เจ้าของร้านสินค้า"
+
+#. module: project_scrum
+#: view:project.scrum.email:0
+msgid "_Send"
+msgstr "_Send"
+
+#. module: project_scrum
+#: help:project.scrum.backlog.assign.sprint,sprint_id:0
+msgid "Select Sprint to assign backlog."
+msgstr "Sprint เลือกที่จะกำหนดสิ่งที่ค้าง"
+
+#. module: project_scrum
+#: help:project.scrum.product.backlog,progress:0
+#: help:project.scrum.sprint,progress:0
+msgid "Computed as: Time Spent / Total Time."
+msgstr "คำนวณไว้ : เวลาที่อยู่ในเวลารวม"
+
+#. module: project_scrum
+#: view:project.scrum.meeting:0
+#: view:project.scrum.sprint:0
+msgid "Month"
+msgstr "เดือน"
+
+#. module: project_scrum
+#: field:project.scrum.meeting,question_blocks:0
+msgid "Blocks encountered"
+msgstr "บล็อกพบ"
+
+#. module: project_scrum
+#: help:project.scrum.backlog.assign.sprint,state_open:0
+msgid "Change the state of product backlogs to open if its in draft state"
+msgstr "เปลี่ยนสถานะของ backlogs ผลิตภัณฑ์เพื่อเปิดหากรัฐในร่าง"
+
+#. module: project_scrum
+#: view:project.scrum.email:0
+#: field:project.scrum.email,message:0
+msgid "Message"
+msgstr "ข้อความ"
+
+#. module: project_scrum
+#: field:project.scrum.email,scrum_master_email:0
+msgid "Scrum Master Email"
+msgstr "อีเมล์ Master การแย่งชิงกัน"
+
+#. module: project_scrum
+#: help:project.project,product_owner_id:0
+#: help:project.scrum.sprint,product_owner_id:0
+msgid "The person who is responsible for the product"
+msgstr "บุคคลที่เป็นผู้รับผิดชอบต่อผลิตภัณฑ์"
+
+#. module: project_scrum
+#: view:project.scrum.meeting:0
+#: view:project.scrum.sprint:0
+msgid "Scrum Sprint"
+msgstr "Sprint การแย่งชิงกัน"
+
+#. module: project_scrum
+#: view:project.scrum.sprint:0
+msgid "Product owner"
+msgstr "เจ้าของสินค้า"
+
+#. module: project_scrum
+#: view:project.scrum.sprint:0
+msgid "Review"
+msgstr "การทบทวน"
+
+#. module: project_scrum
+#: field:project.scrum.sprint,retrospective:0
+msgid "Sprint Retrospective"
+msgstr "Sprint ย้อนหลัง"
+
+#. module: project_scrum
+#: field:project.scrum.product.backlog,note:0
+msgid "Note"
+msgstr "หมายเหตุ"
+
+#. module: project_scrum
+#: selection:project.scrum.product.backlog,state:0
+#: selection:project.scrum.sprint,state:0
+msgid "Draft"
+msgstr "ร่าง"
+
+#. module: project_scrum
+#: help:project.task,product_backlog_id:0
+msgid ""
+"Related product backlog that contains this task. Used in SCRUM methodology"
+msgstr "สินค้าที่ค้างส่งผลิตภัณฑ์ที่เกี่ยวข้องที่มีงานนี้ วิธีการที่ใช้ในการแย่งชิงกัน"
+
+#. module: project_scrum
+#: view:project.scrum.meeting:0
+#: view:project.scrum.sprint:0
+msgid "What do you plan to do till the next meeting?"
+msgstr "สิ่งที่คุณวางแผนที่จะทำถึงวันที่ประชุมครั้งต่อไปหรือไม่"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.action_postpone_wizard
+#: view:postpone.wizard:0
+#: view:project.scrum.product.backlog:0
+msgid "Postpone"
+msgstr "เลื่อนเวลา"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+#: selection:project.scrum.product.backlog,state:0
+#: view:project.scrum.sprint:0
+#: selection:project.scrum.sprint,state:0
+msgid "Pending"
+msgstr "รอดำเนินการ"
+
+#. module: project_scrum
+#: view:project.scrum.meeting:0
+#: view:project.scrum.sprint:0
+msgid "Optional Info"
+msgstr "ข้อมูลเสริม"
+
+#. module: project_scrum
+#: model:ir.model,name:project_scrum.model_project_scrum_backlog_create_task
+msgid "Create Tasks from Product Backlogs"
+msgstr "สร้างงานจากสินค้า Backlogs"
+
+#. module: project_scrum
+#: help:project.project,sprint_size:0
+msgid "Number of days allocated for sprint"
+msgstr "จำนวนวันการจัดสรรสำหรับการวิ่ง"
+
+#. module: project_scrum
+#: field:project.project,product_owner_id:0
+#: field:project.scrum.sprint,product_owner_id:0
+msgid "Product Owner"
+msgstr "เจ้าของสินค้า"
+
+#. module: project_scrum
+#: help:project.scrum.product.backlog,sequence:0
+msgid "Gives the sequence order when displaying a list of product backlog."
+msgstr "เพื่อให้ลำดับเมื่อการแสดงรายการของสินค้าที่ค้างส่งสินค้า"
+
+#. module: project_scrum
+#: model:process.node,name:project_scrum.process_node_productbacklog0
+#: view:project.scrum.product.backlog:0
+msgid "Product backlog"
+msgstr "สินค้าที่ค้างส่งสินค้า"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.act_scrum_sprint_2_product_backlog
+msgid "Backlogs"
+msgstr "Backlogs"
+
+#. module: project_scrum
+#: code:addons/project_scrum/project_scrum.py:326
+#, python-format
+msgid "Thank you"
+msgstr "ขอบคุณ"
+
+#. module: project_scrum
+#: help:project.scrum.backlog.assign.sprint,convert_to_task:0
+msgid "Create Task for Product Backlog"
+msgstr "สร้างงานสำหรับสินค้าที่ค้างส่งสินค้า"
+
+#. module: project_scrum
+#: field:project.scrum.product.backlog,active:0
+msgid "Active"
+msgstr "แอคทีฟ"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.action_meeting_form
+#: model:ir.ui.menu,name:project_scrum.menu_action_meeting_form
+msgid "Scrum Meetings"
+msgstr "การประชุมการแย่งชิงกัน"
+
+#. module: project_scrum
+#: help:project.scrum.product.backlog,expected_hours:0
+msgid "Estimated total time to do the Backlog"
+msgstr "เวลาทั้งหมดโดยประมาณเพื่อทำสิ่งที่ค้าง"
+
+#. module: project_scrum
+#: help:project.scrum.backlog.merge,project_id:0
+msgid "Select project for the new product backlog"
+msgstr "โครงการเลือกสำหรับสินค้าที่ค้างส่งผลิตภัณฑ์ใหม่"
+
+#. module: project_scrum
+#: view:project.scrum.backlog.merge:0
+msgid "Merge"
+msgstr "ผสาน"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.action_sprint_backlog_open
+msgid "View sprint backlog"
+msgstr "สิ่งที่เหลือวิ่งดู"
+
+#. module: project_scrum
+#: field:project.scrum.meeting,question_backlog:0
+msgid "Backlog Accurate"
+msgstr "สิ่งที่เหลือที่ถูกต้อง"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.action_scrum_backlog_to_task
+#: view:project.scrum.backlog.create.task:0
+#: view:project.scrum.product.backlog:0
+msgid "Convert to Task"
+msgstr "แปลงเป็นงาน"
+
+#. module: project_scrum
+#: help:project.scrum.sprint,project_id:0
+msgid ""
+"If you have [?] in the project name, it means there are no analytic account "
+"linked to this project."
+msgstr "หากคุณมี [?] ในชื่อโครงการจะหมายถึงการไม่มีบัญชีวิเคราะห์เชื่อมโยงกับโครงการนี​​้"
+
+#. module: project_scrum
+#: field:project.scrum.product.backlog,sequence:0
+msgid "Sequence"
+msgstr "ลำดับ"
+
+#. module: project_scrum
+#: view:project.scrum.sprint:0
+msgid "Send to Product Owner"
+msgstr "ส่งให้เจ้าของสินค้า"
+
+#. module: project_scrum
+#: view:board.board:0
+#: model:ir.actions.act_window,name:project_scrum.action_view_backlog_progress_graph
+#: view:project.scrum.product.backlog:0
+msgid "Backlog Progress"
+msgstr "ความคืบหน้างานค้าง"
+
+#. module: project_scrum
+#: code:addons/project_scrum/project_scrum.py:301
+#, python-format
+msgid "Email notification could not be sent to the scrum master %s"
+msgstr "แจ้งทางอีเมลไม่สามารถส่งไปยัง%s ต้นแบบการแย่งชิงกัน"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+#: selection:project.scrum.product.backlog,state:0
+#: selection:project.scrum.sprint,state:0
+msgid "Done"
+msgstr "เสร็จสิ้น"
+
+#. module: project_scrum
+#: view:project.scrum.backlog.merge:0
+#: view:project.scrum.product.backlog:0
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+#. module: project_scrum
+#: view:postpone.wizard:0
+#: view:project.scrum.product.backlog:0
+#: view:project.scrum.sprint:0
+msgid "Close"
+msgstr "ปิด"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+#: selection:project.scrum.product.backlog,state:0
+#: view:project.scrum.sprint:0
+#: selection:project.scrum.sprint,state:0
+msgid "Open"
+msgstr "เปิด"
+
+#. module: project_scrum
+#: view:project.scrum.sprint:0
+#: field:project.scrum.sprint,effective_hours:0
+msgid "Effective hours"
+msgstr "ชั่วโมงมีผลบังคับใช้"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+msgid "Information"
+msgstr "ข้อมูล"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+msgid "Remaining Hours"
+msgstr "เวลาที่เหลืออยู่"
+
+#. module: project_scrum
+#: view:project.scrum.sprint:0
+msgid "Responsible"
+msgstr "รับผิดชอบ"
+
+#. module: project_scrum
+#: field:project.scrum.product.backlog,name:0
+msgid "Feature"
+msgstr "ลักษณะ"
+
+#. module: project_scrum
+#: view:project.scrum.meeting:0
+#: view:project.scrum.product.backlog:0
+#: view:project.scrum.sprint:0
+#: view:project.task:0
+msgid "Current"
+msgstr "ในปัจจุบัน"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+msgid "My Backlogs"
+msgstr "Backlogs ของฉัน"
+
+#. module: project_scrum
+#: view:project.scrum.email:0
+msgid "Send Email for Scrum Meeting Details"
+msgstr "ส่งอีเมล์สำหรับรายละเอียดการประชุมการแย่งชิงกัน"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,help:project_scrum.action_product_backlog_form
+msgid ""
+"The scrum agile methodology is used in software development projects. The "
+"Product Backlog is the list of features to be implemented. A product backlog "
+"can be planified in a development sprint and may be split into several "
+"tasks. The product backlog is managed by the product owner of the project."
+msgstr "วิธีการแย่งชิงกันเปรียวจะใช้ในโครงการพัฒนาซอฟแวร์ สินค้าที่ค้างส่งสินค้าเป็นรายการของคุณสมบัติที่จะดำเนินการ สินค้าที่ค้างส่งผลิตภัณฑ์สามารถวิ่ง planified ในการพัฒนาและอาจจะแยกออกเป็นหลายงาน สินค้าที่ค้างส่งสินค้าบริหารงานโดยเจ้าของผลิตภัณฑ์ของโครงการ"
+
+#. module: project_scrum
+#: model:process.transition,name:project_scrum.process_transition_backlogtask0
+msgid "Backlog Task"
+msgstr "งานที่ค้าง"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+#: view:project.scrum.sprint:0
+msgid "Planned hours"
+msgstr "ชั่วโมงตามแผน"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.action_project_scrum_email
+#: model:ir.model,name:project_scrum.model_project_scrum_meeting
+#: view:project.scrum.email:0
+#: view:project.scrum.meeting:0
+#: view:project.scrum.sprint:0
+msgid "Scrum Meeting"
+msgstr "การประชุมการแย่งชิงกัน"
+
+#. module: project_scrum
+#: model:ir.actions.report.xml,name:project_scrum.report_scrum_sprint_burndown_chart
+#: view:project.scrum.sprint:0
+msgid "Burndown Chart"
+msgstr "Chart Burndown"
+
+#. module: project_scrum
+#: view:project.scrum.sprint:0
+msgid "Daily Meetings"
+msgstr "การประชุมทุกวัน"
+
+#. module: project_scrum
+#: view:project.scrum.sprint:0
+msgid "Expected hours"
+msgstr "ชั่วโมงที่คาดหวัง"
+
+#. module: project_scrum
+#: field:project.project,sprint_size:0
+msgid "Sprint Days"
+msgstr "วัน Sprint"
+
+#. module: project_scrum
+#: help:project.scrum.email,product_owner_email:0
+msgid "Email Id of Product Owner"
+msgstr "อีเมล์ประจำตัวประชาชนของเจ้าของสินค้า"
+
+#. module: project_scrum
+#: field:project.scrum.sprint,progress:0
+msgid "Progress (0-100)"
+msgstr "ความคืบหน้า (0-100)"
+
+#. module: project_scrum
+#: code:addons/project_scrum/project_scrum.py:324
+#, python-format
+msgid ""
+"Hello %s,\n"
+" \n"
+"I am sending you Daily Meeting Details of date %s for the Sprint %s\n"
+msgstr "สวัสดี%s, ฉันส่งคุณรายละเอียดทุกวันประชุมวันที่%s สำหรับ%s Sprint"
+
+#. module: project_scrum
+#: code:addons/project_scrum/project_scrum.py:325
+#, python-format
+msgid ""
+"\n"
+"*Tasks since yesterday:\n"
+"_______________________%s\n"
+"*Task for Today:\n"
+"_______________________ %s\n"
+"\n"
+"*Blocks encountered:\n"
+"_______________________ %s"
+msgstr "* งานตั้งแต่เมื่อวานนี้ : s _______________________% * งานสำหรับวันนี้ :%s * _______________________ บล็อกพบ :%s _______________________"
+
+#. module: project_scrum
+#: help:project.scrum.product.backlog,active:0
+msgid ""
+"If Active field is set to true, it will allow you to hide the product "
+"backlog without removing it."
+msgstr "ถ้าเขตข้อมูลที่ใช้งานจะกำหนดเป็นค่าจริงก็จะช่วยให้คุณสามารถซ่อนค้างส่งสินค้าโดยไม่ลบออก"
+
+#. module: project_scrum
+#: help:project.scrum.product.backlog,task_hours:0
+msgid "Estimated time of the total hours of the tasks"
+msgstr "เวลาโดยประมาณของชั่วโมงรวมของงาน"
+
+#. module: project_scrum
+#: view:project.project:0
+msgid "Scrum Data"
+msgstr "ข้อมูลการแย่งชิงกัน"
+
+#. module: project_scrum
+#: field:project.project,scrum:0
+msgid "Is a Scrum Project"
+msgstr "โครงการการแย่งชิงกันเป็น"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+msgid "Edit"
+msgstr "Edit"
+
+#. module: project_scrum
+#: field:project.scrum.product.backlog,tasks_id:0
+msgid "Tasks Details"
+msgstr "รายละเอียดงาน"
+
+#. module: project_scrum
+#: model:ir.model,name:project_scrum.model_postpone_wizard
+msgid "postpone.wizard"
+msgstr "postpone.wizard"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+msgid "Total Planned Hours"
+msgstr "ชั่วโมงตามแผนรวม"
+
+#. module: project_scrum
+#: view:project.scrum.backlog.merge:0
+msgid ""
+"This wizard merge backlogs and create one new backlog with draft state (Old "
+"backlogs Will be deleted). And it also merge old tasks from backlogs"
+msgstr "ตัวช่วยนี้ผสาน backlogs และสร้างสิ่งที่ค้างใหม่ที่มีสภาพร่าง (backlogs จะถูกลบ) และยังผสานงานเก่าจาก backlogs"
+
+#. module: project_scrum
+#: code:addons/project_scrum/project_scrum.py:303
+#, python-format
+msgid "Please provide email address for scrum master defined on sprint."
+msgstr "โปรดระบุที่อยู่อีเมลสำหรับการแย่งชิงกันกำหนดไว้บนหลักวิ่ง"
+
+#. module: project_scrum
+#: view:project.scrum.backlog.merge:0
+msgid "Select the project for merged backlogs"
+msgstr "เลือกโครงการที่ผสาน backlogs"
+
+#. module: project_scrum
+#: view:board.board:0
+#: model:ir.actions.act_window,name:project_scrum.action_view_my_scrum_sprint_tree
+msgid "My Sprint"
+msgstr "Sprint ของฉัน"
+
+#. module: project_scrum
+#: field:project.scrum.product.backlog,effective_hours:0
+msgid "Spent Hours"
+msgstr "เวลาที่ใช้ไป"
+
+#. module: project_scrum
+#: help:project.scrum.product.backlog,effective_hours:0
+msgid "Computed using the sum of the time spent on every related tasks"
+msgstr "คำนวณโดยใช้ผลรวมของเวลาที่ใช้ในงานที่เกี่ยวข้องทุก"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.open_board_project_scrum
+#: model:ir.ui.menu,name:project_scrum.menu_deshboard_scurm
+msgid "Scrum Dashboard"
+msgstr "แผงควบคุมการแย่งชิงกัน"
+
+#. module: project_scrum
+#: model:ir.model,name:project_scrum.model_project_scrum_sprint
+msgid "Project Scrum Sprint"
+msgstr "Sprint โครงการการแย่งชิงกัน"
+
+#. module: project_scrum
+#: view:project.scrum.product.backlog:0
+msgid "Feature Description"
+msgstr "รายละเอียดคุ​​ณสมบัติ"
+
+#. module: project_scrum
+#: code:addons/project_scrum/wizard/project_scrum_backlog_merger.py:71
+#, python-format
+msgid "Please select any Project."
+msgstr "โปรดเลือกโครงการใด ๆ"
+
+#. module: project_scrum
+#: code:addons/project_scrum/wizard/project_scrum_email.py:97
+#, python-format
+msgid "Thank you,"
+msgstr "ขอขอบคุณ"
+
+#. module: project_scrum
+#: code:addons/project_scrum/project_scrum.py:90
+#, python-format
+msgid "The sprint '%s' has been closed."
+msgstr "&#39;%s&#39;วิ่งได้รับการปิด"
+
+#. module: project_scrum
+#: model:ir.actions.act_window,name:project_scrum.action_scrum_backlog_to_sprint
+#: view:project.scrum.backlog.assign.sprint:0
+msgid "Assign Sprint"
+msgstr "Sprint กำหนด"
+
+#. module: project_scrum
+#: field:project.scrum.backlog.create.task,user_id:0
+msgid "Assign To"
+msgstr "มอบหมายให้"
+
+#. module: project_scrum
+#: view:postpone.wizard:0
+msgid "Are you sure to postpone Backlog ?"
+msgstr "คุณแน่ใจหรือไม่ว่าจะเลื่อนการค้าง?"
+
+#. module: project_scrum
+#: field:project.scrum.backlog.assign.sprint,sprint_id:0
+#: view:project.scrum.meeting:0
+#: field:project.scrum.meeting,sprint_id:0
+#: view:project.scrum.product.backlog:0
+#: field:project.scrum.product.backlog,sprint_id:0
+#: view:project.task:0
+#: field:project.task,sprint_id:0
+msgid "Sprint"
+msgstr "วิ่งแข่ง"
+
+#. module: project_scrum
+#: code:addons/project_scrum/wizard/project_scrum_backlog_merger.py:39
+#, python-format
+msgid "Please select at least two product Backlogs"
+msgstr "โปรดเลือกอย่างน้อยสอง Backlogs ผลิตภัณฑ์"
+
+#. module: project_scrum
+#: field:project.scrum.sprint,review:0
+msgid "Sprint Review"
+msgstr "Review Sprint"
+

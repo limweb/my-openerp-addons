@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_pretty_cash_form" model="ir.ui.view">
+            <field name="name">ineco.nav.prettycash.form</field>
+            <field name="model">ineco.nav.prettycash</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+	            <form string="Pretty Cash">
+					<field name="invoice_no" />
+					<field name="date_invoice" />
+					<field name="account_id" />
+					<field name="date_posting" />
+					<field name="description" />
+					<field name="amount" />
+					<field name="vat_bus_posting_group_id" />
+					<field name="other_no" />
+					<field name="reference_no" />
+					<field name="date_reference" />
+	            </form>
+            </field>
+        </record>
+
+        <record id="view_pretty_cash_tree" model="ir.ui.view">
+            <field name="name">ineco.nav.prettycash.tree</field>
+            <field name="model">ineco.nav.prettycash</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+	            <tree string="Pretty Cash">
+					<field name="invoice_no" />
+					<field name="date_invoice" />
+					<field name="account_id" />
+					<field name="description" />
+					<field name="date_posting" />
+					<field name="other_no" />
+					<field name="amount" />
+	            </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_ineco_nav_prettycash">
+            <field name="name">Pretty Cash</field>
+            <field name="res_model">ineco.nav.prettycash</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+         <menuitem
+            id="menu_ineco_nav_prettycash" name="Pretty Cash"
+            parent="menu_ineco_export" sequence="30"/>
+        
+      	<menuitem name="Pretty Cash"
+            parent="menu_ineco_nav_prettycash"
+            id="menu_ineco_nav_prettycash_menu"
+            action="action_ineco_nav_prettycash"
+            sequence="10"/>
+    
+	</data>
+</openerp>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <menuitem id="menu_tititab_translate" name="Translation" sequence="10"/>
+
+    <menuitem id="menu_tititab_translate_config" name="Configuration" parent="menu_tititab_translate" sequence="1"/>
+
+    <record id="view_tititab_translate_key_form" model="ir.ui.view">
+			<field name="name">tititab.translate.key.form</field>
+			<field name="model">tititab.translate.key</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Google API">
+					<field name="name"/>
+					<field name="default"/>                             
+				</form>
+			</field>
+		</record>      
+
+    <record id="view_tititab_translate_key_tree" model="ir.ui.view">
+			<field name="name">tititab.translate.key.tree</field>
+			<field name="model">tititab.translate.key</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Google API">
+					<field name="name" select="1" />
+					<field name="default" />                             
+				</tree>
+			</field>
+		</record>      
+                
+		<record id="action_tititab_translate_key" model="ir.actions.act_window">
+			<field name="name">Google API</field>
+			<field name="res_model">tititab.translate.key</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+        
+		<menuitem id="menu_tititab_translate_key" name="Google API Keys" parent="menu_tititab_translate_config" action="action_tititab_translate_key"/>      
+		
+		<record id="action_tititab_translation" model="ir.actions.act_window">
+			<field name="name">Translation Data</field>
+			<field name="res_model">ir.translation</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="base.view_translation_tree"/>
+		</record>
+		
+		<menuitem action="action_tititab_translation" id="menu_tititab_translation_inherited" parent="menu_tititab_translate"/>
+		
+        
+</data>
+</openerp>

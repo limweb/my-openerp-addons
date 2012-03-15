@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+    
+    <record model="ir.ui.view" id="view_ineco_main_form">
+        <field name="name">ineco.main.form</field>
+        <field name="type">form</field>
+        <field name="model">ineco.main</field>
+        <field name="arch" type="xml">
+		<form string="Main Object">
+			<field name="name" />
+			<field name="total" />
+			<field name="state" />
+			<button name="opened" string="Open" icon="gtk-zoom-in" states="draft" />
+			<button name="sale_approve" string="Approve Normal" icon="gtk-zoom-in" states="open" />
+			<button name="manager_approve" string="Approve Exclusive" icon="gtk-zoom-in" states="open" />
+		</form>
+	</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_ineco_main_tree">
+        <field name="name">ineco.main.tree</field>
+        <field name="type">tree</field>
+        <field name="model">ineco.main</field>
+        <field name="arch" type="xml">
+			<tree string="Main Object">
+				<field name="name" />
+				<field name="total" />
+				<field name="state" />
+				<button name="workflow_open" string="Open"  icon="gtk-zoom-in" states="draft" />
+				<button name="workflow_done1" string="Approve Normal" icon="gtk-zoom-in" states="open" />
+				<button name="workflow_done2" string="Approve Exclusive"  icon="gtk-zoom-in"  states="open" />
+			</tree>
+		</field>
+    </record>
+
+
+  	<record id="act_ineco_main" model="ir.actions.act_window">
+		<field name="name">Main Workflow</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ineco.main</field>
+        <field name="view_mode">tree,form</field>
+   	</record>
+	<menuitem action="act_ineco_main" id="menu_sale_reserve_contact" parent="base.menu_administration" />
+    
+    </data>
+</openerp>

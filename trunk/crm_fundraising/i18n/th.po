@@ -1,0 +1,743 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* crm_fundraising
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.0-rc2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:15:04+0000\n"
+"PO-Revision-Date: 2011-01-11 11:15:04+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,planned_revenue:0
+msgid "Planned Revenue"
+msgstr "รายได้ตามแผน"
+
+#. module: crm_fundraising
+#: field:crm.fundraising.report,nbr:0
+msgid "# of Cases"
+msgstr "# ของคดี"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+#: view:crm.fundraising.report:0
+msgid "Group By..."
+msgstr "กลุ่มตาม ..."
+
+#. module: crm_fundraising
+#: field:crm.fundraising.report,probability:0
+msgid "Avg. Probability"
+msgstr "เฉลี่ย ความน่าจะเป็น"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising.report,month:0
+msgid "March"
+msgstr "เดือนมีนาคม"
+
+#. module: crm_fundraising
+#: field:crm.fundraising.report,delay_close:0
+msgid "Delay to close"
+msgstr "หน่วงเวลาปิด"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,company_id:0
+#: view:crm.fundraising.report:0
+#: field:crm.fundraising.report,company_id:0
+msgid "Company"
+msgstr "บริษัท"
+
+#. module: crm_fundraising
+#: model:ir.actions.act_window,name:crm_fundraising.crm_fund_categ_action
+msgid "Fundraising Categories"
+msgstr "หมวดหมู่ระดมทุน"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,email_cc:0
+msgid "Watchers Emails"
+msgstr "นักดูอีเมล์"
+
+#. module: crm_fundraising
+#: view:crm.fundraising.report:0
+msgid "Cases"
+msgstr "กรณี"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising,priority:0
+msgid "Highest"
+msgstr "สูงสุด"
+
+#. module: crm_fundraising
+#: view:crm.fundraising.report:0
+#: field:crm.fundraising.report,day:0
+msgid "Day"
+msgstr "วัน"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Add Internal Note"
+msgstr "เพิ่มหมายเหตุภายใน"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,partner_mobile:0
+msgid "Mobile"
+msgstr "Mobile"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Notes"
+msgstr "Notes"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,message_ids:0
+msgid "Messages"
+msgstr "ข้อความที่"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Amount"
+msgstr "จำนวน"
+
+#. module: crm_fundraising
+#: model:crm.case.categ,name:crm_fundraising.categ_fund4
+msgid "Arts And Culture"
+msgstr "ศิลปะและวัฒนธรรม"
+
+#. module: crm_fundraising
+#: view:crm.fundraising.report:0
+#: field:crm.fundraising.report,amount_revenue:0
+msgid "Est.Revenue"
+msgstr "Est.Revenue"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,partner_address_id:0
+msgid "Partner Contact"
+msgstr "ติดต่อร่วมงาน"
+
+#. module: crm_fundraising
+#: view:crm.fundraising.report:0
+msgid "   Month   "
+msgstr "เดือน"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,type_id:0
+msgid "Campaign"
+msgstr "แคมเปญ"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,date_action_next:0
+msgid "Next Action"
+msgstr "การดำเนินการต่อไป"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Reset to Draft"
+msgstr "Reset ที่ร่างจดหมาย"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Extra Info"
+msgstr "ข้อมูลเสริม"
+
+#. module: crm_fundraising
+#: model:ir.model,name:crm_fundraising.model_crm_fundraising
+#: model:ir.ui.menu,name:crm_fundraising.menu_config_fundrising
+#: model:ir.ui.menu,name:crm_fundraising.menu_crm_case_fund_raise
+msgid "Fund Raising"
+msgstr "การระดมทุน"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+#: field:crm.fundraising,partner_id:0
+#: field:crm.fundraising.report,partner_id:0
+msgid "Partner"
+msgstr "หุ้นส่วน"
+
+#. module: crm_fundraising
+#: model:ir.ui.menu,name:crm_fundraising.menu_report_crm_fundraising_tree
+msgid "Fundraising Analysis"
+msgstr "การระดมทุน"
+
+#. module: crm_fundraising
+#: model:ir.module.module,shortdesc:crm_fundraising.module_meta_information
+msgid "CRM Fundraising"
+msgstr "CRM ระดมทุน"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Misc"
+msgstr "เบ็ดเตล็ด"
+
+#. module: crm_fundraising
+#: field:crm.fundraising.report,section_id:0
+msgid "Section"
+msgstr "มาตรา"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+#: field:crm.fundraising,priority:0
+msgid "Priority"
+msgstr "ลำดับความสำคัญ"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Send New Email"
+msgstr "ส่งอีเมล์ใหม่"
+
+#. module: crm_fundraising
+#: model:crm.case.categ,name:crm_fundraising.categ_fund1
+msgid "Social Rehabilitation And Rural Upliftment"
+msgstr "ฟื้นฟูสมรรถภาพทางสังคมและ upliftment ชนบท"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+#: view:crm.fundraising.report:0
+msgid "Payment Mode"
+msgstr "โหมดการชำระเงิน"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Reply"
+msgstr "ตอบ"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,email_from:0
+msgid "Email"
+msgstr "Email"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,canal_id:0
+msgid "Channel"
+msgstr "ช่องสัญญาณ"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising,priority:0
+msgid "Lowest"
+msgstr "ต่ำที่สุด"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,create_date:0
+msgid "Creation Date"
+msgstr "วันที่สร้าง"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,date_deadline:0
+msgid "Deadline"
+msgstr "กำหนดเวลา"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising.report,month:0
+msgid "July"
+msgstr "กรกฎาคม"
+
+#. module: crm_fundraising
+#: model:ir.ui.menu,name:crm_fundraising.menu_crm_case_fundraising-act
+msgid "Categories"
+msgstr "หมวดหมู่สินค้า"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,stage_id:0
+msgid "Stage"
+msgstr "เวที"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "History Information"
+msgstr "ข้อมูลประวัติความเป็นมา"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Dates"
+msgstr "วันที่"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,partner_name2:0
+msgid "Employee Email"
+msgstr "อีเมล์พนักงาน"
+
+#. module: crm_fundraising
+#: view:crm.fundraising.report:0
+msgid "    Month-1    "
+msgstr "เดือน - 1"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising,state:0
+#: selection:crm.fundraising.report,state:0
+msgid "Cancelled"
+msgstr "ยกเลิก"
+
+#. module: crm_fundraising
+#: model:crm.case.categ,name:crm_fundraising.categ_fund2
+msgid "Learning And Education"
+msgstr "การเรียนรู้และการศึกษา"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Contact"
+msgstr "ติดต่อ"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Funds Form"
+msgstr "แบบฟอร์มกองทุน"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Fund Description"
+msgstr "รายละเอียดกองทุน"
+
+#. module: crm_fundraising
+#: help:crm.fundraising.report,delay_close:0
+msgid "Number of Days to close the case"
+msgstr "จำนวนวันที่จะปิดกรณี"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "References"
+msgstr "เอกสารอ้างอิง"
+
+#. module: crm_fundraising
+#: view:crm.fundraising.report:0
+#: model:ir.actions.act_window,name:crm_fundraising.action_report_crm_fundraising
+#: model:ir.module.module,description:crm_fundraising.module_meta_information
+msgid "Fundraising"
+msgstr "ระดมทุน"
+
+#. module: crm_fundraising
+#: model:ir.actions.act_window,help:crm_fundraising.action_report_crm_fundraising
+msgid "Have a general overview of all fund raising activities by sorting them with specific criteria such as the estimated revenue, average success probability and delay to close."
+msgstr "มีภาพรวมทั่วไปของเงินที่ระดมทุนด้วยการจัดเรียงกิจกรรมทั้งหมดให้กับเกณฑ์ที่ระบุดังกล่าวเป็นรายได้ประมาณความน่าจะเป็นความสำเร็จและความล่าช้าเฉลี่ยเพื่อปิด"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising.report,month:0
+msgid "September"
+msgstr "กันยายน"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Communication"
+msgstr "การสื่อสาร"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Funds Tree"
+msgstr "ต้นไม้เงิน"
+
+#. module: crm_fundraising
+#: view:crm.fundraising.report:0
+#: field:crm.fundraising.report,month:0
+msgid "Month"
+msgstr "เดือน"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Escalate"
+msgstr "บานปลาย"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,write_date:0
+msgid "Update Date"
+msgstr "วันที่ปรับปรุง"
+
+#. module: crm_fundraising
+#: model:crm.case.resource.type,name:crm_fundraising.type_fund3
+msgid "Credit Card"
+msgstr "บัตรเครดิต"
+
+#. module: crm_fundraising
+#: model:ir.actions.act_window,name:crm_fundraising.crm_fundraising_stage_act
+msgid "Fundraising Stages"
+msgstr "ขั้นตอนการระดมทุน"
+
+#. module: crm_fundraising
+#: view:crm.fundraising.report:0
+msgid "Salesman"
+msgstr "พนักงานขาย"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,ref:0
+msgid "Reference"
+msgstr "การอ้างอิง"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,ref2:0
+msgid "Reference 2"
+msgstr "2 อ้างอิง"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+#: field:crm.fundraising,categ_id:0
+#: view:crm.fundraising.report:0
+#: field:crm.fundraising.report,categ_id:0
+msgid "Category"
+msgstr "หมวด"
+
+#. module: crm_fundraising
+#: view:crm.fundraising.report:0
+msgid "  Year  "
+msgstr "ปี"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,planned_cost:0
+#: view:crm.fundraising.report:0
+#: field:crm.fundraising.report,planned_cost:0
+msgid "Planned Costs"
+msgstr "ค่าใช้จ่ายตามแผน"
+
+#. module: crm_fundraising
+#: help:crm.fundraising,email_cc:0
+msgid "These email addresses will be added to the CC field of all inbound and outbound emails for this record before being sent. Separate multiple email addresses with a comma"
+msgstr "เหล่านี้ที่อยู่อีเมลจะได้รับการบันทึกอยู่ในเขต CC ของอีเมลขาเข้าและขาออกทั้งหมดสำหรับบันทึกนี้ก่อนที่จะส่ง แยกอีเมลจำนวนมากที่อยู่ด้วยเครื่องหมายจุลภาค"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising,state:0
+#: view:crm.fundraising.report:0
+#: selection:crm.fundraising.report,state:0
+msgid "Draft"
+msgstr "ร่าง"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising,priority:0
+msgid "Low"
+msgstr "ต่ำ"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,date_closed:0
+#: selection:crm.fundraising,state:0
+#: selection:crm.fundraising.report,state:0
+msgid "Closed"
+msgstr "ปิด"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+#: selection:crm.fundraising,state:0
+#: view:crm.fundraising.report:0
+#: selection:crm.fundraising.report,state:0
+msgid "Pending"
+msgstr "รอดำเนินการ"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Communication & History"
+msgstr "การสื่อสารและประวัติความเป็นมา"
+
+#. module: crm_fundraising
+#: model:ir.ui.menu,name:crm_fundraising.menu_crm_fundraising_stage_act
+msgid "Stages"
+msgstr "ขั้นตอนการ"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising.report,month:0
+msgid "August"
+msgstr "สิงหาคม"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising,priority:0
+msgid "Normal"
+msgstr "ปกติ"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Global CC"
+msgstr "CC ทั่วโลก"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+#: model:ir.actions.act_window,name:crm_fundraising.crm_case_category_act_fund_all1
+msgid "Funds"
+msgstr "กองทุนรวม"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising.report,month:0
+msgid "June"
+msgstr "เดือนมิถุนายน"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,partner_phone:0
+msgid "Phone"
+msgstr "โทรศัพท์"
+
+#. module: crm_fundraising
+#: field:crm.fundraising.report,user_id:0
+msgid "User"
+msgstr "ของผู้ใช้"
+
+#. module: crm_fundraising
+#: view:crm.fundraising.report:0
+msgid "#Fundraising"
+msgstr "# ระดมทุน"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,active:0
+msgid "Active"
+msgstr "แอคทีฟ"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising.report,month:0
+msgid "November"
+msgstr "พฤศจิกายน"
+
+#. module: crm_fundraising
+#: view:crm.fundraising.report:0
+msgid "Extended Filters..."
+msgstr "ตัวกรอง Extended ..."
+
+#. module: crm_fundraising
+#: view:crm.fundraising.report:0
+msgid "Search"
+msgstr "Search"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising.report,month:0
+msgid "October"
+msgstr "เดือนตุลาคม"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising.report,month:0
+msgid "January"
+msgstr "เดือนมกราคม"
+
+#. module: crm_fundraising
+#: model:crm.case.resource.type,name:crm_fundraising.type_fund2
+msgid "Cheque"
+msgstr "เช็ค"
+
+#. module: crm_fundraising
+#: model:ir.actions.act_window,help:crm_fundraising.crm_fund_categ_action
+msgid "Manage and define the fund raising categories you want to be maintained in the system."
+msgstr "การจัดการและกําหนดเงินที่ระดมทุนประเภทที่คุณต้องการที่จะคงอยู่ในระบบ"
+
+#. module: crm_fundraising
+#: help:crm.fundraising,email_from:0
+msgid "These people will receive email."
+msgstr "คนเหล่านี้จะได้รับอีเมล"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,date:0
+msgid "Date"
+msgstr "วันที่"
+
+#. module: crm_fundraising
+#: model:crm.case.categ,name:crm_fundraising.categ_fund3
+msgid "Healthcare"
+msgstr "การดูแลสุขภาพ"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "History"
+msgstr "ประวัติ"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Attachments"
+msgstr "สิ่งที่แนบมา"
+
+#. module: crm_fundraising
+#: model:ir.model,name:crm_fundraising.model_crm_case_stage
+msgid "Stage of case"
+msgstr "ขั้นตอนการกรณี"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Estimates"
+msgstr "ประมาณการ"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+#: field:crm.fundraising,state:0
+#: view:crm.fundraising.report:0
+#: field:crm.fundraising.report,state:0
+msgid "State"
+msgstr "ของรัฐ"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+#: view:crm.fundraising.report:0
+msgid "Done"
+msgstr "เสร็จสิ้น"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising.report,month:0
+msgid "December"
+msgstr "ธันวาคม"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+#: view:crm.fundraising.report:0
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+#: selection:crm.fundraising,state:0
+#: view:crm.fundraising.report:0
+#: selection:crm.fundraising.report,state:0
+msgid "Open"
+msgstr "เปิด"
+
+#. module: crm_fundraising
+#: model:ir.actions.act_window,help:crm_fundraising.crm_case_category_act_fund_all1
+msgid "If you need to collect money for your organization or a campaign, Fund Raising allows you to track all your fund raising activities. In the search list, filter by funds description, email, history and probability of success."
+msgstr "หากคุณจำเป็นต้องเก็บเงินให้กับองค์กรหรือแคมเปญของคุณจัดหาทุนช่วยให้คุณติดตามทุกกองทุนของคุณเพิ่มกิจกรรม ในรายการค้นหาคำอธิบายกรองตามเงินอีเมลประวัติและความน่าจะเป็นของความสำเร็จ"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+#: field:crm.fundraising,user_id:0
+msgid "Responsible"
+msgstr "รับผิดชอบ"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Current"
+msgstr "ในปัจจุบัน"
+
+#. module: crm_fundraising
+#: help:crm.fundraising,section_id:0
+msgid "Sales team to which Case belongs to. Define Responsible user and Email account for mail gateway."
+msgstr "ทีมงานฝ่ายขายที่กรณีเป็นของ ความรับผิดชอบในการกำหนดผู้ใช้และบัญชีอีเมลสำหรับเกตเวย์ mail"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Details"
+msgstr "รายละเอียด"
+
+#. module: crm_fundraising
+#: model:ir.model,name:crm_fundraising.model_crm_fundraising_report
+msgid "CRM Fundraising Report"
+msgstr "รายงานการระดมทุน CRM"
+
+#. module: crm_fundraising
+#: field:crm.fundraising.report,type_id:0
+msgid "Fundraising Type"
+msgstr "ประเภทการระดมทุน"
+
+#. module: crm_fundraising
+#: view:crm.fundraising.report:0
+#: field:crm.fundraising.report,amount_revenue_prob:0
+msgid "Est. Rev*Prob."
+msgstr "สปก Rev prob *"
+
+#. module: crm_fundraising
+#: model:ir.actions.act_window,help:crm_fundraising.crm_fundraising_stage_act
+msgid "Create and manage fund raising activity categories you want to be maintained in the system."
+msgstr "สร้างและจัดการเงินที่ระดมทุนประเภทกิจกรรมที่คุณต้องการที่จะคงอยู่ในระบบ"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,description:0
+msgid "Description"
+msgstr "ลักษณะ"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising.report,month:0
+msgid "May"
+msgstr "เดือนพฤษภาคม"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,probability:0
+msgid "Probability (%)"
+msgstr "ความน่าจะเป็น (%)"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,partner_name:0
+msgid "Employee's Name"
+msgstr "ชื่อของพนักงาน"
+
+#. module: crm_fundraising
+#: help:crm.fundraising,canal_id:0
+msgid "The channels represent the different communication  modes available with the customer."
+msgstr "ช่องแสดงโหมดการติดต่อสื่อสารที่แตกต่างกันสามารถใช้ได้กับลูกค้า"
+
+#. module: crm_fundraising
+#: help:crm.fundraising,state:0
+msgid "The state is set to 'Draft', when a case is created.                                  \n"
+"If the case is in progress the state is set to 'Open'.                                  \n"
+"When the case is over, the state is set to 'Done'.                                  \n"
+"If the case needs to be reviewed then the state is set to 'Pending'."
+msgstr "รัฐถูกตั้งค่าเป็น&#39;ฉบับร่าง&#39;เมื่อกรณีที่มีการสร้าง หากกรณีนี้เป็นความคืบหน้าของรัฐถูกตั้งค่าเป็น&#39;เปิด&#39; เมื่อกรณีที่จบไปแล้วรัฐถูกตั้งไว้ที่&#39;เสร็จสิ้น&#39; หากกรณีที่จะต้องมีการตรวจสอบแล้วรัฐถูกตั้งค่าเป็น&#39;รอ&#39;"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising.report,month:0
+msgid "February"
+msgstr "กุมภาพันธ์"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+#: field:crm.fundraising,name:0
+msgid "Name"
+msgstr "ชื่อ"
+
+#. module: crm_fundraising
+#: model:crm.case.resource.type,name:crm_fundraising.type_fund1
+msgid "Cash"
+msgstr "เงินสด"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Funds by Categories"
+msgstr "กองทุนโดยหมวดหมู่"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising.report,month:0
+msgid "April"
+msgstr "เมษายน"
+
+#. module: crm_fundraising
+#: view:crm.fundraising.report:0
+msgid "My Case(s)"
+msgstr "กรณีของฉัน (s)"
+
+#. module: crm_fundraising
+#: model:crm.case.resource.type,name:crm_fundraising.type_fund4
+msgid "Demand Draft"
+msgstr "Demand Draft"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+msgid "Search Funds"
+msgstr "ค้นหากองทุน"
+
+#. module: crm_fundraising
+#: selection:crm.fundraising,priority:0
+msgid "High"
+msgstr "สูง"
+
+#. module: crm_fundraising
+#: view:crm.fundraising:0
+#: field:crm.fundraising,section_id:0
+#: view:crm.fundraising.report:0
+msgid "Sales Team"
+msgstr "ทีมงานฝ่ายขาย"
+
+#. module: crm_fundraising
+#: field:crm.fundraising.report,create_date:0
+msgid "Create Date"
+msgstr "วันที่สร้าง"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,date_action_last:0
+msgid "Last Action"
+msgstr "Last Action"
+
+#. module: crm_fundraising
+#: view:crm.fundraising.report:0
+#: field:crm.fundraising.report,name:0
+msgid "Year"
+msgstr "ปี"
+
+#. module: crm_fundraising
+#: field:crm.fundraising,duration:0
+msgid "Duration"
+msgstr "ระยะเวลา"
+
+

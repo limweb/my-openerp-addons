@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dl" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/tititab/Desktop/barm/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pick_ids" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["stock_picking.id in (86,97)"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select stock_picking.origin as picking_origin,stock_picking.date as picking_date,stock_picking.min_date as picking_mindate,
+stock_picking.name as picking_name,product_product.name_template,omg_sale_period.name as period,
+omg_sale_period.date_start as period_startdate,omg_sale_period.date_finish as period_finishdate,
+oa_contact_name,oa_mobile_no,res_partner_address.name as partner_name
+,res_partner_address.mobile as partner_mobile,b.name_template as product_name,stock_location.name as location_name,stock_move.product_qty,price_unit,
+ product_uom.name as uom_name,omg_sale_period.name||' ( '||to_char(omg_sale_period.date_finish,'dd/mm/yyyy')||'-'||to_char(omg_sale_period.date_start,'dd/mm/yyyy')||' )'
+as periodall
+
+from stock_picking
+join product_product on product_product.id=stock_picking.customer_product_id and (type = 'out')
+join omg_sale_period on omg_sale_period.id = stock_picking.period_id
+join res_partner_address on res_partner_address.id = stock_picking.address_id
+join stock_move on stock_move.picking_id = stock_picking.id
+join stock_location on stock_location.id = stock_move.location_dest_id
+join product_uom on product_uom.id = stock_move.product_uom
+join product_product b on b.id = stock_move.product_id
+where $P!{pick_ids}
+]]>
+	</queryString>
+	<field name="picking_origin" class="java.lang.String"/>
+	<field name="picking_date" class="java.sql.Timestamp"/>
+	<field name="picking_mindate" class="java.sql.Timestamp"/>
+	<field name="picking_name" class="java.lang.String"/>
+	<field name="name_template" class="java.lang.String"/>
+	<field name="period" class="java.lang.String"/>
+	<field name="period_startdate" class="java.sql.Date"/>
+	<field name="period_finishdate" class="java.sql.Date"/>
+	<field name="oa_contact_name" class="java.lang.String"/>
+	<field name="oa_mobile_no" class="java.lang.String"/>
+	<field name="partner_name" class="java.lang.String"/>
+	<field name="partner_mobile" class="java.lang.String"/>
+	<field name="product_name" class="java.lang.String"/>
+	<field name="location_name" class="java.lang.String"/>
+	<field name="product_qty" class="java.math.BigDecimal"/>
+	<field name="price_unit" class="java.math.BigDecimal"/>
+	<field name="uom_name" class="java.lang.String"/>
+	<field name="periodall" class="java.lang.String"/>
+	<sortField name="picking_name"/>
+	<variable name="variable1" class="java.lang.String">
+		<variableExpression><![CDATA[$F{picking_origin}+ $F{picking_name}]]></variableExpression>
+	</variable>
+	<variable name="variable2" class="java.lang.String"/>
+	<group name="picking_name" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{picking_name}]]></groupExpression>
+		<groupHeader>
+			<band height="131">
+				<rectangle>
+					<reportElement x="74" y="111" width="189" height="20" forecolor="#000000" backcolor="#289A8B"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="263" y="111" width="153" height="20" forecolor="#000000" backcolor="#289A8B"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="416" y="111" width="71" height="20" forecolor="#000000" backcolor="#289A8B"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="1" y="111" width="73" height="20" backcolor="#289A8B"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="487" y="111" width="66" height="20" forecolor="#000000" backcolor="#289A8B"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="416" y="111" width="72" height="20" backcolor="#00FFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" isBold="true"/>
+					</textElement>
+					<text><![CDATA[จำนวน]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="4" y="111" width="70" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ลำดับ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="74" y="111" width="188" height="20" backcolor="#00FFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" isBold="true"/>
+					</textElement>
+					<text><![CDATA[สินค้า]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="263" y="111" width="153" height="20" backcolor="#00FFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" isBold="true"/>
+					</textElement>
+					<text><![CDATA[สาขา]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="488" y="111" width="64" height="20" backcolor="#00FFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" isBold="true"/>
+					</textElement>
+					<text><![CDATA[หน่วยเงิน]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="30" width="73" height="15"/>
+					<textElement>
+						<font fontName="Tahoma" isBold="true"/>
+					</textElement>
+					<text><![CDATA[สินค้า :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="280" y="0" width="57" height="15"/>
+					<textElement>
+						<font fontName="Tahoma" isBold="true"/>
+					</textElement>
+					<text><![CDATA[เลขที่  :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="0" width="73" height="15"/>
+					<textElement>
+						<font fontName="Tahoma" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ใบสั่งขาย :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="73" y="45" width="100" height="15"/>
+					<textElement>
+						<font fontName="Tahoma"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{partner_name}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="280" y="30" width="57" height="15"/>
+					<textElement>
+						<font fontName="Tahoma" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Period :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="60" width="73" height="15"/>
+					<textElement>
+						<font fontName="Tahoma" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ข้อมูล OA :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="337" y="0" width="100" height="15"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{picking_name}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="280" y="15" width="57" height="15"/>
+					<textElement>
+						<font fontName="Tahoma" isBold="true"/>
+					</textElement>
+					<text><![CDATA[วันที่จัดส่ง :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="337" y="31" width="218" height="14"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{periodall}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="45" width="73" height="15"/>
+					<textElement>
+						<font fontName="Tahoma" isBold="true"/>
+					</textElement>
+					<text><![CDATA[สถานที่จัดส่ง :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="73" y="0" width="100" height="15"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{picking_origin}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="73" y="15" width="100" height="15"/>
+					<textElement/>
+					<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{picking_mindate}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="15" width="73" height="15"/>
+					<textElement>
+						<font fontName="Tahoma" isBold="true"/>
+					</textElement>
+					<text><![CDATA[วันที่ต้องการ :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="337" y="15" width="100" height="16"/>
+					<textElement/>
+					<textFieldExpression class="java.util.Date"><![CDATA[$F{period_finishdate}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="173" y="45" width="100" height="15"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{partner_mobile}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="73" y="30" width="100" height="15"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{name_template}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="96" width="100" height="15"/>
+					<textElement>
+						<font fontName="Tahoma"/>
+					</textElement>
+					<text><![CDATA[รายละเอียดสินค้า]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="74" y="60" width="99" height="15"/>
+					<textElement>
+						<font fontName="Tahoma"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{oa_contact_name}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="173" y="60" width="100" height="15"/>
+					<textElement>
+						<font fontName="Tahoma"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{oa_mobile_no}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<rectangle>
+					<reportElement mode="Opaque" x="416" y="0" width="71" height="20" forecolor="#000000" backcolor="#289A8B"/>
+				</rectangle>
+				<rectangle>
+					<reportElement mode="Opaque" x="74" y="0" width="189" height="20" forecolor="#000000" backcolor="#289A8B"/>
+				</rectangle>
+				<rectangle>
+					<reportElement mode="Opaque" x="1" y="0" width="73" height="20" forecolor="#000000" backcolor="#289A8B"/>
+				</rectangle>
+				<rectangle>
+					<reportElement mode="Opaque" x="263" y="0" width="153" height="20" forecolor="#000000" backcolor="#289A8B"/>
+				</rectangle>
+				<rectangle>
+					<reportElement mode="Opaque" x="487" y="0" width="66" height="20" forecolor="#000000" backcolor="#289A8B"/>
+				</rectangle>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="58" splitType="Stretch">
+			<staticText>
+				<reportElement x="85" y="0" width="470" height="31"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OMG HOLDINGS (THAILAND) CO.,LTD.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="433" y="31" width="122" height="27"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="18" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ใบจัดส่งสินค้า]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="5" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Transparent" x="263" y="0" width="153" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="74" y="0" width="189" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="487" y="0" width="66" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="416" y="0" width="71" height="20"/>
+			</rectangle>
+			<textField>
+				<reportElement x="85" y="0" width="178" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{product_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="488" y="0" width="65" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{uom_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="263" y="0" width="153" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{location_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="416" y="0" width="72" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{product_qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="0" width="73" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="1" y="0" width="73" height="20"/>
+			</rectangle>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="108" splitType="Stretch">
+			<rectangle>
+				<reportElement x="187" y="0" width="185" height="20" backcolor="#289A8B"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="187" height="20" backcolor="#289A8B"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="372" y="0" width="180" height="20" backcolor="#289A8B"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="187" y="0" width="185" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" isBold="true"/>
+				</textElement>
+				<text><![CDATA[พนักงานขนส่ง]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="187" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ผู้จัดของ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="372" y="0" width="180" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ผู้รับของ (Store)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="372" y="55" width="181" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<text><![CDATA[(................................................)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="187" y="20" width="185" height="35"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="187" y="55" width="185" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="55" width="187" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<text><![CDATA[(................................................)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="55" width="187" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="187" y="75" width="185" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="75" width="187" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<text><![CDATA[............/............/..............]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="55" width="185" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<text><![CDATA[(................................................)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="75" width="187" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="372" y="75" width="181" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<text><![CDATA[............/............/..............]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="20" width="187" height="35"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="372" y="75" width="180" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="372" y="20" width="180" height="35"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="372" y="55" width="180" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="187" y="75" width="185" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<text><![CDATA[............/............/..............]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="34" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <menuitem id="menu_ineco_quality" name="Quality Control" sequence="40" 
+        	groups="base.group_ineco_quality_user"
+        	icon="STOCK_PREFERENCES"
+			web_icon="images/tools.png"
+            web_icon_hover="images/tools-hover.png" />
+
+        <menuitem
+            id="menu_ineco_quality_configuration" 
+            name="Configuration"
+            groups="base.group_ineco_quality_manager"
+            parent="menu_ineco_quality" sequence="20" />
+
+        <menuitem
+            id="menu_ineco_quality_control_menu" 
+            name="Quality Control"
+            groups="base.group_ineco_quality_manager"
+            parent="menu_ineco_quality" sequence="10" />
+    
+        <!-- Ineco Quality Category -->
+        <record id="view_ineco_quality_category_tree" model="ir.ui.view">
+            <field name="name">ineco.quality.category.tree</field>
+            <field name="model">ineco.quality.cateogry</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<tree string="Quality Category">
+					<field name="name" />
+				</tree>
+            </field>
+        </record>
+
+        <record id="view_ineco_quality_category_form" model="ir.ui.view">
+            <field name="name">ineco.quality.category.form</field>
+            <field name="model">ineco.quality.cateogry</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<form string="Quality Category">
+					<field name="name" />
+				</form>
+            </field>
+        </record>
+        
+         <record id="view_ineco_quality_cateogry_search" model="ir.ui.view">
+            <field name="name">ineco.quality.cateogry.search</field>
+            <field name="model">ineco.quality.category</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Quality Category">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_ineco_quality_category" model="ir.actions.act_window">
+            <field name="name">Quality Category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.quality.category</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_ineco_quality_category_tree"/>
+<!--             <field name="context">{'full':'1'}</field>  -->
+            <field name="search_view_id" ref="view_ineco_quality_cateogry_search" />
+        </record>
+                
+        <menuitem
+            id="menu_ineco_quality_category" 
+            name="Quality Category"
+            parent="menu_ineco_quality_configuration" 
+            sequence="10"
+            action="action_ineco_quality_category"/>   
+
+        <!-- Ineco Quality Item -->
+        <record id="view_ineco_quality_item_tree" model="ir.ui.view">
+            <field name="name">ineco.quality.item.tree</field>
+            <field name="model">ineco.quality.item</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<tree string="Quality Item">
+					<field name="name" />
+					<field name="category_id" />
+				</tree>
+            </field>
+        </record>
+
+        <record id="view_ineco_quality_item_form" model="ir.ui.view">
+            <field name="name">ineco.quality.item.form</field>
+            <field name="model">ineco.quality.item</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<form string="Quality Item">
+					<field name="name" />
+					<field name="category_id" />
+				</form>
+            </field>
+        </record>
+
+        <record id="view_ineco_quality_item_search" model="ir.ui.view">
+            <field name="name">ineco.quality.item.search</field>
+            <field name="model">ineco.quality.item</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+				<search string="Quality Item">
+					<group>
+						<field name="name" />
+						<field name="category_id" />
+					</group>
+				</search>
+            </field>
+        </record>
+
+        <record id="action_ineco_quality_item" model="ir.actions.act_window">
+            <field name="name">Quality Item</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.quality.item</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_ineco_quality_item_tree"/>
+<!--             <field name="context">{'full':'1'}</field>  -->
+            <field name="search_view_id" ref="view_ineco_quality_item_search" />
+        </record>
+                
+        <menuitem
+            id="menu_ineco_quality_item" 
+            name="Quality Item"
+            parent="menu_ineco_quality_configuration" 
+            sequence="20"
+            action="action_ineco_quality_item"/>   
+            
+        <!-- Ineco Quality Template -->
+        <record id="view_ineco_quality_template_tree" model="ir.ui.view">
+            <field name="name">ineco.quality.template.tree</field>
+            <field name="model">ineco.quality.template</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<tree string="Quality Template">
+					<field name="name" />
+				</tree>
+            </field>
+        </record>
+        <record id="view_ineco_quality_template_form" model="ir.ui.view">
+            <field name="name">ineco.quality.template.form</field>
+            <field name="model">ineco.quality.template</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<form string="Quality Template">
+					<field name="name" colspan="4"/>
+					<newline />
+					<field name="line_ids" nolabel="1" colspan="4">
+						<tree editable="top">
+							<field name="item_id"/>
+							<field name="name"/>
+						</tree>
+						<form>
+							<field name="item_id"/>
+							<field name="name"/>
+						</form>
+					</field>
+				</form>
+            </field>
+        </record>
+        
+        <record id="view_ineco_quality_template_search" model="ir.ui.view">
+            <field name="name">ineco.quality.template.search</field>
+            <field name="model">ineco.quality.template</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+				<search string="Quality Template">
+					<group>
+						<field name="name" />
+					</group>
+				</search>
+            </field>
+        </record>
+        
+        <record id="action_ineco_quality_template" model="ir.actions.act_window">
+            <field name="name">Quality Template</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.quality.template</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_ineco_quality_template_tree"/>
+            <field name="search_view_id" ref="view_ineco_quality_template_search" />
+        </record>
+                
+        <menuitem
+            id="menu_ineco_quality_template" 
+            name="Quality Template"
+            parent="menu_ineco_quality_configuration" 
+            sequence="30"
+            action="action_ineco_quality_template"/>               
+
+        <!-- Ineco Quality Control -->
+        <record id="view_ineco_quality_control_tree" model="ir.ui.view">
+            <field name="name">ineco.quality.control.tree</field>
+            <field name="model">ineco.quality.control</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<tree string="Quality Control">
+					<field name="name" />
+					<field name="date" />
+					<field name="picking_id" />
+					<field name="product_id" />
+					<field name="uom_id" />
+					<field name="quantity" />
+					<field name="partner_id" />
+					<field name="prodlot_id" />
+				</tree>
+            </field>
+        </record>
+
+        <record id="view_ineco_quality_control_form" model="ir.ui.view">
+            <field name="name">ineco.quality.control.form</field>
+            <field name="model">ineco.quality.control</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<form string="Quality Control">
+					<field name="name" />
+					<field name="date" />
+					<field name="picking_id" />
+					<field name="product_id" />
+					<field name="uom_id" />
+					<field name="quantity" />
+					<field name="partner_id" />
+					<field name="prodlot_id" />
+					<newline />
+					<field name="line_ids" colspan="4" nolabel="1" />
+				</form>
+            </field>
+        </record>
+
+        <record id="view_ineco_quality_control_search" model="ir.ui.view">
+            <field name="name">ineco.quality.control.search</field>
+            <field name="model">ineco.quality.control</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+				<search string="Quality Control">
+					<group>
+						<field name="name" />
+						<field name="date" />
+						<field name="picking_id" />
+						<field name="product_id" />
+						<field name="partner_id" />
+						<field name="prodlot_id" />
+					</group>
+				</search>
+            </field>
+        </record>
+
+        <record id="action_ineco_quality_control" model="ir.actions.act_window">
+            <field name="name">Quality Control</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.quality.control</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_ineco_quality_control_tree"/>
+            <field name="search_view_id" ref="view_ineco_quality_control_search" />
+        </record>
+		
+        <menuitem
+            id="menu_ineco_quality_control" 
+            name="Quality Control"
+            parent="menu_ineco_quality_control_menu" 
+            sequence="10"
+            action="action_ineco_quality_control" />   
+
+        <!-- Ineco Quality Control Line-->
+        <record id="view_ineco_quality_control_line_tree" model="ir.ui.view">
+            <field name="name">ineco.quality.control.line.tree</field>
+            <field name="model">ineco.quality.control.line</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<tree string="Quality Control Line">
+					<field name="seq" />
+					<field name="name" />
+					<field name="qc_pass" />
+					<field name="note" />
+				</tree>
+            </field>
+        </record>
+
+        <record id="view_ineco_quality_control_line_form" model="ir.ui.view">
+            <field name="name">ineco.quality.control.line.form</field>
+            <field name="model">ineco.quality.control.line</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<form string="Quality Control Line">
+					<field name="seq" />
+					<field name="name" />
+					<field name="qc_pass" />
+					<newline />
+					<field name="item_ids" nolabel="1">
+						<tree string="Item">
+							<field name="seq" />
+							<field name="name" />
+							<field name="result" />
+							<field name="qc_pass" />
+							<field name="note" />
+						</tree>
+						<form string="Item">
+							<field name="seq" />
+							<field name="name" />
+							<field name="result" />
+							<field name="qc_pass" />
+							<field name="note" />
+						</form>
+					</field>
+					<newline />
+					<field name="note" />
+				</form>
+            </field>
+        </record>
+            
+    </data>
+</openerp>

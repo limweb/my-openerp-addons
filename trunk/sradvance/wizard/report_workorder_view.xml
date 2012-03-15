@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_wizard_ineco_workorder_report" model="ir.ui.view">
+            <field name="name">Work Order Report</field>
+            <field name="model">wizard.ineco.workorder.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form string="Work Order Report">
+                        <group colspan="4">
+                            <group colspan="4" states="choose">
+                                <separator colspan="4" string="Work Order Report"/>
+                                <field name="date" />
+                                <field name="format" required="1"/>
+                                <field invisible="1" name="state"/>
+                            </group>
+                            <group colspan="4" states="get">
+                                <separator string="Report Exporting" colspan="4"/>
+                                <field name="name" invisible="1" colspan="4"/>
+                                <field name="report" nolabel="1" readonly="1" fieldname="name" colspan="4"/>
+                                <!-- <field height="80" name="advice" nolabel="1" colspan="4"/> -->
+                            </group>
+                        </group>
+                        <group colspan="8" col="8" states="choose">
+                            <separator string="" colspan="8"/>
+                            <label colspan="6" width="220"/>
+                            <button icon="gtk-cancel" name="act_cancel" special="cancel" string="_Close" type="object"/>
+                            <button icon="gtk-ok" name="create_report" string="_Print" type="object"/>
+                        </group>
+                        <group colspan="8" col="8" states="get">
+                            <separator string="" colspan="8"/>
+                            <label colspan="7" width="220"/>
+                            <button icon="gtk-close" name="act_destroy" special="cancel" string="_Close" type="object"/>
+                        </group>
+            	</form>
+            </field>
+        </record>
+
+        <record id="action_wizard_ineco_workorder_report" model="ir.actions.act_window">
+            <field name="name">Work Order Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.ineco.workorder.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+            name="Work Order Report"
+            parent="mrp.next_id_77"
+            action="action_wizard_ineco_workorder_report"
+            id="menu_wizard_ineco_workorder_report"
+            icon="STOCK_PRINT" />
+
+    </data>
+</openerp>

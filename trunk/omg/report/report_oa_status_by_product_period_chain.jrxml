@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_oa_status_by_chain" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.jasperserver.reportUnit" value="/openerp/OA/OA_Status_Report_By_Product_Period"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8000/jasperserver/services/repository"/>
+	<parameter name="param_chain_name" class="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[Chain Name]]></parameterDescription>
+	</parameter>
+	<parameter name="param_customer_product_name" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="param_period_id" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[select
+	spp.name_template as "customer_product_name",
+	osp.date_start as "period_date_start",
+	osp.date_finish as "period_date_finish",
+	osc.name as "chain_name",
+	sl.name as "destination_location_name",
+	sm.name as "product_name",
+	sm.product_qty,
+	sm.date_finished as "date_delivery",
+	sm.date_arrival,
+	sm.date_completed,
+	sm.state,
+	sm.note,
+	sm.date_arrival_planned
+  from stock_move sm
+  left outer join stock_picking sp on sm.picking_id = sp.id
+  left outer join product_product spp on sp.customer_product_id = spp.id
+  left outer join omg_sale_period osp on sp.period_id = osp.id
+  left outer join stock_location sl on sm.location_dest_id = sl.id
+  left outer join omg_sale_chain osc on sl.chain_id = osc.id
+where sp.type = 'out' and osc.name = $P{param_chain_name} and spp.name_template = $P{param_customer_product_name} and osp.id = $P{param_period_id}
+order by chain_name, destination_location_name, customer_product_name, period_date_start, product_name]]>
+	</queryString>
+	<field name="customer_product_name" class="java.lang.String"/>
+	<field name="period_date_start" class="java.sql.Date"/>
+	<field name="period_date_finish" class="java.sql.Date"/>
+	<field name="chain_name" class="java.lang.String"/>
+	<field name="destination_location_name" class="java.lang.String"/>
+	<field name="product_name" class="java.lang.String"/>
+	<field name="product_qty" class="java.math.BigDecimal"/>
+	<field name="date_delivery" class="java.sql.Timestamp"/>
+	<field name="date_arrival" class="java.sql.Timestamp"/>
+	<field name="date_completed" class="java.sql.Timestamp"/>
+	<field name="state" class="java.lang.String"/>
+	<field name="note" class="java.lang.String"/>
+	<field name="date_arrival_planned" class="java.sql.Timestamp"/>
+	<group name="Group by Chain" isStartNewPage="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{chain_name}]]></groupExpression>
+		<groupHeader>
+			<band height="64">
+				<staticText>
+					<reportElement x="10" y="42" width="169" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Product Name]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="179" y="42" width="49" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Quantity]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="233" y="42" width="58" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Delivery Date]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="360" y="42" width="75" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Arrival Date]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="435" y="42" width="64" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Complete Date]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="499" y="42" width="48" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Status]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="547" y="42" width="205" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Notes]]></text>
+				</staticText>
+				<line>
+					<reportElement x="1" y="21" width="751" height="1"/>
+				</line>
+				<line>
+					<reportElement x="1" y="63" width="751" height="1"/>
+				</line>
+				<staticText>
+					<reportElement x="0" y="0" width="47" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Chain]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="67" y="0" width="401" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{chain_name}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="22" width="47" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Store]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="291" y="42" width="69" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Arrival Plan]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="7">
+				<line>
+					<reportElement x="1" y="3" width="751" height="1"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group By Store">
+		<groupExpression><![CDATA[$F{destination_location_name}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="1" y="0" width="290" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" isBold="true" isItalic="false" isUnderline="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{destination_location_name}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="2">
+				<line>
+					<reportElement x="0" y="1" width="752" height="1"/>
+					<graphicElement>
+						<pen lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="59" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="206" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Delivery Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="59" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Campaign]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="67" y="20" width="139" height="20"/>
+				<textElement>
+					<font fontName="Tahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{customer_product_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="39" width="59" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Period]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="67" y="39" width="54" height="20"/>
+				<textElement>
+					<font fontName="Tahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{period_date_start}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="132" y="39" width="55" height="20"/>
+				<textElement>
+					<font fontName="Tahoma" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{period_date_finish}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="121" y="39" width="11" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="633" y="39" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="713" y="39" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="0" width="169" height="20"/>
+				<textElement>
+					<font fontName="Tahoma" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{product_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="179" y="0" width="49" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{product_qty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="233" y="0" width="58" height="20"/>
+				<textElement>
+					<font fontName="Tahoma" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{date_delivery}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="360" y="0" width="75" height="20"/>
+				<textElement>
+					<font fontName="Tahoma" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{date_arrival}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="435" y="0" width="64" height="20"/>
+				<textElement>
+					<font fontName="Tahoma" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{date_completed}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="499" y="0" width="48" height="20"/>
+				<textElement>
+					<font fontName="Tahoma" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{state}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="547" y="0" width="205" height="20"/>
+				<textElement>
+					<font fontName="Tahoma" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{note}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="291" y="0" width="69" height="20"/>
+				<textElement>
+					<font fontName="Tahoma" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{date_arrival_planned}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="16" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

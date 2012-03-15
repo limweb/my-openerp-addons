@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="view_sradvance_sale_order_form">
+			<field name="name">sradvance.sale.order.form</field>
+			<field name="type">form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page/field/form/notebook/page[@string='Order Line']" position="after">
+					<page string="Additional Cost">
+						<button name="%(wizard_create_cost_line)d" string="Load Detail" type="action" icon="gtk-zoom-in" colspan="4"/>
+						<field colspan="4" name="additional_line" nolabel="1" context="{'sale_product_id':product_id,'myWidth':sr_width, 'myLength': sr_length}" />
+<!--							<tree string="Additional Products" editable="bottom">
+								<field name="order_line_id" invisible="1" /> 
+								<field name="product_id" on_change="onchange_myproduct_id(product_id,parent.product_id,parent.sr_width,parent.sr_length,w1,w2,l1,l2)" />
+								<field name="name"/>
+								<field name="w1" select="1" on_change="onchange_myproduct_id(product_id,parent.product_id,parent.sr_width,parent.sr_length,w1,w2,l1,l2)"/>
+								<field name="w2" select="1" on_change="onchange_myproduct_id(product_id,parent.product_id,parent.sr_width,parent.sr_length,w1,w2,l1,l2)"/>
+								<field name="l1" select="1" on_change="onchange_myproduct_id(product_id,parent.product_id,parent.sr_width,parent.sr_length,w1,w2,l1,l2)"/>
+								<field name="l2" select="1" on_change="onchange_myproduct_id(product_id,parent.product_id,parent.sr_width,parent.sr_length,w1,w2,l1,l2)"/>
+								<field name="product_qty" string="Qty"/>
+								<field name="product_uom" string="UoM"/>
+								<field name="price_unit" readonly="1"/>
+								<field name="price_unit_sale"/>
+								<field name="price_subtotal"/>
+							</tree>
+					</field>-->
+					</page>
+				</xpath>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_sradvance_sale_order_line_additional_form">
+			<field name="name">sale.order.line.addtionalcost.form</field>
+			<field name="model">sale.order.line.addtionalcost</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Detail">
+								<field name="product_id" on_change="onchange_myproduct_id(context, product_id, w1,w2,l1,l2)" />
+								<field name="name" />
+								<field name="w1" select="1" on_change="onchange_myproduct_id(context, product_id, w1,w2,l1,l2)"/>
+								<field name="w2" select="1" on_change="onchange_myproduct_id(context, product_id, w1,w2,l1,l2)"/>
+								<field name="l1" select="1" on_change="onchange_myproduct_id(context, product_id, w1,w2,l1,l2)"/>
+								<field name="l2" select="1" on_change="onchange_myproduct_id(context, product_id, w1,w2,l1,l2)"/>
+								<field name="product_qty" string="Qty"/>
+								<field name="product_uom" string="UoM"/>
+								<field name="price_unit" readonly="1"/>
+								<field name="price_unit_sale"/>
+								<field name="price_subtotal"/>
+								<field name="order_line_id" invisible="1"/> 
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_sradvance_sale_order_line_additional_tree">
+			<field name="name">sale.order.line.addtionalcost.tree</field>
+			<field name="model">sale.order.line.addtionalcost</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Detail">
+								<field name="product_id" />
+								<field name="w1" />
+								<field name="w2" />
+								<field name="l1" />
+								<field name="l2" />
+								<field name="product_qty" string="Qty" />
+								<field name="product_uom" string="UoM" />
+								<field name="price_unit" />
+								<field name="price_unit_sale" />
+								<field name="price_subtotal" />
+				</tree>
+			</field>
+		</record>
+
+		
+		<record id="ineco_view_order_tree" model="ir.ui.view">
+			<field name="name">ineco.sale.order.tree</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_tree"/>
+			<field name="type">tree</field>
+			<field name="priority">2</field>
+			<field name="arch" type="xml">
+				<field name="user_id" position="after">
+					<field name="user_support_id" />
+				</field>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="view_sradvance_sale_order_inherited_form">
+			<field name="name">sradvance.sale.order.inherited.form</field>
+			<field name="type">form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="view_sradvance_sale_order_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page/field/tree/field[@name='name']" position="after">
+					<field name="sr_width"/>
+					<field name="sr_length"/>
+					<field name="ft2" />
+				</xpath>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_sradvance_sale_order_inherited2_form">
+			<field name="name">sradvance.sale.order.inherited2.form</field>
+			<field name="type">form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="view_sradvance_sale_order_inherited_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page/field/form/notebook/page/field[@name='product_id']" position="after">
+					<field name="sr_width" />
+					<field name="sr_length" />
+					<field name="round_method" />
+				</xpath>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_sradvance_sale_order_inherited3_form">
+			<field name="name">sradvance.sale.order.inherited3.form</field>
+			<field name="type">form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="view_sradvance_sale_order_inherited2_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page[@string='History']" position="before">
+					<page string="Capacity Plan">
+						<button name="%(wizard_finding_schedule_finish_date)d" string="Load Plan" type="action" icon="gtk-zoom-in"/>
+						<field colspan="4" mode="tree,form" name="plan_ids" nolabel="1" widget="one2many_list" >
+							<tree string="Work Load" editable="bottom">
+								<field name="order_id" invisible="1" />
+								<field name="workcenter_id" readonly="1" />
+								<field name="capacity" readonly="1" />
+								<field name="capacity_planned" readonly="1" />
+								<field name="capacity_loaded" readonly="1" />
+								<field name="date_start" readonly="1" />
+								<field name="date_finish" readonly="1" />
+							</tree>
+						</field>
+					</page>
+				</xpath>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="view_sradvance_sale_order_form_support">
+			<field name="name">sradvance.sale.order.form.support</field>
+			<field name="type">form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page[@string='Other Information']/group/field[@name='user_id']" position="after">
+					<field name="user_support_id" />
+					<field name="sticker_note" />					
+				</xpath>
+			</field>
+		</record>
+		
+        <record id="ineco_view_sales_order_filter" model="ir.ui.view">
+            <field name="name">ineco.sale.order.list.select</field>
+            <field name="model">sale.order</field>
+            <field name="type">search</field>
+			<field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+				<xpath expr="/search/field[@name='user_id']" position="replace">
+                    <field name="user_id" select="1" />
+                    <field name="user_support_id" select="1">
+                        <filter domain="[('user_id','=',uid)]" icon="terp-personal"/>
+                    </field>			
+                    <newline />
+                    <field name="requested_date" />
+                    <field name="date_finished" />		
+				</xpath>
+            </field>
+        </record>
+		
+        <record id="sale.action_order_form" model="ir.actions.act_window">
+            <field name="context">{"search_default_user_support_id":uid}</field>
+        </record>
+
+		<record model="ir.ui.view" id="view_sradvance2_sale_order_form_support">
+			<field name="name">sradvance2.sale.order.form.support</field>
+			<field name="type">form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale_order_dates.view_sale_orderfor"/>
+			<field name="arch" type="xml">
+                <field name="requested_date" position="replace">
+                	<field name="requested_date"  />
+                    <field name="date_finished" />
+                </field>
+			</field>
+		</record>
+		
+	</data>
+</openerp>

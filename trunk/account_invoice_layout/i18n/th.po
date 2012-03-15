@@ -1,0 +1,366 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* account_invoice_layout
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:14+0000\n"
+"PO-Revision-Date: 2009-02-03 06:24+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-01-15 05:34+0000\n"
+"X-Generator: Launchpad (build 12177)\n"
+
+#. module: account_invoice_layout
+#: selection:account.invoice.line,state:0
+msgid "Sub Total"
+msgstr "รวมทั้งสิ้น"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Note:"
+msgstr "หมายเหตุ :"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Cancelled Invoice"
+msgstr "ยกเลิกใบแจ้งหนี้"
+
+#. module: account_invoice_layout
+#: selection:account.invoice.line,state:0
+#: field:notify.message,name:0
+msgid "Title"
+msgstr "ชื่อเรื่อง"
+
+#. module: account_invoice_layout
+#: model:ir.actions.act_window,name:account_invoice_layout.action_account_invoice_special_msg
+#: model:ir.actions.report.xml,name:account_invoice_layout.account_invoices_layout_message
+msgid "Invoices with Layout and Message"
+msgstr "ใบแจ้งหนี้ที่มีเลย์เอาต์และข้อความ"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Disc. (%)"
+msgstr "Disc (%)"
+
+#. module: account_invoice_layout
+#: selection:account.invoice.line,state:0
+msgid "Note"
+msgstr "หมายเหตุ"
+
+#. module: account_invoice_layout
+#: model:ir.model,name:account_invoice_layout.model_notify_message
+msgid "Notify By Messages"
+msgstr "แจ้งทางข้อความ"
+
+#. module: account_invoice_layout
+#: help:notify.message,msg:0
+msgid ""
+"This notification will appear at the bottom of the Invoices when printed."
+msgstr "การแจ้งเตือนนี้จะปรากฏที่ด้านล่างของใบแจ้งหนี้เมื่อพิมพ์"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Unit Price"
+msgstr "ราคาต่อหน่วย"
+
+#. module: account_invoice_layout
+#: model:ir.module.module,description:account_invoice_layout.module_meta_information
+msgid ""
+"\n"
+"    This module provides some features to improve the layout of the "
+"invoices.\n"
+"\n"
+"    It gives you the possibility to\n"
+"        * order all the lines of an invoice\n"
+"        * add titles, comment lines, sub total lines\n"
+"        * draw horizontal lines and put page breaks\n"
+"\n"
+"    Moreover, there is one option which allows you to print all the selected "
+"invoices with a given special message at the bottom of it. This feature can "
+"be very useful for printing your invoices with end-of-year wishes, special "
+"punctual conditions...\n"
+"\n"
+"    "
+msgstr "โมดูลนี้มีคุณสมบัติในการปรับปรุงรูปแบบของใบแจ้งหนี้ มันทำให้คุณเป็นไปได้ในการสั่งซื้อสินค้า * ทุกสายของ * ใบแจ้งหนี้เพิ่มชื่อเส้นแสดงความคิดเห็นย่อย * วาดเส้นรวมเส้นแนวนอนและใส่ตัวแบ่งหน้านอกจากนี้ยังมีทางเลือกหนึ่งที่ช่วยให้คุณสามารถพิมพ์ใบแจ้งหนี้ทั้งหมดที่มีให้เลือก ข้อความพิเศษที่ด้านล่างของมัน คุณลักษณะนี้จะมีประโยชน์มากสำหรับการพิมพ์ใบแจ้งหนี้ของคุณมีความปรารถนาสิ้นปีสภาพที่ตรงต่อเวลาพิเศษ ..."
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "VAT :"
+msgstr "VAT :"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Tel. :"
+msgstr "Tel :"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "PRO-FORMA"
+msgstr "PRO - FORMA"
+
+#. module: account_invoice_layout
+#: field:account.invoice,abstract_line_ids:0
+msgid "Invoice Lines"
+msgstr "เส้นใบแจ้งหนี้"
+
+#. module: account_invoice_layout
+#: view:account.invoice.line:0
+msgid "Seq."
+msgstr "seq"
+
+#. module: account_invoice_layout
+#: model:ir.ui.menu,name:account_invoice_layout.menu_finan_config_notify_message
+msgid "Notification Message"
+msgstr "ประกาศข้อความ"
+
+#. module: account_invoice_layout
+#: selection:account.invoice.line,state:0
+msgid "Product"
+msgstr "ผลิตภัณฑ์"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Description"
+msgstr "ลักษณะ"
+
+#. module: account_invoice_layout
+#: help:account.invoice.line,sequence:0
+msgid "Gives the sequence order when displaying a list of invoice lines."
+msgstr "ลำดับคำสั่งเมื่อแสดงรายการของเส้นใบแจ้งหนี้ทำให้ส"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Price"
+msgstr "ราคา"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Invoice Date"
+msgstr "วันที่ใบแจ้งหนี้"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+msgid "Taxes:"
+msgstr "ภาษี :"
+
+#. module: account_invoice_layout
+#: field:account.invoice.line,functional_field:0
+msgid "Source Account"
+msgstr "บัญชีที่มา"
+
+#. module: account_invoice_layout
+#: model:ir.actions.act_window,name:account_invoice_layout.notify_mesage_tree_form
+msgid "Write Messages"
+msgstr "เขียนข้อความ"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Base"
+msgstr "ฐาน"
+
+#. module: account_invoice_layout
+#: selection:account.invoice.line,state:0
+msgid "Page Break"
+msgstr "ตัวแบ่งหน้า"
+
+#. module: account_invoice_layout
+#: view:notify.message:0
+#: field:notify.message,msg:0
+msgid "Special Message"
+msgstr "ข้อความพิเศษ"
+
+#. module: account_invoice_layout
+#: help:account.invoice.special.msg,message:0
+msgid "Message to Print at the bottom of report"
+msgstr "ข้อความถึงผู้พิมพ์ที่ด้านล่างของรายงาน"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Quantity"
+msgstr "ปริมาณ"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Refund"
+msgstr "คืนเงินให้"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Fax :"
+msgstr "โทรสาร :"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+msgid "Total:"
+msgstr "Total :"
+
+#. module: account_invoice_layout
+#: view:account.invoice.special.msg:0
+msgid "Select Message"
+msgstr "เลือกข้อความ"
+
+#. module: account_invoice_layout
+#: view:notify.message:0
+msgid "Messages"
+msgstr "ข้อความที่"
+
+#. module: account_invoice_layout
+#: model:ir.actions.report.xml,name:account_invoice_layout.account_invoices_1
+msgid "Invoices with Layout"
+msgstr "ใบแจ้งหนี้ที่มีเลย์เอาต์"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Description / Taxes"
+msgstr "คำอธิบาย / ค่าภาษี"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Amount"
+msgstr "จำนวน"
+
+#. module: account_invoice_layout
+#: model:notify.message,msg:account_invoice_layout.demo_message1
+msgid "ERP & CRM Solutions..."
+msgstr "โซลูชั่น ERP & CRM ..."
+
+#. module: account_invoice_layout
+#: report:notify_account.invoice:0
+msgid "Net Total :"
+msgstr "รวมสุทธิ :"
+
+#. module: account_invoice_layout
+#: report:notify_account.invoice:0
+msgid "Total :"
+msgstr "Total :"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Draft Invoice"
+msgstr "ใบแจ้งหนี้ฉบับร่าง"
+
+#. module: account_invoice_layout
+#: field:account.invoice.line,sequence:0
+msgid "Sequence Number"
+msgstr "หมายเลขลำดับ"
+
+#. module: account_invoice_layout
+#: model:ir.model,name:account_invoice_layout.model_account_invoice_special_msg
+msgid "Account Invoice Special Message"
+msgstr "ข้อความพิเศษบัญชีใบแจ้งหนี้"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Origin"
+msgstr "จุดกำเนิด"
+
+#. module: account_invoice_layout
+#: field:account.invoice.line,state:0
+msgid "Type"
+msgstr "ประเภท"
+
+#. module: account_invoice_layout
+#: selection:account.invoice.line,state:0
+msgid "Separator Line"
+msgstr "สายแยก"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Your Reference"
+msgstr "การอ้างอิงของคุณ"
+
+#. module: account_invoice_layout
+#: model:ir.module.module,shortdesc:account_invoice_layout.module_meta_information
+msgid "Invoices Layout Improvement"
+msgstr "การปรับปรุงเค้าโครงใบแจ้งหนี้"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Supplier Invoice"
+msgstr "ใบแจ้งหนี้ของผู้ผลิต"
+
+#. module: account_invoice_layout
+#: view:account.invoice.special.msg:0
+msgid "Print"
+msgstr "พิมพ์"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Tax"
+msgstr "ภาษี"
+
+#. module: account_invoice_layout
+#: model:ir.model,name:account_invoice_layout.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Line ใบแจ้งหนี้"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+msgid "Net Total:"
+msgstr "รวมสุทธิ :"
+
+#. module: account_invoice_layout
+#: view:notify.message:0
+msgid "Write a notification or a wishful message."
+msgstr "เขียนการแจ้งเตือนหรือข้อความนึกอยาก"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: model:ir.model,name:account_invoice_layout.model_account_invoice
+#: report:notify_account.invoice:0
+msgid "Invoice"
+msgstr "ใบกำกับสินค้า"
+
+#. module: account_invoice_layout
+#: view:account.invoice.special.msg:0
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+#. module: account_invoice_layout
+#: report:account.invoice.layout:0
+#: report:notify_account.invoice:0
+msgid "Supplier Refund"
+msgstr "Supplier การคืนเงิน"
+
+#. module: account_invoice_layout
+#: field:account.invoice.special.msg,message:0
+msgid "Message"
+msgstr "ข้อความ"
+
+#. module: account_invoice_layout
+#: report:notify_account.invoice:0
+msgid "Taxes :"
+msgstr "ภาษี :"
+
+#. module: account_invoice_layout
+#: model:ir.ui.menu,name:account_invoice_layout.menu_notify_mesage_tree_form
+msgid "All Notification Messages"
+msgstr "ประกาศข้อความทั้งหมด"
+

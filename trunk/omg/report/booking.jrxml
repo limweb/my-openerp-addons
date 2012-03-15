@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="booking" language="groovy" columnCount="4" printOrder="Horizontal" pageWidth="595" pageHeight="842" columnWidth="138" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select
+  a.name,
+--  a.customer_id,
+  f.name as customer_name,
+--  a.product_id as customer_product_id,
+  g.name as customer_product_name,
+--  a.service_id,
+  h.name as service_type_name,
+  h.list_price * c.product_qty as service_charge_unitprice,
+--  a.saleman_id,
+  i.name as saleman_name,
+  a.note,
+--  b.chain_id,
+  j.name as chain_name,
+--  b.period_id,
+  k.name as period_name,
+  k.date_start as period_start,
+  k.date_finish as period_finish,
+  date_part('days', age(k.date_finish, k.date_start))+1 as period_length,
+--  c.product_id as service_product_id,
+  l.name as product_charge_name,
+  c.product_qty as product_charge_qty,
+  l.list_price as product_charge_unitprice,
+  l.list_price * c.product_qty * (date_part('days', age(k.date_finish, k.date_start))+1) as product_charge_total,
+--  d.product_id as summary_product_id,
+  m.name as product_summary_name,
+  d.product_qty as summary_qty,
+  m.list_price as product_summary_unitprice,
+  m.list_price * d.product_qty as product_summary_total,
+--  e.location_id
+  e.name as location_name,
+  (select count(*) from omg_sale_reserve_contact_line_location
+   where contact_line_id = b.id
+  ) as location_count
+
+from omg_sale_reserve_contact a
+left join omg_sale_reserve_contact_line b on a.id = b.contact_id
+left join omg_sale_reserve_contact_line_product c on b.id = c.contact_line_id
+left join omg_sale_reserve_contact_line_summary d on b.id = d.contact_line_id
+left join omg_sale_reserve_contact_line_location e on b.id = e.contact_line_id
+join res_partner f on a.customer_id = f.id
+join product_template g on a.product_id = g.id
+join product_template h on a.service_id = h.id
+join res_users i on a.saleman_id = i.id
+join omg_sale_chain j on b.chain_id = j.id
+join omg_sale_period k on b.period_id = k.id
+join product_template l on c.product_id = l.id
+join product_template m on d.product_id = m.id
+join stock_location n on e.location_id = n.id
+where a.name = 'CT1107-0000003']]>
+	</queryString>
+	<field name="name" class="java.lang.String"/>
+	<field name="customer_name" class="java.lang.String"/>
+	<field name="customer_product_name" class="java.lang.String"/>
+	<field name="service_type_name" class="java.lang.String"/>
+	<field name="service_charge_unitprice" class="java.math.BigDecimal"/>
+	<field name="saleman_name" class="java.lang.String"/>
+	<field name="note" class="java.lang.String"/>
+	<field name="chain_name" class="java.lang.String"/>
+	<field name="period_name" class="java.lang.String"/>
+	<field name="period_start" class="java.sql.Date"/>
+	<field name="period_finish" class="java.sql.Date"/>
+	<field name="period_length" class="java.lang.Double"/>
+	<field name="product_charge_name" class="java.lang.String"/>
+	<field name="product_charge_qty" class="java.lang.Integer"/>
+	<field name="product_charge_unitprice" class="java.math.BigDecimal"/>
+	<field name="product_charge_total" class="java.lang.Double"/>
+	<field name="product_summary_name" class="java.lang.String"/>
+	<field name="summary_qty" class="java.lang.Integer"/>
+	<field name="product_summary_unitprice" class="java.math.BigDecimal"/>
+	<field name="product_summary_total" class="java.math.BigDecimal"/>
+	<field name="location_name" class="java.lang.String"/>
+	<field name="location_count" class="java.lang.Long"/>
+	<variable name="normal_price" class="java.lang.Double" resetType="Group" resetGroup="chain_name">
+		<initialValueExpression><![CDATA[($F{service_charge_unitprice} * $F{location_count} * $F{period_length})]]></initialValueExpression>
+	</variable>
+	<group name="name">
+		<groupExpression><![CDATA[$F{name}]]></groupExpression>
+		<groupHeader>
+			<band height="60">
+				<textField>
+					<reportElement x="455" y="12" width="100" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="64" y="12" width="236" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{customer_name}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="64" y="24" width="236" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{customer_product_name}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="64" y="36" width="236" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{service_type_name}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="455" y="24" width="100" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{saleman_name}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="12" width="64" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<text><![CDATA[Customer:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="391" y="12" width="64" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<text><![CDATA[Booking No:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="391" y="24" width="64" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<text><![CDATA[Sale:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="24" width="64" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<text><![CDATA[Product:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="36" width="64" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<text><![CDATA[Service Type:]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="53" width="555" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="38">
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="67" y="0" width="488" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{note}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="64" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<text><![CDATA[Notes:]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="chain_name">
+		<groupExpression><![CDATA[$F{chain_name}]]></groupExpression>
+		<groupHeader>
+			<band height="36">
+				<textField>
+					<reportElement x="64" y="0" width="124" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{chain_name}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="266" y="0" width="48" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$F{period_start}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="320" y="0" width="48" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$F{period_finish}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="64" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<text><![CDATA[Chain:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="227" y="0" width="39" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<text><![CDATA[Period:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="391" y="0" width="64" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<text><![CDATA[Total Days:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="456" y="0" width="75" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{period_length}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="12" width="77" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<text><![CDATA[Additional Price:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="228" y="12" width="72" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<text><![CDATA[Unit Price]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="300" y="12" width="72" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<text><![CDATA[Location]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="372" y="12" width="72" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<text><![CDATA[Quantity]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="444" y="12" width="87" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="314" y="0" width="5" height="12"/>
+					<textElement textAlignment="Center">
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<text><![CDATA[-]]></text>
+				</staticText>
+				<textField pattern="#,##0.00">
+					<reportElement x="228" y="24" width="72" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{service_charge_unitprice}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="26" y="24" width="201" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{service_type_name}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="372" y="24" width="72" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{period_length}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="300" y="24" width="72" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{location_count}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="459" y="24" width="72" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{normal_price}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="19">
+				<line>
+					<reportElement x="0" y="9" width="555" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="product_charge_name">
+		<groupExpression><![CDATA[$F{product_charge_name}]]></groupExpression>
+		<groupHeader>
+			<band height="12">
+				<textField>
+					<reportElement x="26" y="0" width="201" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{product_charge_name}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="372" y="0" width="72" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{period_length}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="228" y="0" width="72" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{product_charge_unitprice}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="459" y="0" width="72" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{product_charge_total}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="300" y="0" width="72" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{location_count}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="product_summary_name">
+		<groupExpression><![CDATA[$F{product_summary_name}]]></groupExpression>
+		<groupHeader>
+			<band height="12">
+				<textField>
+					<reportElement x="26" y="0" width="201" height="12"/>
+					<textElement>
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{product_summary_name}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="228" y="0" width="72" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{product_summary_unitprice}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="459" y="0" width="72" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{product_summary_total}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="372" y="0" width="72" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Serif" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{summary_qty}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="137" height="12"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{location_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

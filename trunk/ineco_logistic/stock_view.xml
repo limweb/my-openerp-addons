@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+
+<!--  Date       ID         Message
+01-01-2012       POP-001    Create New
+ -->
+ 
+<openerp>
+	<data>
+
+        <!-- INECO LOGISTIC PATH-->
+                
+        <record id="ineco_logistic_view_picking_out_form" model="ir.ui.view">
+            <field name="name">ineco.logistic.stock.picking.out.form</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+			<field name="inherit_id" ref="stock.view_picking_out_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="/form/notebook" position="inside">
+					<page string="Logistic">
+						<field name="ineco_logistic_path" domain="[('type','=','transport')]"/>
+						<field name="ineco_total_volume" readonly="1"/>
+						<field name="ineco_total_weight" readonly="1"/>
+					</page>
+				</xpath>
+			</field>
+		</record>
+
+        <record id="ineco_logistic_path_view_location_form" model="ir.ui.view">
+            <field name="name">ineco.stock.location.logistic.path.form</field>
+            <field name="model">stock.location</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_location_form"/>
+            <field name="arch" type="xml">
+            	<field name="address_id" position="before">
+            		<field name="ineco_logistic_path" domain="[('type','=','transport')]"/>
+            	</field>
+			</field>
+		</record>		
+
+        <record id="ineco_logistic_view_location_search" model="ir.ui.view">
+            <field name="name">ineco.logistic.stock.location.search</field>
+			<field name="inherit_id" ref="stock.view_location_search"/>
+            <field name="model">stock.location</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+               	<field name="name" position="after">
+               		<field name="ineco_logistic_path" />
+               	</field>
+            </field>
+        </record>
+
+        <record id="ineco_logistic_view_location_tree2" model="ir.ui.view">
+            <field name="name">ineco.logistic.stock.location.tree</field>
+            <field name="model">stock.location</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="stock.view_location_tree2"/>
+            <field name="arch" type="xml">
+            	<field name="usage" position="after">
+            		<field name="ineco_logistic_path" />
+            	</field>
+            </field>
+        </record>
+
+
+	</data>
+	
+</openerp>
+

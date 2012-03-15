@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+      	<record model="ir.ui.view" id="view_ineco_account_cheque_in_tree">
+            <field name="name">ineco.account.cheque.in.tree</field>
+            <field name="model">ineco.account.cheque.in</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Cheque">
+                    <field name="name"/>
+                    <field name="bank_id"/>
+                    <field name="branch"/>
+                    <field name="date_cheque"/>
+                    <field name="date_receive"/>
+                    <field name="partner_id" />
+                    <field name="amount" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>    	
+
+        <record model="ir.ui.view" id="view_ineco_account_cheque_in_form">
+            <field name="name">ineco.account.cheque.in.form</field>
+            <field name="model">ineco.account.cheque.in</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Cheque Form">
+                    <field name="name"/>
+                    <field name="bank_id" widget="many2one" />
+                    <field name="branch"/>
+                    <field name="date_cheque"/>
+                    <field name="date_receive"/>
+                    <field name="partner_id" domain="[('customer','=',True)]" />
+                    <field name="amount" />
+                    <field name="active" />
+                    <field name="state" readonly="1"/>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_ineco_account_cheque_in_filter" model="ir.ui.view">
+            <field name="name">ineco.account.cheque.in.select</field>
+            <field name="model">ineco.account.cheque.in</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Cheque">
+                    <group col='8' colspan='4'>
+                    	<field name="name"/>
+                        <field name="partner_id" domain="[('customer','=',True)]" />
+                    	<field name="bank_id"/>
+                    	<field name="date_cheque"/>
+                    </group>
+                   <newline/>
+                   <group col='8' colspan='4'>
+                    	<field name="date_receive"/>
+                    	<field name="branch"/>
+                   </group>
+                   <newline/>
+                    <group expand="0" string="Group By..." colspan="4" col="10">
+                        <filter string="Customer" icon="terp-personal" domain="[('customer','=',True)]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Bank" icon="terp-personal"  context="{'group_by':'bank_id'}"/>
+                    	<filter string="Cheque Date" icon="terp-personal"  context="{'group_by':'date_cheque'}"/>
+                    	<filter string="Receive Date" icon="terp-personal"  context="{'group_by':'date_receive'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>        
+
+        <record id="action_ineco_account_cheque_in" model="ir.actions.act_window">
+            <field name="name">Cheque Receive</field>
+            <field name="res_model">ineco.account.cheque.in</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="view_ineco_account_cheque_in_filter"/>
+            <field name="view_id" eval="False"/>
+            <field name="target">current</field>
+        </record>
+        <record id="action_ineco_account_cheque_in_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_ineco_account_cheque_in_tree" />
+            <field name="act_window_id" ref="action_ineco_account_cheque_in"/>
+        </record>
+        <record id="action_ineco_account_cheque_in_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ineco_account_cheque_in_form"/>
+            <field name="act_window_id" ref="action_ineco_account_cheque_in"/>
+        </record>
+
+        <menuitem action="action_ineco_account_cheque_in" icon="STOCK_JUSTIFY_FILL" sequence="12"
+            id="menu_ineco_action_ineco_account_cheque_in"  parent="account.menu_finance_receivables"/>
+
+
+      	<record model="ir.ui.view" id="view_ineco_account_cheque_out_tree">
+            <field name="name">ineco.account.cheque.out.tree</field>
+            <field name="model">ineco.account.cheque.out</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Cheque">
+                    <field name="name"/>
+                    <field name="bank_id"/>
+                    <field name="branch"/>
+                    <field name="date_cheque"/>
+                    <field name="date_pay"/>
+                    <field name="partner_id" />
+                    <field name="amount" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>    	
+
+        <record model="ir.ui.view" id="view_ineco_account_cheque_out_form">
+            <field name="name">ineco.account.cheque.out.form</field>
+            <field name="model">ineco.account.cheque.out</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Cheque Form">
+                    <field name="name"/>
+                    <field name="bank_id" widget="many2one"/>
+                    <field name="branch"/>
+                    <field name="date_cheque"/>
+                    <field name="date_pay"/>
+                    <field name="partner_id" widget="many2one" domain="[('supplier','=',True)]" />
+                    <field name="amount" />
+                    <field name="active" />
+                    <field name="state" readonly="1"/>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_ineco_account_cheque_out_filter" model="ir.ui.view">
+            <field name="name">ineco.account.cheque.out.select</field>
+            <field name="model">ineco.account.cheque.out</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Cheque">
+                    <group col='8' colspan='4'>
+                    	<field name="name"/>
+                        <field name="partner_id" domain="[('supplier','=',True)]" />
+                    	<field name="bank_id"/>
+                    	<field name="date_cheque"/>
+                    </group>
+                   <newline/>
+                   <group col='8' colspan='4'>
+                    	<field name="date_pay"/>
+                    	<field name="branch"/>
+                   </group>
+                   <newline/>
+                    <group expand="0" string="Group By..." colspan="4" col="10">
+                        <filter string="Customer" icon="terp-personal" domain="[('customer','=',True)]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Bank" icon="terp-personal"  context="{'group_by':'bank_id'}"/>
+                    	<filter string="Cheque Date" icon="terp-personal"  context="{'group_by':'date_cheque'}"/>
+                    	<filter string="Receive Date" icon="terp-personal"  context="{'group_by':'date_pay'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_ineco_account_cheque_out" model="ir.actions.act_window">
+            <field name="name">Cheque Pay</field>
+            <field name="res_model">ineco.account.cheque.out</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="view_ineco_account_cheque_out_filter"/>
+            <field name="view_id" eval="False"/>
+            <field name="target">current</field>
+        </record>
+        <record id="action_ineco_account_cheque_out_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_ineco_account_cheque_out_tree" />
+            <field name="act_window_id" ref="action_ineco_account_cheque_out"/>
+        </record>
+        <record id="action_ineco_account_cheque_out_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ineco_account_cheque_out_form"/>
+            <field name="act_window_id" ref="action_ineco_account_cheque_out"/>
+        </record>
+
+        <menuitem action="action_ineco_account_cheque_out" icon="STOCK_JUSTIFY_FILL" sequence="12"
+            id="menu_ineco_action_ineco_account_cheque_out"  parent="account.menu_finance_payables"/>
+        
+	</data>
+</openerp>

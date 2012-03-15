@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <!--  Map Tree view -->
+       <record model="ir.ui.view" id="view_ineco_google_map_tree">
+            <field name="name">ineco.google.map.tree</field>
+            <field name="model">ineco.google.map</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="OpenERP Configuration">
+                    <field name="username"/>
+                    <field name="password"/>
+                    <field name="dbname"/>
+                    <field name="hostname"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Map Form view -->
+        <record model="ir.ui.view" id="view_ineco_google_map_form">
+            <field name="name">ineco.google.map.form</field>
+            <field name="model">ineco.google.map</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="OpenERP Configuration">
+                    <field name="username"/>
+                    <field name="password"/>
+                    <field name="dbname"/>
+                    <field name="hostname"/>
+                </form>
+            </field>
+        </record>
+
+        <!-- Asset Action  -->
+        <record model="ir.actions.act_window" id="action_ineco_google_map">
+            <field name="name">Google Map Configuration</field>
+            <field name="res_model">ineco.google.map</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_google_map_in_config" name="Google Map" parent="base.menu_base_config" />
+	
+      	<menuitem name="Configuration" parent="menu_google_map_in_config" id="menu_ineco_google_map" action="action_ineco_google_map"/>
+
+    </data>
+</openerp>

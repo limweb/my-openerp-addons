@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="ineco_seq_type_tax_invoice" model="ir.sequence.type">
+            <field name="name">Tax Invoice Type</field>
+            <field name="code">ineco.tax.invoice.type</field>
+        </record>
+        <record id="ineco_seq_tax_invoice" model="ir.sequence">
+            <field name="name">Tax Invoice Sequence</field>
+            <field name="code">ineco.tax.invoice.type</field>
+            <field eval="4" name="padding"/>
+            <field name="prefix">RC-%(y)s%(month)s-</field>
+        </record>
+
+    </data>
+</openerp>

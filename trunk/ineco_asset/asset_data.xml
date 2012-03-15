@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="seq_type_ineco_asset" model="ir.sequence.type">
+            <field name="name">Ineco Asset Type</field>
+            <field name="code">ineco.asset.type</field>
+        </record>
+        <record id="seq_ineco_asset" model="ir.sequence">
+            <field name="name">Asset Sequence</field>
+            <field name="code">ineco.asset.type</field>
+            <field eval="7" name="padding"/>
+            <field name="prefix">AT%(y)s%(month)s</field>
+        </record>
+
+    </data>
+</openerp>

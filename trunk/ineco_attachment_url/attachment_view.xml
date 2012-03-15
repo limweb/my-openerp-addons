@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        
+        <!-- Configuration Tree -->
+       <record model="ir.ui.view" id="view_ineco_attachment_configuration_tree">
+            <field name="name">ineco.ir.attachment.configuration.tree</field>
+            <field name="model">ineco.ir.attachment.configuration</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Configuration">
+                	<field name="name" />
+                	<field name="url_template" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Configuration Form -->
+       <record model="ir.ui.view" id="view_ineco_attachment_configuration_form">
+            <field name="name">ineco.ir.attachment.configuration.form</field>
+            <field name="model">ineco.ir.attachment.configuration</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Configuration">
+                	<field name="name" />
+                	<field name="url_template" />
+                	<field name="active" />
+                </form>
+            </field>
+        </record>
+        
+        <!-- Configuration Action  -->
+        <record model="ir.actions.act_window" id="action_ineco_attachment_configuration">
+            <field name="name">Configuration</field>
+            <field name="res_model">ineco.ir.attachment.configuration</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+                	
+      	<menuitem name="Attachment URL Configuration"
+            id="menu_ineco_attachment_configuration"
+            parent="ineco_base.menu_ineco_configuration"
+            groups="base.group_ineco_attachment"
+            action="action_ineco_attachment_configuration"/>
+                
+  	</data>
+</openerp>

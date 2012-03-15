@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- Sequences for account.billingnote -->
+        <record id="seq_type_billing_note" model="ir.sequence.type">
+            <field name="name">Billing Note</field>
+            <field name="code">account.billingnote</field>
+        </record>
+
+        <record id="seq_billing_note" model="ir.sequence">
+            <field name="name">Billing Note</field>
+            <field name="code">account.billingnote</field>
+            <field name="prefix">BLN</field>
+            <field name="padding">4</field>
+        </record>
+
+    </data>
+</openerp>

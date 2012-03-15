@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record id="view_ineco_nav_purchase_order" model="ir.ui.view">
+			<field name="name">ineco.nav.purchase.order</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook" position="inside">
+					<page string="Dimensions">
+						<field name="dimension_company" domain="[('group_dimension','=','company')]" />
+						<field name="dimension_department" domain="[('group_dimension','=','department')]"/>
+						<field name="dimension_project" domain="[('group_dimension','=','project')]"/>
+						<field name="dimension_product" domain="[('group_dimension','=','product')]"/>
+						<field name="dimension_retailer" domain="[('group_dimension','=','retailer')]"/>
+						<field name="dimension_customer" domain="[('group_dimension','=','customer')]"/>
+					</page>
+				</xpath>
+			</field>
+		</record> 
+
+	</data>
+</openerp>

@@ -1,0 +1,125 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* event_project
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:15+0000\n"
+"PO-Revision-Date: 2009-09-08 16:30+0000\n"
+"Last-Translator: Eugene Babiy <eugene.babiy@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-01-15 05:45+0000\n"
+"X-Generator: Launchpad (build 12177)\n"
+
+#. module: event_project
+#: model:ir.model,name:event_project.model_event_project
+msgid "Event Project"
+msgstr "โครงการกิจกรรม"
+
+#. module: event_project
+#: field:event.project,date:0
+msgid "Date End"
+msgstr "วันที่สิ้นสุด"
+
+#. module: event_project
+#: view:event.project:0
+msgid "Ok"
+msgstr "โอเค"
+
+#. module: event_project
+#: model:ir.module.module,description:event_project.module_meta_information
+msgid ""
+"Organization and management of events.\n"
+"\n"
+"    This module allows you to create retro planning for managing your "
+"events.\n"
+msgstr "องค์การและการจัดการการจัดงาน โมดูลนี้จะช่วยให้คุณสามารถสร้างการวางแผนย้อนยุคในการจัดการกิจกรรมของคุณ"
+
+#. module: event_project
+#: help:event.project,project_id:0
+msgid ""
+"This is Template Project. Project of event is a duplicate of this Template. "
+"After click on  'Create Retro-planning', New Project will be duplicated from "
+"this template project."
+msgstr "โครงการนี​​้เป็นแม่แบบ โครงการของงานเป็นที่ซ้ำกันของแม่แบบนี้ หลังจากคลิกที่&#39;สร้างการวางแผน Retro -&#39;, New Project จะถูกซ้ำจากโครงการแม่แบบนี้"
+
+#. module: event_project
+#: view:event.project:0
+#: model:ir.actions.act_window,name:event_project.action_event_project
+msgid "Retro-Planning"
+msgstr "Retro - การวางแผน"
+
+#. module: event_project
+#: constraint:event.event:0
+msgid "Error ! Closing Date cannot be set before Beginning Date."
+msgstr "ข้อผิดพลาด วันที่ปิดไม่สามารถตั้งก่อนที่จะเริ่มวันที่"
+
+#. module: event_project
+#: field:event.event,project_id:0
+msgid "Project"
+msgstr "โครงการ"
+
+#. module: event_project
+#: view:event.event:0
+#: model:ir.actions.act_window,name:event_project.act_event_task
+msgid "Tasks"
+msgstr "Tasks"
+
+#. module: event_project
+#: view:event.event:0
+msgid "All tasks"
+msgstr "งานทั้งหมด"
+
+#. module: event_project
+#: model:ir.module.module,shortdesc:event_project.module_meta_information
+msgid "Event Project - Create Retro-Planning to manage your Events"
+msgstr "โครงการกิจกรรม -- สร้าง Retro - การวางแผนเพื่อจัดการกับกิจกรรมของคุณ"
+
+#. module: event_project
+#: field:event.project,project_id:0
+msgid "Template of Project"
+msgstr "แม่แบบของโครงการ"
+
+#. module: event_project
+#: constraint:event.event:0
+msgid "Error ! You cannot create recursive event."
+msgstr "ข้อผิดพลาด คุณไม่สามารถสร้างกิจกรรม recursive"
+
+#. module: event_project
+#: field:event.event,task_ids:0
+msgid "Project tasks"
+msgstr "งานโครงการ"
+
+#. module: event_project
+#: view:event.project:0
+msgid "Close"
+msgstr "ปิด"
+
+#. module: event_project
+#: field:event.project,date_start:0
+msgid "Date Start"
+msgstr "วันที่เริ่มต้น"
+
+#. module: event_project
+#: view:event.event:0
+msgid "Create Retro-Planning"
+msgstr "การวางแผนการสร้าง Retro -"
+
+#. module: event_project
+#: model:ir.model,name:event_project.model_event_event
+msgid "Event"
+msgstr "เหตุการณ์"
+
+#. module: event_project
+#: view:event.event:0
+msgid "Tasks management"
+msgstr "การจัดการงาน"
+
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "Неправильний XML для Архітектури Вигляду!"
+

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+
+    <record id="base.group_sradvance_requester" model="res.groups">
+        <field name="name">SR Advance / Requester</field>
+    </record>
+
+    <record id="base.group_sradvance_purchase" model="res.groups">
+        <field name="name">SR Advance / Purchase</field>
+    </record>
+
+    <record id="base.group_sradvance_salesupport" model="res.groups">
+        <field name="name">SR Advance / Sale Support</field>
+    </record>
+
+    <record id="base.group_sradvance_accountquotationaudit" model="res.groups">
+        <field name="name">SR Advance / Accounting Quotation Audit</field>
+    </record>
+
+    <record id="base.group_sradvance_saleapprove" model="res.groups">
+        <field name="name">SR Advance / Sale Approve</field>
+    </record>
+
+    <record id="base.group_sradvance_stockreceive" model="res.groups">
+        <field name="name">SR Advance / Stock Receiving</field>
+    </record>
+
+</data>
+</openerp>

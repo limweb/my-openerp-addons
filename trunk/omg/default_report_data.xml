@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="report_purchase_requisition_omg" model="ir.actions.report.xml">
+            <field name="name">Purchase Requisition</field>
+            <field name="model">purchase.requisition</field>
+            <field name="report_name">omg.report.purchase.requisition</field>
+			<field name="report_type">aeroo</field>
+			<field name="tml_source">file</field>
+			<field name="report_rml">omg/report/pr_rev1.odt</field>
+			<field name="out_format">4</field>
+			<field name="parser_state">default</field>
+        </record>
+
+        <record id="report_purchase_request_omg" model="ir.actions.report.xml">
+            <field name="name">Request for Quotation</field>
+            <field name="model">purchase.order</field>
+            <field name="report_name">omg.report.purchase.request</field>
+			<field name="report_type">aeroo</field>
+			<field name="tml_source">file</field>
+			<field name="report_rml">omg/report/rfq_rev1.odt</field>
+			<field name="out_format">4</field>
+			<field name="parser_state">default</field>
+        </record>
+
+        <record id="report_purchase_order_omg" model="ir.actions.report.xml">
+            <field name="name">Purchase Order</field>
+            <field name="model">purchase.order</field>
+            <field name="report_name">omg.report.purchase.order</field>
+			<field name="report_type">aeroo</field>
+			<field name="tml_source">file</field>
+			<field name="report_rml">omg/report/po_rev1.odt</field>
+			<field name="out_format">4</field>
+			<field name="parser_state">default</field>
+        </record>
+
+        <record id="report_delivery_order_omg" model="ir.actions.report.xml">
+            <field name="name">Delivery Order</field>
+            <field name="model">stock.picking</field>
+            <field name="report_name">omg.report.delivery.order</field>
+			<field name="report_type">aeroo</field>
+			<field name="tml_source">file</field>
+			<field name="report_rml">omg/report/dl_rev1.odt</field>
+			<field name="out_format">4</field>
+			<field name="parser_state">default</field>
+        </record>
+
+        <record id="report_list_delivery_omg" model="ir.actions.report.xml">
+            <field name="name">List Delivery SMS</field>
+            <field name="model">stock.move</field>
+            <field name="report_name">omg.report.list.delivery</field>
+			<field name="report_type">aeroo</field>
+			<field name="tml_source">file</field>
+			<field name="report_rml">omg/report/delivery_ok_rev1.odt</field>
+			<field name="out_format">6</field>
+			<field name="parser_state">default</field>
+        </record>
+        
+        <record id="report_list_arrival_omg" model="ir.actions.report.xml">
+            <field name="name">List Arrival SMS</field>
+            <field name="model">stock.move</field>
+            <field name="report_name">omg.report.list.arrival</field>
+			<field name="report_type">aeroo</field>
+			<field name="tml_source">file</field>
+			<field name="report_rml">omg/report/arrival_ok_rev1.odt</field>
+			<field name="out_format">6</field>
+			<field name="parser_state">default</field>
+        </record>
+
+        <record id="report_request_for_product_omg" model="ir.actions.report.xml">
+            <field name="name">Request for Product</field>
+            <field name="model">purchase.order</field>
+            <field name="report_name">omg.report.request.product</field>
+			<field name="report_type">aeroo</field>
+			<field name="tml_source">file</field>
+			<field name="report_rml">omg/report/ref-product-rev1.odt</field>
+			<field name="out_format">4</field>
+			<field name="parser_state">default</field>
+        </record>
+
+        <record id="report_request_for_recruit_omg" model="ir.actions.report.xml">
+            <field name="name">Request for Recruitment</field>
+            <field name="model">purchase.order</field>
+            <field name="report_name">omg.report.request.recruit</field>
+			<field name="report_type">aeroo</field>
+			<field name="tml_source">file</field>
+			<field name="report_rml">omg/report/ref-recruit-rev1.odt</field>
+			<field name="out_format">4</field>
+			<field name="parser_state">default</field>
+        </record>
+
+    <record id="report_ineco_logistic_delivery_summary_period" model="ineco.report.config">
+        <field name="name">Logistic Summary By Period</field>
+        <field name="description">Logistic Summary By Period.</field>
+        <field name="active">1</field>
+        <field name="type">report.logistic.summary.period</field>
+    </record>
+    
+	<record id="report_booking_history_summary_period" model="ineco.report.config">
+        <field name="name">Booking History Summary By Period</field>
+        <field name="description">Booking History Summary By Period.</field>
+        <field name="active">1</field>
+        <field name="type">report.booking.history.summary.period</field>
+    </record>
+    
+	<record id="report_pivot_delivery_period_summary" model="ineco.report.config">
+        <field name="name">Delivery Summary By Period</field>
+        <field name="description">Delivery Summary By Period.</field>
+        <field name="active">1</field>
+        <field name="type">report.pivot.delivery.period.summary</field>
+    </record>
+    
+    <record id="report_ineco_dispatch_kitting_summary" model="ineco.report.config">
+        <field name="name">Kitting VS Dispatch Report</field>
+        <field name="description">Dispatch kitting Summary Report</field>
+        <field name="active">1</field>
+        <field name="type">report.ineco.dispatch.kitting.summary</field>
+    </record>
+
+    <record id="report_ineco_kitting_prepare" model="ineco.report.config">
+        <field name="name">Kitting Prepare Report</field>
+        <field name="description">Kitting Prepare Report</field>
+        <field name="active">1</field>
+        <field name="type">report.ineco.kitting.prepare</field>
+    </record>
+
+    </data>
+</openerp>

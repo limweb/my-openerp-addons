@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="ineco_stock_journal_raw" model="stock.journal">
+            <field name="name">Raw Material</field>
+            <field name="sequence_id" ref="seq_stock_journal_material"></field>
+        </record>
+
+        <record id="ineco_stock_journal_wip" model="stock.journal">
+            <field name="name">WIP</field>
+            <field name="sequence_id" ref="seq_stock_journal_wip" />
+        </record>
+
+        <record id="ineco_stock_journal_fa" model="stock.journal">
+            <field name="name">FA</field>
+            <field name="sequence_id" ref="seq_stock_journal_fa" />
+        </record>
+        
+        <record id="ineco_stock_journal_hr" model="stock.journal">
+            <field name="name">HR</field>
+            <field name="sequence_id" ref="seq_stock_journal_hr" />
+        </record>
+
+    </data>
+</openerp>

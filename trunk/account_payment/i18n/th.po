@@ -1,0 +1,700 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* account_payment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0dev_rc3\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:14+0000\n"
+"PO-Revision-Date: 2011-04-14 20:41+0700\n"
+"Last-Translator: Tititab Srisookco <thitithup@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-01-15 05:33+0000\n"
+"X-Generator: Launchpad (build 12177)\n"
+
+#. module: account_payment
+#: field:payment.order,date_scheduled:0
+msgid "Scheduled date if fixed"
+msgstr "วันที่กำหนดเวลาไว้ถ้าคงที่"
+
+#. module: account_payment
+#: field:payment.line,currency:0
+msgid "Partner Currency"
+msgstr "สกุลเงิน Partner"
+
+#. module: account_payment
+#: view:payment.order:0
+msgid "Set to draft"
+msgstr "ตั้งเป็นร่าง"
+
+#. module: account_payment
+#: help:payment.order,mode:0
+msgid "Select the Payment Mode to be applied."
+msgstr "เลือกโหมดการชำระเงินเพื่อนำมาประยุกต์"
+
+#. module: account_payment
+#: view:payment.mode:0
+#: view:payment.order:0
+msgid "Group By..."
+msgstr "กลุ่มตาม ..."
+
+#. module: account_payment
+#: model:ir.module.module,description:account_payment.module_meta_information
+msgid ""
+"\n"
+"This module provides :\n"
+"* a more efficient way to manage invoice payment.\n"
+"* a basic mechanism to easily plug various automated payment.\n"
+"    "
+msgstr "โมดูลนี้จะมี : * วิธีที่มีประสิทธิภาพมากขึ้นในการจัดการการชำระเงินใบแจ้งหนี้ * กลไกพื้นฐานเพื่อให้ง่ายต่อปลั๊กการชำระเงินอัตโนมัติที่หลากหลาย"
+
+#. module: account_payment
+#: field:payment.order,line_ids:0
+msgid "Payment lines"
+msgstr "สายการชําระเงิน"
+
+#. module: account_payment
+#: view:payment.line:0
+#: field:payment.line,info_owner:0
+#: view:payment.order:0
+msgid "Owner Account"
+msgstr "เจ้าของบัญชี"
+
+#. module: account_payment
+#: help:payment.order,state:0
+msgid ""
+"When an order is placed the state is 'Draft'.\n"
+" Once the bank is confirmed the state is set to 'Confirmed'.\n"
+" Then the order is paid the state is 'Done'."
+msgstr "เมื่อสั่งซื้อจะถูกวางสถานะเป็น&#39;ฉบับร่าง&#39; เมื่อธนาคารได้รับการยืนยันรัฐถูกตั้งค่าเป็น&#39;ยืนยัน&#39; จากนั้นสั่งจ่ายเงินของรัฐคือ&#39;Done&#39;"
+
+#. module: account_payment
+#: help:account.invoice,amount_to_pay:0
+msgid ""
+"The amount which should be paid at the current date\n"
+"minus the amount which is already in payment order"
+msgstr "จำนวนเงินที่ควรจะจ่ายในวันที่ปัจจุบันลบด้วยจำนวนเงินที่มีอยู่แล้วในการชำระเงินสั่งซื้อสินค้า"
+
+#. module: account_payment
+#: field:payment.mode,company_id:0
+msgid "Company"
+msgstr "บริษัท"
+
+#. module: account_payment
+#: field:payment.order,date_prefered:0
+msgid "Preferred date"
+msgstr "วันที่ที่ต้องการ"
+
+#. module: account_payment
+#: selection:payment.line,state:0
+msgid "Free"
+msgstr "ฟรี"
+
+#. module: account_payment
+#: field:payment.order.create,entries:0
+msgid "Entries"
+msgstr "Entries"
+
+#. module: account_payment
+#: report:payment.order:0
+msgid "Used Account"
+msgstr "บัญชีผู้ใช้"
+
+#. module: account_payment
+#: field:payment.line,ml_maturity_date:0
+#: field:payment.order.create,duedate:0
+msgid "Due Date"
+msgstr "วันที่ครบกำหนด"
+
+#. module: account_payment
+#: constraint:account.move.line:0
+msgid "You can not create move line on closed account."
+msgstr "คุณไม่สามารถสร้างสายย้ายในบัญชีที่ปิด"
+
+#. module: account_payment
+#: view:account.move.line:0
+msgid "Account Entry Line"
+msgstr "สายเข้าบัญชี"
+
+#. module: account_payment
+#: view:payment.order.create:0
+msgid "_Add to payment order"
+msgstr "_Add การชำระเงิน"
+
+#. module: account_payment
+#: model:ir.actions.act_window,name:account_payment.action_account_payment_populate_statement
+#: model:ir.actions.act_window,name:account_payment.action_account_populate_statement_confirm
+msgid "Payment Populate statement"
+msgstr "การชำระเงินงบอพยพไปอาศัยประชาชน"
+
+#. module: account_payment
+#: report:payment.order:0
+#: view:payment.order:0
+msgid "Amount"
+msgstr "จำนวน"
+
+#. module: account_payment
+#: sql_constraint:account.move.line:0
+msgid "Wrong credit or debit value in accounting entry !"
+msgstr "เครดิตจะผิดหรือมูลค่าการตัดบัญชีในบัญชีรายการ!"
+
+#. module: account_payment
+#: view:payment.order:0
+msgid "Total in Company Currency"
+msgstr "ทั้งหมดในสกุลเงินของ บริษัท"
+
+#. module: account_payment
+#: selection:payment.order,state:0
+msgid "Cancelled"
+msgstr "ยกเลิก"
+
+#. module: account_payment
+#: model:ir.actions.act_window,name:account_payment.action_payment_order_tree_new
+msgid "New Payment Order"
+msgstr "การชำระเงินใหม่"
+
+#. module: account_payment
+#: report:payment.order:0
+#: field:payment.order,reference:0
+msgid "Reference"
+msgstr "การอ้างอิง"
+
+#. module: account_payment
+#: sql_constraint:payment.line:0
+msgid "The payment line name must be unique!"
+msgstr "ชื่อสายการชำระเงินต้องไม่ซ้ำกัน!"
+
+#. module: account_payment
+#: model:ir.actions.act_window,name:account_payment.action_payment_order_tree
+#: model:ir.ui.menu,name:account_payment.menu_action_payment_order_form
+msgid "Payment Orders"
+msgstr "สั่งซื้อสินค้าการชำระเงิน"
+
+#. module: account_payment
+#: selection:payment.order,date_prefered:0
+msgid "Directly"
+msgstr "โดยตรง"
+
+#. module: account_payment
+#: model:ir.actions.act_window,name:account_payment.action_payment_line_form
+#: model:ir.model,name:account_payment.model_payment_line
+#: view:payment.line:0
+#: view:payment.order:0
+msgid "Payment Line"
+msgstr "รายการชําระเงิน"
+
+#. module: account_payment
+#: view:payment.line:0
+msgid "Amount Total"
+msgstr "รวมเป็นเงิน"
+
+#. module: account_payment
+#: view:payment.order:0
+#: selection:payment.order,state:0
+msgid "Confirmed"
+msgstr "ยืนยันแล้ว"
+
+#. module: account_payment
+#: help:payment.line,ml_date_created:0
+msgid "Invoice Effective Date"
+msgstr "ใบแจ้งหนี้วันที่มีผล"
+
+#. module: account_payment
+#: report:payment.order:0
+msgid "Execution Type"
+msgstr "ประเภทการดำเนินการ"
+
+#. module: account_payment
+#: selection:payment.line,state:0
+msgid "Structured"
+msgstr "Structured"
+
+#. module: account_payment
+#: view:payment.order:0
+#: field:payment.order,state:0
+msgid "State"
+msgstr "สถานะ"
+
+#. module: account_payment
+#: view:payment.line:0
+#: view:payment.order:0
+msgid "Transaction Information"
+msgstr "ข้อมูลการทำธุรกรรม"
+
+#. module: account_payment
+#: model:ir.actions.act_window,name:account_payment.action_payment_mode_form
+#: model:ir.model,name:account_payment.model_payment_mode
+#: model:ir.ui.menu,name:account_payment.menu_action_payment_mode_form
+#: view:payment.mode:0
+#: view:payment.order:0
+msgid "Payment Mode"
+msgstr "โหมดการชำระเงิน"
+
+#. module: account_payment
+#: field:payment.line,ml_date_created:0
+msgid "Effective Date"
+msgstr "วันที่มีผล"
+
+#. module: account_payment
+#: field:payment.line,ml_inv_ref:0
+msgid "Invoice Ref."
+msgstr "เลขที่อ้างอิงใบแจ้งหนี้"
+
+#. module: account_payment
+#: help:payment.order,date_prefered:0
+msgid "Choose an option for the Payment Order:'Fixed' stands for a date specified by you.'Directly' stands for the direct execution.'Due date' stands for the scheduled date of execution."
+msgstr "เลือกตัวเลือกสำหรับการชำระเงินการสั่งซื้อ :. ย่อมาจาก&#39;ถาวร&#39;สำหรับวันที่ที่ระบุโดยคุณย่อมาจาก&#39;โดยตรง&#39;เพื่อปฏิบัติการโดยตรงหมายถึง&#39;วันที่ครบกำหนดสำหรับวันที่กำหนดเวลาในการประมวล."
+
+#. module: account_payment
+#: code:addons/account_payment/account_move_line.py:110
+#, python-format
+msgid "Error !"
+msgstr "ข้อผิดพลาด"
+
+#. module: account_payment
+#: view:account.move.line:0
+msgid "Total debit"
+msgstr "การตัดบัญชีรวม"
+
+#. module: account_payment
+#: field:payment.order,date_done:0
+msgid "Execution date"
+msgstr "วันที่การดำเนินการ"
+
+#. module: account_payment
+#: help:payment.mode,journal:0
+msgid "Bank or Cash Journal for the Payment Mode"
+msgstr "วารสารธนาคารหรือเงินสดสำหรับโหมดการชำระเงิน"
+
+#. module: account_payment
+#: selection:payment.order,date_prefered:0
+msgid "Fixed date"
+msgstr "วันที่แก้ไข"
+
+#. module: account_payment
+#: field:payment.line,info_partner:0
+#: view:payment.order:0
+msgid "Destination Account"
+msgstr "บัญชีผู้ใช้ปลายทาง"
+
+#. module: account_payment
+#: view:payment.line:0
+msgid "Desitination Account"
+msgstr "บัญชี Desitination"
+
+#. module: account_payment
+#: view:payment.order:0
+msgid "Search Payment Orders"
+msgstr "สั่งซื้อสินค้าชำระเงินค้นหา"
+
+#. module: account_payment
+#: constraint:account.move.line:0
+msgid "You can not create move line on receivable/payable account without partner"
+msgstr "คุณไม่สามารถสร้างสายเลื่อนไปมาบนลูกหนี้เจ้าหนี้ / ไม่มีพันธมิตร"
+
+#. module: account_payment
+#: field:payment.line,create_date:0
+msgid "Created"
+msgstr "ที่สร้าง"
+
+#. module: account_payment
+#: view:payment.order:0
+msgid "Select Invoices to Pay"
+msgstr "ใบแจ้งหนี้ที่เลือกการชำระเงิน"
+
+#. module: account_payment
+#: view:payment.line:0
+msgid "Currency Amount Total"
+msgstr "รวมเป็นเงินสกุลเงิน"
+
+#. module: account_payment
+#: view:payment.order:0
+msgid "Make Payments"
+msgstr "ชำระเงิน"
+
+#. module: account_payment
+#: field:payment.line,state:0
+msgid "Communication Type"
+msgstr "ประเภทการสื่อสาร"
+
+#. module: account_payment
+#: model:ir.module.module,shortdesc:account_payment.module_meta_information
+msgid "Payment Management"
+msgstr "การชำระเงิน"
+
+#. module: account_payment
+#: field:payment.line,bank_statement_line_id:0
+msgid "Bank statement line"
+msgstr "สายบัญชีเงินฝากธนาคาร"
+
+#. module: account_payment
+#: selection:payment.order,date_prefered:0
+msgid "Due date"
+msgstr "วันครบกำหนด"
+
+#. module: account_payment
+#: field:account.invoice,amount_to_pay:0
+msgid "Amount to be paid"
+msgstr "เงินที่ต้องจ่าย"
+
+#. module: account_payment
+#: report:payment.order:0
+msgid "Currency"
+msgstr "เงินตรา"
+
+#. module: account_payment
+#: view:account.payment.make.payment:0
+msgid "Yes"
+msgstr "ใช่"
+
+#. module: account_payment
+#: help:payment.line,info_owner:0
+msgid "Address of the Main Partner"
+msgstr "ที่อยู่ของผู้ร่วมงานหลัก"
+
+#. module: account_payment
+#: help:payment.line,date:0
+msgid "If no payment date is specified, the bank will treat this payment line directly"
+msgstr "หากวันที่ชำระเงินไม่ได้ระบุธนาคารจะรักษาสายการชำระเงินนี้โดยตรง"
+
+#. module: account_payment
+#: model:ir.model,name:account_payment.model_account_payment_populate_statement
+msgid "Account Payment Populate Statement"
+msgstr "บัญชีการชำระเงินอาศัย Statement"
+
+#. module: account_payment
+#: help:payment.mode,name:0
+msgid "Mode of Payment"
+msgstr "โหมดการชำระเงิน"
+
+#. module: account_payment
+#: report:payment.order:0
+msgid "Value Date"
+msgstr "วันที่คุ้มค่า"
+
+#. module: account_payment
+#: report:payment.order:0
+msgid "Payment Type"
+msgstr "ประเภทการชำระเงิน"
+
+#. module: account_payment
+#: help:payment.line,amount_currency:0
+msgid "Payment amount in the partner currency"
+msgstr "จำนวนเงินที่ชำระในสกุลเงินของคู่ค้า"
+
+#. module: account_payment
+#: view:payment.order:0
+#: selection:payment.order,state:0
+msgid "Draft"
+msgstr "ร่าง"
+
+#. module: account_payment
+#: help:payment.line,communication2:0
+msgid "The successor message of Communication."
+msgstr "ข้อความสืบของการสื่อสาร"
+
+#. module: account_payment
+#: code:addons/account_payment/account_move_line.py:110
+#, python-format
+msgid "No partner defined on entry line"
+msgstr "คู่ค้าที่กำหนดไว้ในบรรทัดรายการที่ไม่มี"
+
+#. module: account_payment
+#: help:payment.line,info_partner:0
+msgid "Address of the Ordering Customer."
+msgstr "ที่อยู่ของลูกค้าสั่งซื้อ"
+
+#. module: account_payment
+#: view:account.payment.populate.statement:0
+msgid "Populate Statement:"
+msgstr "งบตั้งบ้านเรือนอยู่ :"
+
+#. module: account_payment
+#: view:account.move.line:0
+msgid "Total credit"
+msgstr "หน่วยกิตรวม"
+
+#. module: account_payment
+#: help:payment.order,date_scheduled:0
+msgid "Select a date if you have chosen Preferred Date to be fixed."
+msgstr "เลือกวันที่คุณได้เลือกวันที่ต้องการจะได้รับการแก้ไข"
+
+#. module: account_payment
+#: field:payment.order,user_id:0
+msgid "User"
+msgstr "ของผู้ใช้"
+
+#. module: account_payment
+#: field:account.payment.populate.statement,lines:0
+#: model:ir.actions.act_window,name:account_payment.act_account_invoice_2_payment_line
+msgid "Payment Lines"
+msgstr "สายการชําระเงิน"
+
+#. module: account_payment
+#: model:ir.model,name:account_payment.model_account_move_line
+msgid "Journal Items"
+msgstr "รายการวารสาร"
+
+#. module: account_payment
+#: constraint:account.move.line:0
+msgid "Company must be same for its related account and period."
+msgstr "บริษัท ฯ จะต้องเหมือนกันสำหรับบัญชีที่เกี่ยวข้องและระยะเวลาของมัน"
+
+#. module: account_payment
+#: help:payment.line,move_line_id:0
+msgid "This Entry Line will be referred for the information of the ordering customer."
+msgstr "รายการนี​​้จะเรียกสายสำหรับข้อมูลการสั่งซื้อของลูกค้า"
+
+#. module: account_payment
+#: view:payment.order.create:0
+msgid "Search"
+msgstr "Search"
+
+#. module: account_payment
+#: model:ir.actions.report.xml,name:account_payment.payment_order1
+#: model:ir.model,name:account_payment.model_payment_order
+msgid "Payment Order"
+msgstr "การชำระเงิน"
+
+#. module: account_payment
+#: field:payment.line,date:0
+msgid "Payment Date"
+msgstr "วันชำระเงิน"
+
+#. module: account_payment
+#: report:payment.order:0
+msgid "Total:"
+msgstr "Total :"
+
+#. module: account_payment
+#: field:payment.order,date_created:0
+msgid "Creation date"
+msgstr "วันที่สร้าง"
+
+#. module: account_payment
+#: view:account.payment.populate.statement:0
+msgid "ADD"
+msgstr "ใส่"
+
+#. module: account_payment
+#: view:account.bank.statement:0
+msgid "Import payment lines"
+msgstr "นำเข้าเส้นการชำระเงิน"
+
+#. module: account_payment
+#: field:account.move.line,amount_to_pay:0
+msgid "Amount to pay"
+msgstr "จำนวนเงินที่จะจ่าย"
+
+#. module: account_payment
+#: field:payment.line,amount:0
+msgid "Amount in Company Currency"
+msgstr "สกุลเงินจำนวนเงินใน บริษัท"
+
+#. module: account_payment
+#: help:payment.line,partner_id:0
+msgid "The Ordering Customer"
+msgstr "ลูกค้าสั่งซื้อ"
+
+#. module: account_payment
+#: model:ir.model,name:account_payment.model_account_payment_make_payment
+msgid "Account make payment"
+msgstr "บัญชีชำระเงิน"
+
+#. module: account_payment
+#: report:payment.order:0
+msgid "Invoice Ref"
+msgstr "เลขที่อ้างอิงใบแจ้งหนี้"
+
+#. module: account_payment
+#: field:payment.line,name:0
+msgid "Your Reference"
+msgstr "การอ้างอิงของคุณ"
+
+#. module: account_payment
+#: field:payment.order,mode:0
+msgid "Payment mode"
+msgstr "โหมดการชำระเงิน"
+
+#. module: account_payment
+#: view:payment.order:0
+msgid "Payment order"
+msgstr "การชำระเงิน"
+
+#. module: account_payment
+#: view:payment.line:0
+#: view:payment.order:0
+msgid "General Information"
+msgstr "ข้อมูลทั่วไป"
+
+#. module: account_payment
+#: view:payment.order:0
+#: selection:payment.order,state:0
+msgid "Done"
+msgstr "เสร็จสิ้น"
+
+#. module: account_payment
+#: model:ir.model,name:account_payment.model_account_invoice
+msgid "Invoice"
+msgstr "ใบกำกับสินค้า"
+
+#. module: account_payment
+#: field:payment.line,communication:0
+msgid "Communication"
+msgstr "การสื่อสาร"
+
+#. module: account_payment
+#: view:account.payment.make.payment:0
+#: view:account.payment.populate.statement:0
+#: view:payment.order:0
+#: view:payment.order.create:0
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+#. module: account_payment
+#: view:payment.line:0
+#: view:payment.order:0
+msgid "Information"
+msgstr "ข้อมูล"
+
+#. module: account_payment
+#: model:ir.actions.act_window,help:account_payment.action_payment_order_tree
+msgid "A payment order is a payment request from your company to pay a supplier invoice or a customer credit note. Here you can register all payment orders that should be done, keep track of all payment orders and mention the invoice reference and the partner the payment should be done for."
+msgstr "การชำระเงินคือการขอการชำระเงินจาก บริษัท ของคุณที่จะจ่ายใบแจ้งหนี้ของผู้ผลิตหรือทราบเครดิตของลูกค้า ที่นี่คุณสามารถลงทะเบียนสั่งซื้อการชำระเงินทั้งหมดที่ควรจะทำและเก็บประวัติของคำสั่งซื้อชำระเงินและการพูดถึงการอ้างอิงใบแจ้งหนี้และพันธมิตรการชำระเงินควรจะทำสำหรับ"
+
+#. module: account_payment
+#: help:payment.line,amount:0
+msgid "Payment amount in the company currency"
+msgstr "จำนวนเงินที่ชำระในสกุลเงินของ บริษัท"
+
+#. module: account_payment
+#: view:payment.order.create:0
+msgid "Search Payment lines"
+msgstr "สายการชําระเงินค้นหา"
+
+#. module: account_payment
+#: field:payment.line,amount_currency:0
+msgid "Amount in Partner Currency"
+msgstr "สกุลเงินจำนวนเงินในผู้ร่วมงาน"
+
+#. module: account_payment
+#: field:payment.line,communication2:0
+msgid "Communication 2"
+msgstr "2 การสื่อสาร"
+
+#. module: account_payment
+#: field:payment.line,bank_id:0
+msgid "Destination Bank account"
+msgstr "บัญชีธนาคารปลายทาง"
+
+#. module: account_payment
+#: view:account.payment.make.payment:0
+msgid "Are you sure you want to make payment?"
+msgstr "คุณแน่ใจหรือว่าต้องการให้ชำระเงินหรือไม่"
+
+#. module: account_payment
+#: view:payment.mode:0
+#: field:payment.mode,journal:0
+msgid "Journal"
+msgstr "สมุดรายวัน"
+
+#. module: account_payment
+#: field:payment.mode,bank_id:0
+msgid "Bank account"
+msgstr "บัญชีธนาคาร"
+
+#. module: account_payment
+#: view:payment.order:0
+msgid "Confirm Payments"
+msgstr "ยืนยันการชำระเงิน"
+
+#. module: account_payment
+#: field:payment.line,company_currency:0
+#: report:payment.order:0
+msgid "Company Currency"
+msgstr "สกุลเงิน บริษัท"
+
+#. module: account_payment
+#: model:ir.ui.menu,name:account_payment.menu_main_payment
+#: view:payment.line:0
+#: view:payment.order:0
+msgid "Payment"
+msgstr "การชําระเงิน"
+
+#. module: account_payment
+#: report:payment.order:0
+msgid "Payment Order / Payment"
+msgstr "การชำระเงินการชําระเงิน"
+
+#. module: account_payment
+#: field:payment.line,move_line_id:0
+msgid "Entry line"
+msgstr "สายเข้าเมือง"
+
+#. module: account_payment
+#: help:payment.line,communication:0
+msgid "Used as the message between ordering customer and current company. Depicts 'What do you want to say to the recipient about this order ?'"
+msgstr "ใช้เป็นข้อความระหว่างลูกค้าสั่งซื้อและ บริษัท ปัจจุบัน แสดงให้เห็น&#39;สิ่งที่คุณต้องการจะพูดถึงผู้รับเกี่ยวกับการสั่งซื้อนี้?&#39;"
+
+#. module: account_payment
+#: field:payment.mode,name:0
+msgid "Name"
+msgstr "ชื่อ"
+
+#. module: account_payment
+#: report:payment.order:0
+msgid "Bank Account"
+msgstr "บัญชีธนาคาร"
+
+#. module: account_payment
+#: view:payment.line:0
+#: view:payment.order:0
+msgid "Entry Information"
+msgstr "ข้อมูลการเข้าเมือง"
+
+#. module: account_payment
+#: model:ir.model,name:account_payment.model_payment_order_create
+msgid "payment.order.create"
+msgstr "payment.order.create"
+
+#. module: account_payment
+#: field:payment.line,order_id:0
+msgid "Order"
+msgstr "คำสั่งซื้อ"
+
+#. module: account_payment
+#: field:payment.order,total:0
+msgid "Total"
+msgstr "รวม"
+
+#. module: account_payment
+#: view:account.payment.make.payment:0
+#: model:ir.actions.act_window,name:account_payment.action_account_payment_make_payment
+msgid "Make Payment"
+msgstr "การชำระเงิน"
+
+#. module: account_payment
+#: field:payment.line,partner_id:0
+#: report:payment.order:0
+msgid "Partner"
+msgstr "หุ้นส่วน"
+
+#. module: account_payment
+#: model:ir.actions.act_window,name:account_payment.action_create_payment_order
+msgid "Populate Payment"
+msgstr "อาศัยการชำระเงิน"
+
+#. module: account_payment
+#: help:payment.mode,bank_id:0
+msgid "Bank Account for the Payment Mode"
+msgstr "บัญชีธนาคารสำหรับโหมดการชำระเงิน"
+
+#. module: account_payment
+#: constraint:account.move.line:0
+msgid "You can not create move line on view account."
+msgstr "คุณไม่สามารถสร้างสายย้ายในบัญชีดู"
+

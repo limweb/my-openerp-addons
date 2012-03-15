@@ -1,0 +1,541 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="view_picking_in_inherited_tree" model="ir.ui.view">
+            <field name="name">stock.picking.in.inherited.tree</field>
+            <field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_in_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<field name="origin" position="after">
+					<field name="customer_product_id" />
+					<field name="period_id" />
+				</field>
+            </field>
+        </record>
+
+        <record id="view_picking_in_inherited_tree2" model="ir.ui.view">
+            <field name="name">stock.picking.in.inherited.tree2</field>
+            <field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_in_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<field name="min_date" position="after">
+					<field name="date_done" />
+				</field>
+            </field>
+        </record>
+
+        <record id="view_picking_in_inherited_form" model="ir.ui.view">
+            <field name="name">stock.picking.in.inheried.form</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+			<field name="inherit_id" ref="stock.view_picking_in_form"/>
+            <field name="arch" type="xml">
+				<field name="backorder_id" position="after">
+					<field name="customer_product_id" />
+					<field name="period_id" />
+				</field>
+			</field>
+		</record>
+
+		<!-- Delivery Order -->
+
+        <record id="view_picking_out_inherited_tree" model="ir.ui.view">
+            <field name="name">stock.picking.out.inherited1.tree</field>
+            <field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_out_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<field name="origin" position="after">
+					<field name="customer_product_id" />
+					<field name="location_store_id" />
+					<field name="period_id" />
+					<field name="date_period_start" />
+					<field name="address_id" />
+					<field name="oa_contact_name" />
+					<field name="oa_mobile_no" />
+					<field name="path" />
+				</field>
+            </field>
+        </record>                
+ 
+        <record id="view_picking_out_inherited2_tree" model="ir.ui.view">
+            <field name="name">stock.picking.out.inherited2.tree</field>
+            <field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_out_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<field name="state" position="after">
+					<button name="action_assign" states="confirmed" string="Check Availability" type="object"  icon="gtk-find"/> 
+				</field>
+            </field>
+        </record>
+ 
+        <record id="view_picking_out_inherited3_tree" model="ir.ui.view">
+            <field name="name">stock.picking.out.inherited3.tree</field>
+            <field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_out_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<field name="partner_id" position="replace">
+					<field name="customer_id" /> 
+				</field>
+            </field>
+        </record>
+
+        <record id="view_picking_out_inherited4_form" model="ir.ui.view">
+            <field name="name">stock.picking.out.inheried4.form</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+			<field name="inherit_id" ref="stock.view_picking_out_form"/>
+            <field name="arch" type="xml">
+				<field name="backorder_id" position="after">
+					<field name="customer_product_id" />
+					<field name="period_id" />
+					<field name="oa_contact_name" />
+					<field name="oa_mobile_no" />
+					<field name="location_store_id" colspan="4" />
+				</field>
+			</field>
+		</record>
+
+        <record id="view_picking_out_inherited2_form" model="ir.ui.view">
+            <field name="name">stock.picking.out.inheried2.form</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+			<field name="inherit_id" ref="stock.view_picking_out_form"/>
+            <field name="arch" type="xml">
+				<field name="stock_journal_id" position="after">
+					<field name="oa_mobile_no2" />
+					<field name="path" />
+				</field>
+			</field>
+		</record>
+		
+        <record id="view_picking_out_inherited3_form" model="ir.ui.view">
+            <field name="name">stock.picking.out.inheried3.form</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+			<field name="inherit_id" ref="stock.view_picking_out_form"/>
+            <field name="arch" type="xml">
+				<field name="date_done" position="after">
+					<field name="date_arrival" />
+				</field>
+			</field>
+		</record>
+ 
+        <record id="omg_view_picking_out_search_inherit" model="ir.ui.view">
+            <field name="name">omg.stock.picking.out.search</field>
+            <field name="model">stock.picking</field>
+            <field name="type">search</field>
+			<field name="inherit_id" ref="stock.view_picking_out_search"/>
+            <field name="arch" type="xml">
+             	<field name="stock_journal_id" position="after">
+					<newline />
+					<field name="period_id" />
+					<field name="customer_product_id" />
+					<field name="address_id" />	
+					<field name="path" />
+					<field name="location_store_id" />
+             	</field>
+            </field>
+        </record>
+ 
+ <!-- 
+        <record id="omg_view_picking_out_search_inherited2" model="ir.ui.view">
+            <field name="name">omg.stock.picking.out.search.inherited2</field>
+            <field name="model">stock.picking</field>
+            <field name="type">search</field>
+			<field name="inherit_id" ref="stock.view_picking_out_search"/>
+            <field name="arch" type="xml">
+				<field name="stock_journal_id" position="after">
+					<newline />
+                    <group expand="0" string="Extended Filters..." colspan="4" col="8">
+						<field name="period_id" />
+						<field name="customer_product_id" />
+						<field name="address_id" />	
+						<field name="path" />
+						<field name="location_store_id" />
+                    </group>
+				</field>
+            </field>
+        </record>
+       	 		
+       	-->
+		<!-- Delivery Order End -->
+		
+        <record id="view_move_tree_reception_picking_inheried" model="ir.ui.view">
+            <field name="name">stock.move.tree2.inheried</field>
+            <field name="model">stock.move</field>
+ 			<field name="inherit_id" ref="stock.view_move_tree_reception_picking"/> 
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<field name="origin" position="after">
+					<field name="period_id" />	
+					<field name="location_dest_id" />				
+					<field name="customer_product_id" />
+				</field>            	
+            </field>
+		</record>
+
+        <record id="view_move_tree_reception_picking_inheried2" model="ir.ui.view">
+            <field name="name">stock.move.tree2.inheried2</field>
+            <field name="model">stock.move</field>
+			<field name="inherit_id" ref="view_move_tree_reception_picking_inheried"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<field name="date" position="after">
+					<field name="date_expected" />
+					<field name="date_arrival" />				
+					<field name="date_appointment" />					
+					<field name="date_completed" />
+				</field>            	
+            </field>
+		</record>
+
+		<!-- OMG Delivery Product -->
+        <record id="view_move_tree_omg_delivery_product" model="ir.ui.view">
+            <field name="name">omg.delivery.stock.move.tree</field>
+            <field name="model">stock.move</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="7" />
+            <field name="arch" type="xml">
+                <tree colors="grey:state in ('cancel')" string="Delivery Products">
+                    <field name="date"/>
+                    <field name="picking_id" string="Reference"/>
+                    <field name="origin"/>
+					<field name="period_id" />	
+					<field name="date_period_start" />
+					<field name="location_dest_id" />				
+					<field name="customer_product_id" />
+                    <field name="product_id"/>
+                    <field name="product_qty" />
+                    <field name="product_uom" string="UoM"/>
+					<field name="date_finished" />
+					<field name="date_arrival_planned" />
+					<field name="date_arrival" />				
+					<field name="date_completed" />
+                    <field name="state"/>
+                    <button name="action_done" states="confirmed,assigned" string="Process" type="object" icon="gtk-go-forward"/>
+                    <button name="action_arrival" states="done" string="Arrival" type="object" icon="gtk-goto-last"/>
+                    <button name="action_return_done" states="arrival" string="Set Done" type="object" icon="terp-document-new"/>
+                    <button name="action_complete" states="arrival" string="Complete" type="object" icon="gtk-yes"/>
+                    <button name="action_return_arrival" states="complete,complete2" string="Set Arrival" type="object" icon="terp-document-new"/>
+                    <button name="action_complete2" states="done,arrival" string="Force" type="object" icon="gtk-yes"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_move_search_omg_delivery_product" model="ir.ui.view">
+            <field name="name">omg.stock.move.outgoing.search</field>
+            <field name="model">stock.move</field>
+            <field name="type">search</field>
+            <field eval="6" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Delivery Product">
+                    <group col="8" colspan="4">
+                        <filter icon="terp-go-today" string="Delivery Today" domain="[('date_finished','&lt;=',time.strftime('%%Y-%%m-%%d 23:59:59')),('date_finished','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]" help="Orders delivery for today"/>
+                        <filter icon="terp-go-today" string="Arrival Today" domain="[('date_arrival','&lt;=',time.strftime('%%Y-%%m-%%d 23:59:59')),('date_arrival','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]" help="Orders arrival for today"/>
+                        <filter icon="terp-go-today" string="Complete Today" domain="[('date_completed','&lt;=',time.strftime('%%Y-%%m-%%d 23:59:59')),('date_completed','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]" help="Orders arrival for today"/>
+                        <separator orientation="vertical"/>
+                        <filter icon="terp-gtk-go-back-rtl" name="receive" string="Delivered" domain="[('state','=',('done'))]" help="Stock be delivered"/>
+                        <filter icon="terp-gtk-go-back-rtl" name="arrival_late" string="Arv Late" domain="[('state','=',('done')),('date_arrival_planned','&lt;',time.strftime('%%Y-%%m-%%d 00:00:00'))]" help="Arrival Lates"/>
+                        <filter icon="terp-check" name="available" string="Arrived" domain="[('state','=',('arrival'))]" help="Stock available to be delivered"/>
+                        <filter icon="terp-dialog-close" name="received" string="Complete" domain="[('state','=','complete')]"/>
+                        <separator orientation="vertical"/>
+                        <field name="picking_id" />
+                        <field name="origin"/>
+                        <field name="partner_id" string="Partner"/>
+                        <field name="product_id"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Extended Filters..." groups="base.group_extended">
+						<field name="period_id" />	
+						<field name="customer_product_id" />
+						<field name="date_finished" />
+						<field name="date_arrival_planned" />
+						<field name="date_arrival" />				
+						<newline/>
+						<field name="date_completed" />
+						<field name="location_dest_id" />		
+						<field name="date_appointment" />		
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="4" col="8" groups="base.group_extended">
+                        <filter string="Customer" icon="terp-personal" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Store" icon="terp-personal" domain="[]" context="{'group_by':'location_dest_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Product" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'product_id'}"/>
+                        <filter string="Order" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'origin'}"/>
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Order Date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}" />
+                        <filter string="Finish Date" icon="terp-go-month" domain="[]" context="{'group_by':'date_finished'}" />
+                        <filter string="Arrival Date" icon="terp-go-month" domain="[]" context="{'group_by':'date_arrival'}" />
+                        <filter string="Complete Date" icon="terp-go-month" domain="[]" context="{'group_by':'date_completed'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_omg_delivery_picking_move" model="ir.actions.act_window">
+            <field name="name">Delivery Products by OMG</field>
+            <field name="res_model">stock.move</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">['|','&amp;',('picking_id','=',False),('location_id.usage', 'in', ['customer','supplier']),'&amp;',('picking_id','!=',False),('picking_id.type','=','out')]</field>
+            <field name="view_id" ref="view_move_tree_omg_delivery_product"/>
+            <field name="search_view_id" ref="view_move_search_omg_delivery_product"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_omg_move_reception_picking_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_move_tree_omg_delivery_product"/>
+            <field name="act_window_id" ref="action_omg_delivery_picking_move"/>
+        </record>
+
+      <menuitem action="action_omg_delivery_picking_move" id="menu_action_omg_delivery_product" parent="stock.menu_stock_products_moves" sequence="2"/>
+
+
+
+        <record id="view_move_search_reception_outcoming_picking_inherited" model="ir.ui.view">
+            <field name="name">stock.move.outgoing.search2.inherited</field>
+            <field name="model">stock.move</field>
+            <field name="type">search</field>
+			<field name="inherit_id" ref="stock.view_move_search_reception_outcoming_picking"/>
+            <field name="arch" type="xml">
+				<field name="prodlot_id" position="after" >
+						<field name="period_id" />
+						<field name="customer_product_id" />
+						<field name="location_dest_id" />
+				</field>
+            </field>
+        </record>
+	
+
+		<!--Location Set -->
+
+        <record id="view_stock_location_set_tree" model="ir.ui.view">
+       		<field name="name">stock.location.set.tree</field>
+       		<field name="model">stock.location.set</field>
+        	<field name="type">tree</field>
+       		<field name="arch" type="xml">
+				<tree string="Location Set">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+        <record id="view_stock_location_set_form" model="ir.ui.view">
+       		<field name="name">stock.location.set.form</field>
+       		<field name="model">stock.location.set</field>
+        	<field name="type">form</field>
+       		<field name="arch" type="xml">
+				<form string="Location Set">
+					<field name="name" />
+					<button name="%(wizard_search_location)d" string="Find Location" type="action" icon="gtk-execute" />
+					<newline/>			
+					<field name="lines" nolabel="1" colspan="4">		
+						<tree string="Location Lines" editable="bottom">
+							<field name="name" />
+							<field name="location_id" domain="[('omg_approve','=',True)]"/>
+							<field name="location_set_id" />
+						</tree>
+					</field>					
+				</form>
+			</field>
+		</record>
+
+        <record id="view_stock_location_set_line_tree" model="ir.ui.view">
+       		<field name="name">stock.location.set.line.tree</field>
+       		<field name="model">stock.location.set.line</field>
+        	<field name="type">tree</field>
+       		<field name="arch" type="xml">
+				<tree string="Location Lines" editable="bottom">
+					<field name="name" />
+					<field name="location_id" />
+					<field name="location_set_id" />
+				</tree>
+			</field>
+		</record>
+
+		<!--Location Set Action-->
+        <record id="act_stock_location_set" model="ir.actions.act_window">
+            <field name="name">Location Set</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.location.set</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="act_stock_location_set" id="menu_stock_location_set" parent="base.menu_sale_config_sales" />
+
+        <record id="view_location_line_qty_tree" model="ir.ui.view">
+            <field name="name">location.line.qty.tree</field>
+            <field name="model">stock.location.line.qty</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Location Quantity" editable="bottom">
+					<field name="categ_id" />
+					<field name="quantity" />
+				</tree>	
+			</field>
+		</record>
+
+        <record id="view_oa_address_tree" model="ir.ui.view">
+            <field name="name">oa.address.tree</field>
+            <field name="model">stock.oa.address</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="OA Address" editable="bottom">
+					<field name="name" />
+					<field name="address_id" />
+					<field name="location_id" />
+				</tree>	
+			</field>
+		</record>
+
+        <record id="view_stock_location_booking_tree" model="ir.ui.view">
+            <field name="name">stock.location.booking.tree</field>
+            <field name="model">stock.location.booking</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Booking History" editable="bottom">
+					<field name="date_booking" />
+					<field name="product_id" />
+					<field name="category_id" />
+					<field name="period_id" />
+					<field name="saleman_id" />
+					<field name="state" />
+				</tree>	
+			</field>
+		</record>
+
+		
+		<record id="ineco_view_move_form" model="ir.ui.view">
+            <field name="name">ineco.stock.move.form</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_form"/>
+            <field name="type">form</field>
+            <field eval="4" name="priority"/>
+            <field name="arch" type="xml">
+            	<field name="state" position="after" >
+            		<field name="receive_qty" />
+            		<field name="note" colspan="4"/>
+            		<newline/>
+            		<group colspan="4">
+	                    <button name="action_arrival" states="done" string="Arrival" type="object" icon="gtk-goto-last"/>
+	                    <button name="action_complete" states="arrival" string="Complete" type="object" icon="gtk-yes"/>
+	                    <button name="action_complete2" states="done,arrival" string="Force" type="object" icon="gtk-yes"/>            			
+            		</group>
+            	</field>
+            </field>
+      	</record>
+
+		<record id="ineco_view_move_inherit_form" model="ir.ui.view">
+			<field name="name">ineco.stock.move.inherit.form</field>
+			<field name="model">stock.move</field>
+			<field name="inherit_id" ref="ineco_view_move_form"/>
+			<field name="type">form</field>
+			<field eval="4" name="priority"/>
+			<field name="arch" type="xml">
+				<field name="date_expected" position="after" >
+					<field name="date_arrival" />
+					<field name="date_completed" />
+					<field name="date_appointment" />
+					<field name="date_audit" />
+				</field>
+			</field>
+		</record>
+
+        <record id="omg_view_picking_in_search" model="ir.ui.view">
+            <field name="name">omg.stock.picking.in.search</field>
+            <field name="model">stock.picking</field>
+            <field name="type">search</field>
+			<field name="inherit_id" ref="stock.view_picking_in_search"/>
+            <field name="arch" type="xml">
+             	<field name="stock_journal_id" position="after">
+             		<field name="customer_product_id" />
+             		<field name="period_id" />
+             	</field>
+            </field>
+        </record>
+
+		<!--  SMS Type -->
+        <record id="view_ineco_sms_type_tree" model="ir.ui.view">
+       		<field name="name">ineco.sms.type.tree</field>
+       		<field name="model">ineco.sms.type</field>
+        	<field name="type">tree</field>
+       		<field name="arch" type="xml">
+				<tree string="SMS Type">
+					<field name="name" />
+					<field name="condition" />
+				</tree>
+			</field>
+		</record>
+
+        <record id="view_ineco_sms_type_form" model="ir.ui.view">
+       		<field name="name">ineco.sms.type.form</field>
+       		<field name="model">ineco.sms.type</field>
+        	<field name="type">form</field>
+       		<field name="arch" type="xml">
+				<form string="SMS Type">
+					<field name="name" />
+					<field name="condition" />
+				</form>
+			</field>
+		</record>
+
+        <record id="act_ineco_sms_type" model="ir.actions.act_window">
+            <field name="name">SMS Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.sms.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="act_ineco_sms_type" id="menu_ineco_sms_type" parent="base.menu_sale_config_sales" />
+
+        <record id="view_picking_out_inherited_sms_tree" model="ir.ui.view">
+            <field name="name">stock.picking.out.inherited.sms.tree</field>
+            <field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_out_form"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+		        <page string="Notes" position="after">
+		        	<page string="SMS">
+		        		<field name="sms_text" />
+		        	</page>
+		        </page>
+            </field>
+        </record>
+
+		<!-- Stock Location Group Special -->
+		<record model="ir.ui.view" id="view_omg_stock_location_group_special_tree">
+			<field name="name">omg.stock.location.group.special.tree</field>
+			<field name="type">tree</field>
+			<field name="model">omg.stock.location.group.special</field>
+			<field name="arch" type="xml">
+				<tree string="Location Group Special">
+					<field name="group_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_omg_stock_location_group_special_form">
+			<field name="name">omg.stock.location.group.special.form</field>
+			<field name="type">form</field>
+			<field name="model">omg.stock.location.group.special</field>
+			<field name="arch" type="xml">
+				<form string="Location Group Special">
+					<field name="group_id" />
+				</form>
+			</field>
+		</record>
+
+	</data>
+</openerp>
+
+

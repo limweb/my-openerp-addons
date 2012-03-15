@@ -1,0 +1,406 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="view_omg_sale_order_form">
+			<field name="name">omg.sale.order.form</field>
+			<field name="type">form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page[@string='History']" position="before">
+					<page string="Periods">
+						<field name="sale_period_days" colspan="4" />
+						<newline/>
+						<field colspan="4" name="sale_period_ids" mode="tree,form" nolabel="1" widget="one2many_list">
+							<form string="Periods">
+								<field name="period_id" />
+								<field name="description" />
+								<field name="date_start" />
+								<field name="date_finish" />
+								<field name="date_length" />
+								<field name="date_total" />
+							</form>
+							<tree string="Periods">
+								<field name="period_id" />
+								<field name="description" />
+								<field name="date_start" />
+								<field name="date_finish" />
+								<field name="date_length" />
+								<field name="date_total" />
+							</tree>
+						</field>
+					</page>
+					<page string="Item Check Sales">
+						<field name="item_sale_check_ids" colspan="4" nolabel="1">
+							<tree>
+								<field name="name_template" />
+							</tree>
+						</field>
+					</page>
+				</xpath>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_omg_sale_order_branch_form">
+			<field name="name">omg.sale.order.branch.form</field>
+			<field name="type">form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="view_omg_sale_order_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page[@string='Periods']" position="after">
+					<page string="Branch">
+						<button name="%(action_location_set_wizard)d" string="Select Location Set" type="action" icon="gtk-execute" colspan="4"/>
+						<field name="sale_location_counts" colspan="4" />
+						<newline/>
+						<field colspan="4" name="sale_location_ids" mode="tree,form" nolabel="1" widget="one2many_list">
+							<form string="Branch">
+								<field name="location_id" domain="[('omg_approve','=',True)]" />
+								<field name="location_name" />
+								<field name="estimate" />
+							</form>
+							<tree string="Branch">
+								<field name="location_id" />
+								<field name="location_name" />
+								<field name="estimate" />
+							</tree>
+						</field>
+					</page>
+				</xpath>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_omg_sale_period_form">
+			<field name="name">omg.sale.period.form</field>
+			<field name="type">form</field>
+			<field name="model">omg.sale.period</field>
+			<field name="arch" type="xml">
+				<form string="Periods">
+					<field name="name" />
+					<field name="description" />
+					<field name="date_start" />
+					<field name="date_finish" />
+					<field name="date_length" />
+					<field name="addup"/>
+					<field name="warehouse_lock" groups="base.group_omg_lock_period"/>
+					<field name="company_id" />
+				</form>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_omg_sale_period_tree">
+			<field name="name">omg.sale.period.tree</field>
+			<field name="type">tree</field>
+			<field name="model">omg.sale.period</field>
+			<field name="arch" type="xml">
+				<tree string="Periods">
+					<field name="name" />
+					<field name="description" />
+					<field name="date_start" />
+					<field name="date_finish" />
+					<field name="date_length" />
+					<field name="addup"/>
+					<field name="company_id" />
+					<field name="warehouse_lock" groups="base.group_omg_lock_period"/>
+				</tree>
+			</field>
+		</record>
+		<!--Period Master-->
+		<record id="act_sale_period" model="ir.actions.act_window">
+			<field name="name">Period Master</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">omg.sale.period</field>
+			<!--            <field name="view_id" eval="view_omg_sale_period_tree"/> -->
+			<field name="view_mode">tree,form</field>
+		</record>
+		<menuitem action="act_sale_period" id="menu_sale_period_master" parent="base.menu_sale_config_sales" />
+		<!--Location-->
+		<menuitem action="stock.action_location_form" id="menu_sale_action_location_form" parent="base.menu_sale_config_sales"/>
+		<!--
+		<act_window
+		id="act_omg_sale_reservation_open"
+		name="Goto Reservation"
+		res_model="stock.move"
+		src_model="sale.order"/>
+		-->
+
+		<record model="ir.ui.view" id="view_omg_sale_order_quotation_form">
+			<field name="name">omg.sale.order.quotation.form</field>
+			<field name="type">form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="view_omg_sale_order_branch_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page[@string='Branch']" position="after">
+					<page string="Manual Quotation">
+						<field colspan="4" name="sale_quotation_ids" mode="tree,form" nolabel="1" widget="one2many_list">
+							<form string="Manual Quotation">
+								<field name="product_id" />
+								<field name="name" />
+								<field name="price_unit" />
+								<field name="product_uom_qty" />
+								<field name="product_uom" />
+							</form>
+							<tree string="Manual Quotation">
+								<field name="name" />
+								<field name="price_unit" />
+								<field name="product_uom_qty" />
+								<field name="product_uom" />
+							</tree>
+						</field>
+						<separator colspan="4" string="Quotation Notes"/>
+						<field colspan="4" nolabel="1" name="notes_quotation" />
+					</page>
+				</xpath>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_omg_sale_order_inherited_form">
+			<field name="name">omg.sale.order.inherited.form</field>
+			<field name="type">form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="view_omg_sale_order_branch_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page/field/tree/field[@name='discount']" position="before">
+					<field name="total_period" />
+					<field name="total_branch" />
+					<field name="sale_subtotal" invisible="True" />
+				</xpath>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_omg_sale_order_inherited2_form">
+			<field name="name">omg.sale.order.inherited2.form</field>
+			<field name="type">form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="view_omg_sale_order_inherited_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page/field/form/notebook/page/field[@name='discount']" position="before">
+					<field name="sale_subtotal" />
+					<field name="with_branch" />
+					<field name="with_period" />
+ 					<field name="apply_all_store" />
+					<field name="omg_ratio" attrs="{'invisible': [('apply_all_store','=',True)]}"/>
+					<field name="omg_sampling" attrs="{'invisible': [('apply_all_store','=',True)]}"/>
+					<field name="omg_percent_rate" attrs="{'invisible': [('apply_all_store','=',True)]}"/>					 
+				</xpath>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_omg_sale_order_inherited3_form">
+			<field name="name">omg.sale.order.inherited3.form</field>
+			<field name="type">form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="view_omg_sale_order_inherited2_form"/>
+			<field name="arch" type="xml">
+				<field name="shipped" position="after">
+					<group colspan="4">
+						<field name="customer_product_id"/>
+						<field name="service_product_id" domain="[('service_type','=',True)]"  />
+					</group>
+				</field>
+			</field>
+		</record>
+		<record id="act_sale_request" model="ir.actions.act_window">
+			<field name="name">Request Sale Orders</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.request</field>
+			<field name="view_id" eval="False"/>
+			<field name="view_mode">tree,form,calendar</field>
+			<field name="search_view_id" ref="base.res_request_search_view"/>
+			<field name="context">{"search_default_act_to":uid}</field>
+		</record>
+		<menuitem action="act_sale_request" id="menu_sale_res_request_act" parent="base.menu_sales" />
+
+		<!-- Chain -->		
+		<record model="ir.ui.view" id="view_omg_sale_chain_form">
+			<field name="name">omg.sale.chain.form</field>
+			<field name="type">form</field>
+			<field name="model">omg.sale.chain</field>
+			<field name="arch" type="xml">
+				<form string="Chain">
+					<field name="name" />
+					<field name="image_url" />
+				</form>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_omg_sale_chain_tree">
+			<field name="name">omg.sale.chain.tree</field>
+			<field name="type">tree</field>
+			<field name="model">omg.sale.chain</field>
+			<field name="arch" type="xml">
+				<tree string="Chain" editable="bottom">
+					<field name="name" />
+					<field name="image_url" />
+				</tree>
+			</field>
+		</record>
+		<record id="act_sale_chain" model="ir.actions.act_window">
+			<field name="name">Chain Master</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">omg.sale.chain</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<menuitem action="act_sale_chain" id="menu_sale_chain_master" parent="base.menu_sale_config_sales" />
+		
+		<!-- Sale Location Group -->
+		<record model="ir.ui.view" id="view_omg_sale_location_group_tree">
+			<field name="name">omg.sale.location.group.tree</field>
+			<field name="type">tree</field>
+			<field name="model">omg.sale.location.group</field>
+			<field name="arch" type="xml">
+				<tree string="Location Group" editable="bottom">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+		<record id="act_sale_location_group" model="ir.actions.act_window">
+			<field name="name">Location Group Master</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">omg.sale.location.group</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<menuitem action="act_sale_location_group" id="menu_sale_location_group_master" parent="base.menu_sale_config_sales" />
+		<!-- Sale Location Type -->
+		<record model="ir.ui.view" id="view_omg_sale_location_type_tree">
+			<field name="name">omg.sale.location.type.tree</field>
+			<field name="type">tree</field>
+			<field name="model">omg.sale.location.type</field>
+			<field name="arch" type="xml">
+				<tree string="Location Type" editable="bottom">
+					<field name="name" />
+					<field name="product_id" domain="[('type','=','service')]" />
+				</tree>
+			</field>
+		</record>
+		<record id="act_sale_location_type" model="ir.actions.act_window">
+			<field name="name">Location Type Master</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">omg.sale.location.type</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<menuitem action="act_sale_location_type" id="menu_sale_location_type_master" parent="base.menu_sale_config_sales" />
+		
+        <record id="ineco_view_order_tree" model="ir.ui.view">
+            <field name="name">ineco.sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="type">tree</field>
+			<field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+            	<field name="user_id" position="after">
+            		<field name="date_period_start" />
+            		<field name="date_period_finish" />
+            	</field>
+            </field>
+        </record>
+		
+        <record id="omg_view_sales_order_filter" model="ir.ui.view">
+            <field name="name">omg.sale.order.list.select</field>
+            <field name="model">sale.order</field>
+            <field name="type">search</field>
+			<field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                    <field name="user_id" position="after">
+                    	<newline />
+                    	<group expand="0" string="Extended Filters..." colspan="4" col="8">
+                        	<field name="customer_product_id" />
+                        	<field name="date_period_start" />
+                        	<field name="date_period_finish" />
+                    	</group>                    	
+                    </field>
+            </field>
+        </record>
+
+	    <record model="ir.ui.view" id="view_ineco_sale_order_line_form1">
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="name">ineco.sale.order.line.form1</field>
+            <field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='Sales Order']/field[@name='order_line']/form/notebook/page[@string='Order Line']/field[@name='product_id']" position="replace">
+					<field colspan="4"
+                    	context="partner_id=parent.partner_id,quantity=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.shop_id,uom=product_uom"
+                        name="product_id"
+                        on_change="my_product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], True, parent.date_order, product_packaging, parent.fiscal_position, False, price_unit)"
+                    />
+            	</xpath>	        	            	
+            </field>
+		</record>
+
+	    <record model="ir.ui.view" id="view_ineco_sale_order_line_form2">
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="name">ineco.sale.order.line.form2</field>
+            <field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='Sales Order']/field[@name='order_line']/form/notebook/page[@string='Order Line']/field[@name='product_uom_qty']" position="replace">
+                   	<field
+                      	context="partner_id=parent.partner_id,quantity=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.shop_id,uom=product_uom"
+                       	name="product_uom_qty"
+                       	on_change="my_product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], False, parent.date_order, product_packaging, parent.fiscal_position, True, price_unit)"
+                  	/>
+            	</xpath>	        	            	
+            </field>
+		</record>
+
+	    <record model="ir.ui.view" id="view_ineco_sale_order_line_form3">
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="name">ineco.sale.order.line.form3</field>
+            <field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='Sales Order']/field[@name='order_line']/form/notebook/page[@string='Order Line']/field[@name='product_uom']" position="replace">
+                   	<field name="product_uom"
+                   		domain="[('category_id','=',uom_category_id)]"
+                  		on_change="my_product_uom_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], False, parent.date_order, price_unit)"/>
+            	</xpath>	        	            	
+            </field>
+		</record>
+
+	    <record model="ir.ui.view" id="view_ineco_sale_order_line_form4">
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="name">ineco.sale.order.line.form4</field>
+            <field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='Sales Order']/field[@name='order_line']/form/notebook/page[@string='Order Line']/field[@name='product_packaging']" position="replace">
+             		<field
+                   		name="product_packaging"
+                     	context="partner_id=parent.partner_id,quantity=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.shop_id,uom=product_uom"
+                    	on_change="my_product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], False, parent.date_order, product_packaging, parent.fiscal_position, False, price_unit)"
+                    	domain="[('product_id','=',product_id)]"
+                   		groups="base.group_extended"/>
+                   	<field name="uom_category_id" readonly="1"/>
+            	</xpath>	        	            	
+            </field>
+		</record>
+
+		<!-- OMG Sale Group Special -->
+		<record model="ir.ui.view" id="view_omg_sale_group_special_tree">
+			<field name="name">omg.sale.group.special.tree</field>
+			<field name="type">tree</field>
+			<field name="model">omg.sale.group.special</field>
+			<field name="arch" type="xml">
+				<tree string="Group Special">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_omg_sale_group_special_form">
+			<field name="name">omg.sale.group.special.form</field>
+			<field name="type">form</field>
+			<field name="model">omg.sale.group.special</field>
+			<field name="arch" type="xml">
+				<form string="Group Special">
+					<field name="name" />
+					<field name="active" />
+				</form>
+			</field>
+		</record>
+
+		<record id="act_omg_sale_group_special" model="ir.actions.act_window">
+			<field name="name">Group Special</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">omg.sale.group.special</field>
+			<!--            <field name="view_id" eval="view_omg_sale_period_tree"/> -->
+			<field name="view_mode">tree,form</field>
+		</record>
+		<menuitem action="act_omg_sale_group_special" id="menu_omg_sale_group_special" parent="base.menu_sale_config_sales" />
+				
+	</data>
+</openerp>

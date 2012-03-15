@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record model="ir.ui.view" id="view_ineco_asset_type_export_tree">
+            <field name="name">ineco.asset.type.export.tree</field>
+            <field name="model">ineco.asset.type</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="ineco_asset.view_ineco_asset_type_tree" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                	<field name="code_nav" />            
+                </field>                
+            </field>
+        </record>
+
+       <record model="ir.ui.view" id="view_ineco_asset_type_export_form">
+            <field name="name">ineco.asset.type.export.form</field>
+            <field name="model">ineco.asset.type</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="ineco_asset.view_ineco_asset_type_form" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                	<field name="code_nav" />
+                	
+                </field>                
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_ineco_asset_export_form">
+            <field name="name">ineco.asset.export.form</field>
+            <field name="model">ineco.asset</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="ineco_asset.view_ineco_asset_form" />
+            <field name="arch" type="xml">
+            	<field name="percent" position="after">
+            		<field name="fa_posting_group_id" domain="[('group_nav','=','asset')]" />
+            		<field name="nav_id" />
+            	</field>
+			</field>
+		</record>   
+		     
+	</data>
+</openerp>

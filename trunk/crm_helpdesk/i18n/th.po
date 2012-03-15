@@ -1,0 +1,669 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* crm_helpdesk
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.0-rc2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:15:04+0000\n"
+"PO-Revision-Date: 2011-01-11 11:15:04+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk.report,delay_close:0
+msgid "Delay to Close"
+msgstr "ความล่าช้าในการปิด"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk.report,nbr:0
+msgid "# of Cases"
+msgstr "# ของคดี"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+#: view:crm.helpdesk.report:0
+msgid "Group By..."
+msgstr "กลุ่มตาม ..."
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Today"
+msgstr "ในวันนี้"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk.report,month:0
+msgid "March"
+msgstr "เดือนมีนาคม"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,company_id:0
+#: view:crm.helpdesk.report:0
+#: field:crm.helpdesk.report,company_id:0
+msgid "Company"
+msgstr "บริษัท"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,email_cc:0
+msgid "Watchers Emails"
+msgstr "นักดูอีเมล์"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk,priority:0
+#: selection:crm.helpdesk.report,priority:0
+msgid "Highest"
+msgstr "สูงสุด"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk.report:0
+#: field:crm.helpdesk.report,day:0
+msgid "Day"
+msgstr "วัน"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Add Internal Note"
+msgstr "เพิ่มหมายเหตุภายใน"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Notes"
+msgstr "Notes"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,message_ids:0
+msgid "Messages"
+msgstr "ข้อความที่"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk,state:0
+#: selection:crm.helpdesk.report,state:0
+msgid "Cancelled"
+msgstr "ยกเลิก"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,partner_address_id:0
+msgid "Partner Contact"
+msgstr "ติดต่อร่วมงาน"
+
+#. module: crm_helpdesk
+#: model:ir.ui.menu,name:crm_helpdesk.menu_report_crm_helpdesks_tree
+msgid "Helpdesk Analysis"
+msgstr "การวิเคราะห์ Helpdesk"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk.report:0
+#: field:crm.helpdesk.report,date_closed:0
+msgid "Close Date"
+msgstr "วันที่ปิด"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk.report:0
+msgid "   Month   "
+msgstr "เดือน"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,ref:0
+msgid "Reference"
+msgstr "การอ้างอิง"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,date_action_next:0
+msgid "Next Action"
+msgstr "การดำเนินการต่อไป"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Helpdesk Supports"
+msgstr "รองรับ Helpdesk"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Extra Info"
+msgstr "ข้อมูลเสริม"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+#: field:crm.helpdesk,partner_id:0
+#: view:crm.helpdesk.report:0
+#: field:crm.helpdesk.report,partner_id:0
+msgid "Partner"
+msgstr "หุ้นส่วน"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Estimates"
+msgstr "ประมาณการ"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk.report,section_id:0
+msgid "Section"
+msgstr "มาตรา"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+#: field:crm.helpdesk,priority:0
+#: view:crm.helpdesk.report:0
+#: field:crm.helpdesk.report,priority:0
+msgid "Priority"
+msgstr "ลำดับความสำคัญ"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Send New Email"
+msgstr "ส่งอีเมล์ใหม่"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk.report:0
+msgid "Won"
+msgstr "วอน"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk.report,delay_expected:0
+msgid "Overpassed Deadline"
+msgstr "วันสุดท้ายของ Overpassed"
+
+#. module: crm_helpdesk
+#: model:ir.model,name:crm_helpdesk.model_crm_helpdesk_report
+msgid "Helpdesk report after Sales Services"
+msgstr "รายงาน Helpdesk บริการหลังการขาย"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,email_from:0
+msgid "Email"
+msgstr "Email"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,canal_id:0
+#: view:crm.helpdesk.report:0
+#: field:crm.helpdesk.report,canal_id:0
+msgid "Channel"
+msgstr "ช่องสัญญาณ"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk,priority:0
+#: selection:crm.helpdesk.report,priority:0
+msgid "Lowest"
+msgstr "ต่ำที่สุด"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk.report:0
+msgid "# Mails"
+msgstr "# อีเมล"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,create_date:0
+#: field:crm.helpdesk.report,create_date:0
+msgid "Creation Date"
+msgstr "วันที่สร้าง"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Reset to Draft"
+msgstr "Reset ที่ร่างจดหมาย"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+#: selection:crm.helpdesk,state:0
+#: selection:crm.helpdesk.report,state:0
+msgid "Pending"
+msgstr "รอดำเนินการ"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+#: field:crm.helpdesk,date_deadline:0
+#: field:crm.helpdesk.report,date_deadline:0
+msgid "Deadline"
+msgstr "กำหนดเวลา"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk.report,month:0
+msgid "July"
+msgstr "กรกฎาคม"
+
+#. module: crm_helpdesk
+#: model:ir.actions.act_window,name:crm_helpdesk.crm_helpdesk_categ_action
+msgid "Helpdesk Categories"
+msgstr "หมวดหมู่ Helpdesk"
+
+#. module: crm_helpdesk
+#: model:ir.ui.menu,name:crm_helpdesk.menu_crm_case_helpdesk-act
+msgid "Categories"
+msgstr "หมวดหมู่สินค้า"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "History Information"
+msgstr "ข้อมูลประวัติความเป็นมา"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Dates"
+msgstr "วันที่"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk.report:0
+msgid "    Month-1    "
+msgstr "เดือน - 1"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk.report:0
+msgid "#Helpdesk"
+msgstr "# Helpdesk"
+
+#. module: crm_helpdesk
+#: help:crm.helpdesk,email_cc:0
+msgid "These email addresses will be added to the CC field of all inbound and outbound emails for this record before being sent. Separate multiple email addresses with a comma"
+msgstr "เหล่านี้ที่อยู่อีเมลจะได้รับการบันทึกอยู่ในเขต CC ของอีเมลขาเข้าและขาออกทั้งหมดสำหรับบันทึกนี้ก่อนที่จะส่ง แยกอีเมลจำนวนมากที่อยู่ด้วยเครื่องหมายจุลภาค"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "References"
+msgstr "เอกสารอ้างอิง"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk.report,month:0
+msgid "September"
+msgstr "กันยายน"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Communication"
+msgstr "การสื่อสาร"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk.report:0
+#: field:crm.helpdesk.report,month:0
+msgid "Month"
+msgstr "เดือน"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Escalate"
+msgstr "บานปลาย"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,write_date:0
+msgid "Update Date"
+msgstr "วันที่ปรับปรุง"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Query"
+msgstr "สอบถาม"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk.report:0
+msgid "Salesman"
+msgstr "พนักงานขาย"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,ref2:0
+msgid "Reference 2"
+msgstr "2 อ้างอิง"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,categ_id:0
+#: field:crm.helpdesk.report,categ_id:0
+msgid "Category"
+msgstr "หมวด"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk.report:0
+msgid "  Year  "
+msgstr "ปี"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Helpdesk Support"
+msgstr "Support Helpdesk"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,planned_cost:0
+#: field:crm.helpdesk.report,planned_cost:0
+msgid "Planned Costs"
+msgstr "ค่าใช้จ่ายตามแผน"
+
+#. module: crm_helpdesk
+#: model:ir.module.module,description:crm_helpdesk.module_meta_information
+msgid "Helpdesk Management"
+msgstr "การจัดการ Helpdesk"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Search Helpdesk"
+msgstr "Helpdesk ค้นหา"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk,state:0
+#: selection:crm.helpdesk.report,state:0
+msgid "Draft"
+msgstr "ร่าง"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk,priority:0
+#: selection:crm.helpdesk.report,priority:0
+msgid "Low"
+msgstr "ต่ำ"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,date_closed:0
+#: selection:crm.helpdesk,state:0
+#: selection:crm.helpdesk.report,state:0
+msgid "Closed"
+msgstr "ปิด"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "7 Days"
+msgstr "7 วัน"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Communication & History"
+msgstr "การสื่อสารและประวัติความเป็นมา"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk.report,month:0
+msgid "August"
+msgstr "สิงหาคม"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk,priority:0
+#: selection:crm.helpdesk.report,priority:0
+msgid "Normal"
+msgstr "ปกติ"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Global CC"
+msgstr "CC ทั่วโลก"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk.report,month:0
+msgid "June"
+msgstr "เดือนมิถุนายน"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,planned_revenue:0
+msgid "Planned Revenue"
+msgstr "รายได้ตามแผน"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk.report,user_id:0
+msgid "User"
+msgstr "ของผู้ใช้"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,active:0
+msgid "Active"
+msgstr "แอคทีฟ"
+
+#. module: crm_helpdesk
+#: model:ir.module.module,shortdesc:crm_helpdesk.module_meta_information
+msgid "CRM Helpdesk"
+msgstr "CRM Helpdesk"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk.report:0
+msgid "Extended Filters..."
+msgstr "ตัวกรอง Extended ..."
+
+#. module: crm_helpdesk
+#: model:ir.actions.act_window,name:crm_helpdesk.crm_case_helpdesk_act111
+msgid "Helpdesk Requests"
+msgstr "คำขอ Helpdesk"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk.report:0
+msgid "Search"
+msgstr "Search"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk.report,month:0
+msgid "October"
+msgstr "เดือนตุลาคม"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk.report,month:0
+msgid "January"
+msgstr "เดือนมกราคม"
+
+#. module: crm_helpdesk
+#: help:crm.helpdesk,email_from:0
+msgid "These people will receive email."
+msgstr "คนเหล่านี้จะได้รับอีเมล"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+#: field:crm.helpdesk,date:0
+msgid "Date"
+msgstr "วันที่"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk.report,month:0
+msgid "November"
+msgstr "พฤศจิกายน"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "History"
+msgstr "ประวัติ"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Attachments"
+msgstr "สิ่งที่แนบมา"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Misc"
+msgstr "เบ็ดเตล็ด"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+#: field:crm.helpdesk,state:0
+#: view:crm.helpdesk.report:0
+#: field:crm.helpdesk.report,state:0
+msgid "State"
+msgstr "ของรัฐ"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "General"
+msgstr "ทั่วไป"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Send Reminder"
+msgstr "ส่งคำเตือน"
+
+#. module: crm_helpdesk
+#: help:crm.helpdesk,section_id:0
+msgid "Sales team to which Case belongs to.                                 Define Responsible user and Email account for mail gateway."
+msgstr "ทีมงานฝ่ายขายที่กรณีเป็นของ ความรับผิดชอบในการกำหนดผู้ใช้และบัญชีอีเมลสำหรับเกตเวย์ mail"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Done"
+msgstr "เสร็จสิ้น"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk.report,month:0
+msgid "December"
+msgstr "ธันวาคม"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Close"
+msgstr "ปิด"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+#: selection:crm.helpdesk,state:0
+#: selection:crm.helpdesk.report,state:0
+msgid "Open"
+msgstr "เปิด"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Helpdesk Support Tree"
+msgstr "ทรีสนับสนุน Helpdesk"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Categorization"
+msgstr "การจำแนกประเภท"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk.report:0
+#: model:ir.actions.act_window,name:crm_helpdesk.action_report_crm_helpdesk
+#: model:ir.model,name:crm_helpdesk.model_crm_helpdesk
+#: model:ir.ui.menu,name:crm_helpdesk.menu_config_helpdesk
+msgid "Helpdesk"
+msgstr "Helpdesk"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+#: field:crm.helpdesk,user_id:0
+msgid "Responsible"
+msgstr "รับผิดชอบ"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk.report:0
+msgid "Current"
+msgstr "ในปัจจุบัน"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Details"
+msgstr "รายละเอียด"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+msgid "Reply"
+msgstr "ตอบ"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,description:0
+msgid "Description"
+msgstr "ลักษณะ"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk.report,month:0
+msgid "May"
+msgstr "เดือนพฤษภาคม"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,probability:0
+msgid "Probability (%)"
+msgstr "ความน่าจะเป็น (%)"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk.report,email:0
+msgid "# Emails"
+msgstr "อีเมล์ #"
+
+#. module: crm_helpdesk
+#: model:ir.actions.act_window,help:crm_helpdesk.action_report_crm_helpdesk
+msgid "Have a general overview of all support requests by sorting them with specific criteria such as the processing time, number of requests answered, emails sent and costs."
+msgstr "มีภาพรวมทั่วไปของทุกคำขอรับการสนับสนุนด้วยการจัดเรียงพวกเขากับเกณฑ์ที่ระบุเช่นเวลาการประมวลผลจำนวนหน้าตอบอีเมล์ที่ส่งและค่าใช้จ่าย"
+
+#. module: crm_helpdesk
+#: help:crm.helpdesk,canal_id:0
+msgid "The channels represent the different communication  modes available with the customer."
+msgstr "ช่องแสดงโหมดการติดต่อสื่อสารที่แตกต่างกันสามารถใช้ได้กับลูกค้า"
+
+#. module: crm_helpdesk
+#: help:crm.helpdesk,state:0
+msgid "The state is set to 'Draft', when a case is created.                                  \n"
+"If the case is in progress the state is set to 'Open'.                                  \n"
+"When the case is over, the state is set to 'Done'.                                  \n"
+"If the case needs to be reviewed then the state is set to 'Pending'."
+msgstr "รัฐถูกตั้งค่าเป็น&#39;ฉบับร่าง&#39;เมื่อกรณีที่มีการสร้าง หากกรณีนี้เป็นความคืบหน้าของรัฐถูกตั้งค่าเป็น&#39;เปิด&#39; เมื่อกรณีที่จบไปแล้วรัฐถูกตั้งไว้ที่&#39;เสร็จสิ้น&#39; หากกรณีที่จะต้องมีการตรวจสอบแล้วรัฐถูกตั้งค่าเป็น&#39;รอ&#39;"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk.report,month:0
+msgid "February"
+msgstr "กุมภาพันธ์"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,name:0
+msgid "Name"
+msgstr "ชื่อ"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk.report:0
+msgid "Lost"
+msgstr "ลืม"
+
+#. module: crm_helpdesk
+#: model:ir.ui.menu,name:crm_helpdesk.menu_help_support_main
+msgid "Helpdesk and Support"
+msgstr "Helpdesk และการสนับสนุน"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk.report,month:0
+msgid "April"
+msgstr "เมษายน"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk.report:0
+msgid "My Case(s)"
+msgstr "กรณีของฉัน (s)"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: crm_helpdesk
+#: model:ir.actions.act_window,help:crm_helpdesk.crm_helpdesk_categ_action
+msgid "Create and manage helpdesk categories to better manage and classify your support requests."
+msgstr "การสร้างและการจัดการหมวดหมู่ช่วยเหลือเพื่อจัดการและจัดประเภทขอรับการสนับสนุนของคุณ"
+
+#. module: crm_helpdesk
+#: selection:crm.helpdesk,priority:0
+#: selection:crm.helpdesk.report,priority:0
+msgid "High"
+msgstr "สูง"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk:0
+#: field:crm.helpdesk,section_id:0
+#: view:crm.helpdesk.report:0
+msgid "Sales Team"
+msgstr "ทีมงานฝ่ายขาย"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,date_action_last:0
+msgid "Last Action"
+msgstr "Last Action"
+
+#. module: crm_helpdesk
+#: model:ir.actions.act_window,help:crm_helpdesk.crm_case_helpdesk_act111
+msgid "Helpdesk and Support allow you to track your interventions. Select a customer, add notes and categorize interventions with partners if necessary. You can also assign a priority level. Use the OpenERP Issues system to manage your support activities. Issues can be connected to the email gateway: new emails may create issues, each of them automatically gets the history of the conversation with the customer."
+msgstr "Helpdesk และการสนับสนุนช่วยให้คุณสามารถติดตามการแทรกแซงของคุณ เลือกลูกค้าให้เพิ่มบันทึกย่อและจัดประเภทการแทรกแซงกับคู่ค้าในกรณีที่จำเป็น นอกจากนี้คุณยังสามารถกำหนดระดับความสำคัญ ใช้ระบบ OpenERP ปัญหาในการจัดการกิจกรรมการสนับสนุนของคุณ ปัญหาที่สามารถเชื่อมต่อกับเกตเวย์ของอีเมล : อีเมลใหม่อาจสร้างปัญหา, แต่ละของพวกเขาโดยอัตโนมัติได้รับประวัติของการสนทนากับลูกค้า"
+
+#. module: crm_helpdesk
+#: view:crm.helpdesk.report:0
+#: field:crm.helpdesk.report,name:0
+msgid "Year"
+msgstr "ปี"
+
+#. module: crm_helpdesk
+#: field:crm.helpdesk,duration:0
+msgid "Duration"
+msgstr "ระยะเวลา"
+
+

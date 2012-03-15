@@ -1,0 +1,156 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* sale_journal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:16+0000\n"
+"PO-Revision-Date: 2009-02-03 06:25+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-01-15 05:33+0000\n"
+"X-Generator: Launchpad (build 12177)\n"
+
+#. module: sale_journal
+#: field:sale_journal.invoice.type,note:0
+msgid "Note"
+msgstr "หมายเหตุ"
+
+#. module: sale_journal
+#: help:res.partner,property_invoice_type:0
+msgid "The type of journal used for sales and picking."
+msgstr "ประเภทของวารสารที่ใช้ในการขายและการเลือก"
+
+#. module: sale_journal
+#: sql_constraint:sale.order:0
+msgid "Order Reference must be unique !"
+msgstr "อ้างอิงการสั่งซื้อต้องไม่ซ้ำกัน!"
+
+#. module: sale_journal
+#: view:res.partner:0
+msgid "Invoicing"
+msgstr "ออกใบแจ้งหนี้"
+
+#. module: sale_journal
+#: view:res.partner:0
+msgid "Sales & Purchases"
+msgstr "ฝ่ายการขายและการสั่งซื้อสินค้า"
+
+#. module: sale_journal
+#: help:sale_journal.invoice.type,active:0
+msgid ""
+"If the active field is set to False, it will allow you to hide the invoice "
+"type without removing it."
+msgstr "ถ้าเขตข้อมูลที่ใช้อยู่กำหนดเป็นเท็จก็จะช่วยให้คุณสามารถซ่อนประเภทใบแจ้งหนี้โดยไม่ลบออก"
+
+#. module: sale_journal
+#: view:sale_journal.invoice.type:0
+msgid "Notes"
+msgstr "Notes"
+
+#. module: sale_journal
+#: field:res.partner,property_invoice_type:0
+msgid "Invoicing Method"
+msgstr "วิธีการออกใบแจ้งหนี้"
+
+#. module: sale_journal
+#: model:ir.module.module,description:sale_journal.module_meta_information
+msgid ""
+"\n"
+"    The sales journal modules allows you to categorise your\n"
+"    sales and deliveries (picking lists) between different journals.\n"
+"    This module is very helpful for bigger companies that\n"
+"    works by departments.\n"
+"\n"
+"    You can use journal for different purposes, some examples:\n"
+"    * isolate sales of different departments\n"
+"    * journals for deliveries by truck or by UPS\n"
+"\n"
+"    Journals have a responsible and evolves between different status:\n"
+"    * draft, open, cancel, done.\n"
+"\n"
+"    Batch operations can be processed on the different journals to\n"
+"    confirm all sales at once, to validate or invoice packing, ...\n"
+"\n"
+"    It also supports batch invoicing methods that can be configured by\n"
+"    partners and sales orders, examples:\n"
+"    * daily invoicing,\n"
+"    * monthly invoicing, ...\n"
+"\n"
+"    Some statistics by journals are provided.\n"
+"    "
+msgstr "ขายโมดูลวารสารช่วยให้คุณสามารถจัดหมวดหมู่การขายและการส่งมอบ (แสดงการเลือก) ระหว่างวารสารที่แตกต่างกันของคุณ โมดูลนี้จะเป็นประโยชน์สำหรับ บริษัท ขนาดใหญ่ที่ทำงานโดยหน่วยงาน คุณสามารถใช้บันทึกประจำวันเพื่อวัตถุประสงค์ที่แตกต่างกันตัวอย่าง : * แยกการขายที่แตกต่างกันแผนกวารสาร * สำหรับการส่งมอบโดยรถบรรทุกหรือโดย UPS วารสารมีความรับผิดชอบและวิวัฒนาการที่แตกต่างกันระหว่างสถานะ : ร่าง *, เปิด, ยกเลิก, ทำ การดำเนินงานรุ่นที่สามารถประมวลผลในวารสารที่แตกต่างกันเพื่อยืนยันยอดขายทั้งหมดในครั้งเดียวในการตรวจสอบและการบรรจุใบแจ้งหนี้, ... นอกจากนี้ยังสนับสนุนวิธีการส่งใบแจ้งหนี้แบทช์ที่สามารถกำหนดค่าโดยคู่ค้าและสั่งซื้อขาย, ตัวอย่าง : * การแจ้งหนี้รายวัน, * แจ้งหนี้รายเดือน ... สถิติบางอย่างของวารสารให้บริการ"
+
+#. module: sale_journal
+#: selection:sale_journal.invoice.type,invoicing_method:0
+msgid "Non grouped"
+msgstr "ไม่จัดกลุ่ม"
+
+#. module: sale_journal
+#: selection:sale_journal.invoice.type,invoicing_method:0
+msgid "Grouped"
+msgstr "จัดกลุ่ม"
+
+#. module: sale_journal
+#: constraint:res.partner:0
+msgid "Error ! You can not create recursive associated members."
+msgstr "ข้อผิดพลาด คุณไม่สามารถสร้างสมาชิกสัมพันธ์เวียนเกิด"
+
+#. module: sale_journal
+#: model:ir.actions.act_window,help:sale_journal.action_definition_journal_invoice_type
+msgid ""
+"Invoice types are used for partners, sales orders and delivery orders. You "
+"can create a specific invoicing journal to group your invoicing according to "
+"your customer's needs: daily, each Wednesday, monthly, etc."
+msgstr "ประเภทใบแจ้งหนี้จะใช้สำหรับคู่ค้าใบสั่งขายและใบสั่งจัดส่งสินค้า คุณสามารถสร้างวารสารการแจ้งหนี้เฉพาะในกลุ่มการออกใบแจ้งหนี้ของคุณตามความต้องการของลูกค้าของคุณทุกวันพุธในแต่ละเดือนเป็นต้น"
+
+#. module: sale_journal
+#: field:sale_journal.invoice.type,invoicing_method:0
+msgid "Invoicing method"
+msgstr "วิธีการออกใบแจ้งหนี้"
+
+#. module: sale_journal
+#: model:ir.model,name:sale_journal.model_sale_order
+msgid "Sales Order"
+msgstr "ใบสั่งขาย"
+
+#. module: sale_journal
+#: field:sale.order,invoice_type_id:0
+#: view:sale_journal.invoice.type:0
+#: field:sale_journal.invoice.type,name:0
+#: field:stock.picking,invoice_type_id:0
+msgid "Invoice Type"
+msgstr "พิมพ์ใบแจ้งหนี้"
+
+#. module: sale_journal
+#: field:sale_journal.invoice.type,active:0
+msgid "Active"
+msgstr "แอคทีฟ"
+
+#. module: sale_journal
+#: model:ir.model,name:sale_journal.model_res_partner
+msgid "Partner"
+msgstr "หุ้นส่วน"
+
+#. module: sale_journal
+#: model:ir.actions.act_window,name:sale_journal.action_definition_journal_invoice_type
+#: model:ir.model,name:sale_journal.model_sale_journal_invoice_type
+#: model:ir.ui.menu,name:sale_journal.menu_definition_journal_invoice_type
+msgid "Invoice Types"
+msgstr "ประเภทใบแจ้งหนี้"
+
+#. module: sale_journal
+#: model:ir.model,name:sale_journal.model_stock_picking
+msgid "Picking List"
+msgstr "การหยิบรายชื่อ"
+
+#. module: sale_journal
+#: model:ir.module.module,shortdesc:sale_journal.module_meta_information
+msgid "Managing sales and deliveries by journal"
+msgstr "ผู้จัดการฝ่ายขายและการส่งมอบโดยวารสาร"
+

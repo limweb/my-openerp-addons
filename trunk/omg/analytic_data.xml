@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="budget" model="account.analytic.journal">
+            <field name="code">Budget</field>
+            <field name="name">Budget</field>
+            <field name="type">general</field>
+        </record>
+    </data>
+</openerp>

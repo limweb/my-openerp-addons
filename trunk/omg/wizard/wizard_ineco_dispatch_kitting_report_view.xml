@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_wizard_ineco_dispatch_kitting_summary" model="ir.ui.view">
+            <field name="name">Print Report</field>
+            <field name="model">wizard.ineco.dispatch.kitting.summary</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form string="Dispatch Kitting Summary Report">
+                     <group col="8">
+                        <group colspan="8">
+                            <group colspan="8" states="choose">
+                                <separator colspan="8" string="Dispatch Kitting Summary Report"/>
+                                <field name="date_delivery" />
+                                <field name="format" />
+                                <field invisible="1" name="state"/>
+                            </group>
+                            <group colspan="8" states="get">
+                                <separator string="Report Exporting" colspan="8"/>
+                                <field name="name" invisible="1" colspan="8"/>
+                                <field name="report" nolabel="1" readonly="1" fieldname="name" colspan="8"/>
+                            </group>
+                        </group>
+                        <group colspan="8" col="8" states="choose">
+                            <separator string="" colspan="8"/>
+                            <label colspan="6" width="220"/>
+                            <button icon="gtk-cancel" name="act_cancel" special="cancel" string="_Close" type="object"/>
+                            <button icon="gtk-ok" name="create_report" string="_Print" type="object"/>
+                        </group>
+                        <group colspan="8" col="8" states="get">
+                            <separator string="" colspan="8"/>
+                            <label colspan="7" width="220"/>
+                            <button icon="gtk-close" name="act_destroy" special="cancel" string="_Close" type="object"/>
+                        </group>
+                    </group>            	
+            	</form>
+            </field>
+        </record>
+
+        <record id="action_wizard_ineco_dispatch_kitting_summary" model="ir.actions.act_window">
+            <field name="name">Dispatch Summary Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.ineco.dispatch.kitting.summary</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+            name="Dispatch Summary Report"
+            parent="stock.next_id_61"
+            action="action_wizard_ineco_dispatch_kitting_summary"
+            id="menu_wizard_ineco_dispatch_kitting_summary"
+            icon="STOCK_PRINT" />
+
+
+    </data>
+</openerp>

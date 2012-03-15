@@ -1,0 +1,253 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* account_coda
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.0-rc2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:14:31+0000\n"
+"PO-Revision-Date: 2011-01-11 11:14:31+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_coda
+#: help:account.coda,journal_id:0
+#: field:account.coda.import,journal_id:0
+msgid "Bank Journal"
+msgstr "วารสารธนาคาร"
+
+#. module: account_coda
+#: view:account.coda:0
+#: field:account.coda.import,note:0
+msgid "Log"
+msgstr "เข้าสู่ระบบ"
+
+#. module: account_coda
+#: model:ir.model,name:account_coda.model_account_coda_import
+msgid "Account Coda Import"
+msgstr "Coda นำเข้าบัญชี"
+
+#. module: account_coda
+#: field:account.coda,name:0
+msgid "Coda file"
+msgstr "ไฟล์ Coda"
+
+#. module: account_coda
+#: view:account.coda:0
+msgid "Group By..."
+msgstr "กลุ่มตาม ..."
+
+#. module: account_coda
+#: field:account.coda.import,awaiting_account:0
+msgid "Default Account for Unrecognized Movement"
+msgstr "บัญชีเริ่มต้นของการเคลื่อนไหวที่ไ​​ม่รู้จัก"
+
+#. module: account_coda
+#: help:account.coda,date:0
+msgid "Import Date"
+msgstr "วันที่นำเข้า"
+
+#. module: account_coda
+#: field:account.coda,note:0
+msgid "Import log"
+msgstr "เข้าสู่ระบบนำเข้า"
+
+#. module: account_coda
+#: view:account.coda.import:0
+msgid "Import"
+msgstr "การนำเข้า"
+
+#. module: account_coda
+#: view:account.coda:0
+msgid "Coda import"
+msgstr "นำเข้า Coda"
+
+#. module: account_coda
+#: code:addons/account_coda/account_coda.py:51
+#, python-format
+msgid "Coda file not found for bank statement !!"
+msgstr "ไม่พบไฟล์ Coda สำหรับบัญชีเงินฝากธนาคาร!"
+
+#. module: account_coda
+#: help:account.coda.import,awaiting_account:0
+msgid "Set here the default account that will be used, if the partner is found but does not have the bank account, or if he is domiciled"
+msgstr "ตั้งที่นี่บัญชีเริ่มต้นที่จะใช้ถ้าพันธมิตรจะพบ แต่ไม่ได้มีบัญชีธนาคารหรือถ้าเขามีภูมิลำเนา"
+
+#. module: account_coda
+#: view:account.coda:0
+#: field:account.coda,company_id:0
+msgid "Company"
+msgstr "บริษัท"
+
+#. module: account_coda
+#: help:account.coda.import,def_payable:0
+msgid "Set here the payable account that will be used, by default, if the partner is not found"
+msgstr "ที่นี่ตั้งเจ้าหนี้การค้าที่จะใช้ตามค่าเริ่มต้นหากพันธมิตรไม่พบ"
+
+#. module: account_coda
+#: view:account.coda:0
+msgid "Search Coda"
+msgstr "Coda ค้นหา"
+
+#. module: account_coda
+#: view:account.coda:0
+#: field:account.coda,user_id:0
+msgid "User"
+msgstr "ของผู้ใช้"
+
+#. module: account_coda
+#: view:account.coda:0
+#: field:account.coda,date:0
+msgid "Date"
+msgstr "วันที่"
+
+#. module: account_coda
+#: model:ir.ui.menu,name:account_coda.menu_account_coda_statement
+msgid "Coda Import Logs"
+msgstr "Coda นำเข้าไม้ท่อน"
+
+#. module: account_coda
+#: model:ir.model,name:account_coda.model_account_coda
+msgid "coda for an Account"
+msgstr "Coda สำหรับบัญชี"
+
+#. module: account_coda
+#: field:account.coda.import,def_payable:0
+msgid "Default Payable Account"
+msgstr "เริ่มต้นของบัญชีเจ้าหนี้"
+
+#. module: account_coda
+#: help:account.coda,name:0
+msgid "Store the detail of bank statements"
+msgstr "เก็บรายละเอียดบัญชีธนาคาร"
+
+#. module: account_coda
+#: view:account.coda.import:0
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+#. module: account_coda
+#: view:account.coda.import:0
+msgid "Open Statements"
+msgstr "งบเปิด"
+
+#. module: account_coda
+#: code:addons/account_coda/wizard/account_coda_import.py:167
+#, python-format
+msgid "The bank account %s is not defined for the partner %s.\n"
+""
+msgstr "บัญชีธนาคารของ%s ไม่ได้ถูกกำหนดสำหรับ% พันธมิตร s."
+
+#. module: account_coda
+#: model:ir.ui.menu,name:account_coda.menu_account_coda_import
+msgid "Import Coda Statements"
+msgstr "นำเข้างบ Coda"
+
+#. module: account_coda
+#: view:account.coda.import:0
+#: model:ir.actions.act_window,name:account_coda.action_account_coda_import
+msgid "Import Coda Statement"
+msgstr "งบ Coda นำเข้า"
+
+#. module: account_coda
+#: model:ir.module.module,description:account_coda.module_meta_information
+msgid "\n"
+"    Module provides functionality to import\n"
+"    bank statements from coda files.\n"
+"    "
+msgstr "Module ให้การทำงานเพื่อนำเข้าบัญชีธนาคารจากไฟล์ Coda"
+
+#. module: account_coda
+#: view:account.coda:0
+msgid "Statements"
+msgstr "งบ"
+
+#. module: account_coda
+#: field:account.bank.statement,coda_id:0
+msgid "Coda"
+msgstr "Coda"
+
+#. module: account_coda
+#: view:account.coda.import:0
+msgid "Results :"
+msgstr "ผลการศึกษา :"
+
+#. module: account_coda
+#: view:account.coda.import:0
+msgid "Result of Imported Coda Statements"
+msgstr "รายงานผลการใช้นำเข้างบ Coda"
+
+#. module: account_coda
+#: help:account.coda.import,def_receivable:0
+msgid "Set here the receivable account that will be used, by default, if the partner is not found"
+msgstr "ที่นี่ตั้งบัญชีลูกหนี้ที่จะใช้ตามค่าเริ่มต้นหากพันธมิตรไม่พบ"
+
+#. module: account_coda
+#: field:account.coda.import,coda:0
+#: model:ir.actions.act_window,name:account_coda.act_account_payment_account_bank_statement
+msgid "Coda File"
+msgstr "ไฟล์ Coda"
+
+#. module: account_coda
+#: model:ir.model,name:account_coda.model_account_bank_statement
+msgid "Bank Statement"
+msgstr "บัญชีเงินฝากธนาคาร"
+
+#. module: account_coda
+#: model:ir.actions.act_window,name:account_coda.action_account_coda
+msgid "Coda Logs"
+msgstr "ท่อน Coda"
+
+#. module: account_coda
+#: code:addons/account_coda/wizard/account_coda_import.py:311
+#, python-format
+msgid "Result"
+msgstr "ผล"
+
+#. module: account_coda
+#: view:account.coda.import:0
+msgid "Click on 'New' to select your file :"
+msgstr "คลิกที่&#39;ใหม่&#39;เพื่อเลือกไฟล์ของคุณ :"
+
+#. module: account_coda
+#: field:account.coda.import,def_receivable:0
+msgid "Default Receivable Account"
+msgstr "ลูกหนี้การเริ่มต้น"
+
+#. module: account_coda
+#: view:account.coda.import:0
+msgid "Close"
+msgstr "ปิด"
+
+#. module: account_coda
+#: field:account.coda,statement_ids:0
+msgid "Generated Bank Statements"
+msgstr "ที่สร้างงบธนาคาร"
+
+#. module: account_coda
+#: model:ir.module.module,shortdesc:account_coda.module_meta_information
+msgid "Account CODA - import bank statements from coda file"
+msgstr "Coda บัญชี -- การเงินของธนาคารนำเข้าจากไฟล์ Coda"
+
+#. module: account_coda
+#: view:account.coda.import:0
+msgid "Configure Your Journal and Account :"
+msgstr "กำหนดค่าวารสารและบัญชีของคุณ :"
+
+#. module: account_coda
+#: view:account.coda:0
+msgid "Coda Import"
+msgstr "นำเข้า Coda"
+
+#. module: account_coda
+#: view:account.coda:0
+#: field:account.coda,journal_id:0
+msgid "Journal"
+msgstr "สมุดรายวัน"
+
+

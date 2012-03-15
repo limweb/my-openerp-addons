@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record id="view_ineco_quality_stock_move_receiption_picking_tree" model="ir.ui.view">
+			<field name="name">ineco.quality.stock.move.reception.picking.tree</field>
+			<field name="model">stock.move</field>
+			<field name="inherit_id" ref="stock.view_move_tree_reception_picking" />
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<field name="state" position="after">
+                    <button name="action_qcpass" states="draft, waiting" string="QC Pass" type="object" icon="gtk-yes"/>
+				</field>
+			</field>
+		</record> 
+
+		<record id="view_ineco_quality_stock_move_receiption_picking_form" model="ir.ui.view">
+			<field name="name">ineco.quality.stock.move.reception.picking.form</field>
+			<field name="model">stock.move</field>
+			<field name="inherit_id" ref="stock.view_move_form_reception_picking" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<button name="action_confirm" position="before">
+                    <button name="action_qcpass" states="draft, waiting" string="QC Pass" type="object" icon="gtk-yes"/>
+				</button>
+			</field>
+		</record> 
+		
+		<record id="view_ineco_quality_stock_picking_in_form" model="ir.ui.view">
+			<field name="name">ineco.quality.stock.picking.in.form</field>
+			<field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_in_form" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='General Information']/field[@name='move_lines']/tree/field[@name='prodlot_id']" position="after">
+                	<button name="action_qcpass" states="waiting" string="QC Pass" type="object" icon="gtk-yes"/>
+				</xpath>
+			</field>
+		</record> 
+
+		<record id="view_ineco_quality_stock_picking_in_form2" model="ir.ui.view">
+			<field name="name">ineco.quality.stock.picking.in.form2</field>
+			<field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_in_form" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='General Information']/field[@name='move_lines']/form/field[@name='state']" position="after">
+                	<button name="action_qcpass" states="waiting" string="QC Pass" type="object" icon="gtk-yes"/>
+				</xpath>
+			</field>
+		</record> 
+		
+		
+
+	</data>
+</openerp>

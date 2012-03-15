@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        
+        <!-- Category Tree -->
+       <record model="ir.ui.view" id="view_ineco_joomla_category_tree">
+            <field name="name">ineco.joomla.category.tree</field>
+            <field name="model">ineco.joomla.category</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Category">
+                	<field name="name" />
+                	<field name="description" />
+                	<field name="category_id" />
+                	<field name="active" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Category Form -->
+       <record model="ir.ui.view" id="view_ineco_joomla_category_form">
+            <field name="name">ineco.joomla.category.form</field>
+            <field name="model">ineco.joomla.category</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Category">
+                	<field name="name" />
+                	<field name="description" />
+                	<field name="category_id" />
+                	<field name="active" />
+                </form>
+            </field>
+        </record>
+ 
+ 		<!-- Category Search -->
+        <record id="view_ineco_joomla_category_search" model="ir.ui.view">
+            <field name="name">ineco.joom.category.search</field>
+            <field name="model">ineco.joomla.category</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Category">
+                	<field name="name" />
+                	<field name="description" />
+                	<field name="category_id" />
+                </search>
+            </field>
+        </record>
+        
+        <!-- Category Action  -->
+        <record model="ir.actions.act_window" id="action_ineco_joomla_category">
+            <field name="name">Category</field>
+            <field name="res_model">ineco.joomla.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain"></field>
+        </record>
+
+        <!-- Category Action 2 -->
+        <record model="ir.actions.act_window" id="action_ineco_joomla_category2">
+            <field name="name">Category In Action 2</field>
+            <field name="res_model">ineco.joomla.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain"></field>
+        </record>
+        
+        <menuitem id="menu_ineco_joomla" name="Joomla" sequence="30" />
+        
+        <menuitem
+            id="menu_ineco_joomla_configuration" name="Configuration"
+            parent="menu_ineco_joomla" sequence="50"/>
+	
+      	<menuitem name="Category"
+            parent="menu_ineco_joomla_configuration"
+            id="menu_ineco_jooma_category"
+            action="action_ineco_joomla_category"/>
+
+      	<menuitem name="Category 2"
+            parent="base.menu_base_partner"
+            id="menu_ineco_jooma_category_2"
+            action="action_ineco_joomla_category2"/>
+                
+  	</data>
+</openerp>

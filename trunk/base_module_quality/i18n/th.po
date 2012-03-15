@@ -1,0 +1,642 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* base_module_quality
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.0-rc2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:14:55+0000\n"
+"PO-Revision-Date: 2011-01-11 11:14:55+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/object_test/object_test.py:187
+#: code:addons/base_module_quality/object_test/object_test.py:204
+#: code:addons/base_module_quality/pep8_test/pep8_test.py:274
+#, python-format
+msgid "Suggestion"
+msgstr "ข้อเสนอแนะ"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/base_module_quality.py:100
+#, python-format
+msgid "Programming Error"
+msgstr "ข้อผิดพลาดในการเขียนโปรแกรม"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/method_test/method_test.py:31
+#, python-format
+msgid "Method Test"
+msgstr "วิธีทดสอบ"
+
+#. module: base_module_quality
+#: model:ir.module.module,shortdesc:base_module_quality.module_meta_information
+msgid "Base module quality - To check the quality of other modules"
+msgstr "Base คุณภาพโมดูล -- ในการตรวจสอบคุณภาพของโมดูลอื่น ๆ"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/object_test/object_test.py:34
+#, python-format
+msgid "\n"
+"Test checks for fields, views, security rules, dependancy level\n"
+""
+msgstr "การทดสอบการตรวจสอบสำหรับเขตข้อมูลมุมมองกฎการรักษาความปลอดภัยระดับ dependancy"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:127
+#, python-format
+msgid "O(n) or worst"
+msgstr "O (n) หรือที่เลวร้ายที่สุด"
+
+#. module: base_module_quality
+#: selection:module.quality.detail,state:0
+msgid "Skipped"
+msgstr "ข้าม"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/method_test/method_test.py:46
+#, python-format
+msgid "Module has no objects"
+msgstr "Module มีวัตถุไม่"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:49
+#, python-format
+msgid "Speed Test"
+msgstr "ทดสอบความเร็ว"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/terp_test/terp_test.py:54
+#, python-format
+msgid "The module does not contain the __openerp__.py file"
+msgstr "โมดูลไม่มีไฟล์ __openerp__.py"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/method_test/method_test.py:82
+#: code:addons/base_module_quality/object_test/object_test.py:187
+#: code:addons/base_module_quality/object_test/object_test.py:204
+#: code:addons/base_module_quality/pep8_test/pep8_test.py:274
+#: code:addons/base_module_quality/speed_test/speed_test.py:144
+#: code:addons/base_module_quality/speed_test/speed_test.py:151
+#: code:addons/base_module_quality/terp_test/terp_test.py:132
+#: code:addons/base_module_quality/workflow_test/workflow_test.py:143
+#, python-format
+msgid "Object Name"
+msgstr "ชื่อวัตถุ"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/method_test/method_test.py:54
+#: code:addons/base_module_quality/method_test/method_test.py:61
+#: code:addons/base_module_quality/method_test/method_test.py:68
+#, python-format
+msgid "Ok"
+msgstr "โอเค"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/terp_test/terp_test.py:34
+#, python-format
+msgid "This test checks if the module satisfies the current coding standard used by OpenERP."
+msgstr "การทดสอบนี้จะตรวจสอบว่าโมดูลตรงมาตรฐานการเข้ารหัสที่ใช้โดย OpenERP ปัจจุบัน"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/wizard/quality_save_report.py:46
+#, python-format
+msgid "No report to save!"
+msgstr "ไม่มีรายงานเพื่อบัน​​ทึก!"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/object_test/object_test.py:177
+#, python-format
+msgid "Result of dependancy in %"
+msgstr "ผลการ dependancy ใน%"
+
+#. module: base_module_quality
+#: help:module.quality.detail,state:0
+msgid "The test will be completed only if the module is installed or if the test may be processed on uninstalled module."
+msgstr "การทดสอบจะแล้วเสร็จเฉพาะในกรณีที่มีการติดตั้งโมดูลหรือหากการทดสอบอาจมีการประมวลผลในโมดูลยกเลิกการติดตั้ง"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/pylint_test/pylint_test.py:99
+#, python-format
+msgid "Result (/10)"
+msgstr "ผล (/ 10)"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/terp_test/terp_test.py:33
+#, python-format
+msgid "Terp Test"
+msgstr "ทดสอบ Terp"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/object_test/object_test.py:33
+#, python-format
+msgid "Object Test"
+msgstr "การทดสอบวัตถุ"
+
+#. module: base_module_quality
+#: view:module.quality.detail:0
+msgid "Save Report"
+msgstr "รายงานบันทึก"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/wizard/module_quality_check.py:46
+#: model:ir.actions.wizard,name:base_module_quality.create_quality_check_id
+#, python-format
+msgid "Quality Check"
+msgstr "การตรวจสอบคุณภาพ"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:128
+#, python-format
+msgid "Not Efficient"
+msgstr "ไม่มีประสิทธิภาพ"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/wizard/quality_save_report.py:46
+#, python-format
+msgid "Warning"
+msgstr "การเตือน"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/unit_test/unit_test.py:35
+#, python-format
+msgid "Unit Test"
+msgstr "การทดสอบหน่วย"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:151
+#, python-format
+msgid "Reading Complexity"
+msgstr "ความซับซ้อนของการอ่าน"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/pep8_test/pep8_test.py:267
+#, python-format
+msgid "Result of pep8_test in %"
+msgstr "ผลการ pep8_test ใน%"
+
+#. module: base_module_quality
+#: field:module.quality.detail,state:0
+msgid "State"
+msgstr "ของรัฐ"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/unit_test/unit_test.py:50
+#, python-format
+msgid "Module does not have 'unit_test/test.py' file"
+msgstr "แฟ้ม&#39;test.py / unit_test&#39;โมดูลที่ไม่ได้มี"
+
+#. module: base_module_quality
+#: field:module.quality.detail,ponderation:0
+msgid "Ponderation"
+msgstr "Ponderation"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/object_test/object_test.py:177
+#, python-format
+msgid "Result of Security in %"
+msgstr "ผลของการรักษาความปลอดภัยใน%"
+
+#. module: base_module_quality
+#: help:module.quality.detail,ponderation:0
+msgid "Some tests are more critical than others, so they have a bigger weight in the computation of final rating"
+msgstr "การทดสอบบางอย่างที่สำคัญมากขึ้นกว่าคนอื่น ๆ จึงมีน้ำหนักที่ใหญ่กว่าในการคำนวณคะแนนสุดท้าย"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:120
+#, python-format
+msgid "No enough data"
+msgstr "ไม่มีข้อมูลเพียงพอ"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/terp_test/terp_test.py:132
+#, python-format
+msgid "Result (/1)"
+msgstr "ผล (/ 1)"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:151
+#, python-format
+msgid "N (Number of Records)"
+msgstr "N (จำนวนระเบียน)"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:133
+#, python-format
+msgid "No data"
+msgstr "ไม่มีข้อมูล"
+
+#. module: base_module_quality
+#: model:ir.model,name:base_module_quality.model_module_quality_detail
+msgid "module.quality.detail"
+msgstr "module.quality.detail"
+
+#. module: base_module_quality
+#: wizard_field:quality_detail_save,init,module_file:0
+msgid "Save report"
+msgstr "บันทึกรายงาน"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/workflow_test/workflow_test.py:34
+#, python-format
+msgid "This test checks where object has workflow or not on it if there is a state field and several buttons on it and also checks validity of workflow xml file"
+msgstr "นี้ตรวจสอบการทดสอบวัตถุที่มีเวิร์กโฟลว์หรือไม่ได้อยู่ในนั้นถ้ามีฟิลด์รัฐและปุ่มหลายบนและยังตรวจสอบความถูกต้องของเวิร์กโฟลว์แฟ้ม XML"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/structure_test/structure_test.py:151
+#, python-format
+msgid "Result in %"
+msgstr "ส่งผลให้%"
+
+#. module: base_module_quality
+#: wizard_view:quality_detail_save,init:0
+msgid "Standard entries"
+msgstr "รายการมาตรฐาน"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/pep8_test/pep8_test.py:58
+#: code:addons/base_module_quality/pylint_test/pylint_test.py:88
+#, python-format
+msgid "No python file found"
+msgstr "ไม่พบไฟล์หลาม"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:144
+#: view:module.quality.check:0
+#: view:module.quality.detail:0
+#, python-format
+msgid "Result"
+msgstr "ผล"
+
+#. module: base_module_quality
+#: field:module.quality.detail,message:0
+msgid "Message"
+msgstr "ข้อความ"
+
+#. module: base_module_quality
+#: view:module.quality.detail:0
+msgid "Detail"
+msgstr "รายละเอียด"
+
+#. module: base_module_quality
+#: field:module.quality.detail,note:0
+msgid "Note"
+msgstr "หมายเหตุ"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:85
+#, python-format
+msgid "<html>O(1) means that the number of SQL requests to read the object does not depand on the number of objects we are reading. This feature is mostly wished.\n"
+"</html>"
+msgstr "<html> O (1) หมายความว่าจำนวนคำขอ SQL เพื่ออ่านวัตถุไม่ depand กับจำนวนของวัตถุที่เรากำลังอ่าน คุณลักษณะนี้ประสงค์ส่วนใหญ่ </html>"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/terp_test/terp_test.py:120
+#, python-format
+msgid "__openerp__.py file"
+msgstr "__openerp__.py ไฟล์"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/unit_test/unit_test.py:70
+#, python-format
+msgid "Status"
+msgstr "สถานะ"
+
+#. module: base_module_quality
+#: view:module.quality.check:0
+#: field:module.quality.check,check_detail_ids:0
+msgid "Tests"
+msgstr "การทดสอบ"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:50
+#, python-format
+msgid "\n"
+"This test checks the speed of the module. Note that at least 5 demo data is needed in order to run it.\n"
+"\n"
+""
+msgstr "การทดสอบนี้จะตรวจสอบความเร็วของโมดูล โปรดทราบว่าอย่างน้อย 5 ข้อมูลเป็นสิ่งจำเป็นในการสาธิตเพื่อใช้งานด้วย"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/pylint_test/pylint_test.py:71
+#, python-format
+msgid "Unable to parse the result. Check the details."
+msgstr "ไม่สามารถตัดผล ตรวจสอบรายละเอียด"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/structure_test/structure_test.py:33
+#, python-format
+msgid "\n"
+"This test checks if the module satisfy tiny structure\n"
+""
+msgstr "การทดสอบนี้จะตรวจสอบว่าโมดูลโครงสร้างความพึงพอใจเล็ก ๆ"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/structure_test/structure_test.py:151
+#: code:addons/base_module_quality/workflow_test/workflow_test.py:136
+#, python-format
+msgid "Module Name"
+msgstr "ชื่อโมดูล"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/unit_test/unit_test.py:56
+#, python-format
+msgid "Error! Module is not properly loaded/installed"
+msgstr "ข้อผิดพลาด Module ที่ถูกอ่านได้อย่างถูกต้อง / ติดตั้ง"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:116
+#, python-format
+msgid "Error in Read method: %s"
+msgstr "เกิดข้อผิดพลาดในการอ่านข้อมูล :%s"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:138
+#, python-format
+msgid "Score is below than minimal score(%s%%)"
+msgstr "คะแนนต่ำกว่าคะแนนต่ำสุด (%%%s)"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:151
+#, python-format
+msgid "N/2"
+msgstr "N / 2"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/method_test/method_test.py:57
+#: code:addons/base_module_quality/method_test/method_test.py:64
+#: code:addons/base_module_quality/method_test/method_test.py:71
+#, python-format
+msgid "Exception"
+msgstr "ข้อยกเว้น"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/base_module_quality.py:100
+#, python-format
+msgid "Test Is Not Implemented"
+msgstr "การทดสอบยังไม่ได้ใช้"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:151
+#, python-format
+msgid "N"
+msgstr "N"
+
+#. module: base_module_quality
+#: model:ir.actions.wizard,name:base_module_quality.quality_detail_save
+msgid "Report Save"
+msgstr "บันทึกรายงาน"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/structure_test/structure_test.py:172
+#, python-format
+msgid "Feedback about structure of module"
+msgstr "ความคิดเห็นเกี่ยวกับโครงสร้างของโมดูล"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:73
+#, python-format
+msgid "Given module has no objects.Speed test can work only when new objects are created in the module along with demo data"
+msgstr "โมดูลให้ไว้ไม่มีการทดสอบ objects.Speed​​ สามารถทำงานได้เฉพาะเมื่อวัตถุใหม่ถูกสร้างขึ้นในโมดูลพร้อมกับข้อมูลการสาธิต"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/pylint_test/pylint_test.py:32
+#, python-format
+msgid "This test uses Pylint and checks if the module satisfies the coding standard of Python. See http://www.logilab.org/project/name/pylint for further info.\n"
+" "
+msgstr "การทดสอบนี้ใช้ Pylint และตรวจสอบว่าโมดูลตรงตามมาตรฐานการเข้ารหัสของไพ ธ อน ดู http://www.logilab.org/project/name/pylint สำหรับข้อมูลเพิ่มเติม"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/workflow_test/workflow_test.py:143
+#, python-format
+msgid "Feed back About Workflow of Module"
+msgstr "ย้อนกลับกับกระบวนการทำงานของโมดูล"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/workflow_test/workflow_test.py:129
+#, python-format
+msgid "No Workflow define"
+msgstr "Workflow ไม่มีกำหนด"
+
+#. module: base_module_quality
+#: selection:module.quality.detail,state:0
+msgid "Done"
+msgstr "เสร็จสิ้น"
+
+#. module: base_module_quality
+#: wizard_button:quality_detail_save,init,end:0
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/pep8_test/pep8_test.py:32
+#, python-format
+msgid "\n"
+"PEP-8 Test , copyright of py files check, method can not call from loops\n"
+""
+msgstr "PEP - 8 Test ลิขสิทธิ์ของการตรวจสอบไฟล์ py, วิธีไม่สามารถโทรออกจากลูป"
+
+#. module: base_module_quality
+#: field:module.quality.check,final_score:0
+msgid "Final Score (%)"
+msgstr "สรุปผลการแข่งขัน (%)"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/pylint_test/pylint_test.py:61
+#, python-format
+msgid "Error. Is pylint correctly installed? (http://pypi.python.org/pypi/pylint)"
+msgstr "ความผิดพลาด pylint ได้ได้ติดตั้งถูกต้องหรือไม่ (http://pypi.python.org/pypi/pylint)"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:125
+#, python-format
+msgid "Efficient"
+msgstr "อย่างมีประสิทธิภาพ"
+
+#. module: base_module_quality
+#: field:module.quality.check,name:0
+msgid "Rated Module"
+msgstr "Module ติดอันดับ"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/workflow_test/workflow_test.py:33
+#, python-format
+msgid "Workflow Test"
+msgstr "Test Workflow"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/unit_test/unit_test.py:36
+#, python-format
+msgid "\n"
+"This test checks the Unit Test(PyUnit) Cases of the module. Note that 'unit_test/test.py' is needed in module.\n"
+"\n"
+""
+msgstr "การทดสอบนี้จะตรวจสอบหน่วยสอบราย (PyUnit) ของโมดูล &#39;test.py / unit_test&#39;โปรดทราบว่าเป็นสิ่งจำเป็นในโมดูล"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/method_test/method_test.py:32
+#, python-format
+msgid "\n"
+"This test checks if the module classes are raising exception when calling basic methods or not.\n"
+""
+msgstr "นี้ตรวจสอบทดสอบว่าโมดูลชั้นเรียนมีการเพิ่มข้อยกเว้นเมื่อมีการเรียกวิธีการขั้นพื้นฐานหรือไม่"
+
+#. module: base_module_quality
+#: field:module.quality.detail,detail:0
+msgid "Details"
+msgstr "รายละเอียด"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:119
+#, python-format
+msgid "Warning! Not enough demo data"
+msgstr "คำเตือน! ข้อมูลไม่พอที่จะสาธิต"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/pylint_test/pylint_test.py:31
+#, python-format
+msgid "Pylint Test"
+msgstr "ทดสอบ Pylint"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/pep8_test/pep8_test.py:31
+#, python-format
+msgid "PEP-8 Test"
+msgstr "PEP - 8 Test"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/object_test/object_test.py:187
+#, python-format
+msgid "Field name"
+msgstr "ชื่อฟิลด์"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:151
+#, python-format
+msgid "1"
+msgstr "1"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:132
+#, python-format
+msgid "Warning! Object has no demo data"
+msgstr "คำเตือน! วัตถุมีข้อมูลที่ไม่มีการสาธิต"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/terp_test/terp_test.py:140
+#, python-format
+msgid "Tag Name"
+msgstr "ชื่อแท็ก"
+
+#. module: base_module_quality
+#: wizard_field:quality_detail_save,init,name:0
+msgid "File name"
+msgstr "ชื่อไฟล์"
+
+#. module: base_module_quality
+#: model:ir.module.module,description:base_module_quality.module_meta_information
+msgid "\n"
+"The aim of this module is to check the quality of other modules.\n"
+"\n"
+"It defines a wizard on the list of modules in OpenERP, which allows you to\n"
+"evaluate them on different criteria such as: the respect of OpenERP coding\n"
+"standards, the speed efficiency...\n"
+"\n"
+"This module also provides generic framework to define your own quality test.\n"
+"For further info, coders may take a look into base_module_quality\README.txt\n"
+"\n"
+"WARNING: This module can not work as a ZIP file, you must unzip it before\n"
+"using it, otherwise it may crash.\n"
+"    "
+msgstr "จุดมุ่งหมายของวิชานี้คือการตรวจสอบคุณภาพของโมดูลอื่น ๆ มันจะกำหนดตัวช่วยในรายการของโมดูลใน OpenERP, ซึ่งจะช่วยให้คุณประเมินพวกเขาในเงื่อนไขที่แตกต่างกันเช่นส่วนที่เกี่ยวกับมาตรฐานการเข้ารหัส OpenERP ประสิทธิภาพความเร็ว ... โมดูลนี้ยังมีกรอบการทำงานทั่วไปเพื่อกำหนดทดสอบคุณภาพของคุณเอง สอบถามข้อมูลเพิ่มเติมได้ที่โคดอาจต้องใช้เวลาดูใน base_module_quality \ README.TXT คำเตือน : โมดูลนี้ไม่สามารถทำงานเป็นไฟล์ ZIP คุณต้องเปิดเครื่องรูดมันก่อนที่จะใช้มิฉะนั้นมันอาจผิดพลาด"
+
+#. module: base_module_quality
+#: model:ir.model,name:base_module_quality.model_module_quality_check
+msgid "module.quality.check"
+msgstr "module.quality.check"
+
+#. module: base_module_quality
+#: field:module.quality.detail,name:0
+msgid "Name"
+msgstr "ชื่อ"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/object_test/object_test.py:177
+#: code:addons/base_module_quality/workflow_test/workflow_test.py:136
+#, python-format
+msgid "Result of views in %"
+msgstr "ผลการดูใน%"
+
+#. module: base_module_quality
+#: field:module.quality.detail,score:0
+msgid "Score (%)"
+msgstr "คะแนน (%)"
+
+#. module: base_module_quality
+#: help:quality_detail_save,init,name:0
+msgid "Save report as .html format"
+msgstr "บันทึกรายงานเป็น. รูปแบบ HTML"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/base_module_quality.py:269
+#, python-format
+msgid "The module has to be installed before running this test."
+msgstr "โมดูลได้ที่จะติดตั้งก่อนที่จะใช้การทดสอบนี้"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/speed_test/speed_test.py:123
+#, python-format
+msgid "O(1)"
+msgstr "O (1)"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/object_test/object_test.py:177
+#, python-format
+msgid "Result of fields in %"
+msgstr "ผลลัพธ์ของเขตข้อมูลใน%"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/unit_test/unit_test.py:70
+#: view:module.quality.detail:0
+#: field:module.quality.detail,summary:0
+#, python-format
+msgid "Summary"
+msgstr "สรุป"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/pylint_test/pylint_test.py:99
+#: code:addons/base_module_quality/structure_test/structure_test.py:172
+#, python-format
+msgid "File Name"
+msgstr "ชื่อไฟล์"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/pep8_test/pep8_test.py:274
+#, python-format
+msgid "Line number"
+msgstr "หมายเลขบรรทัด"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/structure_test/structure_test.py:32
+#, python-format
+msgid "Structure Test"
+msgstr "ทดสอบโครงสร้าง"
+
+#. module: base_module_quality
+#: field:module.quality.detail,quality_check_id:0
+msgid "Quality"
+msgstr "คุณภาพ"
+
+#. module: base_module_quality
+#: code:addons/base_module_quality/terp_test/terp_test.py:140
+#, python-format
+msgid "Feed back About terp file of Module"
+msgstr "ย้อนกลับเกี่ยวกับแฟ้ม terp ของโมดูล"
+
+

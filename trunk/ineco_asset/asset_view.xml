@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <!--  Asset Tree view -->
+       <record model="ir.ui.view" id="view_ineco_asset_tree">
+            <field name="name">ineco.asset.tree</field>
+            <field name="model">ineco.asset</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Assets">
+                    <field name="name"/>
+                    <field name="product_id"/>
+                    <field name="register_date"/>
+                    <field name="asset_type_id" />
+                    <field name="partner_id"/>
+                    <field name="company_id"/>
+                    <field name="location_id"/>
+                    <field name="price_unit"/>
+					<field name="depreciation_value" />
+					<field name="owner_id" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Asset Form view -->
+        <record model="ir.ui.view" id="view_ineco_asset_form">
+            <field name="name">ineco.asset.form</field>
+            <field name="model">ineco.asset</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Asset">
+					<group colspan="4" col="6">
+                    	<field name="name"/>
+                    	<field name="register_date"/>
+						<field name="period_id" />
+                    	<field name="product_id"/>
+                    	<field name="asset_type_id" />
+                    	<field name="partner_id"/>
+                   	 	<field name="company_id"/>
+                    	<field name="location_id"/>
+                    	<field name="price_unit"/>
+						<field name="depreciation_value" />
+						<field name="method" />
+						<field name="percent" />
+					</group>
+					<notebook colspan="4">
+						<page string="History">
+							<field name="history_ids" nolabel="1"/>
+						</page>
+						<page string="Depreciation">
+							<field name="depreciation_ids" nolabel="1"/>
+						</page>
+						<page string="QR Code">
+							<button name="generate_qrcode2" string="Generate QRCode" type="object" icon="terp-document-new"/>
+							<newline />
+							<field name="image" width="250" height="250" widget="image" nolabel="1" />
+						</page>
+						<page string="Note">
+							<field name="notes" />
+						</page>				
+					</notebook>		    		
+                </form>
+            </field>
+        </record>
+
+	   <!-- History -->
+       <record model="ir.ui.view" id="view_ineco_asset_history_tree">
+            <field name="name">ineco.asset.history.tree</field>
+            <field name="model">ineco.asset.history</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="History" editable="bottom">
+                    <field name="transaction_date"/>
+                    <field name="location_to"/>
+                    <field name="owner_to"/>
+					<field name="user_id" />
+                </tree>
+            </field>
+        </record>
+
+	   <!-- Depreciation -->
+       <record model="ir.ui.view" id="view_ineco_asset_depreciation_tree">
+            <field name="name">ineco.asset.depreciation.tree</field>
+            <field name="model">ineco.asset.depreciation</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Depreciation" editable="bottom">
+                    <field name="period_id"/>
+                    <field name="base_amount"/>
+                    <field name="depreciation"/>
+					<field name="balance" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Asset Action  -->
+        <record model="ir.actions.act_window" id="action_ineco_asset">
+            <field name="name">Asset</field>
+            <field name="res_model">ineco.asset</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id="menu_asset_in_config_purchase" name="Asset"
+            parent="purchase.menu_purchase_config_purchase" sequence="30"/>
+	
+
+      <menuitem name="Asset"
+            parent="menu_asset_in_config_purchase"
+            id="menu_ineco_asset"
+            action="action_ineco_asset"/>
+
+        <!--  Asset Type Tree -->
+       <record model="ir.ui.view" id="view_ineco_asset_type_tree">
+            <field name="name">ineco.asset.type.tree</field>
+            <field name="model">ineco.asset.type</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Asset Type">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--  Asset Type Form -->
+       <record model="ir.ui.view" id="view_ineco_asset_type_form">
+            <field name="name">ineco.asset.type.form</field>
+            <field name="model">ineco.asset.type</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Asset Type">
+                    <field name="name"/>
+					<field name="active" />
+                </form>
+            </field>
+        </record>
+
+        <!-- Asset Type Action  -->
+        <record model="ir.actions.act_window" id="action_ineco_asset_type">
+            <field name="name">Asset Type</field>
+            <field name="res_model">ineco.asset.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+      <menuitem name="Asset Type"
+            parent="menu_asset_in_config_purchase"
+            id="menu_ineco_asset_type"
+            action="action_ineco_asset_type"/>
+
+    </data>
+</openerp>

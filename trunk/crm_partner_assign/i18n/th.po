@@ -1,0 +1,702 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* crm_partner_assign
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.0-rc2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-01-11 11:15:05+0000\n"
+"PO-Revision-Date: 2011-01-11 11:15:05+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: crm_partner_assign
+#: field:crm.lead.forward.to.partner,name:0
+msgid "Send to"
+msgstr "ส่งให้"
+
+#. module: crm_partner_assign
+#: field:crm.lead.report.assign,delay_close:0
+msgid "Delay to Close"
+msgstr "ความล่าช้าในการปิด"
+
+#. module: crm_partner_assign
+#: field:crm.lead.report.assign,planned_revenue:0
+msgid "Planned Revenue"
+msgstr "รายได้ตามแผน"
+
+#. module: crm_partner_assign
+#: field:crm.lead.report.assign,nbr:0
+msgid "# of Cases"
+msgstr "# ของคดี"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+msgid "Group By..."
+msgstr "กลุ่มตาม ..."
+
+#. module: crm_partner_assign
+#: view:crm.lead:0
+#: view:crm.lead.forward.to.partner:0
+msgid "Forward"
+msgstr "ข้างหน้า"
+
+#. module: crm_partner_assign
+#: help:crm.lead.forward.to.partner,reply_to:0
+msgid "Reply-to of the Sales team defined on this case"
+msgstr "ตอบกลับของทีมขายที่กำหนดไว้ในกรณีนี้"
+
+#. module: crm_partner_assign
+#: view:res.partner:0
+msgid "Geo Localize"
+msgstr "จำกัด ทางภูมิศาสตร์"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,month:0
+msgid "March"
+msgstr "เดือนมีนาคม"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,type:0
+msgid "Lead"
+msgstr "นำ"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+msgid "Delay to close"
+msgstr "หน่วงเวลาปิด"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.forward.to.partner,history:0
+msgid "Whole Story"
+msgstr "ทั้งเรื่อง"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+#: field:crm.lead.report.assign,company_id:0
+msgid "Company"
+msgstr "บริษัท"
+
+#. module: crm_partner_assign
+#: code:addons/crm_partner_assign/partner_geo_assign.py:41
+#, python-format
+msgid "Could not contact geolocation servers, please make sure you have a working internet connection (%s)"
+msgstr "ไม่สามารถติดต่อกับเซิร์ฟเวอร์ของ Geolocation โปรดให้แน่ใจว่าคุณมีการเชื่อมต่ออินเทอร์เน็ตที่ทำงาน (%s)"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+#: field:crm.lead.report.assign,partner_date:0
+msgid "Partner Date"
+msgstr "วันที่ผู้ร่วมงาน"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,priority:0
+msgid "Highest"
+msgstr "สูงสุด"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+#: field:crm.lead.report.assign,day:0
+msgid "Day"
+msgstr "วัน"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.forward.to.partner,history:0
+msgid "Latest email"
+msgstr "อีเมลล่าสุด"
+
+#. module: crm_partner_assign
+#: field:crm.lead,partner_latitude:0
+#: field:res.partner,partner_latitude:0
+msgid "Geo Latitude"
+msgstr "Latitude ทางภูมิศาสตร์"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.forward.to.partner,state:0
+#: selection:crm.lead.report.assign,state:0
+msgid "Cancelled"
+msgstr "ยกเลิก"
+
+#. module: crm_partner_assign
+#: view:crm.lead:0
+msgid "Geo Assignation"
+msgstr "การกำหนดทางภูมิศาสตร์"
+
+#. module: crm_partner_assign
+#: field:crm.lead.report.assign,date_closed:0
+msgid "Close Date"
+msgstr "วันที่ปิด"
+
+#. module: crm_partner_assign
+#: help:res.partner,partner_weight:0
+msgid "Gives the probability to assign a lead to this partner. (0 means no assignation.)"
+msgstr "ให้ความน่าจะเป็นที่จะกำหนดให้นำไปยังพันธมิตรนี้ (0 หมายถึงไม่มีการกำหนด.)"
+
+#. module: crm_partner_assign
+#: model:ir.module.module,description:crm_partner_assign.module_meta_information
+msgid "\n"
+"This is the module used by OpenERP SA to redirect customers to his partners,\n"
+"based on geolocalization.\n"
+"    "
+msgstr "นี้เป็นโมดูลที่ใช้โดย OpenERP SA ลูกค้าเพื่อเปลี่ยนเส้นทางไปยังพันธมิตรของเขาตาม geolocalization"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.forward.to.partner,state:0
+#: selection:crm.lead.report.assign,state:0
+msgid "Pending"
+msgstr "รอดำเนินการ"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.forward.to.partner,name:0
+#: field:crm.lead.forward.to.partner,partner_id:0
+#: view:crm.lead.report.assign:0
+#: field:crm.lead.report.assign,partner_assigned_id:0
+#: model:ir.model,name:crm_partner_assign.model_res_partner
+msgid "Partner"
+msgstr "หุ้นส่วน"
+
+#. module: crm_partner_assign
+#: field:crm.lead.report.assign,probability:0
+msgid "Avg Probability"
+msgstr "ความน่าจะเป็นเฉลี่ย"
+
+#. module: crm_partner_assign
+#: view:res.partner:0
+msgid "Previous"
+msgstr "ก่อน"
+
+#. module: crm_partner_assign
+#: code:addons/crm_partner_assign/partner_geo_assign.py:40
+#, python-format
+msgid "Network error"
+msgstr "ข้อผิดพลาดในเครือข่าย"
+
+#. module: crm_partner_assign
+#: help:crm.lead.forward.to.partner,email_cc:0
+msgid "These addresses will receive a copy of this email. To modify the permanent CC list, edit the global CC field of this case"
+msgstr "ที่อยู่เหล่านี้จะได้รับสำเนาของอีเมลนี้ ในการปรับเปลี่ยนรายการ CC ถาวรแก้ไขเขตข้อมูล CC ทั่วโลกในกรณีนี้"
+
+#. module: crm_partner_assign
+#: field:crm.lead.forward.to.partner,email_from:0
+msgid "From"
+msgstr "จาก"
+
+#. module: crm_partner_assign
+#: model:ir.actions.act_window,name:crm_partner_assign.res_partner_grade_action
+#: model:ir.ui.menu,name:crm_partner_assign.menu_res_partner_grade_action
+#: field:res.partner,grade_id:0
+#: view:res.partner.grade:0
+msgid "Partner Grade"
+msgstr "Grade Partner"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+msgid "Section"
+msgstr "มาตรา"
+
+#. module: crm_partner_assign
+#: view:res.partner:0
+msgid "Next"
+msgstr "ถัดไป"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+#: field:crm.lead.report.assign,priority:0
+msgid "Priority"
+msgstr "ลำดับความสำคัญ"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+#: field:crm.lead.report.assign,state:0
+msgid "State"
+msgstr "ของรัฐ"
+
+#. module: crm_partner_assign
+#: field:crm.lead.report.assign,delay_expected:0
+msgid "Overpassed Deadline"
+msgstr "วันสุดท้ายของ Overpassed"
+
+#. module: crm_partner_assign
+#: field:crm.lead.forward.to.partner,html:0
+msgid "HTML formatting?"
+msgstr "การจัดรูปแบบ HTML?"
+
+#. module: crm_partner_assign
+#: field:crm.lead.report.assign,type:0
+msgid "Type"
+msgstr "ประเภท"
+
+#. module: crm_partner_assign
+#: help:crm.lead,partner_assigned_id:0
+msgid "Partner this case has been forwarded/assigned to."
+msgstr "Partner กรณีนี้ได้รับการส่งต่อ / กำหนดให้"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,priority:0
+msgid "Lowest"
+msgstr "ต่ำที่สุด"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+msgid "Leads Analysis"
+msgstr "การวิเคราะห์นำ"
+
+#. module: crm_partner_assign
+#: field:crm.lead.report.assign,creation_date:0
+msgid "Creation Date"
+msgstr "วันที่สร้าง"
+
+#. module: crm_partner_assign
+#: help:crm.lead.forward.to.partner,html:0
+msgid "Select this if you want to send email with HTML formatting."
+msgstr "เลือกตัวเลือกนี้ถ้าคุณต้องการส่งอีเมล์ที่มีการจัดรูปแบบ HTML"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+msgid "7 Days"
+msgstr "7 วัน"
+
+#. module: crm_partner_assign
+#: view:crm.lead:0
+msgid "Partner Assignation"
+msgstr "การแต่งตั้งผู้ร่วมงาน"
+
+#. module: crm_partner_assign
+#: help:crm.lead.report.assign,type:0
+msgid "Type is used to separate Leads and Opportunities"
+msgstr "ประเภทจะใช้ในการแยกนำและโอกาส"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,month:0
+msgid "July"
+msgstr "กรกฎาคม"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+#: field:crm.lead.report.assign,stage_id:0
+msgid "Stage"
+msgstr "เวที"
+
+#. module: crm_partner_assign
+#: code:addons/crm_partner_assign/wizard/crm_forward_to_partner.py:271
+#, python-format
+msgid "Fwd"
+msgstr "Fwd"
+
+#. module: crm_partner_assign
+#: view:res.partner:0
+msgid "Geo Localization"
+msgstr "Geo รองรับหลายภาษา"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+msgid "Opportunities Assignment Analysis"
+msgstr "การวิเคราะห์การกำหนดโอกาส"
+
+#. module: crm_partner_assign
+#: view:res.partner:0
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+#. module: crm_partner_assign
+#: field:crm.lead.forward.to.partner,history:0
+msgid "Send history"
+msgstr "ส่งประวัติ"
+
+#. module: crm_partner_assign
+#: view:crm.lead.forward.to.partner:0
+msgid "Contact"
+msgstr "ติดต่อ"
+
+#. module: crm_partner_assign
+#: view:res.partner:0
+msgid "Close"
+msgstr "ปิด"
+
+#. module: crm_partner_assign
+#: model:ir.actions.act_window,name:crm_partner_assign.action_report_crm_opportunity_assign
+#: model:ir.ui.menu,name:crm_partner_assign.menu_report_crm_opportunities_assign_tree
+msgid "Opp. Assignment Analysis"
+msgstr "OPP การวิเคราะห์การกำหนด"
+
+#. module: crm_partner_assign
+#: help:crm.lead.report.assign,delay_close:0
+msgid "Number of Days to close the case"
+msgstr "จำนวนวันที่จะปิดกรณี"
+
+#. module: crm_partner_assign
+#: field:res.partner,partner_weight:0
+msgid "Weight"
+msgstr "น้ำหนัก"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+msgid "Delay to open"
+msgstr "หน่วงเวลาเปิด"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+#: field:crm.lead.report.assign,grade_id:0
+msgid "Grade"
+msgstr "เกรด"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,month:0
+msgid "December"
+msgstr "ธันวาคม"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+#: field:crm.lead.report.assign,month:0
+msgid "Month"
+msgstr "เดือน"
+
+#. module: crm_partner_assign
+#: field:crm.lead.report.assign,opening_date:0
+msgid "Opening Date"
+msgstr "เปิดวันที่"
+
+#. module: crm_partner_assign
+#: field:crm.lead.forward.to.partner,subject:0
+msgid "Subject"
+msgstr "เรื่อง"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+msgid "Salesman"
+msgstr "พนักงานขาย"
+
+#. module: crm_partner_assign
+#: field:crm.lead.forward.to.partner,reply_to:0
+msgid "Reply To"
+msgstr "ตอบกลับ"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+#: field:crm.lead.report.assign,categ_id:0
+msgid "Category"
+msgstr "หมวด"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+msgid "#Opportunities"
+msgstr "# โอกาส"
+
+#. module: crm_partner_assign
+#: model:ir.module.module,shortdesc:crm_partner_assign.module_meta_information
+msgid "Partner Geo-Localisation"
+msgstr "Partner Geo - ภาษาท้องถิ่น"
+
+#. module: crm_partner_assign
+#: constraint:res.partner:0
+msgid "Error ! You can not create recursive associated members."
+msgstr "ข้อผิดพลาด คุณไม่สามารถสร้างสมาชิกสัมพันธ์เวียนเกิด"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.forward.to.partner,state:0
+#: selection:crm.lead.report.assign,state:0
+msgid "Draft"
+msgstr "ร่าง"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,priority:0
+msgid "Low"
+msgstr "ต่ำ"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.forward.to.partner,state:0
+#: view:crm.lead.report.assign:0
+#: selection:crm.lead.report.assign,state:0
+msgid "Closed"
+msgstr "ปิด"
+
+#. module: crm_partner_assign
+#: view:res.partner:0
+#: field:res.partner,opportunity_assigned_ids:0
+msgid "Assigned Opportunities"
+msgstr "โอกาสได้รับมอบหมาย"
+
+#. module: crm_partner_assign
+#: field:crm.lead,date_assign:0
+msgid "Assignation Date"
+msgstr "วันที่นัด"
+
+#. module: crm_partner_assign
+#: field:crm.lead.report.assign,probability_max:0
+msgid "Max Probability"
+msgstr "ความน่าจะเป็นสูงสุด"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,month:0
+msgid "August"
+msgstr "สิงหาคม"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,priority:0
+msgid "Normal"
+msgstr "ปกติ"
+
+#. module: crm_partner_assign
+#: view:res.partner:0
+msgid "Escalate"
+msgstr "บานปลาย"
+
+#. module: crm_partner_assign
+#: field:crm.lead.forward.to.partner,attachment_ids:0
+msgid "unknown"
+msgstr "ไม่ทราบ"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,month:0
+msgid "June"
+msgstr "เดือนมิถุนายน"
+
+#. module: crm_partner_assign
+#: help:crm.lead.report.assign,delay_open:0
+msgid "Number of Days to open the case"
+msgstr "จำนวนวันที่จะเปิดกรณี"
+
+#. module: crm_partner_assign
+#: field:crm.lead.report.assign,delay_open:0
+msgid "Delay to Open"
+msgstr "หน่วงเวลาเปิด"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.forward.to.partner,name:0
+#: field:crm.lead.forward.to.partner,user_id:0
+#: field:crm.lead.report.assign,user_id:0
+msgid "User"
+msgstr "ของผู้ใช้"
+
+#. module: crm_partner_assign
+#: field:res.partner.grade,active:0
+msgid "Active"
+msgstr "แอคทีฟ"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,month:0
+msgid "November"
+msgstr "พฤศจิกายน"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+msgid "Extended Filters..."
+msgstr "ตัวกรอง Extended ..."
+
+#. module: crm_partner_assign
+#: field:crm.lead,partner_longitude:0
+#: field:res.partner,partner_longitude:0
+msgid "Geo Longitude"
+msgstr "ลองจิจูดทางภูมิศาสตร์"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+msgid "Lead Assign"
+msgstr "ตะกั่วกําหนด"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,month:0
+msgid "October"
+msgstr "เดือนตุลาคม"
+
+#. module: crm_partner_assign
+#: view:crm.lead:0
+msgid "Assignation"
+msgstr "การแต่งตั้ง"
+
+#. module: crm_partner_assign
+#: field:crm.lead.forward.to.partner,email_cc:0
+msgid "CC"
+msgstr "CC"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,month:0
+msgid "January"
+msgstr "เดือนมกราคม"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+msgid "Planned Revenues"
+msgstr "รายได้ตามแผน"
+
+#. module: crm_partner_assign
+#: model:ir.model,name:crm_partner_assign.model_res_partner_grade
+msgid "res.partner.grade"
+msgstr "res.partner.grade"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.forward.to.partner,state:0
+msgid "Unchanged"
+msgstr "ไม่เปลี่ยนแปลง"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,month:0
+msgid "September"
+msgstr "กันยายน"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+msgid "Last 30 Days"
+msgstr "ช่วง 30 วันที่"
+
+#. module: crm_partner_assign
+#: field:res.partner.grade,name:0
+msgid "Grade Name"
+msgstr "ชื่อ Grade"
+
+#. module: crm_partner_assign
+#: help:crm.lead,date_assign:0
+msgid "Last date this case was forwarded/assigned to a partner"
+msgstr "วันสุดท้ายกรณีนี้ถูกส่งต่อ / กำหนดให้กับพันธมิตร"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.forward.to.partner,state:0
+#: selection:crm.lead.report.assign,state:0
+#: view:res.partner:0
+msgid "Open"
+msgstr "เปิด"
+
+#. module: crm_partner_assign
+#: field:res.partner,date_localization:0
+msgid "Geo Localization Date"
+msgstr "วันที่รองรับหลายภาษาทางภูมิศาสตร์"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+msgid "Current"
+msgstr "ในปัจจุบัน"
+
+#. module: crm_partner_assign
+#: field:crm.lead.forward.to.partner,email_to:0
+msgid "To"
+msgstr "เมื่อต้องการ"
+
+#. module: crm_partner_assign
+#: model:ir.model,name:crm_partner_assign.model_crm_lead_forward_to_partner
+msgid "Send new email"
+msgstr "ส่งอีเมลใหม่"
+
+#. module: crm_partner_assign
+#: view:crm.lead.forward.to.partner:0
+#: model:ir.actions.act_window,name:crm_partner_assign.crm_lead_forward_to_partner_act
+msgid "Forward to Partner"
+msgstr "ส่งต่อไปยังผู้ร่วมงาน"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,month:0
+msgid "May"
+msgstr "เดือนพฤษภาคม"
+
+#. module: crm_partner_assign
+#: field:crm.lead.report.assign,probable_revenue:0
+msgid "Probable Revenue"
+msgstr "รายได้ Probable"
+
+#. module: crm_partner_assign
+#: field:crm.lead,partner_assigned_id:0
+msgid "Assigned Partner"
+msgstr "ผู้ร่วมงานได้รับมอบหมาย"
+
+#. module: crm_partner_assign
+#: field:crm.lead.forward.to.partner,address_id:0
+msgid "Address"
+msgstr "ที่อยู่"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,type:0
+msgid "Opportunity"
+msgstr "โอกาสทางธุรกิจ"
+
+#. module: crm_partner_assign
+#: field:crm.lead.report.assign,partner_id:0
+msgid "Customer"
+msgstr "ลูกค้าสัมพันธ์"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,month:0
+msgid "February"
+msgstr "กุมภาพันธ์"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.forward.to.partner,name:0
+msgid "Email Address"
+msgstr "Email Address"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+#: field:crm.lead.report.assign,country_id:0
+msgid "Country"
+msgstr "ประเทศ"
+
+#. module: crm_partner_assign
+#: view:res.partner:0
+msgid "Convert to Opportunity"
+msgstr "แปลงเป็นโอกาส"
+
+#. module: crm_partner_assign
+#: view:crm.lead:0
+msgid "Geo Assign"
+msgstr "กําหนดทางภูมิศาสตร์"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,month:0
+msgid "April"
+msgstr "เมษายน"
+
+#. module: crm_partner_assign
+#: model:ir.model,name:crm_partner_assign.model_crm_lead
+msgid "crm.lead"
+msgstr "crm.lead"
+
+#. module: crm_partner_assign
+#: model:ir.model,name:crm_partner_assign.model_crm_lead_report_assign
+msgid "CRM Lead Report"
+msgstr "รายงานตะกั่ว CRM"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.forward.to.partner,history:0
+msgid "Case Information"
+msgstr "ข้อมูลกรณี"
+
+#. module: crm_partner_assign
+#: field:res.partner.grade,sequence:0
+msgid "Sequence"
+msgstr "ลำดับ"
+
+#. module: crm_partner_assign
+#: field:crm.lead.forward.to.partner,body:0
+msgid "Message Body"
+msgstr "เนื้อหาของข้อความ"
+
+#. module: crm_partner_assign
+#: selection:crm.lead.report.assign,priority:0
+msgid "High"
+msgstr "สูง"
+
+#. module: crm_partner_assign
+#: field:crm.lead.report.assign,section_id:0
+msgid "Sales Team"
+msgstr "ทีมงานฝ่ายขาย"
+
+#. module: crm_partner_assign
+#: field:crm.lead.report.assign,create_date:0
+msgid "Create Date"
+msgstr "วันที่สร้าง"
+
+#. module: crm_partner_assign
+#: field:crm.lead.forward.to.partner,state:0
+msgid "Set New State To"
+msgstr "ตั้งรัฐใหม่ไป"
+
+#. module: crm_partner_assign
+#: view:crm.lead.report.assign:0
+#: field:crm.lead.report.assign,name:0
+msgid "Year"
+msgstr "ปี"
+
+

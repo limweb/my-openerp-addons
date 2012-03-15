@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record model="ir.ui.view" id="view_ineco_users_export_form">
+            <field name="name">ineco.res.user.export.form</field>
+            <field name="model">res.users</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_users_form" />
+            <field name="arch" type="xml">
+                <field name="new_password" position="after">
+                	<field name="code_nav" />
+                </field>                
+            </field>
+        </record>
+
+	</data>
+</openerp>

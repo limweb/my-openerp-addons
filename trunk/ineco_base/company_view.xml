@@ -1,0 +1,19 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="currency_del_img">
+            <field name="name">ineco.res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Ineco">
+                        <field name="logo_url" colspan="4"/>
+                        <field name="skip_stock_report" />
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</openerp>
+

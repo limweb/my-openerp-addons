@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		<record id="ineco_account_invoice_view" model="ir.ui.view">
+			<field name="name">ineco.account.invoice.form</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page" position="after">
+					<page string="Tax Invoice">
+ 						<button name="create_receipt" string="Create Tax Invoice" type="object"  icon="gtk-find" colspan="4"/> 
+						<field name="receipt_id" reanonly="1"/>
+						<field name="receipt_date" />
+					</page>
+				</xpath>
+			</field>
+		</record>
+    </data>
+</openerp>

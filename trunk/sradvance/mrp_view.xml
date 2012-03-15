@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="view_ineco_mrp_production_tracking_tree">
+			<field name="name">ineco.mrp.production.tracking.tree</field>
+			<field name="type">tree</field>
+			<field name="model">ineco.mrp.production.tracking</field>
+			<field name="arch" type="xml">
+				<tree string="Production Tracking">
+					<field name="production_id" />
+					<field name="origin" />
+					<field name="product_id" />
+					<field name="note" />
+					<field name="sequence" />
+					<field name="workcenter_id" />
+					<field name="date_planned" />
+					<field name="date_finished" />
+					<field name="date_target" />
+					<field name="date_delivery" />
+					<field name="progress_rate" widget="progressbar" />
+					<button name="gen_qrcode"  string="Gen QRCode" type="object" icon="gtk-jump-to"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_ineco_mrp_production_tracking_form">
+			<field name="name">ineco.mrp.production.tracking.form</field>
+			<field name="type">form</field>
+			<field name="model">ineco.mrp.production.tracking</field>
+			<field name="arch" type="xml">
+				<form string="Production Tracking">
+					<field name="production_id" />
+					<field name="sequence" />
+					<field name="name" colspan="4" />
+					<field name="date_target" readonly="1" />
+					<field name="date_delivery" readonly="1" />
+					<field name="note" colspan="4" />
+					<field name="tracking_lines" colspan="4" nolabel="1">
+						<tree>
+							<field name="sequence" />
+							<field name="workcenter_id" />
+							<field name="date_planned" />
+							<field name="date_finished" />
+							<field name="state" />
+		                    <button name="action_done" states="draft" string="Done" type="object" icon="gtk-go-forward"/>
+		                    <button name="action_draft" states="cancel" string="Set Draft" type="object" icon="terp-document-new"/>
+		                    <button name="action_cancel" states="done" string="Cancel" type="object" icon="gtk-stop"/>
+						</tree>
+					</field>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_ineco_mrp_production_tracking_line_tree">
+			<field name="name">ineco.mrp.production.tracking.line.tree</field>
+			<field name="type">tree</field>
+			<field name="model">ineco.mrp.production.tracking.line</field>
+			<field name="arch" type="xml">
+				<tree string="Tracking Line">
+					<field name="sequence" />
+					<field name="workcenter_id" />
+					<field name="date_planned" />
+					<field name="date_finished" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_ineco_mrp_production_tracking_search" model="ir.ui.view">
+			<field name="name">ineo.mrp.production.tracking.search</field>
+			<field name="model">ineco.mrp.production.tracking</field>
+			<field name="type">search</field>
+			<field eval="6" name="priority"/>
+			<field name="arch" type="xml">
+				<search string="Production Tracking">
+					<group col="8" colspan="4">
+						<field name="name" />
+						<field name="origin" />
+						<field name="production_id" />
+						<field name="product_id"/>
+						<field name="date_target" />
+						<field name="date_delivery" />
+					</group>
+					<newline/>
+					<group expand="0" string="Group By..." colspan="4" col="8" groups="base.group_extended">
+						<filter string="Production" icon="terp-personal" domain="[]" context="{'group_by':'production_id'}"/>
+						<filter string="Product" icon="terp-personal" domain="[]" context="{'group_by':'product_id'}"/>
+						<separator orientation="vertical"/>
+						<filter string="Date Planned" icon="terp-go-month" domain="[]" context="{'group_by':'date_planned'}" />
+						<filter string="Date Finished" icon="terp-go-month" domain="[]" context="{'group_by':'date_finished'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record id="action_ineco_mrp_production_tracking" model="ir.actions.act_window">
+			<field name="name">Production Tracking</field>
+			<field name="res_model">ineco.mrp.production.tracking</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_ineco_mrp_production_tracking_tree"/>
+			<field name="search_view_id" ref="view_ineco_mrp_production_tracking_search"/>
+		</record>
+		<menuitem action="action_ineco_mrp_production_tracking" id="menu_action_ineco_mrp_production_tracking" parent="mrp.menu_mrp_planning" sequence="4"/>
+		
+    <record model="ir.ui.view" id="ineco_mrp_bom_form_view">
+        <field name="name">ineco.mrp.bom.form</field>
+        <field name="type">form</field>
+        <field name="model">mrp.bom</field>
+		<field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/notebook/page/field/tree/field[@name='name']" position="after">
+				<field name="double_qty"/>
+            </xpath>
+		</field>
+    </record> 
+    
+    <record id="ineco_mrp_production_form_view" model="ir.ui.view">
+        <field name="name">ineco.mrp.production.form</field>
+        <field name="model">mrp.production</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="/form/notebook/page[@string='Extra Information']" position="after">
+				<field name="tracking_lines" readonly="1">
+					<tree>
+						<field name="origin" />
+						<field name="product_id" />
+						<field name="sequence" />
+						<field name="workcenter_id" />
+						<field name="date_planned" />
+						<field name="date_finished" readonly="1"/>
+						<field name="progress_rate" widget="progressbar" />
+					</tree>
+				</field>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="ineco_mrp_production_form_view_note" model="ir.ui.view">
+        <field name="name">ineco.mrp.production.form.note</field>
+        <field name="model">mrp.production</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+        <field name="arch" type="xml">
+        	<field name="product_uos" position="after">
+        		<newline />
+        		<field name="sale_target_date" readonly="1" />
+        		<field name="delivery_date" readonly="1"/>
+        		<field name="sr_width" readonly="1"/>
+        		<field name="sr_length" readonly="1"/>
+        		<field name="note" colspan="4" />
+        	</field>
+        </field>
+    </record>
+    
+        <record id="view_ineco_mrp_production_filter" model="ir.ui.view">
+            <field name="name">ineco.mrp.production.select</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.view_mrp_production_filter" />
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+				<field name="origin" position="after">
+					<field name="date_planned" />
+					<field name="sale_target_date" />
+					<field name="delivery_date" />					
+				</field>
+      	
+            </field>
+        </record>
+    
+		<record model="ir.ui.view" id="view_ineco_mrp_production_tracking_fixed_tree">
+			<field name="name">ineco.mrp.production.tracking.fixed.tree</field>
+			<field name="type">tree</field>
+			<field name="model">ineco.mrp.production.tracking.fixed</field>
+			<field name="arch" type="xml">
+				<tree string="Production Tracking Fixed">
+					<field name="tracking_id" />
+					<field name="workcenter_id" />
+					<field name="date_planned" />
+					<field name="user_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_ineco_mrp_production_tracking_fixed_form">
+			<field name="name">ineco.mrp.production.tracking.fixed.form</field>
+			<field name="type">form</field>
+			<field name="model">ineco.mrp.production.tracking.fixed</field>
+			<field name="arch" type="xml">
+				<form string="Production Tracking Fixed">
+					<field name="tracking_id" />
+					<field name="workcenter_id" />
+					<field name="date_planned" />
+					<field name="user_id" />
+				</form>
+			</field>
+		</record>
+
+		<record id="view_ineco_mrp_production_tracking_fixed_search" model="ir.ui.view">
+			<field name="name">ineo.mrp.production.tracking.fixed.search</field>
+			<field name="model">ineco.mrp.production.tracking.fixed</field>
+			<field name="type">search</field>
+			<field eval="6" name="priority"/>
+			<field name="arch" type="xml">
+				<search string="Production Tracking Fixed">
+					<field name="tracking_id" />
+					<field name="workcenter_id" />
+					<field name="date_planned" />
+					<field name="user_id"/>
+				</search>
+			</field>    
+		</record>
+
+		<record id="action_ineco_mrp_production_tracking_fixed" model="ir.actions.act_window">
+			<field name="name">Production Tracking Fixed</field>
+			<field name="res_model">ineco.mrp.production.tracking.fixed</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_ineco_mrp_production_tracking_fixed_tree"/>
+			<field name="search_view_id" ref="view_ineco_mrp_production_tracking_fixed_search"/>
+		</record>
+		
+		<menuitem action="action_ineco_mrp_production_tracking_fixed" 
+		   id="menu_action_ineco_mrp_production_tracking_fixed" 
+		   groups="mrp.group_mrp_manager"
+		   parent="mrp.menu_mrp_planning" 
+		   sequence="5"/>
+				
+	</data>
+</openerp>

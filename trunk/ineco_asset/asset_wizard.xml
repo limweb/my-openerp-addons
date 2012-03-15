@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+
+		<wizard
+			string="Compute Depreciation"
+			model="ineco.asset"
+			name="account.asset.compute"
+			keyword="tree_but_action"
+			id="wizard_asset_compute"/>
+
+		<menuitem
+			parent="menu_asset_in_config_purchase"
+			action="wizard_asset_compute"
+			type="wizard"
+			id="menu_wizard_asset_compute"/>
+
+		<wizard
+			string="Generate QRCode"
+			model="ineco.asset"
+			name="account.asset.qrcode"
+			keyword="tree_but_action"
+			id="wizard_asset_qrcode"/>
+
+		<menuitem
+			parent="menu_asset_in_config_purchase"
+			action="wizard_asset_qrcode"
+			type="wizard"
+			id="menu_wizard_asset_qrcode"/>
+
+
+	</data>
+</openerp>

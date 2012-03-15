@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+
+		<record id="ineco_mrp_workcenter_view" model="ir.ui.view">
+			<field name="name">ineco.mrp.workcenter.form</field>
+			<field name="model">mrp.workcenter</field>
+			<field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page" position="after">
+					<page string="Capacity">
+						<field name="capacity_lines" nolabel="1">
+							<tree string="Workcenter Capacity" editable="bottom">
+								<field name="categ_id" on_change="onchange_categ_id(categ_id)"/>
+								<field name="name" />
+								<field name="cycle_per_hour" />
+							</tree>
+						</field>
+					</page>
+				</xpath>
+			</field>
+		</record>
+		<record id="ineco_mrp_workcenter_inherit_view" model="ir.ui.view">
+			<field name="name">ineco.mrp.workcenter.inherit.form</field>
+			<field name="model">mrp.workcenter</field>
+			<field name="inherit_id" ref="ineco_mrp_workcenter_view"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<field name="company_id" position="after">
+					<field name="priority" />
+				</field>
+			</field>
+		</record>
+		<record id="ineco_mrp_workcenter_tree_view" model="ir.ui.view">
+			<field name="name">ineco.mrp.workcenter.tree</field>
+			<field name="model">mrp.workcenter</field>
+			<field name="inherit_id" ref="mrp.mrp_workcenter_tree_view"/>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<field name="code" position="after">
+					<field name="priority" />
+				</field>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="ineco_mrp_production_workcenter_tree_view_inherit">
+			<field name="name">ineco.mrp.production.workcenter.line.tree</field>
+			<field name="model">mrp.production.workcenter.line</field>
+			<field name="type">tree</field>
+			<field name="inherit_id" ref="mrp_operations.mrp_production_workcenter_tree_view_inherit"/>
+			<field name="arch" type="xml">
+				<field name="hour" position="replace">
+					<field name="hour" invisible="1" />
+					<field name="hour_plan" widget="float_time"/>
+					<field name="actual_hour" widget="float_time" invisible="1"/>
+				</field>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="ineco_mrp_production_workcenter_form_view_inherit">
+			<field name="name">ineco.mrp.production.workcenter.line.form</field>
+			<field name="model">mrp.production.workcenter.line</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="mrp_operations.mrp_production_workcenter_form_view_inherit"/>
+			<field name="arch" type="xml">
+				<field name="hour" position="replace">
+					<field name="hour" invisible="1" />
+					<field name="hour_plan" widget="float_time"/>
+					<field name="actual_hour" widget="float_time" invisible="1"/>
+				</field>
+			</field>
+		</record>
+		<record id="ineco_workcenter_capacity_view_tree" model="ir.ui.view">
+			<field name="name">ineco.workcenter.capacity.view.tree</field>
+			<field name="model">ineco.workcenter.capacity.view</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Capacity Usages">
+					<field name="workcenter_id"/>
+					<field name="date_planned"/>
+					<field name="hour_per_day" widget="float_time" />
+					<field name="hour_actual" widget="float_time" />
+				</tree>
+			</field>
+		</record>
+		<record id="ineco_workcenter_capacity_view_form" model="ir.ui.view">
+			<field name="name">ineco.workcenter.capacity.view.form</field>
+			<field name="model">ineco.workcenter.capacity.view</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Capacity Usages">
+					<field name="workcenter_id"/>
+					<field name="date_planned"/>
+					<field name="hour_per_day" widget="float_time" />
+					<field name="hour_actual" widget="float_time" />
+				</form>
+			</field>
+		</record>
+		<!--Search Capacity-->
+		<record id="view_ineco_workcenter_capacity_view_filter" model="ir.ui.view">
+			<field name="name">ineco.workcenter.capacity.view.filter</field>
+			<field name="model">ineco.workcenter.capacity.view</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Search Workcenter Capacity">
+					<group col="10" colspan="4">
+						<field name="workcenter_id"/>
+						<field name="date_planned"/>
+					</group>
+				</search>
+			</field>
+		</record>
+		<!-- Capacity Usages Action  -->
+		<record model="ir.actions.act_window" id="action_ineco_workcenter_capacity_view">
+			<field name="name">Workcenter Capacity</field>
+			<field name="res_model">ineco.workcenter.capacity.view</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_ineco_workcenter_capacity_view_filter" />
+		</record>
+		<menuitem action="action_ineco_workcenter_capacity_view" id="menu_ineco_workcenter_capacity_view" parent="mrp.menu_mrp_planning" sequence="1"/>
+	</data>
+</openerp>
+

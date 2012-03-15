@@ -1,0 +1,61 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* tcg
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1-dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-02-04 03:43+0000\n"
+"PO-Revision-Date: 2012-02-04 10:49+0700\n"
+"Last-Translator: Tititab Srisookco <thitithup@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: tcg
+#: model:ir.actions.report.xml,name:tcg.report_stock_picking_wip
+msgid "WIP Issue Form"
+msgstr "ใบเบิก/ใบโอนสินค้าระหว่างผลิต"
+
+#. module: tcg
+#: model:ir.actions.act_window,name:tcg.ineco_action_picking_internalmove_fa
+#: model:ir.ui.menu,name:tcg.menu_ineco_action_picking_internal_move_fa
+msgid "Internal Moves - FA"
+msgstr "การเบิก/โอนอุปกรณ์ช่าง"
+
+#. module: tcg
+#: model:ir.actions.act_window,name:tcg.ineco_action_picking_internalmove_material
+#: model:ir.ui.menu,name:tcg.menu_ineco_action_picking_internal_move_material
+msgid "Internal Moves - Material"
+msgstr "การเบิก/โอนวัตถุดิบ"
+
+#. module: tcg
+#: model:ir.actions.act_window,name:tcg.ineco_action_picking_internalmove_hr
+#: model:ir.ui.menu,name:tcg.menu_ineco_action_picking_internal_move_hr
+msgid "Internal Moves - HR"
+msgstr "การเบิก/โอนอุปกรณ์สำนักงาน"
+
+#. module: tcg
+#: model:ir.actions.report.xml,name:tcg.report_stock_picking_material
+msgid "Material Issue Form"
+msgstr "ใบเบิก/ใบโอนวัตถุดิบ"
+
+#. module: tcg
+#: model:ir.actions.act_window,name:tcg.ineco_action_picking_internalmove_wip
+#: model:ir.ui.menu,name:tcg.menu_ineco_action_picking_internal_move_wip
+msgid "Internal Moves - WIP"
+msgstr "การเบิก/โอนสินค้าระหว่างผลิต"
+
+#. module: tcg
+#: model:ir.actions.report.xml,name:tcg.report_stock_picking_hr_fa
+msgid "FA Issue Form"
+msgstr "ใบเบิก/ใบโอนอุปกรณ์ช่าง"
+
+#. module: tcg
+#: model:ir.actions.report.xml,name:tcg.report_stock_picking_hr
+msgid "HR Issue Form"
+msgstr "ใบเบิก/ใบโอนอุปกรณ์สำนักงาน"
+
