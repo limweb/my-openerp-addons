@@ -1508,7 +1508,7 @@ class ineco_stock_barcode_delivery(osv.osv):
 #                    where ir.tracking_id = %s
 #                """ % (track[0].id) )
                 move_id = self.pool.get('stock.move').create(cr, uid, {
-                    'name': vals['product_id'],
+                    'name': 'barcode',
                     'picking_id': False,
                     'product_id': vals['product_id'],
                     'date': time.strftime('%Y-%m-%d'),
