@@ -53,11 +53,11 @@ class ineco_nav_payment_term(osv.osv):
         field_desc = 'Description'
         company_ids = self.pool.get('res.company').search(cr, uid, [])
         for company in self.pool.get('res.company').browse(cr, uid, company_ids ):
-            if company.ineco_nav_table:
+            if company.ineco_nav_table and company.nav_dbname and company.nav_user and company.nav_password and company.nav_host:
                 sql = """
                     select * from [%s%s] 
                 """
-                conn = pymssql.connect(host='10.100.9.203', user='sa', password='sa', database='OMG TRAINING',as_dict=True)
+                conn = pymssql.connect(host=company.nav_host, user=company.nav_user, password=company.nav_password, database=company.nav_dbname,as_dict=True)
                 cur = conn.cursor()
                 sql_complete = sql % (company.ineco_nav_table,table_name) 
                 cur.execute(sql_complete )
