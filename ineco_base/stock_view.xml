@@ -822,6 +822,8 @@
 					<field name="tracking_id" on_change="onchange_tracking_id(tracking_id)"  />
 					<field name="quantity" />
 					<field name="uom_id" />
+					<field name="lot_id" />
+					<field name="location_id" />
 					<field name="product_id" />
 					<field name="date_barcode" readonly="1"/>
 					<field name="user_id" readonly="1" />
