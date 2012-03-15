@@ -42,6 +42,10 @@ class res_company(osv.osv):
     _name = 'res.company'
     _inherit = 'res.company'
     _columns = {
-        'ineco_nav_table': fields.char('Table Name Prefix', size=100)
+        'ineco_nav_table': fields.char('Table Name Prefix', size=100),
+        'nav_host': fields.char('SQL IP', size=50),
+        'nav_user': fields.char('SQL User Name', size=50),
+        'nav_password': fields.char('SQL Password', size=50),
+        'nav_dbname': fields.char('SQL DB Name', size=50)
     }
 res_company()

@@ -9,7 +9,11 @@
             <field name="inherit_id" ref="base.view_company_form" />
             <field name="arch" type="xml">
                 <field name="parent_id" position="after">
+                	<field name="nav_dbname" />
                 	<field name="ineco_nav_table" />
+                	<field name="nav_host" />
+                	<field name="nav_user" />
+                	<field name="nav_password" />
                 </field>                
             </field>
         </record>

@@ -88,7 +88,7 @@ class ineco_nav_dimension(osv.osv):
     _columns = {
         'code': fields.char('Code', size=64, required=True),
         'name': fields.char('Name', size=128, required=True),
-        'group_dimension': fields.selection([('company','Company'),('department','Department'),('project','Project'),('product','Product'),('retailer','Retailer'),('customer','Customer')],string="Data Type"),
+        'group_dimension': fields.selection([('company','COMPANY'),('department','DEPARTMENT'),('project','PROJECT'),('product','PRODUCT'),('retailer','Retailer'),('customer','CUSTOMER'),('employee','EMPLOYEE ADV'),('network','NETWORK PARTNERS')],string="Data Type"),
 #        'group_dimension': fields.many2one('ineco.nav.dimension.group', 'Group', required=True, ondelete='restrict'),
         'active': fields.boolean('Active'),
     }
@@ -96,31 +96,38 @@ class ineco_nav_dimension(osv.osv):
         'active': True,
     }
     _sql_constraints = [
-        ('dimension_code_group_unique', 'unique (code, group_dimension)', 'The CODE must be unique per GROUP !'),
+        ('dimension_code_group_unique', 'unique (code, name, group_dimension)', 'The CODE must be unique per GROUP !'),
     ]
 
     def schedule_sync(self, cr, uid, context=None):
-        table_name = 'Dimension'
+        table_name = 'Dimension Value'
         field_key = 'Code'
         field_desc = 'Name'
         company_ids = self.pool.get('res.company').search(cr, uid, [])
         for company in self.pool.get('res.company').browse(cr, uid, company_ids ):
-            if company.ineco_nav_table:
+            if company.ineco_nav_table and company.nav_dbname and company.nav_user and company.nav_password and company.nav_host:
                 sql = """
                     select * from [%s%s] 
                 """
-#                conn = pymssql.connect(host='192.168.1.106', user='sa', password='sa', database='OMG171111',as_dict=True)
-                conn = pymssql.connect(host='10.100.9.203', user='sa', password='sa', database='OMG TRAINING',as_dict=True)
+                conn = pymssql.connect(host=company.nav_host, user=company.nav_user, password=company.nav_password, database=company.nav_dbname,as_dict=True)
                 cur = conn.cursor()
                 sql_complete = sql % (company.ineco_nav_table,table_name) 
                 cur.execute(sql_complete )
                 row = cur.fetchone()
                 while row:
-                    nav_ids = self.pool.get('ineco.nav.dimension').search(cr, uid , [('code','=',row['Code'])])
+                    nav_ids = self.pool.get('ineco.nav.dimension').search(cr, uid , [('code','=',row['Code'].decode('cp874')),('name','=',row['Name'].decode('cp874'))])
+                    group_dimension = False
+                    if row['Dimension Code'] == 'EMPLOYEE ADV':
+                        group_dimension = 'employee'
+                    elif row['Dimension Code'] == 'NETWORK PARTNERS':
+                        group_dimension = 'network'
+                    else:
+                        group_dimension = row['Dimension Code'].lower()
                     if not nav_ids:
                         data = {
                             'code':row['Code'].decode('cp874'),
-                            'name': row['Name'].decode('cp874'),
+                            'name': row['Name'].decode('cp874') or False,
+                            'group_dimension': group_dimension,
                             #'company_id': company.id
                         }
                         self.pool.get('ineco.nav.dimension').create(cr, uid, data)
@@ -129,6 +136,52 @@ class ineco_nav_dimension(osv.osv):
                 cur.close()
     
 ineco_nav_dimension()
+
+class ineco_nav_dimension_value(osv.osv):
+    _name = "ineco.nav.dimension.value"
+    _description = "NAV Dimension Value"
+    _columns = {
+        'code': fields.char('Code', size=64, required=True),
+        'name': fields.char('Name', size=128, required=True),
+        'dimension_id': fields.many2one('ineco.nav.dimension', 'Dimension'), 
+        'active': fields.boolean('Active'),
+    }
+    _defaults = {
+        'active': True,
+    }
+
+    def schedule_sync(self, cr, uid, context=None):
+        table_name = 'Dimension Value'
+        field_key = 'Code'
+        field_desc = 'Name'
+        company_ids = self.pool.get('res.company').search(cr, uid, [])
+        for company in self.pool.get('res.company').browse(cr, uid, company_ids ):
+            if company.ineco_nav_table and company.nav_dbname and company.nav_user and company.nav_password and company.nav_host:
+                sql = """
+                    select * from [%s%s] 
+                """
+                conn = pymssql.connect(host=company.nav_host, user=company.nav_user, password=company.nav_password, database=company.nav_dbname,as_dict=True)
+                cur = conn.cursor()
+                sql_complete = sql % (company.ineco_nav_table,table_name) 
+                cur.execute(sql_complete )
+                row = cur.fetchone()
+                while row:
+                    nav_ids = self.pool.get('ineco.nav.dimension.value').search(cr, uid , [('code','=',row['Code']),('name','=',row['Name'])])
+                    dimension_ids = self.pool.get('ineco.nav.dimension').search(cr, uid, [('code','=',row['Dimension Code'])])
+                    if not nav_ids:
+                        data = {
+                            'code':row['Code'].decode('cp874'),
+                            'name': row['Name'].decode('cp874'),
+                            'dimension_id': dimension_ids[0] or False,
+                        }
+                        self.pool.get('ineco.nav.dimension.value').create(cr, uid, data)
+                    row = cur.fetchone()
+                    
+                cur.close()
+    
+ineco_nav_dimension()
+    
+ineco_nav_dimension_value()
 
 class ineco_nav_postmaster_group(osv.osv):
     
@@ -158,7 +211,11 @@ class ineco_nav_postmaster(osv.osv):
                     ('general','General Business Posting Group'),
                     ('asset','Asset Posting Group'),
                     ('vat','Vat Business Posting Group'),
-                    ('wht','With Holding Tax Business Posting Group')],'Group'),
+                    ('wht','With Holding Tax Business Posting Group'),
+                    ('genbus','Gen Business Posting Group'),
+                    ('vatproduct','Vat Product Posting Group'),
+                    ('whtproduct','WHT Product Posting Group'),
+                    ('genproduct','Gen Product Posting Group') ],'Group'),
         'active': fields.boolean('Active'),
     }
     
@@ -172,12 +229,11 @@ class ineco_nav_postmaster(osv.osv):
         field_desc = 'Code'
         company_ids = self.pool.get('res.company').search(cr, uid, [])
         for company in self.pool.get('res.company').browse(cr, uid, company_ids ):
-            if company.ineco_nav_table:
+            if company.ineco_nav_table and company.nav_dbname and company.nav_user and company.nav_password and company.nav_host:
                 sql = """
                     select * from [%s%s] 
                 """
-#                conn = pymssql.connect(host='192.168.1.106', user='sa', password='sa', database='OMG171111',as_dict=True)
-                conn = pymssql.connect(host='10.100.9.203', user='sa', password='sa', database='OMG TRAINING',as_dict=True)
+                conn = pymssql.connect(host=company.nav_host, user=company.nav_user, password=company.nav_password, database=company.nav_dbname,as_dict=True)
                 cur = conn.cursor()
                 sql_complete = sql % (company.ineco_nav_table,table_name) 
                 cur.execute(sql_complete )
@@ -201,12 +257,11 @@ class ineco_nav_postmaster(osv.osv):
         field_desc = 'Code'
         company_ids = self.pool.get('res.company').search(cr, uid, [])
         for company in self.pool.get('res.company').browse(cr, uid, company_ids ):
-            if company.ineco_nav_table:
+            if company.ineco_nav_table and company.nav_dbname and company.nav_user and company.nav_password and company.nav_host:
                 sql = """
                     select * from [%s%s] 
                 """
-#                conn = pymssql.connect(host='192.168.1.106', user='sa', password='sa', database='OMG171111',as_dict=True)
-                conn = pymssql.connect(host='10.100.9.203', user='sa', password='sa', database='OMG TRAINING',as_dict=True)
+                conn = pymssql.connect(host=company.nav_host, user=company.nav_user, password=company.nav_password, database=company.nav_dbname,as_dict=True)
                 cur = conn.cursor()
                 sql_complete = sql % (company.ineco_nav_table,table_name) 
                 cur.execute(sql_complete )
@@ -230,12 +285,11 @@ class ineco_nav_postmaster(osv.osv):
         field_desc = 'Code'
         company_ids = self.pool.get('res.company').search(cr, uid, [])
         for company in self.pool.get('res.company').browse(cr, uid, company_ids ):
-            if company.ineco_nav_table:
+            if company.ineco_nav_table and company.nav_dbname and company.nav_user and company.nav_password and company.nav_host:
                 sql = """
                     select * from [%s%s] 
                 """
-#                conn = pymssql.connect(host='192.168.1.106', user='sa', password='sa', database='OMG171111',as_dict=True)
-                conn = pymssql.connect(host='10.100.9.203', user='sa', password='sa', database='OMG TRAINING',as_dict=True)
+                conn = pymssql.connect(host=company.nav_host, user=company.nav_user, password=company.nav_password, database=company.nav_dbname,as_dict=True)
                 cur = conn.cursor()
                 sql_complete = sql % (company.ineco_nav_table,table_name) 
                 cur.execute(sql_complete )
@@ -259,12 +313,11 @@ class ineco_nav_postmaster(osv.osv):
         field_desc = 'Description'
         company_ids = self.pool.get('res.company').search(cr, uid, [])
         for company in self.pool.get('res.company').browse(cr, uid, company_ids ):
-            if company.ineco_nav_table:
+            if company.ineco_nav_table and company.nav_dbname and company.nav_user and company.nav_password and company.nav_host:
                 sql = """
                     select * from [%s%s] 
                 """
-#                conn = pymssql.connect(host='192.168.1.106', user='sa', password='sa', database='OMG171111',as_dict=True)
-                conn = pymssql.connect(host='10.100.9.203', user='sa', password='sa', database='OMG TRAINING',as_dict=True)
+                conn = pymssql.connect(host=company.nav_host, user=company.nav_user, password=company.nav_password, database=company.nav_dbname,as_dict=True)
                 cur = conn.cursor()
                 sql_complete = sql % (company.ineco_nav_table,table_name) 
                 cur.execute(sql_complete )
@@ -288,12 +341,11 @@ class ineco_nav_postmaster(osv.osv):
         field_desc = 'Code'
         company_ids = self.pool.get('res.company').search(cr, uid, [])
         for company in self.pool.get('res.company').browse(cr, uid, company_ids ):
-            if company.ineco_nav_table:
+            if company.ineco_nav_table and company.nav_dbname and company.nav_user and company.nav_password and company.nav_host:
                 sql = """
                     select * from [%s%s] 
                 """
-#                conn = pymssql.connect(host='192.168.1.106', user='sa', password='sa', database='OMG171111',as_dict=True)
-                conn = pymssql.connect(host='10.100.9.203', user='sa', password='sa', database='OMG TRAINING',as_dict=True)
+                conn = pymssql.connect(host=company.nav_host, user=company.nav_user, password=company.nav_password, database=company.nav_dbname,as_dict=True)
                 cur = conn.cursor()
                 sql_complete = sql % (company.ineco_nav_table,table_name) 
                 cur.execute(sql_complete )
@@ -317,12 +369,11 @@ class ineco_nav_postmaster(osv.osv):
         field_desc = 'Code'
         company_ids = self.pool.get('res.company').search(cr, uid, [])
         for company in self.pool.get('res.company').browse(cr, uid, company_ids ):
-            if company.ineco_nav_table:
+            if company.ineco_nav_table and company.nav_dbname and company.nav_user and company.nav_password and company.nav_host:
                 sql = """
                     select * from [%s%s] 
                 """
-#                conn = pymssql.connect(host='192.168.1.106', user='sa', password='sa', database='OMG171111',as_dict=True)
-                conn = pymssql.connect(host='10.100.9.203', user='sa', password='sa', database='OMG TRAINING',as_dict=True)
+                conn = pymssql.connect(host=company.nav_host, user=company.nav_user, password=company.nav_password, database=company.nav_dbname,as_dict=True)
                 cur = conn.cursor()
                 sql_complete = sql % (company.ineco_nav_table,table_name) 
                 cur.execute(sql_complete )
@@ -334,6 +385,118 @@ class ineco_nav_postmaster(osv.osv):
                             'name':row['Code'].decode('cp874'),
                             'code_nav': row['Code'].decode('cp874'),
                             'group_nav': 'wht'
+                        }
+                        self.pool.get('ineco.nav.postmaster').create(cr, uid, data)
+                    row = cur.fetchone()
+                    
+                cur.close()
+
+    def schedule_sync_genbus(self, cr, uid, context=None):
+        table_name = 'Gen_ Business Posting Group'
+        field_key = 'Code'
+        field_desc = 'Code'
+        company_ids = self.pool.get('res.company').search(cr, uid, [])
+        for company in self.pool.get('res.company').browse(cr, uid, company_ids ):
+            if company.ineco_nav_table and company.nav_dbname and company.nav_user and company.nav_password and company.nav_host:
+                sql = """
+                    select * from [%s%s] 
+                """
+                conn = pymssql.connect(host=company.nav_host, user=company.nav_user, password=company.nav_password, database=company.nav_dbname,as_dict=True)
+                cur = conn.cursor()
+                sql_complete = sql % (company.ineco_nav_table,table_name) 
+                cur.execute(sql_complete )
+                row = cur.fetchone()
+                while row:
+                    nav_ids = self.pool.get('ineco.nav.postmaster').search(cr, uid , [('name','=',row['Code'])])
+                    if not nav_ids:
+                        data = {
+                            'name':row['Code'].decode('cp874'),
+                            'code_nav': row['Code'].decode('cp874'),
+                            'group_nav': 'genbus'
+                        }
+                        self.pool.get('ineco.nav.postmaster').create(cr, uid, data)
+                    row = cur.fetchone()
+                    
+                cur.close()
+
+    def schedule_sync_vatproduct(self, cr, uid, context=None):
+        table_name = 'VAT Product Posting Group'
+        field_key = 'Code'
+        field_desc = 'Code'
+        company_ids = self.pool.get('res.company').search(cr, uid, [])
+        for company in self.pool.get('res.company').browse(cr, uid, company_ids ):
+            if company.ineco_nav_table and company.nav_dbname and company.nav_user and company.nav_password and company.nav_host:
+                sql = """
+                    select * from [%s%s] 
+                """
+                conn = pymssql.connect(host=company.nav_host, user=company.nav_user, password=company.nav_password, database=company.nav_dbname,as_dict=True)
+                cur = conn.cursor()
+                sql_complete = sql % (company.ineco_nav_table,table_name) 
+                cur.execute(sql_complete )
+                row = cur.fetchone()
+                while row:
+                    nav_ids = self.pool.get('ineco.nav.postmaster').search(cr, uid , [('name','=',row['Code'])])
+                    if not nav_ids:
+                        data = {
+                            'name':row['Code'].decode('cp874'),
+                            'code_nav': row['Code'].decode('cp874'),
+                            'group_nav': 'vatproduct'
+                        }
+                        self.pool.get('ineco.nav.postmaster').create(cr, uid, data)
+                    row = cur.fetchone()
+                    
+                cur.close()
+
+    def schedule_sync_whtproduct(self, cr, uid, context=None):
+        table_name = 'WHT Product Posting Group'
+        field_key = 'Code'
+        field_desc = 'Code'
+        company_ids = self.pool.get('res.company').search(cr, uid, [])
+        for company in self.pool.get('res.company').browse(cr, uid, company_ids ):
+            if company.ineco_nav_table and company.nav_dbname and company.nav_user and company.nav_password and company.nav_host:
+                sql = """
+                    select * from [%s%s] 
+                """
+                conn = pymssql.connect(host=company.nav_host, user=company.nav_user, password=company.nav_password, database=company.nav_dbname,as_dict=True)
+                cur = conn.cursor()
+                sql_complete = sql % (company.ineco_nav_table,table_name) 
+                cur.execute(sql_complete )
+                row = cur.fetchone()
+                while row:
+                    nav_ids = self.pool.get('ineco.nav.postmaster').search(cr, uid , [('name','=',row['Code'])])
+                    if not nav_ids:
+                        data = {
+                            'name':row['Code'].decode('cp874'),
+                            'code_nav': row['Code'].decode('cp874'),
+                            'group_nav': 'whtproduct'
+                        }
+                        self.pool.get('ineco.nav.postmaster').create(cr, uid, data)
+                    row = cur.fetchone()
+                    
+                cur.close()
+
+    def schedule_sync_genproduct(self, cr, uid, context=None):
+        table_name = 'Gen_ Product Posting Group'
+        field_key = 'Code'
+        field_desc = 'Code'
+        company_ids = self.pool.get('res.company').search(cr, uid, [])
+        for company in self.pool.get('res.company').browse(cr, uid, company_ids ):
+            if company.ineco_nav_table and company.nav_dbname and company.nav_user and company.nav_password and company.nav_host:
+                sql = """
+                    select * from [%s%s] 
+                """
+                conn = pymssql.connect(host=company.nav_host, user=company.nav_user, password=company.nav_password, database=company.nav_dbname,as_dict=True)
+                cur = conn.cursor()
+                sql_complete = sql % (company.ineco_nav_table,table_name) 
+                cur.execute(sql_complete )
+                row = cur.fetchone()
+                while row:
+                    nav_ids = self.pool.get('ineco.nav.postmaster').search(cr, uid , [('name','=',row['Code'])])
+                    if not nav_ids:
+                        data = {
+                            'name':row['Code'].decode('cp874'),
+                            'code_nav': row['Code'].decode('cp874'),
+                            'group_nav': 'genproduct'
                         }
                         self.pool.get('ineco.nav.postmaster').create(cr, uid, data)
                     row = cur.fetchone()
