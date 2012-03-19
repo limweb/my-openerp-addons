@@ -371,6 +371,10 @@ class stock_picking(osv.osv):
                     if pr: 
                         pr.write({'state':'done'})
             elif pick.type == 'out':
+                supplier_loc_ids = self.pool.get('stock.location').search(cr, uid, [('name','=','Suppliers')])
+                if supplier_loc_ids:                    
+                    for line in pick.move_lines:
+                        line.write({'location_id': supplier_loc_ids[0]})
                 host_ids = self.pool.get('omg.configuration').search(cr, uid, [('type','=','sms')])
                 customer_product = pick.customer_product_id.name
                 location_name = pick.move_lines[0].location_dest_id.name
