@@ -34,6 +34,7 @@
 # 22-02-2012       POP-011    Add Branch Location Estimate in sale order
 # 12-02-2012       POP-012    Change price computation in sale order.
 # 13-02-2012       POP-013    Ineco Delivery Date = False
+# 16-02-2012       POP-014    Force Draft State
 
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
@@ -390,6 +391,8 @@ class sale_order(osv.osv):
         'item_sale_check_ids': fields.many2many('product.product', 'product_product_sale_check_rel', 'sale_id', 'product_tmpl_id', 'Item Check Sales'),
         #POP-012
         'price_period_days': fields.function(_get_date_price, method=True, type='integer', string='Summay Price Days'),
+        #POP-014
+        'force_draft_state': fields.boolean('Force Draft State'),
     }
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -775,8 +778,9 @@ class sale_order(osv.osv):
             
                         val = {}
             
-                        if picking_id:
-                            wf_service.trg_validate(uid, 'stock.picking', picking_id, 'button_confirm', cr)
+                        if not order.force_draft_state:
+                            if picking_id:
+                                wf_service.trg_validate(uid, 'stock.picking', picking_id, 'button_confirm', cr)
             
                         #for proc_id in proc_ids:
                         #    wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)

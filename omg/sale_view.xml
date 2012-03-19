@@ -1,6 +1,17 @@
 <?xml version="1.0"?>
 <openerp>
 	<data>
+		<record model="ir.ui.view" id="view_omg_sale_order_form_force_draft">
+			<field name="name">omg.sale.order.force.draft.form</field>
+			<field name="type">form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="arch" type="xml">
+				<field name="shipped" position="after">
+					<field name="force_draft_state" />
+				</field>
+			</field>
+		</record>
 
 		<record model="ir.ui.view" id="view_omg_sale_order_form">
 			<field name="name">omg.sale.order.form</field>

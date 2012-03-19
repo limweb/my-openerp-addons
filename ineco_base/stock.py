@@ -35,6 +35,7 @@
 # 08-03-2012       POP-013    Make perfomace auto picking
 # 10-03-2012       POP-014    Change Split in Auto Picking -> Valid by Do it Again
 # 14-03-2012       POP-015    Change way to force compute with delivery
+# 16-03-2012       POP-015    Change Set to Confirm -> Set To Draft
 
 import math
 
@@ -427,8 +428,11 @@ class stock_picking(osv.osv):
             return False
         cr.execute('select id from stock_move where picking_id in %s ', (tuple(ids),))
         move_ids = map(lambda x: x[0], cr.fetchall())
-        self.write(cr, uid, ids, {'state': 'confirmed'})
-        self.pool.get('stock.move').write(cr, uid, move_ids, {'state': 'confirmed'})
+        #self.write(cr, uid, ids, {'state': 'confirmed'})
+        #self.pool.get('stock.move').write(cr, uid, move_ids, {'state': 'confirmed'})
+        #POP-015
+        self.write(cr, uid, ids, {'state': 'draft'})
+        self.pool.get('stock.move').write(cr, uid, move_ids, {'state': 'draft'})
         wf_service = netsvc.LocalService("workflow")
         for doc_id in ids:
             cr.execute("select id from wkf where osv = '"+'stock.picking'+"'")
@@ -450,8 +454,11 @@ class stock_picking(osv.osv):
             return False
         cr.execute('select id from stock_move where picking_id in %s ', (tuple(ids),))
         move_ids = map(lambda x: x[0], cr.fetchall())
-        self.write(cr, uid, ids, {'state': 'confirmed'})
-        self.pool.get('stock.move').write(cr, uid, move_ids, {'state': 'confirmed'})
+        #self.write(cr, uid, ids, {'state': 'confirmed'})
+        #self.pool.get('stock.move').write(cr, uid, move_ids, {'state': 'confirmed'})
+        #POP-015
+        self.write(cr, uid, ids, {'state': 'draft'})
+        self.pool.get('stock.move').write(cr, uid, move_ids, {'state': 'draft'})
         wf_service = netsvc.LocalService("workflow")
         for doc_id in ids:
             cr.execute("select id from wkf where osv = '"+'stock.picking'+"'")
