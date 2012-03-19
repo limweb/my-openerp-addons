@@ -168,3 +168,37 @@ class ineco_public_function_convertstock(osv.osv):
         """)
 
 ineco_public_function_convertstock()
+
+class ineco_public_function_getstocklimit(osv.osv):
+    _name = "ineco.public.function.getstocklimit"
+    _description = "Function Get Stock Limit"
+    _auto = False
+    _columns = {
+    }
+
+#POP-001
+    def init(self, cr):
+        cr.execute("""
+            create or replace function get_stock_limit(int, int) returns int as
+            $$
+                declare    
+                    reccount int default 0;
+                    stock record;
+                    local_product_id alias for $1;
+                    total alias for $2;
+                    tmp_quantity int default 0;
+            begin
+                for stock in select id, qty from tmp_ineco_stock_report where product_id = local_product_id and qty > 0  order by expired, date_input, qty loop
+                    tmp_quantity = tmp_quantity + stock.qty;
+                    if tmp_quantity >= total then
+                        reccount = reccount + 1;
+                        exit;
+                    end if;
+                    reccount = reccount + 1;
+                end loop;
+                return reccount;
+            end;
+            $$ language 'plpgsql';
+        """)
+
+ineco_public_function_getstocklimit()
