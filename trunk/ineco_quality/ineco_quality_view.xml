@@ -289,7 +289,7 @@
 					<field name="name" />
 					<field name="qc_pass" />
 					<newline />
-					<field name="item_ids" nolabel="1">
+					<field name="item_ids" nolabel="1" colspan="4">
 						<tree string="Item">
 							<field name="seq" />
 							<field name="name" />
@@ -300,13 +300,14 @@
 						<form string="Item">
 							<field name="seq" />
 							<field name="name" />
-							<field name="result" />
+							<field name="item_id" />
 							<field name="qc_pass" />
-							<field name="note" />
+							<field name="result" colspan="4"  />
+							<field name="note" colspan="4" />
 						</form>
 					</field>
 					<newline />
-					<field name="note" />
+					<field name="note" colspan="4" />
 				</form>
             </field>
         </record>
