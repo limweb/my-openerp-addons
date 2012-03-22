@@ -616,7 +616,7 @@ class ineco_query_stock_report(osv.osv):
         tools.drop_view_if_exists(cr, 'ineco_query_stock_report')
         cr.execute("""
             CREATE OR REPLACE VIEW ineco_query_stock_report AS 
-             SELECT pt.name_template AS customer_product_name, pp.name_template AS product_name, spl.name AS production_lot_id, spl.date_expired, st.name AS pack_id, sl.name AS location_id, sp.ineco_delivery_date::timestamp without time zone AS date_expected, pu.name AS uom_name, sm.product_qty, pu2.name AS warehouse_uom_name, ineco_convert_stock(pp.warehouse_uom, sm.product_qty::double precision) AS product_full_qty, sm.product_qty::double precision - ineco_get_stock(pp.warehouse_uom, ineco_convert_stock(pp.warehouse_uom, sm.product_qty::double precision)) AS product_split_qty, issc.name AS sticker_name, pp.warehouse_uom, sp.ineco_delivery_date
+             SELECT pt.name_template AS customer_product_name, pp.name_template AS product_name, spl.name AS production_lot_id, spl.date_expired, st.name AS pack_id, sl.name AS location_id, sp.ineco_delivery_date::timestamp without time zone AS date_expected, pu.name AS uom_name, sm.product_qty, pu2.name AS warehouse_uom_name, ineco_convert_stock(pp.warehouse_uom, sm.product_qty::double precision) AS product_full_qty, sm.product_qty::double precision - ineco_get_stock(pp.warehouse_uom, ineco_convert_stock(pp.warehouse_uom, sm.product_qty::double precision)) AS product_split_qty, issc.name AS sticker_name, pp.warehouse_uom, sp.ineco_delivery_date, sm.product_id as product_id
                FROM stock_move sm
                LEFT JOIN stock_picking sp ON sm.picking_id = sp.id
                LEFT JOIN product_product pp ON sm.product_id = pp.id
