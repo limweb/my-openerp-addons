@@ -206,6 +206,7 @@
 					<field name="quantity" />
 					<field name="partner_id" />
 					<field name="prodlot_id" />
+					<field name="qc_pass" />
 				</tree>
             </field>
         </record>
@@ -224,7 +225,11 @@
 					<field name="quantity" />
 					<field name="partner_id" />
 					<field name="prodlot_id" />
+					<field name="qc_pass" />
 					<newline />
+					<button name="%(action_quality_load_template_wizard)d" string="Load Template" 
+						type="action" icon="gtk-execute" colspan="4"/>
+					
 					<field name="line_ids" colspan="4" nolabel="1" />
 				</form>
             </field>
@@ -288,11 +293,13 @@
 					<field name="seq" />
 					<field name="name" />
 					<field name="qc_pass" />
-					<newline />
+					<newline />					
 					<field name="item_ids" nolabel="1" colspan="4">
 						<tree string="Item">
 							<field name="seq" />
 							<field name="name" />
+							<field name="sampling1" />
+							<field name="sampling2" />
 							<field name="result" />
 							<field name="qc_pass" />
 							<field name="note" />
@@ -300,6 +307,8 @@
 						<form string="Item">
 							<field name="seq" />
 							<field name="name" />
+							<field name="sampling1" />
+							<field name="sampling2" />
 							<field name="item_id" />
 							<field name="qc_pass" />
 							<field name="result" colspan="4"  />

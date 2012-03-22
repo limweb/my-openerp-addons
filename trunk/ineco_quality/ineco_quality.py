@@ -88,7 +88,7 @@ class ineco_quality_control(osv.osv):
         res = {}
         quality = self.browse(cr, uid, ids, context=context)
         for qc in quality:
-            qcpass = False
+            qcpass = True
             for line in qc.line_ids:
                 qcpass = qcpass and line.qc_pass
             res[qc.id] = qcpass
@@ -100,7 +100,7 @@ class ineco_quality_control(osv.osv):
         'name': fields.char('QC Number', size=64, required=True),
         'date': fields.date('Date', required=True),
         'user_id': fields.many2one('res.users', 'QC User', required=True),
-        'picking_id': fields.many2one('stock.picking', 'Picking', required=True),
+        'picking_id': fields.many2one('stock.picking', 'Picking'),
         'move_id': fields.many2one('stock.move','Stock Move', reqruied=True),
         'product_id': fields.many2one('product.product', 'Product', required=True),
         'uom_id': fields.many2one('product.uom','UOM', required=True),
@@ -111,10 +111,18 @@ class ineco_quality_control(osv.osv):
         'qc_pass': fields.function(_get_pass, string='Pass', method=True,  type='boolean'),
     }
     _defaults = {
-        'name': '/',
+        'name': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'ineco.quality.control'),
         'user_id': lambda self, cr, uid, context: uid,
         'date': lambda *a: time.strftime('%Y-%m-%d'),        
     }
+    def copy(self, cr, uid, id, default=None, context=None):
+        if not default:
+            default = {}
+        default.update({
+            'name': self.pool.get('ir.sequence').get(cr, uid, 'ineco.quality.control'),
+        })
+        return super(purchase_requisition, self).copy(cr, uid, id, default, context)    
+    
 ineco_quality_control()
 
 class ineco_quality_control_line(osv.osv):
@@ -123,7 +131,7 @@ class ineco_quality_control_line(osv.osv):
         res = {}
         quality = self.browse(cr, uid, ids, context=context)
         for qc in quality:
-            qcpass = False
+            qcpass = True
             for line in qc.item_ids:
                 qcpass = qcpass and line.qc_pass
             res[qc.id] = qcpass
@@ -151,10 +159,12 @@ class ineco_quality_control_line_item(osv.osv):
     _columns = {
         'name': fields.char('Description', size=254, required=True),
         'seq': fields.integer('Sequence', required=True),
-        'item_id': fields.many2one('ineco.quality.item', 'QC Item', required=True),
-        'result': fields.char('Result', size=254, required=True),
+        'item_id': fields.many2one('ineco.quality.item', 'QC Item'),
+        'sampling1': fields.char('Sampling 1', size=100),
+        'sampling2': fields.char('Sampling 2', size=100),
+        'result': fields.char('Result', size=254),
         'note': fields.text('Notes'),
-        'line_id': fields.many2one('ineco.quality.control.line', 'Quality Control Line', required=True),
+        'line_id': fields.many2one('ineco.quality.control.line', 'Quality Control Line'),
         'qc_pass': fields.boolean('QC Pass'),
     }
     _defaults = {
