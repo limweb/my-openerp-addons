@@ -17,7 +17,7 @@ import email,re
 
 class JasperClient:
     def __init__(self,url,username,password):
-        self.client = Client(url,username=username,password=password)
+        self.client = Client(url,username=username,password=password, timeout=9999)
 
     def listReports(self,dir=""):
         """ get a list containing report URIs on JasperServer
