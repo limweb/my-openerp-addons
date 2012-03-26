@@ -19,6 +19,9 @@
 #
 ##############################################################################
 
+
+# 26-03-2012    POP-001    Change OnCreate better way
+
 import math
 
 from osv import fields,osv
@@ -35,6 +38,18 @@ from dateutil.relativedelta import relativedelta
 
 from operator import itemgetter
 from itertools import groupby
+
+class ineco_quality_journal(osv.osv):
+    _name = "ineco.quality.journal"
+    _description = "Ineco Quality Journal"
+    _columns = {
+        'name': fields.char('Ineco Quality Journal', size=32, required=True),
+        'sequence_id': fields.many2one('ir.sequence', 'Sequence', required=True)
+    }
+    _defaults = {
+    }
+
+ineco_quality_journal()
 
 class ineco_quality_category(osv.osv):
     _name = "ineco.quality.category"
@@ -109,12 +124,39 @@ class ineco_quality_control(osv.osv):
         'quantity': fields.float('Quantity', digits=(10,2), required=True),
         'line_ids': fields.one2many('ineco.quality.control.line','control_id','Lines'),
         'qc_pass': fields.function(_get_pass, string='Pass', method=True,  type='boolean'),
+        'quality_journal_id': fields.many2one('ineco.quality.journal','Quality Journal'),
     }
     _defaults = {
-        'name': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'ineco.quality.control'),
+        'name': '/',
         'user_id': lambda self, cr, uid, context: uid,
         'date': lambda *a: time.strftime('%Y-%m-%d'),        
     }
+
+    def create(self, cr, user, vals, context=None):
+        if ('name' not in vals) or (vals.get('name')=='/'):
+            if ('quality_journal_id' in vals) and (vals.get('quality_journal_id')):
+                stock_journal = self.pool.get('ineco.quality.journal').browse(cr, user, [vals.get('quality_journal_id')])[0]
+                if stock_journal:
+                    seq_obj_name = stock_journal.sequence_id.code
+                else:
+                    seq_obj_name =  'ineco.quality.control'
+            elif ('quality_journal_id' in context):
+                stock_journal_ids = self.pool.get('ineco.quality.journal').search(cr, user, [('name','=',context['quality_journal_id'])])
+                if stock_journal_ids:
+                    stock_journal = self.pool.get('ineco.quality.journal').browse(cr, user, stock_journal_ids)[0]
+                    if stock_journal:
+                        vals['quality_journal_id'] = stock_journal.id
+                        seq_obj_name = stock_journal.sequence_id.code
+                    else:
+                        seq_obj_name =  "ineco.quality.control"
+            else:
+                seq_obj_name =  'ineco.quality.control'
+            #vals['name'] = self.pool.get('ir.sequence').get(cr, user, seq_obj_name)            
+            #seq_obj_name =  'ineco.quality.control'
+            vals['name'] = self.pool.get('ir.sequence').get(cr, user, seq_obj_name)
+        new_id = super(ineco_quality_control, self).create(cr, user, vals, context)
+        return new_id
+    
     def copy(self, cr, uid, id, default=None, context=None):
         if not default:
             default = {}

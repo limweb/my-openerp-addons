@@ -4,7 +4,7 @@
 
         <record id="ineco_stock_journal_raw" model="stock.journal">
             <field name="name">Raw Material</field>
-            <field name="sequence_id" ref="seq_stock_journal_material"></field>
+            <field name="sequence_id" ref="seq_stock_journal_material" />
         </record>
 
         <record id="ineco_stock_journal_wip" model="stock.journal">
@@ -13,7 +13,7 @@
         </record>
 
         <record id="ineco_stock_journal_fa" model="stock.journal">
-            <field name="name">FA</field>
+            <field name="name">FG</field>
             <field name="sequence_id" ref="seq_stock_journal_fa" />
         </record>
         
