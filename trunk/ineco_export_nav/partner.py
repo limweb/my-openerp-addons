@@ -184,7 +184,7 @@ class res_partner(osv.osv):
                                      "", #Block "All"
                                      partner.tax_id or "",
                                      time.strftime('%d/%m/%Y %H:%M'),
-                                     partner.credit_limit ])
+                                     partner.credit_limit or 0 ])
         return True
 
     def write(self, cr, uid, ids, vals, context=None):
