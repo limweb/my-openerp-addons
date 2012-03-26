@@ -31,6 +31,7 @@
     'website': 'http://openerp.tititab.com',
     'update_xml': [
         "quality_sequence.xml",
+        "quality_data.xml",
         "wizard/wizard_load_template_view.xml",
         "security.xml",
         "ineco_quality_view.xml",

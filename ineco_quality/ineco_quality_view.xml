@@ -207,6 +207,7 @@
 					<field name="partner_id" />
 					<field name="prodlot_id" />
 					<field name="qc_pass" />
+					<field name="user_id" />
 				</tree>
             </field>
         </record>
@@ -217,15 +218,19 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
 				<form string="Quality Control">
-					<field name="name" />
-					<field name="date" />
-					<field name="picking_id" />
-					<field name="product_id" />
-					<field name="uom_id" />
-					<field name="quantity" />
-					<field name="partner_id" />
-					<field name="prodlot_id" />
-					<field name="qc_pass" />
+					<group colspan="6" col="6" >
+						<field name="name" />
+						<field name="date" />
+						<field name="picking_id" />
+						<field name="product_id" />
+						<field name="uom_id" />
+						<field name="quantity" />
+						<field name="partner_id" />
+						<field name="prodlot_id" />
+						<field name="qc_pass" />
+						<field name="user_id" />
+						<field name="quality_journal_id" />
+					</group>
 					<newline />
 					<button name="%(action_quality_load_template_wizard)d" string="Load Template" 
 						type="action" icon="gtk-execute" colspan="4"/>
@@ -262,13 +267,15 @@
             <field name="search_view_id" ref="view_ineco_quality_control_search" />
         </record>
 		
+		<!-- 
         <menuitem
             id="menu_ineco_quality_control" 
             name="Quality Control"
             parent="menu_ineco_quality_control_menu" 
-            sequence="10"
+            sequence="100"
             action="action_ineco_quality_control" />   
-
+ 		-->
+ 		
         <!-- Ineco Quality Control Line-->
         <record id="view_ineco_quality_control_line_tree" model="ir.ui.view">
             <field name="name">ineco.quality.control.line.tree</field>
@@ -319,6 +326,90 @@
 					<field name="note" colspan="4" />
 				</form>
             </field>
+        </record>
+
+		<!-- Quality Control Package -->
+        <record id="ineco_action_quality_control_package" model="ir.actions.act_window">
+            <field name="name">QC - Package</field>
+            <field name="res_model">ineco.quality.control</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain">[('quality_journal_id','=','QC - Package')]</field>
+            <field name="context">{'quality_journal_id':'QC - Package'}</field>
+            <field name="search_view_id" ref="view_ineco_quality_control_search"/>
+        </record>
+
+        <menuitem 
+          action="ineco_action_quality_control_package" 
+          id="menu_ineco_action_quality_control_package" 
+          parent="menu_ineco_quality_control_menu" 
+          sequence="5"/>
+
+        <record id="menu_ineco_action_quality_control_package" model="ir.ui.menu">
+        	<field name="groups_id" eval="[(4,ref('base.group_ineco_quality_package'))]"/>
+        </record>
+
+		<!-- Quality Control Raw -->
+        <record id="ineco_action_quality_control_raw" model="ir.actions.act_window">
+            <field name="name">QC - Raw Material</field>
+            <field name="res_model">ineco.quality.control</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain">[('quality_journal_id','=','QC - Raw Material')]</field>
+            <field name="context">{'quality_journal_id':'QC - Raw Material'}</field>
+            <field name="search_view_id" ref="view_ineco_quality_control_search"/>
+        </record>
+
+        <menuitem 
+          action="ineco_action_quality_control_raw" 
+          id="menu_ineco_action_quality_control_raw" 
+          parent="menu_ineco_quality_control_menu" 
+          sequence="10"/>
+
+        <record id="menu_ineco_action_quality_control_raw" model="ir.ui.menu">
+        	<field name="groups_id" eval="[(4,ref('base.group_ineco_quality_raw'))]"/>
+        </record>
+
+		<!-- Quality Control WIP -->
+        <record id="ineco_action_quality_control_wip" model="ir.actions.act_window">
+            <field name="name">QC - WIP</field>
+            <field name="res_model">ineco.quality.control</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain">[('quality_journal_id','=','QC - WIP')]</field>
+            <field name="context">{'quality_journal_id':'QC - WIP'}</field>
+            <field name="search_view_id" ref="view_ineco_quality_control_search"/>
+        </record>
+
+        <menuitem 
+          action="ineco_action_quality_control_wip" 
+          id="menu_ineco_action_quality_control_wip" 
+          parent="menu_ineco_quality_control_menu" 
+          sequence="15"/>
+
+        <record id="menu_ineco_action_quality_control_wip" model="ir.ui.menu">
+        	<field name="groups_id" eval="[(4,ref('base.group_ineco_quality_wip'))]"/>
+        </record>
+
+		<!-- Quality Control FG -->
+        <record id="ineco_action_quality_control_fg" model="ir.actions.act_window">
+            <field name="name">QC - FG</field>
+            <field name="res_model">ineco.quality.control</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain">[('quality_journal_id','=','QC - FG')]</field>
+            <field name="context">{'quality_journal_id':'QC - FG'}</field>
+            <field name="search_view_id" ref="view_ineco_quality_control_search"/>
+        </record>
+
+        <menuitem 
+          action="ineco_action_quality_control_fg" 
+          id="menu_ineco_action_quality_control_fg" 
+          parent="menu_ineco_quality_control_menu" 
+          sequence="20"/>
+
+        <record id="menu_ineco_action_quality_control_fg" model="ir.ui.menu">
+        	<field name="groups_id" eval="[(4,ref('base.group_ineco_quality_fg'))]"/>
         </record>
             
     </data>

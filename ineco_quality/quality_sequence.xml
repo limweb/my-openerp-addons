@@ -12,5 +12,55 @@
             <field name="prefix">QC</field>
             <field name="padding">6</field>
         </record>
+        
+        <record id="seq_ineco_quality_package" model="ir.sequence.type">
+            <field name="name">QC - Package</field>
+            <field name="code">ineco.type.quality.journal.pkg</field>
+        </record>
+
+        <record id="seq_ineco_quality_raw" model="ir.sequence.type">
+            <field name="name">QC - Raw</field>
+            <field name="code">ineco.type.quality.journal.raw</field>
+        </record>
+        
+        <record id="seq_ineco_quality_wip" model="ir.sequence.type">
+            <field name="name">QC - WIP</field>
+            <field name="code">ineco.type.quality.journal.wip</field>
+        </record>
+        
+        <record id="seq_ineco_quality_fg" model="ir.sequence.type">
+            <field name="name">QC - FG</field>
+            <field name="code">ineco.type.quality.journal.fg</field>
+        </record>
+        
+        <record id="seq_quality_journal_raw" model="ir.sequence">
+            <field name="name">Quality Raw Material Sequence</field>
+            <field name="code">ineco.type.quality.journal.raw</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">QCR%(y)s%(month)s-</field>
+        </record>
+        
+        <record id="seq_quality_journal_wip" model="ir.sequence">
+            <field name="name">Quality WIP Sequence</field>
+            <field name="code">ineco.type.quality.journal.wip</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">QCW%(y)s%(month)s-</field>
+        </record>
+
+        <record id="seq_quality_journal_fg" model="ir.sequence">
+            <field name="name">Quality FG Sequence</field>
+            <field name="code">ineco.type.quality.journal.fg</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">QCFG%(y)s%(month)s-</field>
+        </record>
+
+        <record id="seq_quality_journal_package" model="ir.sequence">
+            <field name="name">Quality Package Sequence</field>
+            <field name="code">ineco.type.quality.journal.pkg</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">QCP%(y)s%(month)s-</field>
+        </record>
+        
+        
     </data>
 </openerp>

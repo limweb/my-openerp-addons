@@ -10,6 +10,22 @@
         <field name="name">QA/QC User</field>
     </record>
 
+    <record id="base.group_ineco_quality_package" model="res.groups">
+        <field name="name">QA/QC Package User</field>
+    </record>
+
+    <record id="base.group_ineco_quality_raw" model="res.groups">
+        <field name="name">QA/QC Raw User</field>
+    </record>
+    
+    <record id="base.group_ineco_quality_wip" model="res.groups">
+        <field name="name">QA/QC WIP User</field>
+    </record>
+    
+    <record id="base.group_ineco_quality_fg" model="res.groups">
+        <field name="name">QA/QC FG User</field>
+    </record>
+
     <record id="secure_ineco_quality_category_manager" model="ir.model.access">
         <field name="name">Users</field>
         <field name="group_id" ref="base.group_ineco_quality_manager" />
