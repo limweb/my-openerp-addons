@@ -16,6 +16,10 @@
 	    <record id="base.group_omg_lock_period" model="res.groups">
 	        <field name="name">OMG / Lock Period</field>
 	    </record>
+
+	    <record id="base.group_omg_period_master" model="res.groups">
+	        <field name="name">OMG / PERIOD MASTRER TEMPLATE</field>
+	    </record>
 	    
 <!-- 
 	    <record id="omg_location_employee_rule" model="ir.rule">
