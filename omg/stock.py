@@ -22,6 +22,7 @@
 
 # 18-02-2012    POP-001    Create ineco.query.stock.report (Dispatch VS Kitting) 
 # 27-02-2012    POP-002    Add Max Category in stock.location.booking
+# 25-03-2012    POP-003    Add Copy to Stock.picking
 
 import socket
 import sys
@@ -309,6 +310,15 @@ class stock_picking(osv.osv):
                 res[line.id] = line.period_id.date_start
         return res
 
+    def _get_warehouse_lock(self, cr, uid, ids, field_name, arg, context=None):
+        res = {}
+        if context is None:
+            context = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            if line.period_id:
+                res[line.id] = line.period_id.warehouse_lock
+        return res
+
     _name = "stock.picking"
     _description = "OMG Picking List"
     _inherit = "stock.picking"
@@ -326,11 +336,26 @@ class stock_picking(osv.osv):
         'path': fields.char('Logistic Path', size=100),
         'location_store_id': fields.many2one('stock.location', 'Store', ondelete='restrict'),
         'sms_text': fields.char('SMS Text', size=128),
+        'warehouse_lock': fields.function(_get_warehouse_lock, method=True, type='boolean', string="Lock"),
     }
     
     _defaults = {
         'sms_audit': False,
     }
+
+    #POP-003
+    def copy(self, cr, uid, id, default={}, context=None):
+        default.update({
+            'state': 'draft',
+            'ineco_delivery_date': False,
+            'ineco_logistic_path': False,
+            'path': False,
+            'date_arrival': False,
+            'sale_id': False,
+            'location_store_id': False,
+            'date_done': False,
+        })
+        return super(stock_picking, self).copy(cr, uid, id, default, context=context)
     
     def schedule_sms(self, cr, uid, context=None):
         cr.execute('select distinct c.id, e.name as customer_product, f.name as location, d.mobile from stock_move a ' \

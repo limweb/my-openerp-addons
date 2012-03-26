@@ -115,22 +115,25 @@ class ineco_nav_dimension(osv.osv):
                 cur.execute(sql_complete )
                 row = cur.fetchone()
                 while row:
-                    nav_ids = self.pool.get('ineco.nav.dimension').search(cr, uid , [('code','=',row['Code'].decode('cp874')),('name','=',row['Name'].decode('cp874'))])
-                    group_dimension = False
-                    if row['Dimension Code'] == 'EMPLOYEE ADV':
-                        group_dimension = 'employee'
-                    elif row['Dimension Code'] == 'NETWORK PARTNERS':
-                        group_dimension = 'network'
-                    else:
-                        group_dimension = row['Dimension Code'].lower()
-                    if not nav_ids:
-                        data = {
-                            'code':row['Code'].decode('cp874'),
-                            'name': row['Name'].decode('cp874') or False,
-                            'group_dimension': group_dimension,
-                            #'company_id': company.id
-                        }
-                        self.pool.get('ineco.nav.dimension').create(cr, uid, data)
+                    try:
+                        nav_ids = self.pool.get('ineco.nav.dimension').search(cr, uid , [('code','=',row['Code'].decode('cp874')),('name','=',row['Name'].decode('cp874'))])
+                        group_dimension = False
+                        if row['Dimension Code'] == 'EMPLOYEE ADV':
+                            group_dimension = 'employee'
+                        elif row['Dimension Code'] == 'NETWORK PARTNERS':
+                            group_dimension = 'network'
+                        else:
+                            group_dimension = row['Dimension Code'].lower()
+                        if not nav_ids:
+                            data = {
+                                'code':row['Code'].decode('cp874'),
+                                'name': row['Name'].decode('cp874') or False,
+                                'group_dimension': group_dimension,
+                                #'company_id': company.id
+                            }
+                            self.pool.get('ineco.nav.dimension').create(cr, uid, data)
+                    except:
+                        pass
                     row = cur.fetchone()
                     
                 cur.close()
@@ -407,11 +410,11 @@ class ineco_nav_postmaster(osv.osv):
                 cur.execute(sql_complete )
                 row = cur.fetchone()
                 while row:
-                    nav_ids = self.pool.get('ineco.nav.postmaster').search(cr, uid , [('name','=',row['Code'])])
+                    nav_ids = self.pool.get('ineco.nav.postmaster').search(cr, uid , [('name','=',row['Code']+' (gen)')])
                     if not nav_ids:
                         data = {
-                            'name':row['Code'].decode('cp874'),
-                            'code_nav': row['Code'].decode('cp874'),
+                            'name':row['Code'].decode('cp874')+' (gen)',
+                            'code_nav': row['Code'].decode('cp874')+' (gen)',
                             'group_nav': 'genbus'
                         }
                         self.pool.get('ineco.nav.postmaster').create(cr, uid, data)

@@ -97,6 +97,7 @@
 					<field name="oa_contact_name" />
 					<field name="oa_mobile_no" />
 					<field name="location_store_id" colspan="4" />
+					<field name="warehouse_lock" />
 				</field>
 			</field>
 		</record>
