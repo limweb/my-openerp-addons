@@ -146,7 +146,7 @@ class res_partner(osv.osv):
                     #POP-001
                     #f = open(path, 'wt')
                     f = codecs.open(path, encoding='cp874', mode='w+')
-                    writer = csv.writer(f)
+                    #writer = csv.writer(f)
                     writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
                     code = False
                     if partner.ref:
@@ -185,7 +185,7 @@ class res_partner(osv.osv):
                     #POP-001   
                     #f = open(path, 'wt')
                     f = codecs.open(path, encoding='cp874', mode='w+')
-                    writer = csv.writer(f)
+                    #writer = csv.writer(f)
                     writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
                     code = False
                     if partner.ref:
