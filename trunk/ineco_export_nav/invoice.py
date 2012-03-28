@@ -264,7 +264,7 @@ class account_invoice(osv.osv):
                             line['posting_date'], #ERP Generate Current Date Post
                             line['payment_term_code'],   #NAV
                             line['currency_code'],       #NAV
-                            'Yes' ,  #line['price_include_vat'],   #Boolean Yes/No
+                            'No' ,  #line['price_include_vat'],   #Boolean Yes/No
                             'S001' , #Add Nav Sale ID
                             line['buy_from_contact'],    #NAV
                             line['last_interfaced'],     #Address ERP
@@ -277,9 +277,9 @@ class account_invoice(osv.osv):
                             line['uom'], 
                             line['direct_unit_cost'],                             
                             line['line_discount'], 
-                            line['gen_posting_group'] or 'GL',   #NAV
-                            line['vat_posting_group'] or 'V07',   #NAV
-                            line['wht_posting_group'] or 'FEE',   #NAV or '' ว่าง
+                            line['gen_posting_group'] or '',   #NAV
+                            line['vat_posting_group'] or '',   #NAV
+                            line['wht_posting_group'] or '',   #NAV or '' ว่าง
                             '', #NAV Contact No
                             line['dimension_1'], 
                             line['dimension_2'], 
