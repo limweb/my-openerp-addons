@@ -59,7 +59,7 @@ class res_partner(osv.osv):
         for company in self.pool.get('res.company').browse(cr, uid, company_ids ):
             if company.ineco_nav_table and company.nav_dbname and company.nav_user and company.nav_password and company.nav_host:
                 sql = """
-                    select * from [%s%s] 
+                    select * from [%s%s] where len(ltrim([Open ERP No_])) > 0 and left([Open ERP No_],1) <> 'V'
                 """
                 conn = pymssql.connect(host=company.nav_host, user=company.nav_user, password=company.nav_password, database=company.nav_dbname,as_dict=True)
                 cur = conn.cursor()
@@ -69,10 +69,39 @@ class res_partner(osv.osv):
                 while row:
                     #print "No=%s, Name=%s" % (row['No_'], row['Name'].decode('cp874'))
                     #todo update 
-                    partner_ids = self.pool.get('res.partner').search(cr, uid, [('id','=',row['No_'])] )
-                    if partner_ids:
-                        partner = self.pool.get('res.partner').browse(cr, uid, partner_ids)[0]
-                        partner.write({'ref': row['No_']})  
+                    if row['Open ERP No_'] and row['Open ERP No_'][0:1] <> 'V':
+                        partner_ids = self.pool.get('res.partner').search(cr, uid, [('id','=',row['Open ERP No_'])] )
+                        if partner_ids:
+                            partner = self.pool.get('res.partner').browse(cr, uid, partner_ids)[0]
+                            partner.write({'ref': row['No_']})  
+                    row = cur.fetchone()
+                    
+                cur.close()
+        return True
+
+    def schedule_update_customer_nav(self, cr, uid, context=None):
+        table_name = 'Customer'
+        field_key = 'No_'
+        field_lastupdate = 'Last Interfaced'
+        company_ids = self.pool.get('res.company').search(cr, uid, [])
+        for company in self.pool.get('res.company').browse(cr, uid, company_ids ):
+            if company.ineco_nav_table and company.nav_dbname and company.nav_user and company.nav_password and company.nav_host:
+                sql = """
+                    select * from [%s%s] where len(ltrim([Open ERP No_])) > 0 and left([Open ERP No_],1) <> 'C'
+                """
+                conn = pymssql.connect(host=company.nav_host, user=company.nav_user, password=company.nav_password, database=company.nav_dbname,as_dict=True)
+                cur = conn.cursor()
+                sql_complete = sql % (company.ineco_nav_table,table_name) 
+                cur.execute(sql_complete )
+                row = cur.fetchone()
+                while row:
+                    #print "No=%s, Name=%s" % (row['No_'], row['Name'].decode('cp874'))
+                    #todo update 
+                    if row['Open ERP No_'] and row['Open ERP No_'][0:1] <> 'C':
+                        partner_ids = self.pool.get('res.partner').search(cr, uid, [('id','=',row['Open ERP No_'])] )
+                        if partner_ids:
+                            partner = self.pool.get('res.partner').browse(cr, uid, partner_ids)[0]
+                            partner.write({'ref': row['No_']})  
                     row = cur.fetchone()
                     
                 cur.close()
