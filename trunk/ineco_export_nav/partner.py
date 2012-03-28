@@ -195,7 +195,7 @@ class res_partner(osv.osv):
                     writer.writerow([code , 
                                      partner.name[0:50], 
                                      partner.name[50:0], 
-                                     address_invoice.street.encode('cp874') or "", 
+                                     address_invoice.street or "", 
                                      address_invoice.street2 or "",
                                      "",
                                      address_invoice.city or "", #NAV Master
