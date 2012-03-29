@@ -73,14 +73,14 @@ class account_invoice(osv.osv):
                   res_partner.ref as buy_from_vendor_no,
                   account_invoice.origin as purchase_no,
                   res_partner.ref as pay_to_vendor_no,
-                  res_partner_address.name as pay_to_contact,
+                  coalesce(res_partner_address.name,'') as pay_to_contact,
                   to_char(account_invoice.date_invoice,'DD/MM/yyyy') as order_date,
                   to_char(account_invoice.date_invoice,'DD/MM/yyyy') as posting_date,
                   account_payment_term.code_nav as payment_term_code, --payment_term (int)
                   '' as currency_code,     --currency_id (int)
                   'Yes' as price_include_vat, --account_invoice.amount_total as
                   '' as vendor_invoice_no,
-                  address2.name as buy_from_contact,
+                  coalesce(address2.name,'') as buy_from_contact,
                   to_char(now(), 'DD/MM/yyyy HH:mm:ss') as last_interfaced,
                   'G/L Account' as nav_type,
                   account_account.code as account_no,
@@ -198,7 +198,7 @@ class account_invoice(osv.osv):
                   '' as currency_code,     --currency_id (int)
                   account_invoice.amount_total as price_include_vat,
                   '' as vendor_invoice_no,
-                  address2.name as buy_from_contact,
+                  coalesce(address2.name,'') as buy_from_contact,
                   to_char(now(), 'DD/MM/yyyy HH:mm') as last_interfaced,
                   'G/L Account' as nav_type,
                   account_account.code as account_no,
