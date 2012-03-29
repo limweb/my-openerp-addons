@@ -191,7 +191,7 @@ class account_invoice(osv.osv):
                   res_partner.ref as buy_from_vendor_no,
                   account_invoice.origin as purchase_no,
                   res_partner.ref as pay_to_vendor_no,
-                  res_partner_address.name as pay_to_contact,
+                  coalesce(res_partner_address.name,'') as pay_to_contact,
                   to_char(account_invoice.date_invoice, 'DD/MM/yyyy') as order_date,
                   to_char(account_invoice.date_invoice,'DD/MM/yyyy') as posting_date ,
                   account_payment_term.code_nav as payment_term_code, --payment_term (int)
