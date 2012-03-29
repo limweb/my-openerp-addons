@@ -115,18 +115,18 @@ class ineco_asset(osv.osv):
                 path = config.path+"FA"+('%.4d' % asset.id)+".csv"   
 #                path = config.path+"asset-"+str(asset.company_id.id) +"-"+str(asset.id)+".csv"
                 #POP-001
-                #f = open(path, 'wt')
-                f = codecs.open(path, encoding='cp874', mode='w+')
+                f = open(path, 'wt')
+                #f = codecs.open(path, encoding='cp874', mode='w+')
                 writer = csv.writer(f)
                 writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
                 writer.writerow([
-                    asset.name, 
-                    asset.product_id.name[:30] or "",
-                    asset.product_id.name[30:] or "",
+                    asset.name.encode('cp874'), 
+                    asset.product_id.name[:30].encode('cp874') or "",
+                    asset.product_id.name[30:].encode('cp874') or "",
                     asset.asset_type_id.code_nav or "", #FA Class Code -> ERP.ineco_asset_type
                     'COM', # asset.location_id and asset.location_id.code or "", #FA Location Code -> ERP.location_id
                     '0001' , #asset.owner_id and asset.owner_id.code_nav or "", #FA Responsible Employee -> ERP.owner_id
-                    asset.name or "", #Barcode No
+                    asset.name.encode('cp874') or "", #Barcode No
                     "", #Yes, No
                     asset.fa_posting_group_id.code_nav or "", #FA Post Group
                     "Company",
