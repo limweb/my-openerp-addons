@@ -36,6 +36,7 @@
 # 10-03-2012       POP-014    Change Split in Auto Picking -> Valid by Do it Again
 # 14-03-2012       POP-015    Change way to force compute with delivery
 # 16-03-2012       POP-015    Change Set to Confirm -> Set To Draft
+# 30-03-2012       POP-016    Create ienco.stock.barcode.move
 
 import math
 
@@ -1502,6 +1503,7 @@ class ineco_stock_barcode_delivery(osv.osv):
     _order = "date_barcode desc"
 
     def create(self, cr, uid, vals, context=None):
+        vals.update({'date_barcode': time.strftime('%Y-%m-%d %H:%M:%S')})
         tracking_id = vals['tracking_id']
         track = self.pool.get('stock.tracking').browse(cr, uid, [tracking_id])
         if track:
@@ -1589,6 +1591,131 @@ class ineco_stock_barcode_delivery(osv.osv):
         return {'value': result}
     
 ineco_stock_barcode_delivery()
+
+#POP-016
+class ineco_stock_barcode_move(osv.osv):
+    
+    _name = 'ineco.stock.barcode.move'
+    _description = 'Barcode Move'
+    _columns = {
+        'name': fields.char('Description', size=128),
+        'tracking_id': fields.many2one('stock.tracking','Pack', required=True),
+        'product_id': fields.many2one('product.product', 'Product'),
+        'uom_id': fields.many2one('product.uom', 'Unit of Measure'),
+        'quantity': fields.float('Quantity',required=True, digits=(12, 2)),
+        'date_barcode': fields.datetime('Date', required=True),
+        'location_id': fields.many2one('stock.location','Location', required=True),
+        'user_id': fields.many2one('res.users', 'User', required=True),
+        'move_id': fields.many2one('stock.move', 'Move'),
+        'lot_id': fields.many2one('stock.production.lot','Lot',required=True),
+    }
+    
+    _defaults = {
+        'user_id': lambda self, cr, uid, context: uid,
+        "date_barcode": time.strftime('%Y-%m-%d %H:%M:%S')
+    }
+    
+    _order = "date_barcode desc"
+
+    def create(self, cr, uid, vals, context=None):
+        vals.update({'date_barcode': time.strftime('%Y-%m-%d %H:%M:%S')})
+        tracking_id = vals['tracking_id']
+        track = self.pool.get('stock.tracking').browse(cr, uid, [tracking_id])
+        if track:
+            location_ids = self.pool.get('stock.location').search(cr, uid, [('name','=','Output')])
+            if location_ids:
+                location_out = self.pool.get('stock.location').browse(cr, uid, location_ids)[0]
+#                cr.execute("""
+#                    select ir.product_id, ir.tracking_id, ir.uom_id, pt.name, ir.qty, ir.location_dest_id from tmp_ineco_stock_report ir
+#                      left join stock_tracking st on ir.tracking_id = st.id
+#                      left join product_template pt on ir.product_id = pt.id
+#                    where ir.tracking_id = %s
+#                """ % (track[0].id) )
+                move_id = self.pool.get('stock.move').create(cr, uid, {
+                    'name': 'barcode moving',
+                    'picking_id': False,
+                    'product_id': vals['product_id'],
+                    'date': time.strftime('%Y-%m-%d'),
+                    'date_expected': time.strftime('%Y-%m-%d'),
+                    'product_qty': vals['quantity'] or 0.0,
+                    'product_uom': vals['uom_id'],
+                    'location_id': location_out.id,
+                    'location_dest_id': vals['location_id'] ,
+                    'tracking_id': vals['tracking_id'],
+                    'prodlot_id': vals['lot_id'],
+                    'state': 'done',
+                    'note': False,
+                })
+                vals.update({'move_id': move_id})
+            else:
+                raise osv.except_osv(_('Error !'), _('Output Location cannot set.'))
+
+        return super(ineco_stock_barcode_move, self).create(cr, uid, vals, context=context)
+
+    def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context = {}
+        barcode = self.pool.get('ineco.stock.barcode.move').browse(cr, uid, ids)[0]
+        if barcode and barcode.move_id:
+            stock_move = self.pool.get('stock.move').browse(cr, uid, [barcode.move_id.id])[0]
+            if stock_move:
+                stock_move.write({'product_qty': vals['quantity']})
+        return super(ineco_stock_barcode_move, self).write(cr, uid, ids, vals, context=context)
+
+    def unlink(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        barcode = self.pool.get('ineco.stock.barcode.move').browse(cr, uid, ids)[0]
+        if barcode and barcode.move_id:
+            stock_move = self.pool.get('stock.move').browse(cr, uid, [barcode.move_id.id])[0]
+            if stock_move:
+                stock_move.write({'state': 'cancel'})        
+        return super(ineco_stock_barcode_move, self).unlink(cr, uid, ids, context=context)
+    
+    def onchange_tracking_id(self, cr, uid, ids, tracking_id=False, context=None):
+        if not context:
+            context = {}
+        if not tracking_id:
+            return {}
+        result = {}
+        track_obj = self.pool.get('stock.tracking')
+        track = track_obj.browse(cr, uid, [tracking_id], context=context)[0]
+        if track:
+            cr.execute("""
+                select 
+                  sm.product_id,
+                  sm.product_uom,
+                  sm.prodlot_id,
+                  sm.location_id,
+                  sm.name
+                from stock_tracking st
+                join stock_move sm on st.id = sm.tracking_id
+                where st.id = %s 
+                order by sm.create_date desc
+                limit 1            
+            """ % (track.id) )
+            #cr.execute("""
+            #    select ir.product_id, ir.tracking_id, ir.uom_id, pt.name, ir.qty, ir.location_dest_id, ir.lot_id from tmp_ineco_stock_report ir
+            #      left join stock_tracking st on ir.tracking_id = st.id
+            #      left join product_template pt on ir.product_id = pt.id
+            #    where ir.tracking_id = %s
+            #    """ % (track.id) )
+            stock = cr.dictfetchall()
+            if stock:
+                data = stock[0]
+                result = {
+                    'name': data['name'] ,
+                    'product_id':  data['product_id'],
+                    'quantity': 0,
+                    'uom_id': data['product_uom'],
+                    'location_id': False,
+                    'lot_id': data['prodlot_id']}
+        else:
+            raise osv.except_osv(_('Error !'), _('Pack Not Found!'))
+        
+        return {'value': result}
+    
+ineco_stock_barcode_move()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
