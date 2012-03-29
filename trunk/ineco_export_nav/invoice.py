@@ -260,7 +260,7 @@ class account_invoice(osv.osv):
                             line['buy_from_vendor_no'].encode('cp874'),  #NAV
                             line['purchase_no'], 
                             line['pay_to_vendor_no'].encode('cp874'),    #NAV
-                            line['pay_to_contact'].encode('cp874'),      #Address ERP
+                            line['pay_to_contact'].encode('cp874') or '',      #Address ERP
                             line['posting_date'], #ERP Generate Current Date Post
                             line['payment_term_code'],   #NAV
                             line['currency_code'],       #NAV
