@@ -838,7 +838,7 @@
 					<field name="lot_id" />
 					<field name="location_id" />
 					<field name="product_id" />
-					<field name="date_barcode" readonly="1"/>
+					<field name="date_barcode" readonly="1" />
 					<field name="user_id" readonly="1" />
 				</tree>
 			</field>
@@ -886,6 +886,68 @@
             parent="stock.menu_stock_warehouse_mgmt" 
             sequence="50"
             action="action_ineco_stock_barcode_delivery"/>   
+
+		<!-- Ineco Stock Barcode Move -->
+        <record id="ineco_view_stock_barcode_move_tree" model="ir.ui.view">
+            <field name="name">ineco.stock.barcode.move.tree</field>
+            <field name="model">ineco.stock.barcode.move</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<tree string="Barcode Move" editable="top">
+					<field name="tracking_id" on_change="onchange_tracking_id(tracking_id)"  />
+					<field name="quantity" />
+					<field name="uom_id" />
+					<field name="lot_id" />
+					<field name="location_id" />
+					<field name="product_id" />
+					<field name="date_barcode" readonly="1" />
+					<field name="user_id" readonly="1" />
+				</tree>
+			</field>
+		</record>		
+
+        <record id="ineco_view_stock_barcode_move_form" model="ir.ui.view">
+            <field name="name">ineco.stock.barcode.move.form</field>
+            <field name="model">ineco.stock.barcode.move</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<form string="Barcode Move">
+					<field name="tracking_id" />
+					<field name="date_barcode" readonly="1"/>
+					<field name="user_id" readonly="1" />
+				</form>
+			</field>
+		</record>		
+
+        <record id="ineco_view_stock_barcode_move_search" model="ir.ui.view">
+            <field name="name">ineco.stock.barcode.move.search</field>
+            <field name="model">ineco.stock.barcode.move</field>
+            <field name="type">search</field>
+            <field eval="6" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Barcode Move">
+                    <field name="tracking_id" />
+                    <field name="date_barcode" />
+                    <field name="user_id" />
+                </search>
+            </field>
+        </record>
+        		    
+        <record id="action_ineco_stock_barcode_move" model="ir.actions.act_window">
+            <field name="name">Barcode Move</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.stock.barcode.move</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="ineco_view_stock_barcode_move_tree"/>
+            <field name="search_view_id" ref="ineco_view_stock_barcode_move_search" />
+        </record>
+
+		<menuitem
+            id="menu_ineco_stock_barcode_move" 
+            name="Barcode Move"
+            parent="stock.menu_stock_warehouse_mgmt" 
+            sequence="60"
+            action="action_ineco_stock_barcode_move"/>   
 
 	</data>
 	
