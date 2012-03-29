@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <openerp>
 	<data>
+	<!-- 
 		<record model="ir.ui.view" id="view_omg_sale_order_form_force_draft">
 			<field name="name">omg.sale.order.force.draft.form</field>
 			<field name="type">form</field>
@@ -12,6 +13,7 @@
 				</field>
 			</field>
 		</record>
+	 -->
 
 		<record model="ir.ui.view" id="view_omg_sale_order_form">
 			<field name="name">omg.sale.order.form</field>
@@ -201,6 +203,7 @@
 					<group colspan="4">
 						<field name="customer_product_id"/>
 						<field name="service_product_id" domain="[('service_type','=',True)]"  />
+						<field name="force_draft_state" />						
 					</group>
 				</field>
 			</field>
