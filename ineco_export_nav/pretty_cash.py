@@ -82,23 +82,23 @@ class ineco_nav_prettycash(osv.osv):
                 path = config.path+"PT"+('%.4d' % pretty.id)+".csv"
                 #path = config.path+"pretty-"+str(pretty.id)+".csv"
                 #POP-001
-                #f = open(path, 'wt')
-                f = codecs.open(path, encoding='cp874', mode='w+')
+                f = open(path, 'wt')
+                #f = codecs.open(path, encoding='cp874', mode='w+')
                 writer = csv.writer(f)
                 writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
                 writer.writerow([
                     "PC",
                     pretty.account_id.code or "",
                     datetime.strptime(pretty.date_posting, '%Y-%m-%d').strftime('%d/%m/%Y'),
-                    pretty.reference_no or "",
-                    pretty.description or "",
+                    pretty.reference_no.encode('cp874') or "",
+                    pretty.description.encode('cp874') or "",
                     pretty.amount,
                     datetime.strptime(pretty.date_reference, '%Y-%m-%d').strftime('%d/%m/%Y'),
                     pretty.vat_bus_posting_group_id.code_nav or "", #NAV Vat. Product Posting Group (Change New)
-                    pretty.invoice_no or "",
+                    pretty.invoice_no.encode('cp874') or "",
                     datetime.strptime(pretty.date_invoice, '%Y-%m-%d').strftime('%d/%m/%Y'),
                     'ADV EMP',
-                    pretty.other_no or "", #Personal ID 13 Digits
+                    pretty.other_no.encode('cp874') or "", #Personal ID 13 Digits
                     pretty.vat_bus_posting_group_id.code_nav or ""
                 ])
                 cr.execute("update ineco_nav_prettycash set nav_exported = True where id = %s " % pretty.id)

@@ -131,31 +131,31 @@ class account_invoice(osv.osv):
                     config = config_obj[0]
                     path = config.path+"PI-"+str(line_data[0]['company_id']) +"-"+str(row)+".csv"
                     #POP-001
-                    #f = open(path, 'wt')
-                    f = codecs.open(path, encoding='cp874', mode='w+')
+                    f = open(path, 'wt')
+                    #f = codecs.open(path, encoding='cp874', mode='w+')
                     writer = csv.writer(f)
                 for line in line_data:
                     if config_obj:      
                         writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
                         writer.writerow([
                             line['document_type'], 
-                            line['buy_from_vendor_no'],  #NAV
+                            line['buy_from_vendor_no'].encode('cp874'),  #NAV
                             line['purchase_no'], 
-                            line['pay_to_vendor_no'],    #NAV
-                            line['pay_to_contact'],      #Address ERP
+                            line['pay_to_vendor_no'].encode('cp874'),    #NAV
+                            line['pay_to_contact'].encode('cp874'),      #Address ERP
                             line['order_date'], #required gen date of erp
                             line['posting_date'], 
                             line['payment_term_code'], 
                             line['currency_code'],       #NAV
                             line['price_include_vat'] or 'Yes', #NAV Vat Type (include,exclude) (Yes,No)
                             line['vendor_invoice_no'],    
-                            line['buy_from_contact'],    #NAV
+                            line['buy_from_contact'].encode('cp874'),    #NAV
                             line['last_interfaced'],     #Address ERP
                             line_no, 
                             line['nav_type'], 
                             line['account_no'],          #Account No ERP 
-                            line['description'][0:50], 
-                            line['description2'][50:0], 
+                            line['description'][0:50].encode('cp874'), 
+                            line['description2'][50:0].encode('cp874'), 
                             line['quantity'], 
                             line['direct_unit_cost'], 
                             line['line_discount'], 
@@ -249,30 +249,30 @@ class account_invoice(osv.osv):
                     config = config_obj[0]
                     path = config.path+"SALESINV-"+str(line_data[0]['company_id']) +"-"+str(row)+".csv"
                     #POP-001
-                    #f = open(path, 'wt')
-                    f = codecs.open(path, encoding='cp874', mode='w+')
+                    f = open(path, 'wt')
+                    #f = codecs.open(path, encoding='cp874', mode='w+')
                     writer = csv.writer(f)
                 for line in line_data:
                     if config_obj:      
                         writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
                         writer.writerow([
                             line['document_type'], 
-                            line['buy_from_vendor_no'],  #NAV
+                            line['buy_from_vendor_no'].encode('cp874'),  #NAV
                             line['purchase_no'], 
-                            line['pay_to_vendor_no'],    #NAV
-                            line['pay_to_contact'],      #Address ERP
+                            line['pay_to_vendor_no'].encode('cp874'),    #NAV
+                            line['pay_to_contact'].encode('cp874'),      #Address ERP
                             line['posting_date'], #ERP Generate Current Date Post
                             line['payment_term_code'],   #NAV
                             line['currency_code'],       #NAV
                             'No' ,  #line['price_include_vat'],   #Boolean Yes/No
                             'S001' , #Add Nav Sale ID
-                            line['buy_from_contact'],    #NAV
+                            line['buy_from_contact'].encode('cp874'),    #NAV
                             line['last_interfaced'],     #Address ERP
                             line_no, 
                             line['nav_type'], 
                             line['account_no'],          #Account No ERP 
-                            line['description'][0:50], 
-                            line['description2'][50:0], 
+                            line['description'][0:50].encode('cp874'), 
+                            line['description2'][50:0].encode('cp874'), 
                             line['quantity'], 
                             line['uom'], 
                             line['direct_unit_cost'],                             
