@@ -33,6 +33,14 @@
 	    <record id="base.group_picking_fa_user" model="res.groups">
 	        <field name="name">Warehouse / FA - User</field>
 	    </record>
+
+	    <record id="base.group_picking_production" model="res.groups">
+	        <field name="name">Warehouse / Production Manager</field>
+	    </record>
+
+	    <record id="base.group_picking_production_user" model="res.groups">
+	        <field name="name">Waerhouse / Production User</field>
+	    </record>
 	    
 	</data>
 </openerp>

@@ -21,6 +21,11 @@
             <field name="name">FG</field>
             <field name="code">ineco.type.stock.journal.fa</field>
         </record>
+
+        <record id="seq_stock_journal_type_production" model="ir.sequence.type">
+            <field name="name">Production</field>
+            <field name="code">ineco.type.stock.journal.pd</field>
+        </record>
         
         <record id="seq_stock_journal_material" model="ir.sequence">
             <field name="name">Raw Material Sequence</field>
@@ -48,6 +53,13 @@
             <field name="code">ineco.type.stock.journal.hr</field>
             <field eval="5" name="padding"/>
             <field name="prefix">HIN%(y)s%(month)s-</field>
+        </record>
+
+        <record id="seq_stock_journal_production" model="ir.sequence">
+            <field name="name">Production Sequence</field>
+            <field name="code">ineco.type.stock.journal.pd</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">PIN%(y)s%(month)s-</field>
         </record>
 
     </data>
