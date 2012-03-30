@@ -67,8 +67,21 @@
             		<button name="action_cancel_draft" groups="base.group_system" states="cancel" string="Set to Draft" type="object" icon="gtk-ok"/>          		
             	</xpath>
             </field>
-     </record>            
+     	</record>            
 
+		<!-- Interna Move -->
+        <record id="ineco_view_picking_form_setdraft" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='Products']/group/button[@name='action_process']" position="after">
+            		<button name="action_done_draft" groups="base.group_system" states="done" string="Set to Draft" type="object" icon="gtk-ok"/>          		
+            		<button name="action_cancel_draft" groups="base.group_system" states="cancel" string="Set to Draft" type="object" icon="gtk-ok"/>          		
+            	</xpath>
+            </field>
+     	</record>            
 
         <record id="ineco_view_picking_out_form_inherit" model="ir.ui.view">
             <field name="name">stock.picking.out.form.inherit</field>
