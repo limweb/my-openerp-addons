@@ -144,8 +144,8 @@ class res_partner(osv.osv):
                     path = config.path+"VEND"+('%.4d' % partner.id)+"-"+str(partner.company_id.id)+".csv"   
                     #path = config.path+"supplier-"+str(partner.company_id.id)+"-"+str(partner.id)+".csv"
                     #POP-001
-                    f = open(path, 'wt')
-                    #f = codecs.open(path, encoding='cp874', mode='w+')
+                    #f = open(path, 'wt')
+                    f = codecs.open(path, encoding='cp874', mode='w+')
                     #writer = csv.writer(f)
                     writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
                     code = False
