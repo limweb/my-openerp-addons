@@ -35,6 +35,8 @@
 # 12-02-2012       POP-012    Change price computation in sale order.
 # 13-02-2012       POP-013    Ineco Delivery Date = False
 # 16-02-2012       POP-014    Force Draft State
+# 02-03-2012       POP-015    Add Create Invoice 
+# 02-03-2012       POP-016    Add Create Invoice Line
 
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
@@ -443,6 +445,55 @@ class sale_order(osv.osv):
             current = 0
         return current
 
+    #POP-015
+    def action_invoice_create(self, cr, uid, ids, grouped=False, states=['confirmed', 'done', 'exception'], date_inv = False, context=None):
+        res = False
+        invoices = {}
+        invoice_ids = []
+        picking_obj = self.pool.get('stock.picking')
+        invoice = self.pool.get('account.invoice')
+        obj_sale_order_line = self.pool.get('sale.order.line')
+        if context is None:
+            context = {}
+        # If date was specified, use it as date invoiced, usefull when invoices are generated this month and put the
+        # last day of the last month as invoice date
+        if date_inv:
+            context['date_inv'] = date_inv
+        for o in self.browse(cr, uid, ids, context=context):
+            lines = []
+            for line in o.order_line:
+                if line.invoiced:
+                    continue
+                elif (line.state in states) and (line.price_subtotal > 0):
+                    lines.append(line.id)
+            created_lines = obj_sale_order_line.invoice_line_create(cr, uid, lines)
+            if created_lines:
+                invoices.setdefault(o.partner_id.id, []).append((o, created_lines))
+        if not invoices:
+            for o in self.browse(cr, uid, ids, context=context):
+                for i in o.invoice_ids:
+                    if i.state == 'draft':
+                        return i.id
+        for val in invoices.values():
+            if grouped:
+                res = self._make_invoice(cr, uid, val[0][0], reduce(lambda x, y: x + y, [l for o, l in val], []), context=context)
+                invoice_ref = ''
+                for o, l in val:
+                    invoice_ref += o.name + '|'
+                    self.write(cr, uid, [o.id], {'state': 'progress'})
+                    if o.order_policy == 'picking':
+                        picking_obj.write(cr, uid, map(lambda x: x.id, o.picking_ids), {'invoice_state': 'invoiced'})
+                    cr.execute('insert into sale_order_invoice_rel (order_id,invoice_id) values (%s,%s)', (o.id, res))
+                invoice.write(cr, uid, [res], {'origin': invoice_ref, 'name': invoice_ref})
+            else:
+                for order, il in val:
+                    res = self._make_invoice(cr, uid, order, il, context=context)
+                    invoice_ids.append(res)
+                    self.write(cr, uid, [order.id], {'state': 'progress'})
+                    if order.order_policy == 'picking':
+                        picking_obj.write(cr, uid, map(lambda x: x.id, order.picking_ids), {'invoice_state': 'invoiced'})
+                    cr.execute('insert into sale_order_invoice_rel (order_id,invoice_id) values (%s,%s)', (order.id, res))
+        return res
 
     def action_ship_create(self, cr, uid, ids, *args):
         wf_service = netsvc.LocalService("workflow")
@@ -1152,6 +1203,84 @@ class sale_order_line(osv.osv):
 #                vals.update({'price_unit': sum_price})                                    
 #        return super(sale_order_line, self).write(cr, uid, ids, vals, context=context)    
 
+    def invoice_line_create(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+
+        def _get_line_qty(line):
+            if (line.order_id.invoice_quantity=='order') or not line.procurement_id:
+                if line.product_uos:
+                    return line.product_uos_qty or 0.0
+                return line.product_uom_qty
+            else:
+                return self.pool.get('procurement.order').quantity_get(cr, uid,
+                        line.procurement_id.id, context=context)
+
+        def _get_line_uom(line):
+            if (line.order_id.invoice_quantity=='order') or not line.procurement_id:
+                if line.product_uos:
+                    return line.product_uos.id
+                return line.product_uom.id
+            else:
+                return self.pool.get('procurement.order').uom_get(cr, uid,
+                        line.procurement_id.id, context=context)
+
+        create_ids = []
+        sales = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            if not line.invoiced:
+                if line.product_id:
+                    a = line.product_id.product_tmpl_id.property_account_income.id
+                    if not a:
+                        a = line.product_id.categ_id.property_account_income_categ.id
+                    if not a:
+                        raise osv.except_osv(_('Error !'),
+                                _('There is no income account defined ' \
+                                        'for this product: "%s" (id:%d)') % \
+                                        (line.product_id.name, line.product_id.id,))
+                else:
+                    prop = self.pool.get('ir.property').get(cr, uid,
+                            'property_account_income_categ', 'product.category',
+                            context=context)
+                    a = prop and prop.id or False
+                uosqty = _get_line_qty(line)
+                uos_id = _get_line_uom(line)
+                pu = 0.0
+                if uosqty:
+                    if line.with_period or line.with_branch:
+                        pu = round(line.price_subtotal, self.pool.get('decimal.precision').precision_get(cr, uid, 'Sale Price'))
+                    else:                    
+                        pu = round(line.price_unit * line.product_uom_qty / uosqty,
+                                self.pool.get('decimal.precision').precision_get(cr, uid, 'Sale Price'))
+                fpos = line.order_id.fiscal_position or False
+                a = self.pool.get('account.fiscal.position').map_account(cr, uid, fpos, a)
+                if not a:
+                    raise osv.except_osv(_('Error !'),
+                                _('There is no income category account defined in default Properties for Product Category or Fiscal Position is not defined !'))
+                inv_id = self.pool.get('account.invoice.line').create(cr, uid, {
+                    'name': line.name,
+                    'origin': line.order_id.name,
+                    'account_id': a,
+                    'price_unit': pu,
+                    'quantity': uosqty,
+                    'discount': line.discount,
+                    'uos_id': uos_id,
+                    'product_id': line.product_id.id or False,
+                    'invoice_line_tax_id': [(6, 0, [x.id for x in line.tax_id])],
+                    'note': line.notes,
+                    'account_analytic_id': line.order_id.project_id and line.order_id.project_id.id or False,
+                })
+                cr.execute('insert into sale_order_line_invoice_rel (order_line_id,invoice_id) values (%s,%s)', (line.id, inv_id))
+                self.write(cr, uid, [line.id], {'invoiced': True})
+                sales[line.order_id.id] = True
+                create_ids.append(inv_id)
+        # Trigger workflow events
+        wf_service = netsvc.LocalService("workflow")
+        for sid in sales.keys():
+            wf_service.trg_write(uid, 'sale.order', sid, cr)
+        return create_ids
+
+
     def my_product_id_change(self, cr, uid, ids, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
             lang=False, update_tax=True, date_order=False, packaging=False, 
@@ -1311,8 +1440,6 @@ class sale_order_line(osv.osv):
         if not uom:
             res['value']['price_unit'] = 1.0
         return res
-
-
     
 sale_order_line()
 

@@ -25,6 +25,7 @@
 # 12-03-2012    POP-003    Item Sale Check
 # 12-03-2012    POP-004    Not Send Data to Sale Order
 # 12-03-2012    POP-005    Add Sale Admin
+# 01-04-2012    POP-006    Add Default Product -> Period = True
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -380,6 +381,9 @@ class omg_sale_reserve_contact_line(osv.osv):
                     'name': product.product_id.name,
                     'product_uom': product.product_id.uom_id.id,
                     'product_uom_qty': product.product_qty,
+                    'with_branch': False,
+                    #POP-005
+                    'with_period': True,
                     'price_unit': product.sale_price ,
                     'tax_id': [(6, 0, [x.id for x in product.product_id.taxes_id])] ,
                 })
