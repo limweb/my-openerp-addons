@@ -144,8 +144,8 @@ class res_partner(osv.osv):
                     path = config.path+"VEND"+('%.4d' % partner.id)+"-"+str(partner.company_id.id)+".csv"   
                     #path = config.path+"supplier-"+str(partner.company_id.id)+"-"+str(partner.id)+".csv"
                     #POP-001
-                    #f = open(path, 'wt')
-                    f = codecs.open(path, encoding='cp874', mode='w+')
+                    f = open(path, 'wt')
+                    #f = codecs.open(path, encoding='cp874', mode='w+')
                     #writer = csv.writer(f)
                     writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
                     code = False
@@ -154,13 +154,13 @@ class res_partner(osv.osv):
                     else:
                         code = partner.id
                     writer.writerow([code ,  
-                                     partner.name[0:50], 
-                                     partner.name[50:0], 
-                                     address_invoice.street or "", 
-                                     address_invoice.street2 or "",
+                                     partner.name[0:50].encode('cp874'), 
+                                     partner.name[50:0].encode('cp874'), 
+                                     address_invoice.street.encode('cp874') or "", 
+                                     address_invoice.street2.encode('cp874') or "",
                                      "",
-                                     address_invoice.city or "", #NAV Master
-                                     address_invoice.state_id.name or "", #NAV Master
+                                     address_invoice.city.encode('cp874') or "", #NAV Master
+                                     address_invoice.state_id.name.encode('cp874') or "", #NAV Master
                                      address_invoice.zip or "", #NAV Master
                                      address_invoice.country_id.code or "", #NAV Master
                                      address_invoice.name or "",
