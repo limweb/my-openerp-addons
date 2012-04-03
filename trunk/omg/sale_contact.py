@@ -384,6 +384,8 @@ class omg_sale_reserve_contact_line(osv.osv):
                     'with_branch': False,
                     #POP-005
                     'with_period': True,
+                    'with_branch': True,
+                    'apply_all_store': True,
                     'price_unit': product.sale_price ,
                     'tax_id': [(6, 0, [x.id for x in product.product_id.taxes_id])] ,
                 })
@@ -398,6 +400,7 @@ class omg_sale_reserve_contact_line(osv.osv):
                     'price_unit': product.sale_price, #product.unit_price ,
                     'with_branch': False,
                     'with_period': False,
+                    'apply_all_store': True,
                     'tax_id': [(6, 0, [x.id for x in product.product_id.taxes_id])] ,
                 })
 
