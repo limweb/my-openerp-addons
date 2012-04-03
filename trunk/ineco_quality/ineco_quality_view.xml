@@ -230,12 +230,13 @@
 						<field name="qc_pass" />
 						<field name="user_id" />
 						<field name="quality_journal_id" />
+						<field name="qc_force_pass"  />
 					</group>
 					<newline />
 					<button name="%(action_quality_load_template_wizard)d" string="Load Template" 
 						type="action" icon="gtk-execute" colspan="4"/>
-					
 					<field name="line_ids" colspan="4" nolabel="1" />
+					<field name="note" colspan="4" attrs="{'required':[('qc_force_pass','!=',False)]}"/>
 				</form>
             </field>
         </record>
