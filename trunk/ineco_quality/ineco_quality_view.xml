@@ -236,6 +236,7 @@
 					<button name="%(action_quality_load_template_wizard)d" string="Load Template" 
 						type="action" icon="gtk-execute" colspan="4"/>
 					<field name="line_ids" colspan="4" nolabel="1" />
+					<newline />
 					<field name="note" colspan="4" attrs="{'required':[('qc_force_pass','!=',False)]}"/>
 				</form>
             </field>
