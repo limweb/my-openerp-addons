@@ -37,6 +37,7 @@
 # 14-03-2012       POP-015    Change way to force compute with delivery
 # 16-03-2012       POP-015    Change Set to Confirm -> Set To Draft
 # 30-03-2012       POP-016    Create ienco.stock.barcode.move
+# 05-04-2012       POP-017    Add Return Columns in Stock Picking
 
 import math
 
@@ -259,7 +260,7 @@ class stock_move(osv.osv):
         if context is None:
             context = {}
         for move in self.browse(cr, uid, ids, context=context):
-            if not (move.prodlot_id and move.tracking_id):
+            if not ((move.prodlot_id and move.tracking_id) or move.picking_id.ineco_return) :
                 if move.product_id.type == 'service' or move.location_id.usage == 'supplier':
                     if move.state in ('confirmed', 'waiting'):
                         done.append(move.id)
@@ -394,6 +395,8 @@ class stock_picking(osv.osv):
     _columns = {
         'ineco_delivery_date': fields.date('Delivery Date'),
         'ineco_request_user_id': fields.many2one('res.users', 'Requested By'),
+        #POP-017
+        'ineco_return': fields.boolean('Return'),
     }
     
     _defaults = {
@@ -593,7 +596,7 @@ class stock_picking(osv.osv):
         for pick in self.browse(cr, uid, ids, context=context):
             todo = []
             for move in pick.move_lines:
-                if user.company_id.skip_stock_report:
+                if user.company_id.skip_stock_report or pick.ineco_return:
                     if move.state == 'assigned':
                         todo.append(move.id)
                 else:
