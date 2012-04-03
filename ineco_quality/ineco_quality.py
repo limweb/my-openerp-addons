@@ -106,7 +106,10 @@ class ineco_quality_control(osv.osv):
             qcpass = True
             for line in qc.line_ids:
                 qcpass = qcpass and line.qc_pass
-            res[qc.id] = qcpass
+            if qc.qc_force_pass:
+                res[qc.id] = True
+            else:
+                res[qc.id] = qcpass 
         return res
         
     _name = "ineco.quality.control"
@@ -125,6 +128,8 @@ class ineco_quality_control(osv.osv):
         'line_ids': fields.one2many('ineco.quality.control.line','control_id','Lines'),
         'qc_pass': fields.function(_get_pass, string='Pass', method=True,  type='boolean'),
         'quality_journal_id': fields.many2one('ineco.quality.journal','Quality Journal'),
+        'qc_force_pass': fields.boolean('Force Pass'),
+        'note': fields.text('Note')
     }
     _defaults = {
         'name': '/',
