@@ -631,6 +631,9 @@ class stock_location(osv.osv):
         'omg_omgarea': fields.char('OMG Area', size=100),
         'omg_latitude': fields.char('Latitude', size=100),
         'omg_longitude': fields.char('Longitude', size=100),
+        'omg_channel': fields.char('Channel', size=100),
+        'omg_concentratedrink7': fields.char('Concentrate Drink 7', size=100),
+        'omg_concentratedrink7': fields.char('Concentrate Drink 3', size=100),
     }
     _defaults = {
         'omg_approve': False,
