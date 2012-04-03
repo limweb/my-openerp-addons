@@ -78,7 +78,7 @@ class wizard_quality_load_template(osv.osv_memory):
                         line_seq = line_seq + 1
                         detail_id = self.pool.get('ineco.quality.control.line.item').create(cr, uid, template_line_data)
             
-        return {}
+        return {'type':'ir.actions.act_window_close' }
     
 wizard_quality_load_template()
 
