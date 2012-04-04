@@ -633,7 +633,7 @@ class stock_location(osv.osv):
         'omg_longitude': fields.char('Longitude', size=100),
         'omg_channel': fields.char('Channel', size=100),
         'omg_concentratedrink7': fields.char('Concentrate Drink 7', size=100),
-        'omg_concentratedrink7': fields.char('Concentrate Drink 3', size=100),
+        'omg_concentratedrink3': fields.char('Concentrate Drink 3', size=100),
     }
     _defaults = {
         'omg_approve': False,
