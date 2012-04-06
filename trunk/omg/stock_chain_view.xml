@@ -20,6 +20,7 @@
 							<field name="name_thai" />
 							<field name="store_address_id"/>
 							<field name="omg_approve" groups="base.group_omg_location_approve"/>
+							<field name="omg_alway_equipment" />
 						</page>
 						<page string="OA Contact Address"><field name="oa_address_ids" nolabel="1"/></page>
 						<page string="Location Quantity"><field name="lineqty_ids" nolabel="1"/></page>
