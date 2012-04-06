@@ -22,9 +22,24 @@
             <field name="sequence_id" ref="seq_stock_journal_hr" />
         </record>
 
-        <record id="ineco_stock_journal_production" model="stock.journal">
-            <field name="name">Production</field>
-            <field name="sequence_id" ref="seq_stock_journal_production" />
+        <record id="ineco_stock_journal_wip_fd" model="stock.journal">
+            <field name="name">WIP FD</field>
+            <field name="sequence_id" ref="seq_stock_journal_wip_fd" />
+        </record>
+
+        <record id="ineco_stock_journal_wip_ds" model="stock.journal">
+            <field name="name">WIP DS</field>
+            <field name="sequence_id" ref="seq_stock_journal_wip_ds" />
+        </record>
+
+        <record id="ineco_stock_journal_fg_fd" model="stock.journal">
+            <field name="name">FG FD</field>
+            <field name="sequence_id" ref="seq_stock_journal_fg_fd" />
+        </record>
+
+        <record id="ineco_stock_journal_fg_ds" model="stock.journal">
+            <field name="name">FG DS</field>
+            <field name="sequence_id" ref="seq_stock_journal_fg_ds" />
         </record>
 
     </data>

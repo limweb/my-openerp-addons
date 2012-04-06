@@ -158,38 +158,143 @@
         	<field name="groups_id" eval="[(4,ref('base.group_picking_fa'))]"/>
         </record>
 
-		<!-- Production Moves -->
-        <record id="ineco_action_picking_internalmove_production" model="ir.actions.act_window">
-            <field name="name">Production Moves</field>
+		<!-- WIP FD Moves -->
+        <record id="ineco_action_picking_internalmove_wip_fd" model="ir.actions.act_window">
+            <field name="name">WIP FD Moves</field>
             <field name="res_model">stock.picking</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar</field>
-            <field name="domain">[('type','=','internal'),('stock_journal_id','=','Production')]</field>
-            <field name="context">{'contact_display': 'partner_address',"search_default_available":1,'stock_journal_id':'Production'}</field>
+            <field name="domain">[('type','=','internal'),('stock_journal_id','=','WIP FD')]</field>
+            <field name="context">{'contact_display': 'partner_address',"search_default_available":1,'stock_journal_id':'WIP FD'}</field>
             <field name="search_view_id" ref="stock.view_picking_internal_search"/>
         </record>
 
-        <record model="ir.actions.act_window.view" id="ineco_action_picking_internalmove_production_tree">
+        <record model="ir.actions.act_window.view" id="ineco_action_picking_internalmove_wip_fd_tree">
             <field name="sequence" eval="1"/>
             <field name="view_mode">tree</field>
             <field name="view_id" ref="stock.vpicktree"/>
-            <field name="act_window_id" ref="ineco_action_picking_internalmove_production"/>
+            <field name="act_window_id" ref="ineco_action_picking_internalmove_wip_fd"/>
         </record>
         
-        <record model="ir.actions.act_window.view" id="ineco_action_picking_internalmove_production_form">
+        <record model="ir.actions.act_window.view" id="ineco_action_picking_internalmove_wip_fd_form">
             <field name="sequence" eval="2"/>
             <field name="view_mode">form</field>
             <field name="view_id" ref="stock.view_picking_form"/>
-            <field name="act_window_id" ref="ineco_action_picking_internalmove_production"/>
+            <field name="act_window_id" ref="ineco_action_picking_internalmove_wip_fd"/>
         </record>
 
         <menuitem 
-          action="ineco_action_picking_internalmove_production" 
-          id="menu_ineco_action_picking_internal_move_production" 
+          action="ineco_action_picking_internalmove_wip_fd" 
+          id="menu_ineco_action_picking_internal_move_wip_fd" 
           parent="menu_tcg_warehouse_transfer" 
           sequence="10"/>
 
-        <record id="menu_ineco_action_picking_internal_move_production" model="ir.ui.menu">
+        <record id="menu_ineco_action_picking_internal_move_wip_fd" model="ir.ui.menu">
+        	<field name="groups_id" eval="[(4,ref('base.group_picking_production'))]"/>
+        </record>
+
+		<!-- WIP DS Moves -->
+        <record id="ineco_action_picking_internalmove_wip_ds" model="ir.actions.act_window">
+            <field name="name">WIP DS Moves</field>
+            <field name="res_model">stock.picking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain">[('type','=','internal'),('stock_journal_id','=','WIP DS')]</field>
+            <field name="context">{'contact_display': 'partner_address',"search_default_available":1,'stock_journal_id':'WIP DS'}</field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="ineco_action_picking_internalmove_wip_ds_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="stock.vpicktree"/>
+            <field name="act_window_id" ref="ineco_action_picking_internalmove_wip_ds"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="ineco_action_picking_internalmove_wip_ds_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="stock.view_picking_form"/>
+            <field name="act_window_id" ref="ineco_action_picking_internalmove_wip_ds"/>
+        </record>
+
+        <menuitem 
+          action="ineco_action_picking_internalmove_wip_ds" 
+          id="menu_ineco_action_picking_internal_move_wip_ds" 
+          parent="menu_tcg_warehouse_transfer" 
+          sequence="10"/>
+
+        <record id="menu_ineco_action_picking_internal_move_wip_fd" model="ir.ui.menu">
+        	<field name="groups_id" eval="[(4,ref('base.group_picking_production'))]"/>
+        </record>
+
+		<!-- FG FD Moves -->
+        <record id="ineco_action_picking_internalmove_fg_fd" model="ir.actions.act_window">
+            <field name="name">FG FD Moves</field>
+            <field name="res_model">stock.picking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain">[('type','=','internal'),('stock_journal_id','=','FG FD')]</field>
+            <field name="context">{'contact_display': 'partner_address',"search_default_available":1,'stock_journal_id':'FG FD'}</field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="ineco_action_picking_internalmove_fg_fd_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="stock.vpicktree"/>
+            <field name="act_window_id" ref="ineco_action_picking_internalmove_fg_fd"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="ineco_action_picking_internalmove_fg_fd_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="stock.view_picking_form"/>
+            <field name="act_window_id" ref="ineco_action_picking_internalmove_fg_fd"/>
+        </record>
+
+        <menuitem 
+          action="ineco_action_picking_internalmove_fg_fd" 
+          id="menu_ineco_action_picking_internal_move_fg_fd" 
+          parent="menu_tcg_warehouse_transfer" 
+          sequence="10"/>
+
+        <record id="menu_ineco_action_picking_internal_move_fg_fd" model="ir.ui.menu">
+        	<field name="groups_id" eval="[(4,ref('base.group_picking_production'))]"/>
+        </record>
+
+		<!-- FG DS Moves -->
+        <record id="ineco_action_picking_internalmove_fg_ds" model="ir.actions.act_window">
+            <field name="name">FG DS Moves</field>
+            <field name="res_model">stock.picking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain">[('type','=','internal'),('stock_journal_id','=','FG DS')]</field>
+            <field name="context">{'contact_display': 'partner_address',"search_default_available":1,'stock_journal_id':'FG DS'}</field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="ineco_action_picking_internalmove_fg_ds_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="stock.vpicktree"/>
+            <field name="act_window_id" ref="ineco_action_picking_internalmove_fg_ds"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="ineco_action_picking_internalmove_fg_ds_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="stock.view_picking_form"/>
+            <field name="act_window_id" ref="ineco_action_picking_internalmove_fg_ds"/>
+        </record>
+
+        <menuitem 
+          action="ineco_action_picking_internalmove_fg_ds" 
+          id="menu_ineco_action_picking_internal_move_fg_ds" 
+          parent="menu_tcg_warehouse_transfer" 
+          sequence="10"/>
+
+        <record id="menu_ineco_action_picking_internal_move_fg_ds" model="ir.ui.menu">
         	<field name="groups_id" eval="[(4,ref('base.group_picking_production'))]"/>
         </record>
 

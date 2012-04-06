@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1-dev\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2012-02-04 03:43+0000\n"
-"PO-Revision-Date: 2012-02-04 10:49+0700\n"
+"POT-Creation-Date: 2012-04-06 15:48+0000\n"
+"PO-Revision-Date: 2012-04-06 22:49+0700\n"
 "Last-Translator: Tititab Srisookco <thitithup@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,46 +16,80 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: tcg
+#: model:ir.ui.menu,name:tcg.menu_tcg_warehouse_transfer
+msgid "Transfer"
+msgstr "การจัดการ โอนย้าย"
+
+#. module: tcg
+#: model:ir.actions.act_window,name:tcg.ineco_action_picking_internalmove_wip_ds
+#: model:ir.ui.menu,name:tcg.menu_ineco_action_picking_internal_move_wip_ds
+msgid "WIP DS Moves"
+msgstr "ใบโอนสินค้าระหว่างผลิต DS"
+
+#. module: tcg
 #: model:ir.actions.report.xml,name:tcg.report_stock_picking_wip
 msgid "WIP Issue Form"
-msgstr "ใบเบิก/ใบโอนสินค้าระหว่างผลิต"
-
-#. module: tcg
-#: model:ir.actions.act_window,name:tcg.ineco_action_picking_internalmove_fa
-#: model:ir.ui.menu,name:tcg.menu_ineco_action_picking_internal_move_fa
-msgid "Internal Moves - FA"
-msgstr "การเบิก/โอนอุปกรณ์ช่าง"
-
-#. module: tcg
-#: model:ir.actions.act_window,name:tcg.ineco_action_picking_internalmove_material
-#: model:ir.ui.menu,name:tcg.menu_ineco_action_picking_internal_move_material
-msgid "Internal Moves - Material"
-msgstr "การเบิก/โอนวัตถุดิบ"
-
-#. module: tcg
-#: model:ir.actions.act_window,name:tcg.ineco_action_picking_internalmove_hr
-#: model:ir.ui.menu,name:tcg.menu_ineco_action_picking_internal_move_hr
-msgid "Internal Moves - HR"
-msgstr "การเบิก/โอนอุปกรณ์สำนักงาน"
-
-#. module: tcg
-#: model:ir.actions.report.xml,name:tcg.report_stock_picking_material
-msgid "Material Issue Form"
-msgstr "ใบเบิก/ใบโอนวัตถุดิบ"
+msgstr "ใบเบิกค้าระหว่างผลิต"
 
 #. module: tcg
 #: model:ir.actions.act_window,name:tcg.ineco_action_picking_internalmove_wip
 #: model:ir.ui.menu,name:tcg.menu_ineco_action_picking_internal_move_wip
 msgid "Internal Moves - WIP"
-msgstr "การเบิก/โอนสินค้าระหว่างผลิต"
+msgstr "การเบิก/คืนสินค้าระหว่างผลิต"
+
+#. module: tcg
+#: model:ir.actions.act_window,name:tcg.ineco_action_picking_internalmove_wip_fd
+#: model:ir.ui.menu,name:tcg.menu_ineco_action_picking_internal_move_wip_fd
+msgid "WIP FD Moves"
+msgstr "ใบโอนสินค้าระหว่างผลิต FD"
+
+#. module: tcg
+#: model:ir.actions.act_window,name:tcg.ineco_action_picking_internalmove_material
+#: model:ir.ui.menu,name:tcg.menu_ineco_action_picking_internal_move_material
+msgid "Internal Moves - Material"
+msgstr "การเบิก/คืนวัตถุดิบ"
+
+#. module: tcg
+#: model:ir.actions.act_window,name:tcg.ineco_action_picking_internalmove_fg_ds
+#: model:ir.ui.menu,name:tcg.menu_ineco_action_picking_internal_move_fg_ds
+msgid "FG DS Moves"
+msgstr "ใบโอนสินค้าสำเร็จรูป DS"
+
+#. module: tcg
+#: model:ir.actions.report.xml,name:tcg.report_stock_picking_material
+msgid "Material Issue Form"
+msgstr "ใบเบิกวัตถุดิบ"
+
+#. module: tcg
+#: model:ir.actions.act_window,name:tcg.ineco_action_picking_internalmove_fg_fd
+#: model:ir.ui.menu,name:tcg.menu_ineco_action_picking_internal_move_fg_fd
+msgid "FG FD Moves"
+msgstr "ใบโอนสินค้าสำเร็จรูป FD"
 
 #. module: tcg
 #: model:ir.actions.report.xml,name:tcg.report_stock_picking_hr_fa
-msgid "FA Issue Form"
-msgstr "ใบเบิก/ใบโอนอุปกรณ์ช่าง"
+msgid "FG Issue Form"
+msgstr "ใบเบิกสินค้าสำเร็จรูป"
+
+#. module: tcg
+#: model:ir.ui.menu,name:tcg.menu_tcg_warehouse_issue
+msgid "Issue"
+msgstr "การจัดการ การเบิก/คืน"
+
+#. module: tcg
+#: model:ir.actions.act_window,name:tcg.ineco_action_picking_internalmove_fa
+#: model:ir.ui.menu,name:tcg.menu_ineco_action_picking_internal_move_fa
+msgid "Internal Moves - FA"
+msgstr "การเบิก/คืนสินค้าสำเร็จรูป"
+
+#. module: tcg
+#: model:ir.actions.act_window,name:tcg.ineco_action_picking_internalmove_hr
+#: model:ir.ui.menu,name:tcg.menu_ineco_action_picking_internal_move_hr
+msgid "Internal Moves - HR"
+msgstr "การเบิก/คืนอุปกรณ์สำนักงาน"
 
 #. module: tcg
 #: model:ir.actions.report.xml,name:tcg.report_stock_picking_hr
 msgid "HR Issue Form"
-msgstr "ใบเบิก/ใบโอนอุปกรณ์สำนักงาน"
+msgstr "ใบเบิกอุปกรณ์สำนักงาน"
 
