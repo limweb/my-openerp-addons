@@ -22,11 +22,29 @@
             <field name="code">ineco.type.stock.journal.fa</field>
         </record>
 
-        <record id="seq_stock_journal_type_production" model="ir.sequence.type">
-            <field name="name">Production</field>
-            <field name="code">ineco.type.stock.journal.pd</field>
+        <record id="seq_stock_journal_type_wip_fd" model="ir.sequence.type">
+            <field name="name">WIP FD</field>
+            <field name="code">ineco.type.stock.wip.fd</field>
         </record>
+
+        <record id="seq_stock_journal_type_wip_ds" model="ir.sequence.type">
+            <field name="name">WIP DS</field>
+            <field name="code">ineco.type.stock.wip.ds</field>
+        </record>
+
+        <record id="seq_stock_journal_type_fg_fd" model="ir.sequence.type">
+            <field name="name">FG FD</field>
+            <field name="code">ineco.type.stock.fg.fd</field>
+        </record>
+
+        <record id="seq_stock_journal_type_fg_ds" model="ir.sequence.type">
+            <field name="name">FG DS</field>
+            <field name="code">ineco.type.stock.fg.ds</field>
+        </record>
+
+
         
+        <!-- Sequence -->
         <record id="seq_stock_journal_material" model="ir.sequence">
             <field name="name">Raw Material Sequence</field>
             <field name="code">ineco.type.stock.journal.raw</field>
@@ -55,11 +73,32 @@
             <field name="prefix">HIN%(y)s%(month)s-</field>
         </record>
 
-        <record id="seq_stock_journal_production" model="ir.sequence">
-            <field name="name">Production Sequence</field>
-            <field name="code">ineco.type.stock.journal.pd</field>
+        <record id="seq_stock_journal_wip_fd" model="ir.sequence">
+            <field name="name">Transfer WIP FD Sequence</field>
+            <field name="code">ineco.type.stock.wip.fd</field>
             <field eval="5" name="padding"/>
-            <field name="prefix">PIN%(y)s%(month)s-</field>
+            <field name="prefix">WIP-FDIN%(y)s%(month)s-</field>
+        </record>
+
+        <record id="seq_stock_journal_wip_ds" model="ir.sequence">
+            <field name="name">Transfer WIP DS Sequence</field>
+            <field name="code">ineco.type.stock.wip.ds</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">WIP-DSIN%(y)s%(month)s-</field>
+        </record>
+
+        <record id="seq_stock_journal_fg_fd" model="ir.sequence">
+            <field name="name">Transfer FG FD Sequence</field>
+            <field name="code">ineco.type.stock.fg.fd</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">FG-FDIN%(y)s%(month)s-</field>
+        </record>
+
+        <record id="seq_stock_journal_fg_ds" model="ir.sequence">
+            <field name="name">Transfer FG DS Sequence</field>
+            <field name="code">ineco.type.stock.fg.ds</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">FG-DSIN%(y)s%(month)s-</field>
         </record>
 
     </data>
