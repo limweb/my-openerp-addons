@@ -37,6 +37,7 @@
 # 16-02-2012       POP-014    Force Draft State
 # 02-03-2012       POP-015    Add Create Invoice 
 # 02-03-2012       POP-016    Add Create Invoice Line
+# 05-04-2012       POP-017    Add Equipment Process
 
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
@@ -395,6 +396,7 @@ class sale_order(osv.osv):
         'price_period_days': fields.function(_get_date_price, method=True, type='integer', string='Summay Price Days'),
         #POP-014
         'force_draft_state': fields.boolean('Force Draft State'),
+        'force_equipment': fields.boolean('Force Equipment'),
     }
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -769,32 +771,35 @@ class sale_order(osv.osv):
                                         new_qty = self.choose_delivery_qty(cr, uid, ids, current, value_a, value_b)['add']
                                         new_back = self.choose_delivery_qty(cr, uid, ids, current, value_a, value_b)['back']
 
-                                    move_id = self.pool.get('stock.move').create(cr, uid, {
-                                        'name': line.name[:64],
-                                        'picking_id': picking_id,
-                                        'product_id': line.product_id.id,
-                                        'date': date_planned,
-                                        'date_expected': date_planned,
-                                        'product_qty': new_qty,
-                                        'product_uom': line.product_uom.id,
-                                        'product_uos_qty': new_qty,
-                                        'product_uos': (line.product_uos and line.product_uos.id)\
-                                                or line.product_uom.id,
-                                        'product_packaging': line.product_packaging.id,
-                                        'address_id': location.location_id.address_id.id,
-                                        'location_id': location_id,
-                                        'location_dest_id': location.location_id.id,
-                                        'sale_line_id': line.id,
-                                        'tracking_id': False,
-                                        'state': 'draft',
-                                        #'state': 'waiting',
-                                        'note': line.notes,
-                                        'company_id': order.company_id.id,
-                                        'period_id': period.period_id.id,
-                                        'customer_product_id': order.customer_product_id.id,
-                                    })
-            
-                            if line.product_id and new_qty <> 0:
+                                    #POP-017
+                                    move_id = False
+                                    if not (not location.location_id.omg_alway_equipment and line.product_id.equipment) or order.force_equipment :
+                                        move_id = self.pool.get('stock.move').create(cr, uid, {
+                                            'name': line.name[:64],
+                                            'picking_id': picking_id,
+                                            'product_id': line.product_id.id,
+                                            'date': date_planned,
+                                            'date_expected': date_planned,
+                                            'product_qty': new_qty,
+                                            'product_uom': line.product_uom.id,
+                                            'product_uos_qty': new_qty,
+                                            'product_uos': (line.product_uos and line.product_uos.id)\
+                                                    or line.product_uom.id,
+                                            'product_packaging': line.product_packaging.id,
+                                            'address_id': location.location_id.address_id.id,
+                                            'location_id': location_id,
+                                            'location_dest_id': location.location_id.id,
+                                            'sale_line_id': line.id,
+                                            'tracking_id': False,
+                                            'state': 'draft',
+                                            #'state': 'waiting',
+                                            'note': line.notes,
+                                            'company_id': order.company_id.id,
+                                            'period_id': period.period_id.id,
+                                            'customer_product_id': order.customer_product_id.id,
+                                        })
+                            #POP-017
+                            if line.product_id and new_qty <> 0 and move_id :
                                 proc_id = self.pool.get('procurement.order').create(cr, uid, {
                                     'name': line.name,
                                     'origin': order.name,

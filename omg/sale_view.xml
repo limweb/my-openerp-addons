@@ -203,7 +203,8 @@
 					<group colspan="4">
 						<field name="customer_product_id"/>
 						<field name="service_product_id" domain="[('service_type','=',True)]"  />
-						<field name="force_draft_state" />						
+						<field name="force_draft_state" />		
+						<field name="force_equipment" />			
 					</group>
 				</field>
 			</field>
