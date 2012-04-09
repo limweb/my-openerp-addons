@@ -17,6 +17,14 @@
 	    <record id="base.group_picking_material_user" model="res.groups">
 	        <field name="name">Warehouse / Material - User</field>
 	    </record>
+
+	    <record id="base.group_picking_package" model="res.groups">
+	        <field name="name">Warehouse / Package - Manager</field>
+	    </record>
+
+	    <record id="base.group_picking_package_user" model="res.groups">
+	        <field name="name">Warehouse / Package - User</field>
+	    </record>
 	    
 	    <record id="base.group_picking_wip" model="res.groups">
 	        <field name="name">Warehouse / WIP - Manager</field>
@@ -27,11 +35,11 @@
 	    </record>
 
 	    <record id="base.group_picking_fa" model="res.groups">
-	        <field name="name">Warehouse / FA - Manager</field>
+	        <field name="name">Warehouse / FG - Manager</field>
 	    </record>
 
 	    <record id="base.group_picking_fa_user" model="res.groups">
-	        <field name="name">Warehouse / FA - User</field>
+	        <field name="name">Warehouse / FG - User</field>
 	    </record>
 
 	    <record id="base.group_picking_production" model="res.groups">

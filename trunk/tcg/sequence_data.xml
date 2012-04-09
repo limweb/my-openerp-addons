@@ -7,6 +7,11 @@
             <field name="code">ineco.type.stock.journal.raw</field>
         </record>
 
+        <record id="seq_stock_journal_type_pack" model="ir.sequence.type">
+            <field name="name">Package</field>
+            <field name="code">ineco.type.stock.journal.pack</field>
+        </record>
+
         <record id="seq_stock_journal_type_wip" model="ir.sequence.type">
             <field name="name">WIP</field>
             <field name="code">ineco.type.stock.journal.wip</field>
@@ -50,6 +55,13 @@
             <field name="code">ineco.type.stock.journal.raw</field>
             <field eval="5" name="padding"/>
             <field name="prefix">RIN%(y)s%(month)s-</field>
+        </record>
+
+        <record id="seq_stock_journal_package" model="ir.sequence">
+            <field name="name">Package Sequence</field>
+            <field name="code">ineco.type.stock.journal.pack</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">GIN%(y)s%(month)s-</field>
         </record>
         
         <record id="seq_stock_journal_wip" model="ir.sequence">
