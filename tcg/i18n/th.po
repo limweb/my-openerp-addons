@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.1-dev\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2012-04-09 13:04+0000\n"
-"PO-Revision-Date: 2012-04-09 20:05+0700\n"
+"PO-Revision-Date: 2012-04-09 20:45+0700\n"
 "Last-Translator: Tititab Srisookco <thitithup@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -75,7 +75,7 @@ msgstr "ใบเบิกสินค้าสำเร็จรูป"
 #: model:ir.actions.act_window,name:tcg.ineco_action_picking_internalmove_pack
 #: model:ir.ui.menu,name:tcg.menu_ineco_action_picking_internal_move_package
 msgid "Internal Moves - Package"
-msgstr "ใบเบิก/คืนบรรจุภัณฑ์"
+msgstr "การเบิก/คืนบรรจุภัณฑ์"
 
 #. module: tcg
 #: model:ir.ui.menu,name:tcg.menu_tcg_warehouse_issue
