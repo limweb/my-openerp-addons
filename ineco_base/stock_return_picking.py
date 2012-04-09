@@ -19,6 +19,8 @@
 #
 ##############################################################################
 
+# 09-04-2012    POP-001    Initial
+
 import netsvc
 import time
 
@@ -67,7 +69,7 @@ class stock_return_picking(osv.osv_memory):
         new_picking = pick_obj.copy(cr, uid, pick.id, {'name':'%s-return' % pick.name,
                 'move_lines':[], 'state':'draft', 'type':new_type, 
                 'date':date_cur, 'invoice_state':data['invoice_state'],
-                #POP-017
+                #POP-001
                 'ineco_return': True,
                 'ineco_request_user_id': uid,
                   })

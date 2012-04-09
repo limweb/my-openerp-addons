@@ -7,6 +7,11 @@
             <field name="sequence_id" ref="seq_stock_journal_material" />
         </record>
 
+        <record id="ineco_stock_journal_pack" model="stock.journal">
+            <field name="name">Package</field>
+            <field name="sequence_id" ref="seq_stock_journal_package" />
+        </record>
+
         <record id="ineco_stock_journal_wip" model="stock.journal">
             <field name="name">WIP</field>
             <field name="sequence_id" ref="seq_stock_journal_wip" />
