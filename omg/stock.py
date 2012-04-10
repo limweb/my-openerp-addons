@@ -23,6 +23,7 @@
 # 18-02-2012    POP-001    Create ineco.query.stock.report (Dispatch VS Kitting) 
 # 27-02-2012    POP-002    Add Max Category in stock.location.booking
 # 25-03-2012    POP-003    Add Copy to Stock.picking
+# 11-04-2012    POP-004    Change way to send sms
 
 import socket
 import sys
@@ -144,9 +145,9 @@ class stock_move(osv.osv):
         move_ids = self.pool.get('stock.move').browse(cr, uid, ids)
         for move in move_ids:
             if move.picking_id.date_done:
-                move.write({'date_finished': move.picking_id.date_done})
+                move.write({'date_finished': move.picking_id.date_done,'product_uom':move.product_id.uom_id.id})
             else:
-                move.write({'date_finished': time.strftime('%Y-%m-%d %H:%M:%S')})
+                move.write({'date_finished': time.strftime('%Y-%m-%d %H:%M:%S'),'product_uom':move.product_id.uom_id.id})
         super(stock_move, self).action_done(cr, uid, ids, context)
         return True
 
@@ -409,10 +410,13 @@ class stock_picking(osv.osv):
                     if pick.period_id:
                         b_date = pick.period_id.date_start
                     #print pick.date_arrival, customer_product, location_name
-                    if b_date:
-                        template_sms = u"โปรโมชั่น:"+customer_product+ u" เริ่ม:"+b_date+u" ถึง:"+location_name+u" วันที่:"+a_date
-                    else:
-                        template_sms = u"โปรโมชั่น:"+customer_product+ u" ถึง:"+location_name+u" วันที่:"+a_date
+                    #POP-004
+                    template_sms = False
+                    if customer_product and b_date and location_name and a_date:
+                        if b_date:
+                            template_sms = u"โปรโมชั่น:"+customer_product+ u" เริ่ม:"+b_date+u" ถึง:"+location_name+u" วันที่:"+a_date
+                        else:
+                            template_sms = u"โปรโมชั่น:"+customer_product+ u" ถึง:"+location_name+u" วันที่:"+a_date
                         
                     if pick.sms_text:
                         template_sms = template_sms + " " + pick.sms_text

@@ -28,9 +28,12 @@ import sale
 import sale_period
 
 import decimal_precision as dp
+from datetime import datetime, timedelta, date
+from dateutil.relativedelta import relativedelta
 
 from osv import fields,osv
 from tools.translate import _
+
 
 class procurement_order(osv.osv):
        
@@ -76,6 +79,79 @@ class procurement_order(osv.osv):
     _defaults = {
         
     }    
+
+    def make_po(self, cr, uid, ids, context=None):
+        """ Make purchase order from procurement
+        @return: New created Purchase Orders procurement wise
+        """
+        res = {}
+        if context is None:
+            context = {}
+        company = self.pool.get('res.users').browse(cr, uid, uid, context=context).company_id
+        partner_obj = self.pool.get('res.partner')
+        uom_obj = self.pool.get('product.uom')
+        pricelist_obj = self.pool.get('product.pricelist')
+        prod_obj = self.pool.get('product.product')
+        acc_pos_obj = self.pool.get('account.fiscal.position')
+        po_obj = self.pool.get('purchase.order')
+        for procurement in self.browse(cr, uid, ids, context=context):
+            res_id = procurement.move_id.id
+            partner = procurement.product_id.seller_id # Taken Main Supplier of Product of Procurement.
+            seller_qty = procurement.product_id.seller_qty
+            seller_delay = int(procurement.product_id.seller_delay)
+            partner_id = partner.id
+            address_id = partner_obj.address_get(cr, uid, [partner_id], ['delivery'])['delivery']
+            pricelist_id = partner.property_product_pricelist_purchase.id
+
+            uom_id = procurement.product_id.uom_po_id.id
+            
+            if procurement.product_id.uom_po_id.category_id.id <> procurement.product_uom.category_id.id:
+                procurement.write({'product_uom': procurement.product_id.uom_id.id} )
+
+            qty = uom_obj._compute_qty(cr, uid, procurement.product_id.uom_id.id, procurement.product_qty, uom_id)
+            if seller_qty:
+                qty = max(qty,seller_qty)
+
+            price = pricelist_obj.price_get(cr, uid, [pricelist_id], procurement.product_id.id, qty, partner_id, {'uom': uom_id})[pricelist_id]
+
+            newdate = datetime.strptime(procurement.date_planned, '%Y-%m-%d %H:%M:%S')
+            newdate = (newdate - relativedelta(days=company.po_lead)) - relativedelta(days=seller_delay)
+
+            #Passing partner_id to context for purchase order line integrity of Line name
+            context.update({'lang': partner.lang, 'partner_id': partner_id})
+
+            product = prod_obj.browse(cr, uid, procurement.product_id.id, context=context)
+
+            line = {
+                'name': product.partner_ref,
+                'product_qty': qty,
+                'product_id': procurement.product_id.id,
+                'product_uom': uom_id,
+                'price_unit': price,
+                'date_planned': newdate.strftime('%Y-%m-%d %H:%M:%S'),
+                'move_dest_id': res_id,
+                'notes': product.description_purchase,
+            }
+
+            taxes_ids = procurement.product_id.product_tmpl_id.supplier_taxes_id
+            taxes = acc_pos_obj.map_tax(cr, uid, partner.property_account_position, taxes_ids)
+            line.update({
+                'taxes_id': [(6,0,taxes)]
+            })
+            purchase_id = po_obj.create(cr, uid, {
+                'origin': procurement.origin,
+                'partner_id': partner_id,
+                'partner_address_id': address_id,
+                'location_id': procurement.location_id.id,
+                'pricelist_id': pricelist_id,
+                'order_line': [(0,0,line)],
+                'company_id': procurement.company_id.id,
+                'fiscal_position': partner.property_account_position and partner.property_account_position.id or False
+            })
+            res[procurement.id] = purchase_id
+            self.write(cr, uid, [procurement.id], {'state': 'running', 'purchase_id': purchase_id})
+        return res
+
         
 procurement_order()
 
