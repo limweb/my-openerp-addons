@@ -216,7 +216,8 @@ class account_invoice(osv.osv):
                   d3.code as dimension_3,
                   d4.code as dimension_4,
                   d5.code as dimension_5,
-                  d6.code as dimension_6
+                  d6.code as dimension_6,
+                  account_invoice.name as contact_no
                 from account_invoice_line
                 join account_invoice on account_invoice_line.invoice_id = account_invoice.id
                 left join res_partner_address          on account_invoice.address_invoice_id = res_partner_address.id
@@ -277,10 +278,10 @@ class account_invoice(osv.osv):
                             line['uom'], 
                             line['direct_unit_cost'],                             
                             line['line_discount'], 
-                            line['gen_posting_group'] or '',   #NAV
-                            line['vat_posting_group'] or '',   #NAV
-                            line['wht_posting_group'] or '',   #NAV or '' ว่าง
-                            '', #NAV Contact No
+                            line['gen_posting_group'] or '',    #NAV
+                            line['vat_posting_group'] or 'S07', #NAV REQUERY from master product
+                            line['wht_posting_group'] or '',    #NAV or '' ว่าง
+                            line['contact_no'] or '',
                             line['dimension_1'], 
                             line['dimension_2'], 
                             line['dimension_3'], 

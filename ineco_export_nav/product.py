@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -15,22 +15,28 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
-import ineco_export
-import partner
-import purchase
-import sale
-import invoice
-import account
-import department
-import users
-import pretty_cash
-import company
-import ineco_asset
-import product
+import math
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+from osv import fields,osv
+import tools
+import pooler
+from tools.translate import _
+from decimal import *
+import decimal_precision as dp
 
+import netsvc
+import csv
+import time
+
+class product_product(osv.osv):
+    _name = "product.product"
+    _description = "add nav vat type"
+    _inherit = "product.product"
+    _columns = {
+        'nav_vat': fields.char('NAV Vat', size=10),
+    }
+product_product()
