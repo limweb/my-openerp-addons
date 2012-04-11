@@ -291,8 +291,8 @@ class account_invoice(osv.osv):
                                 line['dimension_5'], 
                                 line['dimension_6'], 
                             ])
-                        except:
-                            self.log(cr, uid, line['invoice_id'], 'Export Error -> '+line['purchase_no'])
+                        except Exception, err :
+                            self.log(cr, uid, line['invoice_id'], 'Export Error -> '+line['purchase_no']+":"+str(err))
                             pass
                     line_no += 1
                 if config_obj:
