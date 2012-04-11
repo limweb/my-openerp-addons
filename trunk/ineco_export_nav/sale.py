@@ -44,4 +44,38 @@ class sale_order(osv.osv):
         'dimension_retailer': fields.many2one('ineco.nav.dimension', "Retailer", ondelete="restrict"),
         'dimension_customer': fields.many2one('ineco.nav.dimension', "Customer", ondelete="restrict"),
     }
+    
+    def schedule_export_store(self, cr, uid, context=None):
+        if context is None:
+            context = {}
+        if date_invoice is None:
+            date_invoice = time.strftime('%Y-%m-%d')
+        query = """
+                select c.name as sale_no, a.id as id, b.name as store_name from sale_branch_line a
+                join stock_location b on a.location_id = b.id
+                join sale_order c on a.sale_id = c.id
+                join account_invoice d on d.origin = c.name
+                where to_char(d.date_invoice, 'yyyy-mm-dd') = '%s'       
+        """
+        cr.execute(query % date_invoice)
+        line_data =  cr.dictfetchall()
+        if line_data:
+            config_ids = self.pool.get('ineco.export.config').search(cr, uid, [('type','=','store')])
+            config_obj = self.pool.get('ineco.export.config').browse(cr, uid, config_ids)      
+            if config_obj:
+                config = config_obj[0]
+                path = config.path+"STORE-"+str(date_invoice)+".csv"
+                #POP-001
+                f = open(path, 'wt')
+                #f = codecs.open(path, encoding='cp874', mode='w+')
+                writer = csv.writer(f)
+                for line in line_data:
+                    if config_obj:      
+                        writer = csv.writer(f, quoting=csv.QUOTE_NONE) # QUOTE_NONNUMERIC
+                        writer.writerow([
+                            line['sale_no'],
+                            line['id'],
+                            line['store_name'], 
+                        ])
+
 sale_order()

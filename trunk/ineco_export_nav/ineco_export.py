@@ -38,7 +38,7 @@ class ineco_export_config(osv.osv):
     _description = "Configuration path to keep csv files."
     _columns = {
         'name': fields.char('Description', size=128, required=True),
-        'type': fields.selection([('supplier','Supplier'),('customer','Customer'),('purchase','Purchase'),('sale','Sale'),('asset','Asset'),('pretty','Pretty Cash')],string="Data Type"),
+        'type': fields.selection([('supplier','Supplier'),('customer','Customer'),('purchase','Purchase'),('sale','Sale'),('asset','Asset'),('pretty','Pretty Cash'),('store','Store')],string="Data Type"),
         'path': fields.char('Save Path', size=254, required=True),        
         'company_id': fields.many2one('res.company','Company', required=True, ondelete='restrict'),
     }
