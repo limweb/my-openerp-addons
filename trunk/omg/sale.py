@@ -38,6 +38,7 @@
 # 02-03-2012       POP-015    Add Create Invoice 
 # 02-03-2012       POP-016    Add Create Invoice Line
 # 05-04-2012       POP-017    Add Equipment Process
+# 11-04-2012       POP-018    Add Period_ID In sale.order
 
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
@@ -53,6 +54,8 @@ from osv import fields,osv
 from tools.translate import _
 import pooler
 import tools 
+
+from operator import itemgetter
 
 class sale_period_line(osv.osv):
 
@@ -226,6 +229,23 @@ def next_date(start_date, dayname, diff_day=2):
 
 class sale_order(osv.osv):
 
+    def schedule_manual_invoice(self, cr, uid, context=None):
+        if context is None:
+            context = {}
+        cr.execute("""
+            select id from sale_order 
+            where  
+              state = 'manual' 
+              and client_order_ref is not null
+              and date_period_start <= CURRENT_DATE 
+              and date_period_finish >= CURRENT_DATE
+        """)
+        sale_ids = map(itemgetter(0), cr.fetchall())
+        if sale_ids:
+            for sale in self.pool.get('sale.order').browse(cr, uid, sale_ids):
+                sale.manual_invoice()
+        
+
     def _get_date_count(self, cr, uid, ids, field_name, arg, context=None):
         res = {}
         if context is None:
@@ -397,6 +417,8 @@ class sale_order(osv.osv):
         #POP-014
         'force_draft_state': fields.boolean('Force Draft State'),
         'force_equipment': fields.boolean('Force Equipment'),
+        #POP-018
+        'period_id': fields.many2one('omg.sale.period', 'Period ID'),
     }
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -405,11 +427,14 @@ class sale_order(osv.osv):
         for line in self.browse(cr, uid, ids, context=context):
             date_start = None
             date_finish = None
+            period_id = False
             for period in line.sale_period_ids:
                 if not date_start:
                     date_start = period.date_start
+                if not period_id:
+                    period_id = period.period_id.id
                 date_finish = period.date_finish
-            vals.update({'date_period_start': date_start,'date_period_finish': date_finish})
+            vals.update({'date_period_start': date_start,'date_period_finish': date_finish, 'period_id': period_id})
                                     
         return super(sale_order, self).write(cr, uid, ids, vals, context=context)
 

@@ -28,6 +28,7 @@ from tools.safe_eval import safe_eval as eval
 import pooler
 from osv import fields, osv
 
+
 def str2tuple(s):
     return eval('tuple(%s)' % (s or ''))
 
