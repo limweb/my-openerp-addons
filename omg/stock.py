@@ -24,6 +24,7 @@
 # 27-02-2012    POP-002    Add Max Category in stock.location.booking
 # 25-03-2012    POP-003    Add Copy to Stock.picking
 # 11-04-2012    POP-004    Change way to send sms
+# 11-04-2012    POP-005    Change uom default when not in same category
 
 import socket
 import sys
@@ -144,10 +145,15 @@ class stock_move(osv.osv):
     def action_done(self, cr, uid, ids, context=None):
         move_ids = self.pool.get('stock.move').browse(cr, uid, ids)
         for move in move_ids:
-            if move.picking_id.date_done:
-                move.write({'date_finished': move.picking_id.date_done,'product_uom':move.product_id.uom_id.id})
+            #POP-005
+            if move.product_uom.category_id.id <> move.product_id.uom_id.category_id.id:
+                new_uom = move.product_id.uom_id.id
             else:
-                move.write({'date_finished': time.strftime('%Y-%m-%d %H:%M:%S'),'product_uom':move.product_id.uom_id.id})
+                new_uom = move.product_uom.id
+            if move.picking_id.date_done:
+                move.write({'date_finished': move.picking_id.date_done, 'product_uom':new_uom})
+            else:
+                move.write({'date_finished': time.strftime('%Y-%m-%d %H:%M:%S'), 'product_uom':new_uom})
         super(stock_move, self).action_done(cr, uid, ids, context)
         return True
 
