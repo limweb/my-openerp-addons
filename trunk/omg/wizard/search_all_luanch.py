@@ -43,7 +43,7 @@ def _launch_wizard(self, cr, uid, data, context=None):
         path = apache_obj['url']
     
     url=''
-    url="http://"+hostname+path+"?id="+str(m.id)+"&product_id="+str(m.product_id.id)+"&category_id="+str(m.product_id.categ_id.id)+"&sale_id="+str(m.saleman_id.id)+"&dbname="+cr.dbname
+    url="http://"+hostname+path+"?id="+str(m.id)+"&product_id="+str(m.product_id.id)+"&category_id="+str(m.product_id.categ_id.id)+"&sale_id="+str(m.saleman_id.id)+"&dbname="+cr.dbname+"&sevice_category_id="+str(m.service_id.categ_id.id)
     #+"&uid="+str(config_obj.username)+"&pwd="+str(config_obj.password)+"&dbname="+str(config_obj.dbname)+"&host="+str(config_obj.hostname)
 #    url="http://www.google.com"
     return {
