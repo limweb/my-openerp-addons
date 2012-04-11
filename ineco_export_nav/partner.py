@@ -59,7 +59,7 @@ class res_partner(osv.osv):
         for company in self.pool.get('res.company').browse(cr, uid, company_ids ):
             if company.ineco_nav_table and company.nav_dbname and company.nav_user and company.nav_password and company.nav_host:
                 sql = """
-                    select * from [%s%s] where len(ltrim([Open ERP No_])) > 0 and left([Open ERP No_],1) <> 'V'
+                    select * from [%s%s] where len(ltrim([Open ERP No_])) > 0 and left([Open ERP No_],1) not in ('V','C')
                 """
                 conn = pymssql.connect(host=company.nav_host, user=company.nav_user, password=company.nav_password, database=company.nav_dbname,as_dict=True)
                 cur = conn.cursor()
@@ -144,8 +144,8 @@ class res_partner(osv.osv):
                     path = config.path+"VEND"+('%.4d' % partner.id)+"-"+str(partner.company_id.id)+".csv"   
                     #path = config.path+"supplier-"+str(partner.company_id.id)+"-"+str(partner.id)+".csv"
                     #POP-001
-                    #f = open(path, 'wt')
-                    f = codecs.open(path, encoding='cp874', mode='w+')
+                    f = open(path, 'wt')
+                    #f = codecs.open(path, encoding='cp874', mode='w+')
                     #writer = csv.writer(f)
                     writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
                     code = False
@@ -163,7 +163,7 @@ class res_partner(osv.osv):
                                      address_invoice.state_id.name.encode('cp874') or "", #NAV Master
                                      address_invoice.zip or "", #NAV Master
                                      address_invoice.country_id.code or "", #NAV Master
-                                     address_invoice.name or "",
+                                     address_invoice.name.encode('cp874') or "",
                                      address_invoice.phone or "",
                                      address_invoice.fax or "",
                                      partner.supplier_posting_group_id.code_nav or "",
@@ -213,7 +213,7 @@ class res_partner(osv.osv):
                                      "", #Block "All"
                                      partner.tax_id or "",
                                      time.strftime('%d/%m/%Y %H:%M'),
-                                     partner.credit_limit or 0 ])
+                                     ]) #partner.credit_limit
         return True
 
     def write(self, cr, uid, ids, vals, context=None):
