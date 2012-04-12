@@ -98,7 +98,8 @@ class account_invoice(osv.osv):
                   d3.code as dimension_3,
                   d4.code as dimension_4,
                   d5.code as dimension_5,
-                  d6.code as dimension_6
+                  d6.code as dimension_6,
+                  account_invoice.id as invoice_id
                 from account_invoice_line
                 join account_invoice on account_invoice_line.invoice_id = account_invoice.id
                 left join res_partner_address          on account_invoice.address_invoice_id = res_partner_address.id
@@ -137,39 +138,43 @@ class account_invoice(osv.osv):
                 for line in line_data:
                     if config_obj:      
                         writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
-                        writer.writerow([
-                            line['document_type'], 
-                            line['buy_from_vendor_no'].encode('cp874'),  #NAV
-                            line['purchase_no'], 
-                            line['pay_to_vendor_no'].encode('cp874'),    #NAV
-                            line['pay_to_contact'].encode('cp874'),      #Address ERP
-                            line['order_date'], #required gen date of erp
-                            line['posting_date'], 
-                            line['payment_term_code'], 
-                            line['currency_code'],       #NAV
-                            line['price_include_vat'] or 'Yes', #NAV Vat Type (include,exclude) (Yes,No)
-                            line['vendor_invoice_no'],    
-                            line['buy_from_contact'].encode('cp874'),    #NAV
-                            line['last_interfaced'],     #Address ERP
-                            line_no, 
-                            line['nav_type'], 
-                            line['account_no'],          #Account No ERP 
-                            line['description'][0:50].encode('cp874'), 
-                            line['description2'][50:0].encode('cp874'), 
-                            line['quantity'], 
-                            line['direct_unit_cost'], 
-                            line['line_discount'], 
-                            line['gen_posting_group'] ,    #NAV Generate from Gen. Product Posting Group
-                            line['vat_posting_group'] ,   #NAV
-                            line['uom'], 
-                            line['wht_posting_group'] ,   #NAV
-                            line['dimension_1'], 
-                            line['dimension_2'], 
-                            line['dimension_3'], 
-                            line['dimension_4'], 
-                            line['dimension_5'], 
-                            #line['dimension_6'], 
-                        ])
+                        try:
+                            writer.writerow([
+                                line['document_type'], 
+                                line['buy_from_vendor_no'].encode('cp874'),  #NAV
+                                line['purchase_no'], 
+                                line['pay_to_vendor_no'].encode('cp874'),    #NAV
+                                line['pay_to_contact'].encode('cp874'),      #Address ERP
+                                line['order_date'], #required gen date of erp
+                                line['posting_date'], 
+                                line['payment_term_code'], 
+                                line['currency_code'],       #NAV
+                                line['price_include_vat'] or 'Yes', #NAV Vat Type (include,exclude) (Yes,No)
+                                line['vendor_invoice_no'],    
+                                line['buy_from_contact'].encode('cp874'),    #NAV
+                                line['last_interfaced'],     #Address ERP
+                                line_no, 
+                                line['nav_type'], 
+                                line['account_no'],          #Account No ERP 
+                                line['description'][0:50].encode('cp874'), 
+                                line['description2'][50:0].encode('cp874'), 
+                                line['quantity'], 
+                                line['direct_unit_cost'], 
+                                line['line_discount'], 
+                                line['gen_posting_group'] ,    #NAV Generate from Gen. Product Posting Group
+                                line['vat_posting_group'] ,   #NAV
+                                line['uom'], 
+                                line['wht_posting_group'] ,   #NAV
+                                line['dimension_1'], 
+                                line['dimension_2'], 
+                                line['dimension_3'], 
+                                line['dimension_4'], 
+                                line['dimension_5'], 
+                                #line['dimension_6'], 
+                            ])
+                        except Exception, err:
+                            self.log(cr, uid, line['invoice_id'], 'Export Error -> '+line['purchase_no']+":"+str(err))
+                            pass
                         line_no += 1
                 if config_obj:
                     cr.execute("update account_invoice set nav_exported = True where id = %s " % row)
