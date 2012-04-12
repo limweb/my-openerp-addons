@@ -48,7 +48,8 @@ class sale_order(osv.osv):
     def schedule_export_store(self, cr, uid, context=None):
         if context is None:
             context = {}
-        if date_invoice is None:
+        date_invoice = False
+        if not date_invoice:
             date_invoice = time.strftime('%Y-%m-%d')
         query = """
                 select c.name as sale_no, a.id as id, b.name as store_name from sale_branch_line a
