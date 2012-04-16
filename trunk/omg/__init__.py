@@ -32,6 +32,7 @@ import account_analytic_journal
 import account_analytic_account
 import purchase
 import partner
+import address
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
