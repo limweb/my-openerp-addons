@@ -39,6 +39,7 @@
 # 02-03-2012       POP-016    Add Create Invoice Line
 # 05-04-2012       POP-017    Add Equipment Process
 # 11-04-2012       POP-018    Add Period_ID In sale.order
+# 17-04-2012       POP-019    Add Product Mapping Process
 
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
@@ -705,6 +706,10 @@ class sale_order(osv.osv):
                             move_id = False
                             new_qty = 0
                             if line.product_id and line.product_id.product_tmpl_id.type in ('product', 'consu'):
+                                new_product_ids = self.pool.get('ineco.stock.location.product.mapping').search(cr, uid, [('location_id','=',location.location_id.id),('product_id_from','=',line.product_id.id)])
+                                new_product_id = line.product_id
+                                if new_product_ids:
+                                    new_product_id = self.pool.get('ineco.stock.location.product.mapping').browse(cr, uid, new_product_ids)[0]
                                 location_id = order.shop_id.warehouse_id.lot_stock_id.id
                                 if not picking_id:
                                     oaname = ""
@@ -857,7 +862,9 @@ class sale_order(osv.osv):
                                         move_id = self.pool.get('stock.move').create(cr, uid, {
                                             'name': line.name[:64],
                                             'picking_id': picking_id,
-                                            'product_id': line.product_id.id,
+                                            #POP-019
+                                            #'product_id': line.product_id.id,
+                                            'product_id': new_product_id.id,
                                             'date': date_planned,
                                             'date_expected': date_planned,
                                             'product_qty': new_qty,
@@ -884,7 +891,9 @@ class sale_order(osv.osv):
                                     'name': line.name,
                                     'origin': order.name,
                                     'date_planned': date_planned,
-                                    'product_id': line.product_id.id,
+                                    #'product_id': line.product_id.id,
+                                    #POP-019
+                                    'product_id': new_product_id.id,
                                     'product_qty': new_qty,
                                     'product_uom': line.product_uom.id,
                                     'product_uos_qty': (line.product_uos and line.product_uos_qty)\
