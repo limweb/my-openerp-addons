@@ -26,8 +26,8 @@
 						<page string="Location Quantity"><field name="lineqty_ids" nolabel="1"/></page>
 						<page string="Booking History"><field name="booking_ids" nolabel="1"/></page>
 						<page string="Category Capacity"><field name="max_category_ids" nolabel="1"/></page>
-						<page string="Group Special"><field name="location_group_spedical_ids" nolabel="1" widget="many2many"/>
-						</page>
+						<page string="Group Special"><field name="location_group_spedical_ids" nolabel="1" widget="many2many"/></page>
+						<page string="Product Mapping"><field name="mapping_ids" nolabel="1"/></page>
 					</notebook>
        			</field>
 			</field>
@@ -93,6 +93,30 @@
            			<field name="category_id" domain="[('service_category','=',True)]" />
            			<field name="quantity" />
            		</form>
+            </field>
+        </record>
+
+        <record id="ineco_stock_location_product_mapping_form" model="ir.ui.view">
+            <field name="name">ineco.stock.location.product.mapping.form</field>
+            <field name="model">ineco.stock.location.product.mapping</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+           		<form>
+           			<field name="product_id_from" />
+           			<field name="product_id_to" />
+           		</form>
+            </field>
+        </record>
+
+        <record id="ineco_stock_location_product_mapping_tree" model="ir.ui.view">
+            <field name="name">ineco.stock.location.product.mapping.tree</field>
+            <field name="model">ineco.stock.location.product.mapping</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+           		<tree>
+           			<field name="product_id_from" />
+           			<field name="product_id_to" />
+           		</tree>
             </field>
         </record>
 

@@ -2,15 +2,15 @@
 <openerp>
 	<data>
 		<record id="view_ineco_partner_address_bank" model="ir.ui.view">
-		    <field name="name">ineco.partner.address.form</field>
+		    <field name="name">ineco.res.partner.address.form</field>
 		    <field name="model">res.partner.address</field>
 		    <field name="type">form</field>
 		    <field name="inherit_id" ref="base.view_partner_address_form1"/>
 		    <field name="arch" type="xml">
 				<field name="email" position="after">
-						<seperator string="Bank" colspan="4" col="4" />
-						<field name="ineco_bank_name" />
-						<field name="ineco_bank_no" />
+					<separator string="Bank" col="2" colspan="2" />
+					<field name="ineco_bank_name" />
+					<field name="ineco_bank_no" />
 				</field>
 		    </field>
 		</record>
