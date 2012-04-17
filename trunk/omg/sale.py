@@ -706,10 +706,11 @@ class sale_order(osv.osv):
                             move_id = False
                             new_qty = 0
                             if line.product_id and line.product_id.product_tmpl_id.type in ('product', 'consu'):
+                                #POP-019
                                 new_product_ids = self.pool.get('ineco.stock.location.product.mapping').search(cr, uid, [('location_id','=',location.location_id.id),('product_id_from','=',line.product_id.id)])
                                 new_product_id = line.product_id
                                 if new_product_ids:
-                                    new_product_id = self.pool.get('ineco.stock.location.product.mapping').browse(cr, uid, new_product_ids)[0]
+                                    new_product_id = self.pool.get('ineco.stock.location.product.mapping').browse(cr, uid, new_product_ids)[0].product_id_to
                                 location_id = order.shop_id.warehouse_id.lot_stock_id.id
                                 if not picking_id:
                                     oaname = ""
