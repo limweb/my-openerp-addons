@@ -26,6 +26,7 @@
 # 12-03-2012    POP-004    Not Send Data to Sale Order
 # 12-03-2012    POP-005    Add Sale Admin
 # 01-04-2012    POP-006    Add Default Product -> Period = True
+# 17-04-2012    POP-007    Add Check Max Count In Contact Reservation
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -274,16 +275,21 @@ class omg_sale_reserve_contact_line(osv.osv):
         else:
             if len(booking_ids) > 0:
                raise osv.except_osv(_('Warning'), _('You have selected Duplication Category')) 
+           
+        #POP-007
+        if location and location.max_place_qty == 0:
+            can_book = True
+        elif location and location.max_place_qty < len(max_ids):
+            can_book = False
+            raise osv.except_osv(_('Warning'), _('You have Over Max Place can be sold ->'+location.name+', ' + str(location.max_place_qty)+','+str(len(max_ids)) ))            
+                  
         #POP-001
         max_service_qty = self._get_max_service(cr,uid,ids,location.id, service_categ_id, context)
-        #if location and location.max_place_qty == 0:
-        #    can_book = True
         if len(booking_ids) == 0 and location and max_service_qty > len(max_ids):
-        #elif len(booking_ids) == 0 and location and location.max_place_qty > len(max_ids):
             can_book = True
         else:
             can_book = False
-            raise osv.except_osv(_('Warning'), _('You have Over max place can be sold ->'+location.name+', ' + contact_obj.service_id.categ_id.name))            
+            raise osv.except_osv(_('Warning'), _('You have Over Max Service can be sold ->'+location.name+', ' + contact_obj.service_id.categ_id.name))            
         return can_book
     
     def _make_cancel(self, cr, uid, ids, location_id, category_id, period_id, context=None):

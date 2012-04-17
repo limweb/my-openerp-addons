@@ -25,6 +25,7 @@
 # 25-03-2012    POP-003    Add Copy to Stock.picking
 # 11-04-2012    POP-004    Change way to send sms
 # 11-04-2012    POP-005    Change uom default when not in same category
+# 17-04-2012    POP-006    Add ineco.stock.location.product.mapping
 
 import socket
 import sys
@@ -645,6 +646,7 @@ class stock_location(osv.osv):
         'omg_concentratedrink7': fields.char('Concentrate Drink 7', size=100),
         'omg_concentratedrink3': fields.char('Concentrate Drink 3', size=100),
         'omg_alway_equipment': fields.boolean('Alway Send Equipment'),
+        'mapping_ids': fields.one2many('ineco.stock.location.product.mapping', 'location_id', 'Product Mapping'),
     }
     _defaults = {
         'omg_approve': False,
@@ -714,5 +716,16 @@ class ineco_query_stock_report(osv.osv):
         """)
         
 ineco_query_stock_report()
+
+#POP-006
+class ineco_stock_location_stock_product_mapping(osv.osv):
+    _name = 'ineco.stock.location.product.mapping'
+    _description = "Stock Location Mapping"
+    _columns = {
+        'location_id': fields.many2one('stock.location', 'Location'),
+        'product_id_from': fields.many2one('product.product', 'From Product', required=True),
+        'product_id_to': fields.many2one('product.product','To Product', required=True),
+    }
+ineco_stock_location_stock_product_mapping()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
