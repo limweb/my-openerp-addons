@@ -284,7 +284,7 @@ class omg_sale_reserve_contact_line(osv.osv):
     def _can_booking(self, cr, uid, ids, location_id, category_id, period_id, service_categ_id, context=None):
         period_ids = self._get_period_ids(cr, uid, ids, period_id)
         if not period_ids:
-              raise osv.except_osv(_('Warning'), _('List of Period  is empty.'))       
+              raise osv.except_osv(_('Warning'), _('List of Period is empty.'))       
         booking_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('category_id','=',category_id),('state','=','done')])
         max_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('state','=','done'),('service_category_id','=',service_categ_id)])
         can_book = True
@@ -309,7 +309,7 @@ class omg_sale_reserve_contact_line(osv.osv):
             can_book = True
         else:
             can_book = False
-            raise osv.except_osv(_('Warning'), _('You have Over Max Service can be sold ->'+location.name+', ' + contact_obj.service_id.categ_id.name))            
+            raise osv.except_osv(_('Warning'), _('You have Over Max Service can be sold ->'+location.name+', ' + contact_obj.contact_id.service_id.categ_id.name))            
         return can_book
     
     def _make_cancel(self, cr, uid, ids, location_id, category_id, period_id, context=None):
