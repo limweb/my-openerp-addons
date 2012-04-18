@@ -15,6 +15,7 @@
 			<field name="service_id" domain="[('service_type','=',True)]"/>
 			<field name="saleman_id" />
 			<field name="sale_admin_id" />
+			<field name="fos_contact_no" />
 			<notebook colspan="4">
 				<page string="Reservation Lines">
 					<group colspan="4" col="6">						
@@ -42,7 +43,8 @@
 			<tree string="Reservation Contact">
 				<field name="name" />
 				<field name="contact_date" />
-				<field name="period_first" />
+				<field name="period_id" />
+				<field name="chain_id" />
 				<field name="customer_id" />
 				<field name="product_id" />
 				<field name="service_id" />
@@ -63,6 +65,8 @@
 					<field name="customer_id" />
 					<field name="product_id" />
 					<field name="service_id" />
+					<field name="period_id" />
+					<field name="chain_id" />
 					<field name="saleman_id" />
 					<field name="total" />
                 </search>

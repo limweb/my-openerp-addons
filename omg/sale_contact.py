@@ -27,6 +27,8 @@
 # 12-03-2012    POP-005    Add Sale Admin
 # 01-04-2012    POP-006    Add Default Product -> Period = True
 # 17-04-2012    POP-007    Add Check Max Count In Contact Reservation
+# 18-04-2012    POP-008    Add Period & Chain in Contact Reservatino
+# 18-04-2012    POP-009    Add FOS No 
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -96,10 +98,15 @@ class omg_sale_reserve_contact(osv.osv):
         'line_ids': fields.one2many('omg.sale.reserve.contact.line', 'contact_id', 'Line of Contact'),
         'total_amount': fields.float('Amount'),
         'company_id': fields.many2one('res.company', 'Company', required=True), 
-        'note': fields.text('Notes'),       
-        'period_first': fields.function(_get_period_first, method=True, type='string', string='Period'),
+        'period_first': fields.function(_get_period_first, method=True, type='string', string='Period Name'),
         #POP-005
         'sale_admin_id': fields.many2one('res.users', 'Sale Admin' , ondelete="restrict"),
+        #POP-008
+        'chain_id': fields.many2one('omg.sale.chain','Chain'),
+        'period_id': fields.many2one('omg.sale.period','Period'),
+        #POP-009
+        'fos_contact_no': fields.char('FOS No', size=50,),
+        
     }    
 
     _defaults = {
@@ -123,6 +130,21 @@ class omg_sale_reserve_contact(osv.osv):
             vals['name'] = sequence_id
             
         return super(omg_sale_reserve_contact,self).create(cr, user, vals, context)
+
+    def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            period_id = False
+            chain_id = False
+            for line in line.line_ids:
+                if not period_id:
+                    period_id = line.period_id.id or False
+                if not chain_id:
+                    chain_id = line.chain_id.id or False
+            vals.update({'period_id': period_id,'chain_id': chain_id})
+                                    
+        return super(omg_sale_reserve_contact, self).write(cr, uid, ids, vals, context=context)
 
     def copy(self, cr, uid, id, default={}, context=None, done_list=[], local=False):
         data = self.browse(cr, uid, id, context=context)
