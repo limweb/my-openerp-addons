@@ -34,6 +34,7 @@ from dateutil.relativedelta import relativedelta
 import time
 import netsvc
 import decimal_precision as dp
+from operator import itemgetter
 
 from osv import fields,osv
 from tools.translate import _
@@ -264,9 +265,28 @@ class omg_sale_reserve_contact_line(osv.osv):
             result = service.quantity
         return result
     
+    def _get_period_ids(self, cr, uid, ids, period_id, context=None):
+        if not period_id:
+            raise osv.except_osv(_('Warning'), _('Period is empty.')) 
+        
+        period = self.pool.get('omg.sale.period').browse(cr, uid, [period_id])[0]
+        
+        sql = """
+               select osp.id from omg_sale_period osp
+               where 
+                 (osp.date_start between '%s' and '%s') and
+                 (osp.date_finish <= '%s')
+        """
+        cr.execute(sql % (period.date_start, period.date_finish, period.date_finish))
+        ids = map(itemgetter(0), cr.fetchall())
+        return ids
+    
     def _can_booking(self, cr, uid, ids, location_id, category_id, period_id, service_categ_id, context=None):
-        booking_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','=',period_id),('category_id','=',category_id),('state','=','done')])
-        max_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','=',period_id),('state','=','done'),('service_category_id','=',service_categ_id)])
+        period_ids = self._get_period_ids(cr, uid, ids, period_id)
+        if not period_ids:
+              raise osv.except_osv(_('Warning'), _('List of Period  is empty.'))       
+        booking_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('category_id','=',category_id),('state','=','done')])
+        max_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('state','=','done'),('service_category_id','=',service_categ_id)])
         can_book = True
         location = self.pool.get('stock.location').browse(cr, uid, [location_id])[0]
         contact_obj = self.pool.get('omg.sale.reserve.contact.line').browse(cr, uid, ids)[0]
