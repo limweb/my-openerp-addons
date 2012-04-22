@@ -125,5 +125,12 @@
         <field name="type">report.ineco.kitting.prepare</field>
     </record>
 
+    <record id="report_delivery_return" model="ineco.report.config">
+        <field name="name">Delivery and Return Report</field>
+        <field name="description">Delivery and Return Report</field>
+        <field name="active">1</field>
+        <field name="type">report.delivery.return</field>
+    </record>
+
     </data>
 </openerp>
