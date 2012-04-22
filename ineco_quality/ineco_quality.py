@@ -207,6 +207,7 @@ class ineco_quality_control_line_item(osv.osv):
         'name': fields.char('Description', size=254, required=True),
         'seq': fields.integer('Sequence', required=True),
         'item_id': fields.many2one('ineco.quality.item', 'QC Item'),
+        'spec': fields.char('Specification', size=50),
         'sampling1': fields.char('Sampling 1', size=100),
         'sampling2': fields.char('Sampling 2', size=100),
         'result': fields.char('Result', size=254),
