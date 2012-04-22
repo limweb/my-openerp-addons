@@ -307,6 +307,7 @@
 						<tree string="Item">
 							<field name="seq" />
 							<field name="name" />
+							<field name="spec" />
 							<field name="sampling1" />
 							<field name="sampling2" />
 							<field name="result" />
@@ -316,6 +317,7 @@
 						<form string="Item">
 							<field name="seq" />
 							<field name="name" />
+							<field name="spec" />
 							<field name="sampling1" />
 							<field name="sampling2" />
 							<field name="item_id" />
