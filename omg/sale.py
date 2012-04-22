@@ -1341,12 +1341,21 @@ class sale_order_line(osv.osv):
                 uosqty = _get_line_qty(line)
                 uos_id = _get_line_uom(line)
                 pu = 0.0
+                if not line.with_period and not line.with_branch:
+                    new_qty = uosqty
+                else:
+                    total_day = 1
+                    if line.with_period and line.order_id.sale_period_days:
+                        #total_day = line.order_id.sale_period_days or 1.0
+                        #POP-012
+                        total_day = line.order_id.price_period_days or 1.0  
+                    total_location = 1
+                    if line.with_branch and line.order_id.sale_location_counts:
+                        total_location = line.order_id.sale_location_counts or 1.0
+                    new_qty = int(total_day) * int(total_location)
                 if uosqty:
-                    if line.with_period or line.with_branch:
-                        pu = round(line.price_subtotal, self.pool.get('decimal.precision').precision_get(cr, uid, 'Sale Price'))
-                    else:                    
-                        pu = round(line.price_unit * line.product_uom_qty / uosqty,
-                                self.pool.get('decimal.precision').precision_get(cr, uid, 'Sale Price'))
+                    pu = round(line.price_unit * line.product_uom_qty / uosqty,
+                        self.pool.get('decimal.precision').precision_get(cr, uid, 'Sale Price'))
                 fpos = line.order_id.fiscal_position or False
                 a = self.pool.get('account.fiscal.position').map_account(cr, uid, fpos, a)
                 if not a:
@@ -1357,7 +1366,7 @@ class sale_order_line(osv.osv):
                     'origin': line.order_id.name,
                     'account_id': a,
                     'price_unit': pu,
-                    'quantity': uosqty,
+                    'quantity': new_qty or uosqty,
                     'discount': line.discount,
                     'uos_id': uos_id,
                     'product_id': line.product_id.id or False,

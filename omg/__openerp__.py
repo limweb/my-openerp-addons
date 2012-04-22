@@ -70,6 +70,7 @@
         'wizard/wizard_ineco_dispatch_kitting_report_view.xml',
         'wizard/wizard_report_kitting_prepare_view.xml',
         'wizard/wizard_change_delivery_date_view.xml',
+        'wizard/wizard_report_delivery_return_view.xml',
         'address_view.xml',
         ],
     'demo_xml': [],

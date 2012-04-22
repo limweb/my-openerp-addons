@@ -40,6 +40,7 @@ import wizard_ineco_dispatch_kitting_report
 import wizard_report_kitting_prepare
 import wizard_change_delivery_date
 import search_special_luanch
+import wizard_report_delivery_return
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
