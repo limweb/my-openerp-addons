@@ -42,12 +42,12 @@ class purchase_order(osv.osv):
     
     _columns = {
         'manage': fields.boolean('Manage'),
-        'type_omg': fields.selection([('client','Customer Material'),('cash','Cash Advance')], 'OMG Type', readonly=True),
+        'type_omg': fields.selection([('client','Customer Material'),('cash','Cash Advance'),('rfq','RFQ')], 'OMG Type', readonly=True),
     }
     
     _defaults = {
         'manage': False,
-        'type_omg': False,
+        'type_omg': 'rfq',
     }
 
     def action_invoice_create(self, cr, uid, ids, *args):
