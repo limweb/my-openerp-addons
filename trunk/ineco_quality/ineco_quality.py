@@ -126,7 +126,7 @@ class ineco_quality_control(osv.osv):
         'prodlot_id': fields.many2one('stock.production.lot','Lot', required=True),
         'quantity': fields.float('Quantity', digits=(10,2), required=True),
         'line_ids': fields.one2many('ineco.quality.control.line','control_id','Lines'),
-        'qc_pass': fields.function(_get_pass, string='Pass', method=True,  type='boolean'),
+        'qc_pass': fields.function(_get_pass, string='Pass', method=True,  type='boolean', store=True),
         'quality_journal_id': fields.many2one('ineco.quality.journal','Quality Journal'),
         'qc_force_pass': fields.boolean('Force Pass'),
         'note': fields.text('Note')
