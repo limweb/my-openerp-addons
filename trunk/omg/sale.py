@@ -40,6 +40,9 @@
 # 05-04-2012       POP-017    Add Equipment Process
 # 11-04-2012       POP-018    Add Period_ID In sale.order
 # 17-04-2012       POP-019    Add Product Mapping Process
+# 23-04-2012       POP-020    Add Bug in Period Count
+# 23-04-2012       POP-021    Raise when sale order cancel over lock period.
+# 23-04-2012       POP-022    Add Price in Stock Move when Cash Advance
 
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
@@ -254,8 +257,9 @@ class sale_order(osv.osv):
         daycount = 0
         for line in self.browse(cr, uid, ids, context=context):
             for period in line.sale_period_ids:
-                #POP-008
-                daycount = daycount + period.period_id.date_total
+                #POP-008, POP-020
+                if period.period_id:
+                    daycount = daycount + period.period_id.date_total
             res[line.id] = daycount
         return res
     #POP-012
@@ -266,8 +270,9 @@ class sale_order(osv.osv):
         daycount = 0
         for line in self.browse(cr, uid, ids, context=context):
             for period in line.sale_period_ids:
-                #POP-008
-                daycount = daycount + period.period_id.date_length
+                #POP-008, POP-020
+                if period.period_id:
+                    daycount = daycount + period.period_id.date_length
             res[line.id] = daycount
         return res
 
@@ -885,6 +890,8 @@ class sale_order(osv.osv):
                                             'company_id': order.company_id.id,
                                             'period_id': period.period_id.id,
                                             'customer_product_id': order.customer_product_id.id,
+                                            #POP-022
+                                            'price_unit': line.price_unit or 0,
                                         })
                             #POP-017
                             if line.product_id and new_qty <> 0 and move_id :
@@ -1062,7 +1069,8 @@ class sale_order(osv.osv):
                       sp.period_id,
                       sm.product_id,
                       sm.product_uom, 
-                      sum(sm.product_qty) as quantity
+                      sum(sm.product_qty) as quantity,
+                      sm.price_unit as price_unit
                     from stock_move sm
                     join stock_picking sp on sm.picking_id = sp.id
                     join product_product pp on sm.product_id = pp.id
@@ -1076,6 +1084,7 @@ class sale_order(osv.osv):
                       sp.customer_product_id, 
                       sp.period_id,
                       sm.product_id,
+                      sm.price_unit,
                       sm.product_uom                """
                 cr.execute(customer_material_sql % order.name)
                 material_list = cr.dictfetchall()
@@ -1112,7 +1121,8 @@ class sale_order(osv.osv):
     
                         partner = partner_rec and partner_rec.name or supplier_data
                         pricelist_id = partner.property_product_pricelist_purchase and partner.property_product_pricelist_purchase.id or False
-                        price = 0
+                        #POP-022
+                        price = res['price_unit'] or 0.0
                         #price = pricelist_obj.price_get(cr, uid, [pricelist_id], product_id.id, product_qty, False, {'uom': uom_id})[pricelist_id]
                         product = prod_obj.browse(cr, uid, product_id.id, context={})
                         location_id =  partner.property_stock_customer.id
@@ -1161,6 +1171,10 @@ class sale_order(osv.osv):
 
     def action_cancel(self, cr, uid, ids, context=None):
         for order in self.browse(cr, uid, ids, context):
+            #POP-021
+            if order.period_id.warehouse_lock:
+                raise osv.except_osv(_('Period Locked.'), _('Peiord ('+ order.period_id.name +') was locked by Logistic Control.'))
+
             for location_book in order.sale_location_ids:
                 location_booking_ids = self.pool.get('stock.location.booking').search(cr, uid, 
                     [('order_id','=',location_book.sale_id.id),('location_id','=',location_book.location_id.id)])
