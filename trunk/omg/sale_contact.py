@@ -284,7 +284,7 @@ class omg_sale_reserve_contact_line(osv.osv):
         service_ids = self.pool.get('ineco.stock.location.category.max').search(cr, uid, [('location_id','=',location_id),('category_id','=',service_categ_id)])
         if service_ids:
             service = self.pool.get('ineco.stock.location.category.max').browse(cr, uid, service_ids)[0]
-            if service.ineco_check_place:
+            if service.category_id.ineco_check_place:
                 result = service.quantity
         return result
     
