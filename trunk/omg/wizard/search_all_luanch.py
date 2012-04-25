@@ -42,8 +42,17 @@ def _launch_wizard(self, cr, uid, data, context=None):
         hostname = apache_obj['host']
         path = apache_obj['url']
     
+    if m.service_id.categ_id.ineco_check_place:
+        check=1
+    else:
+        check=0
+    if m.service_id.categ_id.ineco_check_categ:
+        check_categ=1
+    else:
+        check_categ=0
+
     url=''
-    url="http://"+hostname+path+"?id="+str(m.id)+"&product_id="+str(m.product_id.id)+"&category_id="+str(m.product_id.categ_id.id)+"&sale_id="+str(m.saleman_id.id)+"&dbname="+cr.dbname+"&sevice_category_id="+str(m.service_id.categ_id.id)+"&check="+str(m.service_id.categ_id.ineco_check_place or 0)+"&check_cate="+str(m.service_id.categ_id.ineco_check_categ or 0)
+    url="http://"+hostname+path+"?id="+str(m.id)+"&product_id="+str(m.product_id.id)+"&category_id="+str(m.product_id.categ_id.id)+"&sale_id="+str(m.saleman_id.id)+"&dbname="+cr.dbname+"&sevice_category_id="+str(m.service_id.categ_id.id)+"&check="+str(check)+"&check_cate="+str(check_categ)
     #+"&uid="+str(config_obj.username)+"&pwd="+str(config_obj.password)+"&dbname="+str(config_obj.dbname)+"&host="+str(config_obj.hostname)
 #    url="http://www.google.com"
     return {
