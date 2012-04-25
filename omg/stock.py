@@ -560,6 +560,7 @@ class stock_location_booking(osv.osv):
             ], 'State', readonly=True),
         'order_id': fields.many2one('sale.order','Sale Order'),
         'group_special_id': fields.many2one('omg.sale.group.special', 'Group Special'),
+        'ineco_check_place': fields.boolean('Check Place'),
     }
     _order = "date_booking"
     _defaults = {
@@ -567,6 +568,7 @@ class stock_location_booking(osv.osv):
         'state': 'draft',
         'date_booking': lambda *a: time.strftime('%Y-%m-%d'),
         'saleman_id': lambda self, cr, uid, context: uid,
+        'ineco_check_place': True,
     }
 stock_location_booking()
 
