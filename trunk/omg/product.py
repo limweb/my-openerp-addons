@@ -56,8 +56,8 @@ class product_category(osv.osv):
     _columns = {
         'dummy_id': fields.many2one('product.category', 'Dummy Category'),
         'service_category': fields.boolean('As Service Category'),
-        'ineco_check_place': fields.boolean('No Check Place'),
-        'ineco_check_categ': fields.boolean('No Check Category'),
+        'ineco_check_place': fields.boolean('Check Place'),
+        'ineco_check_categ': fields.boolean('Check Category'),
     }
     _defaults = {
         'service_category': False,
