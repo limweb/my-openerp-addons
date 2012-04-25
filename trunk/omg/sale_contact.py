@@ -284,7 +284,8 @@ class omg_sale_reserve_contact_line(osv.osv):
         service_ids = self.pool.get('ineco.stock.location.category.max').search(cr, uid, [('location_id','=',location_id),('category_id','=',service_categ_id)])
         if service_ids:
             service = self.pool.get('ineco.stock.location.category.max').browse(cr, uid, service_ids)[0]
-            result = service.quantity
+            if service.ineco_check_place:
+                result = service.quantity
         return result
     
     def _get_period_ids(self, cr, uid, ids, period_id, context=None):
@@ -308,10 +309,11 @@ class omg_sale_reserve_contact_line(osv.osv):
         if not period_ids:
               raise osv.except_osv(_('Warning'), _('List of Period is empty.'))       
         booking_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('category_id','=',category_id),('state','=','done')])
-        max_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('state','=','done'),('service_category_id','=',service_categ_id)])
+        max_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('state','=','done'),('service_category_id','=',service_categ_id),('ineco_check_place','=',1)])
         can_book = True
         location = self.pool.get('stock.location').browse(cr, uid, [location_id])[0]
         contact_obj = self.pool.get('omg.sale.reserve.contact.line').browse(cr, uid, ids)[0]
+        
         if contact_obj.allow_duplicate:
             booking_ids = []
         else:
