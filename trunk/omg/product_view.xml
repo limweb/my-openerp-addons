@@ -33,7 +33,9 @@
             <field name="arch" type="xml">
             	<field name="parent_id" position="after">
             		<field name="dummy_id" />
-            		<field name="service_category" />            		
+            		<field name="service_category" />  
+            		<field name="ineco_check_place" />
+            		<field name="ineco_check_categ" />          		
             	</field>
             </field>
         </record>
@@ -47,6 +49,8 @@
             	<field name="complete_name" position="after">
             		<field name="dummy_id" />
             		<field name="service_category" />   
+            		<field name="ineco_check_place" />
+            		<field name="ineco_check_categ" />          		
             	</field>
             </field>
         </record>
