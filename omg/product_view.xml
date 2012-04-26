@@ -25,6 +25,18 @@
 			</field>
 		</record>
 
+        <record id="view_ineco_product_name_lock" model="ir.ui.view">
+            <field name="name">ineco.lock.product.normal.form</field>
+            <field name="model">product.product</field>
+			<field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<field name="purchase_ok" position="after">
+            		<field name="name_lock" />
+            	</field>
+			</field>
+		</record>
+
         <record id="view_omg_product_category_form" model="ir.ui.view">
             <field name="name">omg.product.category.form</field>
             <field name="model">product.category</field>
