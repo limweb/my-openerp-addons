@@ -418,7 +418,7 @@ class stock_picking(osv.osv):
                         b_date = pick.period_id.date_start
                     #print pick.date_arrival, customer_product, location_name
                     #POP-004
-                    template_sms = False
+                    template_sms = ''
                     if customer_product and b_date and location_name and a_date:
                         if b_date:
                             template_sms = u"โปรโมชั่น:"+customer_product+ u" เริ่ม:"+b_date+u" ถึง:"+location_name+u" วันที่:"+a_date
