@@ -27,6 +27,15 @@ import re
 from tools.translate import _
 
 class product_product(osv.osv):
+
+    def _get_name_lock(self, cr, uid, ids, field_name, arg, context=None):
+        res = {}
+        if context is None:
+            context = {}
+        user = self.pool.get('res.users').browse(cr, uid, uid)
+        for line in self.browse(cr, uid, ids, context=context):
+            res[line.id] = user.read_only_product_name
+        return res
     
     _name = "product.product"
     _inherit = "product.product"
@@ -40,6 +49,8 @@ class product_product(osv.osv):
         'cash_advance': fields.boolean("Cash Advance"),
         'equipment': fields.boolean('Equipment'),
         'item_sale_check_ids': fields.many2many('product.product', 'sale_order_product_product_rel', 'child_id', 'product_tmpl_id', 'Item Check Sales'),
+        'name_lock': fields.function(_get_name_lock, method=True, type='boolean', string="Lock By PM"),
+        
     }
     
     _defaults = {
