@@ -23,6 +23,7 @@
 # 09-02-2012     POP-001    Change way to compute period length.
 # 05-03-2012     POP-002    Change size 32 -> 64
 # 14-03-2012     POP-003    Add Warehouse Lock cannot confirm Sale Order
+# 27-04-2012     POP-004    Add Period Category
 
 import time
 import netsvc
@@ -34,6 +35,17 @@ from tools.translate import _
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
+
+class omg_sale_period_category(osv.osv):
+    _name = "omg.sale.period.category"
+    _description = "Period Category"
+    _order = 'name'
+
+    _columns = {
+        #POP-004
+        'name':fields.char('Name', size=64, required=True),
+    }
+omg_sale_period_category()
 
 class omg_sale_period(osv.osv):
 
@@ -82,6 +94,7 @@ class omg_sale_period(osv.osv):
         'addup' : fields.integer('Add Up Day (Estimate)'),
         #POP-003
         'warehouse_lock': fields.boolean('Warehouse Lock'),
+        'category_id': fields.many2one('omg.sale.period.category', 'Category'),
     }
 
     _defaults = {

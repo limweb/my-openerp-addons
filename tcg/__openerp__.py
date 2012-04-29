@@ -26,7 +26,7 @@
     'category': 'Extension',
     'description': """This module will add some new requirement for TCG""",
     'author': 'INECO',
-    'depends': ['ineco_base'],
+    'depends': ['ineco_base','hr','purchase_requisition'],
     'website': 'http://openerp.tititab.com',
     'update_xml': [
         'sequence_data.xml',
@@ -34,6 +34,7 @@
         'stock_view.xml',
         'security.xml',
         'report_data.xml',
+        'purchase_view.xml',
         ],
     'demo_xml': [],
     'installable': True,

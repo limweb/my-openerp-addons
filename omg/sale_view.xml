@@ -93,6 +93,7 @@
 					<field name="date_finish" />
 					<field name="date_length" />
 					<field name="addup"/>
+					<field name="category_id" />
 					<field name="warehouse_lock" groups="base.group_omg_lock_period"/>
 					<field name="company_id" />
 				</form>
@@ -110,6 +111,7 @@
 					<field name="date_finish" />
 					<field name="date_length" />
 					<field name="addup"/>
+					<field name="category_id" />
 					<field name="company_id" />
 					<field name="warehouse_lock" groups="base.group_omg_lock_period"/>
 				</tree>
@@ -416,6 +418,37 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 		<menuitem action="act_omg_sale_group_special" id="menu_omg_sale_group_special" parent="base.menu_sale_config_sales" />
-				
+
+		<!-- Period Category -->
+		<record model="ir.ui.view" id="view_omg_sale_period_category_form">
+			<field name="name">omg.sale.period.category.form</field>
+			<field name="type">form</field>
+			<field name="model">omg.sale.period.category</field>
+			<field name="arch" type="xml">
+				<form string="Category">
+					<field name="name" />
+				</form>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_omg_sale_period_category_tree">
+			<field name="name">omg.sale.period.category_tree</field>
+			<field name="type">tree</field>
+			<field name="model">omg.sale.period.category</field>
+			<field name="arch" type="xml">
+				<tree string="Category">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+		<!--Period Master-->
+		<record id="act_sale_period_category" model="ir.actions.act_window">
+			<field name="name">Period Cateogry</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">omg.sale.period.category</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<menuitem action="act_sale_period_category" id="menu_sale_period_category_master" parent="base.menu_sale_config_sales" />
+		<!--Location-->
+						
 	</data>
 </openerp>
