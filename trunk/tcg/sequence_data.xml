@@ -47,9 +47,13 @@
             <field name="code">ineco.type.stock.fg.ds</field>
         </record>
 
-
+        <record id="seq_purchase_order_tcg_type" model="ir.sequence.type">
+            <field name="name">TCG Purchase Order Type</field>
+            <field name="code">ineco.purchase.order.tcg</field>
+        </record>
         
-        <!-- Sequence -->
+        
+        <!-- Sequence -->        
         <record id="seq_stock_journal_material" model="ir.sequence">
             <field name="name">Raw Material Sequence</field>
             <field name="code">ineco.type.stock.journal.raw</field>
@@ -113,5 +117,12 @@
             <field name="prefix">FG-DSIN%(y)s%(month)s-</field>
         </record>
 
+        <record id="seq_purchase_order_tcg" model="ir.sequence">
+            <field name="name">TCG Purchase Order</field>
+            <field name="code">ineco.purchase.order.tcg</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">PO%(y)s%(month)s-</field>
+        </record>
+        
     </data>
 </openerp>
