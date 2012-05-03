@@ -11,6 +11,7 @@
        			<field name="comment" position="before">
 					<notebook colspan="4">
 						<page string="OMG Information">
+							<field name="omg_no" />
 							<field name="chain_id" />
 							<field name="location_group_id" />
 							<field name="location_type_id" />
@@ -19,8 +20,23 @@
 							<field name="path" />
 							<field name="name_thai" />
 							<field name="store_address_id"/>
+							<field name="omg_classification"/>
+							<field name="omg_format"/>
+							<field name="omg_channel"/>
+							<field name="omg_size"/>
+							<field name="omg_omgarea"/>
 							<field name="omg_approve" groups="base.group_omg_location_approve"/>
 							<field name="omg_alway_equipment" />
+						</page>
+						<page string="OMG Information2">
+							<field name="omg_no_other" />
+							<field name="omg_store_code" />
+							<field name="omg_latitude" />
+							<field name="omg_longitude" />
+							<field name="omg_region" />
+							<field name="omg_retail_store_name" />
+							<field name="omg_recruiter" />
+							<field name="omg_remark" />
 						</page>
 						<page string="OA Contact Address"><field name="oa_address_ids" nolabel="1"/></page>
 						<page string="Location Quantity"><field name="lineqty_ids" nolabel="1"/></page>
