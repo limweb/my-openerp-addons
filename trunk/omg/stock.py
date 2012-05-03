@@ -26,6 +26,7 @@
 # 11-04-2012    POP-004    Change way to send sms
 # 11-04-2012    POP-005    Change uom default when not in same category
 # 17-04-2012    POP-006    Add ineco.stock.location.product.mapping
+# 02-05-2012    DAY-001    Add OMG Field
 
 import socket
 import sys
@@ -645,6 +646,9 @@ class stock_location(osv.osv):
         'omg_latitude': fields.char('Latitude', size=100),
         'omg_longitude': fields.char('Longitude', size=100),
         'omg_channel': fields.char('Channel', size=100),
+        'omg_store_code': fields.char('OMG Store Code', size=100),
+        'omg_no_other': fields.char('No Other', size=100),
+        'omg_retail_store_name': fields.char('Retail Store Name', size=100),
         'omg_concentratedrink7': fields.char('Concentrate Drink 7', size=100),
         'omg_concentratedrink3': fields.char('Concentrate Drink 3', size=100),
         'omg_alway_equipment': fields.boolean('Alway Send Equipment'),
