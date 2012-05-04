@@ -19,6 +19,9 @@
 #
 ##############################################################################
 
+# Date             ID         Message
+# 04-04-2012       DAY-001    ERROR PACK
+
 from osv import fields, osv
 from tools.translate import _
 import decimal_precision as dp
@@ -58,12 +61,14 @@ class ineco_stock_split_into(osv.osv_memory):
                                     'for this product: "%s" (id: %d)') % \
                                     (move.product_id.name, move.product_id.id,))
             if quantity > 0:
-                move_obj.setlast_tracking(cr, uid, [move.id], context=context)
+                tracking_id = track_obj.create(cr, uid, {}, context=context)
+#                move_obj.setlast_tracking(cr, uid, [move.id], context=context)
                 move_obj.write(cr, uid, [move.id], {
                     'product_qty': quantity,
                     'product_uos_qty': quantity,
+                    'tracking_id': tracking_id,
                     'product_uos': move.product_uom.id,
-                })
+                 })
 
             if ispack:
                 balance = move.product_qty - quantity
