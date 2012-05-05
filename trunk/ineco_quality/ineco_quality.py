@@ -168,7 +168,7 @@ class ineco_quality_control(osv.osv):
         default.update({
             'name': self.pool.get('ir.sequence').get(cr, uid, 'ineco.quality.control'),
         })
-        return super(purchase_requisition, self).copy(cr, uid, id, default, context)    
+        return super(ineco_quality_control, self).copy(cr, uid, id, default, context)    
     
 ineco_quality_control()
 
