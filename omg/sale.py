@@ -43,6 +43,7 @@
 # 23-04-2012       POP-020    Add Bug in Period Count
 # 23-04-2012       POP-021    Raise when sale order cancel over lock period.
 # 23-04-2012       POP-022    Add Price in Stock Move when Cash Advance
+# 07-05-2012       POP-023    Use Full Warehouse UOM
 
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
@@ -812,7 +813,7 @@ class sale_order(osv.osv):
                                         new_qty = round(new_qty)
                                         if line.omg_percent_rate:
                                             new_qty = ( ( estimate * line.omg_percent_rate/100 ) / (line.omg_ratio or 1.0) ) * int(total_day)
-                                            new_qty = round(new_qty)
+                                            new_qty = round(new_qty)                                            
                                     else:
                                         lineqty_obj = self.pool.get('stock.location.line.qty')
                                         lineqty_ids = lineqty_obj.search(cr, uid, [('location_id', '=', location.location_id.id),('categ_id','=',line.product_id.categ_id.id)])
@@ -831,7 +832,27 @@ class sale_order(osv.osv):
                                                 new_qty = ((line.product_uom_qty * (1/(line.omg_ratio or 1.0))) / (line.omg_sampling or 1.0)) * int(total_day)
                                                 #POP-009
                                                 new_qty = round(new_qty)
-                                            
+                                    #POP-023
+                                    if line.product_id.uom_id <> line.product_id.warehouse_uom and line.product_id.full_warehouse_uom:
+                                        full_warehouse_qty = round(1/(line.product_id.warehouse_uom.factor or 1))
+                                        if full_warehouse_qty > 1:
+                                            lesspack = round(new_qty,2) % round(full_warehouse_qty,2)
+                                            fullpack = round(new_qty,2) / round(full_warehouse_qty,2)
+                                            if fullpack:
+                                                if fullpack > 1:
+                                                    fullpack = round(fullpack)
+                                                    less_ratio = lesspack / full_warehouse_qty
+                                                    #less > 50% add fullpack
+                                                    if less_ratio and less_ratio >= 0.5:
+                                                        fullpack = fullpack + 1
+                                                        new_qty = fullpack * full_warehouse_qty
+                                                    else:
+                                                        new_qty = fullpack * full_warehouse_qty
+                                                else:
+                                                    new_qty = new_qty
+                                            else:
+                                                new_qty = new_qty
+        
                                                 #old code new_qty = lineqty.quantity * int(total_day)
                                 
                                 #only bom process -> delivery
@@ -841,26 +862,27 @@ class sale_order(osv.osv):
                                 
                                 if new_qty <> 0:                               
                                     new_back = 0
-                                    if line.product_id.equipment:
-                                        current = self.check_delivery_qty(
-                                                    cr,
-                                                    uid,
-                                                    ids,
-                                                    location.location_id.id, 
-                                                    period.period_id.id, 
-                                                    line.product_id.id, 
-                                                    21)
-                                        value_a = self.check_delivery_qty( 
-                                                    cr,
-                                                    uid,
-                                                    ids,
-                                                    location.location_id.id, 
-                                                    period.period_id.id, 
-                                                    line.product_id.id, 
-                                                    14)
-                                        value_b = new_qty
-                                        new_qty = self.choose_delivery_qty(cr, uid, ids, current, value_a, value_b)['add']
-                                        new_back = self.choose_delivery_qty(cr, uid, ids, current, value_a, value_b)['back']
+                                    #Disable Warehouse Compute Equipment Delivery Method by Warehouse (P'Aah)
+                                    #if line.product_id.equipment:
+                                    #    current = self.check_delivery_qty(
+                                    #                cr,
+                                    #                uid,
+                                    #                ids,
+                                    #                location.location_id.id, 
+                                    #                period.period_id.id, 
+                                    #                line.product_id.id, 
+                                    #                21)
+                                    #    value_a = self.check_delivery_qty( 
+                                    #                cr,
+                                    #                uid,
+                                    #                ids,
+                                    #                location.location_id.id, 
+                                    #                period.period_id.id, 
+                                    #                line.product_id.id, 
+                                    #                14)
+                                    #    value_b = new_qty
+                                    #    new_qty = self.choose_delivery_qty(cr, uid, ids, current, value_a, value_b)['add']
+                                    #    new_back = self.choose_delivery_qty(cr, uid, ids, current, value_a, value_b)['back']
 
                                     #POP-017
                                     move_id = False
