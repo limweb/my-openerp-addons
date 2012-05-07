@@ -19,6 +19,7 @@
 							<field name="customer_material"/>
 							<field name="cash_advance" />
 							<field name="equipment" />
+							<field name="full_warehouse_uom" />
 						</group>
 					</group>
 				</group>

@@ -19,6 +19,8 @@
 #
 ##############################################################################
 
+# 07-05-2012     POP-001    Add Use Full Warehouse UOM
+
 from osv import osv, fields
 import decimal_precision as dp
 
@@ -50,12 +52,14 @@ class product_product(osv.osv):
         'equipment': fields.boolean('Equipment'),
         'item_sale_check_ids': fields.many2many('product.product', 'sale_order_product_product_rel', 'child_id', 'product_tmpl_id', 'Item Check Sales'),
         'name_lock': fields.function(_get_name_lock, method=True, type='boolean', string="Lock By PM"),
-        
+        #POP-001
+        'full_warehouse_uom': fields.boolean('Full Warehouse Uom'),
     }
     
     _defaults = {
         'audit': False,
         'equipment': False,
+        'full_warehouse_uom': False,
     }
     
 product_product()
