@@ -21,6 +21,7 @@
 
 # Date             ID         Message
 # 28-12-2011       POP-001    Change rounding accuracy in store procedure round(1/factor)
+# 07-05-2012       POP-002    Bug round(1/factor) divide by zero
 
 import math
 
@@ -116,6 +117,7 @@ class ineco_public_function_convertstock(osv.osv):
 
 #POP-001
     def init(self, cr):
+        #POP-002
         cr.execute("""
             create or replace function ineco_convert_stock(integer, float) returns float as $$
               declare 
@@ -160,7 +162,7 @@ class ineco_public_function_convertstock(osv.osv):
                     product_uom
                   where id = uom_id); 
                 end if;
-                output = (select quantity / round(1/factor) from product_uom where id = uom_id);
+                output = (select quantity / round(1/factor,4) from product_uom where id = uom_id);
                 return ineco_round_down(output);
               end;
                 
