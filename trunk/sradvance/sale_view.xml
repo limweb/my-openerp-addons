@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!-- 07-05-2012	Change inherit from sale.view_order_form all -->
 <openerp>
 	<data>
 
@@ -92,7 +93,8 @@
 			<field name="name">sradvance.sale.order.inherited.form</field>
 			<field name="type">form</field>
 			<field name="model">sale.order</field>
-			<field name="inherit_id" ref="view_sradvance_sale_order_form"/>
+<!-- 			<field name="inherit_id" ref="view_sradvance_sale_order_form"/>  -->
+			<field name="inherit_id" ref="sale.view_order_form"/>
 			<field name="arch" type="xml">
 				<xpath expr="/form/notebook/page/field/tree/field[@name='name']" position="after">
 					<field name="sr_width"/>
@@ -105,7 +107,8 @@
 			<field name="name">sradvance.sale.order.inherited2.form</field>
 			<field name="type">form</field>
 			<field name="model">sale.order</field>
-			<field name="inherit_id" ref="view_sradvance_sale_order_inherited_form"/>
+<!-- 			<field name="inherit_id" ref="view_sradvance_sale_order_inherited_form"/>  -->
+			<field name="inherit_id" ref="sale.view_order_form"/>
 			<field name="arch" type="xml">
 				<xpath expr="/form/notebook/page/field/form/notebook/page/field[@name='product_id']" position="after">
 					<field name="sr_width" />
@@ -118,7 +121,8 @@
 			<field name="name">sradvance.sale.order.inherited3.form</field>
 			<field name="type">form</field>
 			<field name="model">sale.order</field>
-			<field name="inherit_id" ref="view_sradvance_sale_order_inherited2_form"/>
+<!-- 			<field name="inherit_id" ref="view_sradvance_sale_order_inherited2_form"/>  -->
+			<field name="inherit_id" ref="sale.view_order_form"/>
 			<field name="arch" type="xml">
 				<xpath expr="/form/notebook/page[@string='History']" position="before">
 					<page string="Capacity Plan">
