@@ -71,7 +71,7 @@
 
 		<!-- Interna Move -->
         <record id="ineco_view_picking_form_setdraft" model="ir.ui.view">
-            <field name="name">ineco.stock.picking.form</field>
+            <field name="name">ineco.stock.picking.setdraft.form</field>
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="type">form</field>
@@ -95,16 +95,16 @@
             </field>
         </record>
         
-        <record id="ineco_view_picking_form" model="ir.ui.view">
-            <field name="name">ineco.stock.picking.form</field>
+        <record id="ineco_view_picking_category_form" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.category.form</field>
             <field name="model">stock.picking</field>
             <field name="type">form</field>
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field eval="12" name="priority"/>
             <field name="arch" type="xml">
-            	<xpath expr="/form/notebook/page[@string='Products']/field/form/group/field[@name='location_dest_id']" position="replace">
+            	<xpath expr="/form/notebook/page[@string='Products']/field[@name='move_lines']/form[@string='Stock Moves']/group/field[@name='location_dest_id']" position="replace">
             		<field name="location_dest_id" domain="['|',('usage','=','internal'),('usage','=','inventory')]" />
-            		<field name="category_id" colspan="4" readonly="1"/>
+            		<field name="category_id" colspan="4" readonly="1" />
             	</xpath>            	
             </field>
         </record>
@@ -152,7 +152,7 @@
             <field name="name">ineco.stock.picking.form.inherit</field>
             <field name="model">stock.picking</field>
             <field name="type">form</field>
-            <field name="inherit_id" ref="ineco_view_picking_form"/>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
             <field eval="12" name="priority"/>
             <field name="arch" type="xml">
             	<xpath expr="/form/notebook/page[@string='Products']/field/form/group/field[@name='product_uom']" position="replace">
@@ -200,8 +200,8 @@
 			</field>
 		</record>				 
 
-         <record id="ineco_view_picking_form" model="ir.ui.view">
-            <field name="name">ineco.stock.picking.form</field>
+         <record id="ineco_view_picking_loadpack_form" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.loadpack.form</field>
             <field name="model">stock.picking</field>
             <field name="type">form</field>
             <field name="inherit_id" ref="stock.view_picking_form"/>

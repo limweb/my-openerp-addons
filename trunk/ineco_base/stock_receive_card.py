@@ -23,6 +23,7 @@
 # 17-01-2012    POP-001    Change no-duplicate load pack
 # 17-01-2012    POP-002    Change load packing card not in cancel state.
 # 18-01-2012    POP-003    Change sure pack no available in load packing no.
+# 09-05-2012    POP-004    Add Default Category ID
 
 from osv import fields, osv
 from tools.translate import _
@@ -55,6 +56,7 @@ class stock_receive_card(osv.osv_memory):
                 stock_ids = self.pool.get('ineco.stock.report').search(cr, uid, [('tracking_id','=',track.id),('qty','>',0)])
                 if stock_ids:
                     stock_obj = self.pool.get('ineco.stock.report').browse(cr, uid, stock_ids)[0]
+                    uom_obj = self.pool.get('product.uom').browse(cr, uid, [stock_obj.uom_id.id])
                     move_id = self.pool.get('stock.move').create(cr, uid, {
                         'name': stock_obj.product_id.name, # move.name,
                         'picking_id': pick_obj.id ,
@@ -75,6 +77,8 @@ class stock_receive_card(osv.osv_memory):
                         'state': 'assigned',
                         'note': 'load packing',
                         'company_id': pick_obj.company_id.id,# move.company_id.id,
+                        #POP-004
+                        'category_id': stock_obj.uom_id.category_id.id,
                     })
                 else:
                     raise osv.except_osv(_('Error !'), _('Can not find available Pack No -> '+track.name))    
