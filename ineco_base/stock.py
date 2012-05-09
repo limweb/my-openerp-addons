@@ -32,7 +32,7 @@
 # 28-01-2012       POP-010    Move ineco.stock.keeping.method to product.py
 # 15-01-2012       POP-011    Create Query query.ineco.stock.report 
 # 20-02-2012       POP-012    Create ienco.stock.barcode.delivery
-# 08-03-2012       POP-013    Make perfomace auto picking
+# 08-03-2012       POP-013    Make performace auto picking
 # 10-03-2012       POP-014    Change Split in Auto Picking -> Valid by Do it Again
 # 14-03-2012       POP-015    Change way to force compute with delivery
 # 16-03-2012       POP-015    Change Set to Confirm -> Set To Draft
