@@ -53,35 +53,67 @@ class stock_receive_card(osv.osv_memory):
             stock_move_obj = self.pool.get('stock.move')
             for track in track_obj.browse(cr, uid, [tracking_id.id], context=context):
                 #POP-003
-                stock_ids = self.pool.get('ineco.stock.report').search(cr, uid, [('tracking_id','=',track.id),('qty','>',0)])
-                if stock_ids:
-                    stock_obj = self.pool.get('ineco.stock.report').browse(cr, uid, stock_ids)[0]
-                    uom_obj = self.pool.get('product.uom').browse(cr, uid, [stock_obj.uom_id.id])
-                    move_id = self.pool.get('stock.move').create(cr, uid, {
-                        'name': stock_obj.product_id.name, # move.name,
-                        'picking_id': pick_obj.id ,
-                        'product_id': stock_obj.product_id.id, # move.product_id.id,
-                        'date': time.strftime('%Y-%m-%d %H:%M:%S'),
-                        'date_expected': time.strftime('%Y-%m-%d %H:%M:%S'),
-                        'product_qty': stock_obj.qty, # move.product_qty,
-                        'product_uom': stock_obj.uom_id.id, # move.product_uom.id,
-                        'product_uos_qty': stock_obj.qty, # move.product_uos_qty,
-                        'product_uos': stock_obj.uom_id.id, # move.product_uos.id,
-                        'tracking_id': track.id, # move.tracking_id.id,
-                        'prodlot_id': stock_obj.lot_id.id, # move.prodlot_id.id,
-                        'product_packaging': False, #move.product_packaging.id or False,
-                        'address_id': False,
-                        'location_id': stock_obj.location_dest_id.id, # move.location_dest_id.id,
-                        'location_dest_id': location_dest_id.id,
-                        'sale_line_id': False,
-                        'state': 'assigned',
-                        'note': 'load packing',
-                        'company_id': pick_obj.company_id.id,# move.company_id.id,
-                        #POP-004
-                        'category_id': stock_obj.uom_id.category_id.id,
-                    })
+                if ('passing' in context) and (context.get('passing') == 0):
+                    stock_ids = self.pool.get('stock.move').search(cr, uid, [('tracking_id','=',track.id),('state','=','done')])
+                    if stock_ids:
+                        stock_obj = self.pool.get('stock.move').browse(cr, uid, stock_ids)[0]
+                        uom_obj = self.pool.get('product.uom').browse(cr, uid, [stock_obj.product_uom.id])
+                        move_id = self.pool.get('stock.move').create(cr, uid, {
+                            'name': stock_obj.product_id.name, # move.name,
+                            'picking_id': pick_obj.id ,
+                            'product_id': stock_obj.product_id.id, # move.product_id.id,
+                            'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                            'date_expected': time.strftime('%Y-%m-%d %H:%M:%S'),
+                            'product_qty': stock_obj.product_qty, # move.product_qty,
+                            'product_uom': stock_obj.product_uom.id, # move.product_uom.id,
+                            'product_uos_qty': stock_obj.product_qty, # move.product_uos_qty,
+                            'product_uos': stock_obj.product_uom.id, # move.product_uos.id,
+                            'tracking_id': track.id, # move.tracking_id.id,
+                            'prodlot_id': stock_obj.prodlot_id.id, # move.prodlot_id.id,
+                            'product_packaging': False, #move.product_packaging.id or False,
+                            'address_id': False,
+                            'location_id': stock_obj.location_dest_id.id, # move.location_dest_id.id,
+                            'location_dest_id': location_dest_id.id,
+                            'sale_line_id': False,
+                            'state': 'assigned',
+                            'note': 'load packing',
+                            'company_id': pick_obj.company_id.id,# move.company_id.id,
+                            #POP-004
+                            'category_id': stock_obj.product_uom.category_id.id,
+                        })
+                    else:
+                        raise osv.except_osv(_('Error !'), _('Can not find pack -> '+track.name))    
+                    
                 else:
-                    raise osv.except_osv(_('Error !'), _('Can not find available Pack No -> '+track.name))    
+                    stock_ids = self.pool.get('ineco.stock.report').search(cr, uid, [('tracking_id','=',track.id),('qty','>',0)])
+                    if stock_ids:
+                        stock_obj = self.pool.get('ineco.stock.report').browse(cr, uid, stock_ids)[0]
+                        uom_obj = self.pool.get('product.uom').browse(cr, uid, [stock_obj.uom_id.id])
+                        move_id = self.pool.get('stock.move').create(cr, uid, {
+                            'name': stock_obj.product_id.name, # move.name,
+                            'picking_id': pick_obj.id ,
+                            'product_id': stock_obj.product_id.id, # move.product_id.id,
+                            'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                            'date_expected': time.strftime('%Y-%m-%d %H:%M:%S'),
+                            'product_qty': stock_obj.qty, # move.product_qty,
+                            'product_uom': stock_obj.uom_id.id, # move.product_uom.id,
+                            'product_uos_qty': stock_obj.qty, # move.product_uos_qty,
+                            'product_uos': stock_obj.uom_id.id, # move.product_uos.id,
+                            'tracking_id': track.id, # move.tracking_id.id,
+                            'prodlot_id': stock_obj.lot_id.id, # move.prodlot_id.id,
+                            'product_packaging': False, #move.product_packaging.id or False,
+                            'address_id': False,
+                            'location_id': stock_obj.location_dest_id.id, # move.location_dest_id.id,
+                            'location_dest_id': location_dest_id.id,
+                            'sale_line_id': False,
+                            'state': 'assigned',
+                            'note': 'load packing',
+                            'company_id': pick_obj.company_id.id,# move.company_id.id,
+                            #POP-004
+                            'category_id': stock_obj.uom_id.category_id.id,
+                        })
+                    else:
+                        raise osv.except_osv(_('Error !'), _('Can not find available Pack No -> '+track.name))    
 #                location_id = False
 #                for move in track.move_ids:
 #                    #POP-002
