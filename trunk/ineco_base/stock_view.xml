@@ -4,7 +4,7 @@
 15-12-2011       POP-001    Create new Form, Tree, Search, Action of ineco.stock.report
 30-12-2011		 POP-002 	Create new Form, Delivery Order (Add Delivery Date)
  -->
- 
+
 <openerp>
 	<data>
         <record id="ineco_view_picking_in_form" model="ir.ui.view">
@@ -44,6 +44,25 @@
             </field>
         </record>
 
+         <record id="ineco_view_picking_in_loadpack_form" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.in.loadpack.form</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_picking_in_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page/field[@name='move_lines']" position="before">
+            		<button
+                        name="%(ineco_base.stock_receive_card_load)d"
+                        string="Load Pack (Not Check)"
+                        type="action" 
+                        icon="terp-stock_effects-object-colorize"
+                        states="draft,waiting,confirmed,assigned" 
+                        colspan="4"
+                        context="{'passing':0}" />
+            	</xpath>            
+            </field>
+         </record>
+        
         <record id="ineco_view_picking_out_form" model="ir.ui.view">
             <field name="name">stock.picking.out.form</field>
             <field name="model">stock.picking</field>
@@ -213,7 +232,8 @@
                         type="action" 
                         icon="terp-stock_effects-object-colorize"
                         states="draft,waiting,confirmed,assigned" 
-                        colspan="4" />
+                        colspan="4"
+                        context="{'passing':1}" />
             	</xpath>            
             </field>
          </record>
