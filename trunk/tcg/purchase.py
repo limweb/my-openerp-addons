@@ -74,10 +74,15 @@ class purchase_order(osv.osv):
             message = _("Purchase order '%s' is cancelled.") % name
             self.log(cr, uid, id, message)
         return True
+
+    def wkf_approve_order(self, cr, uid, ids, context=None):
+        po_no = self.pool.get('ir.sequence').get(cr, uid, 'ineco.purchase.order.tcg')
+        self.write(cr, uid, ids, {'state': 'approved', 'date_approve': time.strftime('%Y-%m-%d'),'purchase_order_no':po_no})
+        return True
     
     def action_picking_create(self,cr, uid, ids, *args):
         picking_id = False
-        po_no = self.pool.get('ir.sequence').get(cr, uid, 'ineco.purchase.order.tcg')
+        #po_no = self.pool.get('ir.sequence').get(cr, uid, 'ineco.purchase.order.tcg')
         for order in self.browse(cr, uid, ids):
             loc_id = order.partner_id.property_stock_supplier.id
             istate = 'none'
@@ -121,7 +126,7 @@ class purchase_order(osv.osv):
                     if order_line.move_dest_id:
                         self.pool.get('stock.move').write(cr, uid, [order_line.move_dest_id.id], {'location_id':order.location_id.id})
                     todo_moves.append(move)
-            order.write({'purchase_order_no': po_no})
+            #order.write({'purchase_order_no': po_no})
             self.pool.get('stock.move').action_confirm(cr, uid, todo_moves)
             self.pool.get('stock.move').force_assign(cr, uid, todo_moves)
             wf_service = netsvc.LocalService("workflow")
