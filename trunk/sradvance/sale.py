@@ -22,6 +22,7 @@
 
 # 13-02-2012    POP-001    Add Delivery Date in Delivery Order.
 #               POP-002    ADd Delivery Date in Production.
+# 14-05-2012    POP-003    Add Sale Line Id IN MRP.PRODUCTION
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -376,6 +377,8 @@ class sale_order(osv.osv):
                             #POP-002
                             'delivery_date': order.date_finished,
                             'note': sticker_note ,
+                            #POP-003
+                            'sale_line_id': line.id,
                         })
                         seq = seq + 1
                         #mrp_order_obj.action_confirm(cr, uid, [mrp_order_id])

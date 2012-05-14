@@ -292,6 +292,7 @@ class mrp_production(osv.osv):
         'delivery_date': fields.date('Delivery Date'),
         #POP-001
         'note': fields.char('Note', size=100),
+        'sale_line_id': fields.many2one('sale.order.line', 'Sale Line'),
     }
 
     def action_compute(self, cr, uid, ids, properties=[]):
