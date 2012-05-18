@@ -279,32 +279,64 @@ class stock_move(osv.osv):
                     #POP-003 
                     search_sql = """
                         select 
-                          ineco_stock_report.id,
-                          ineco_stock_report.location_dest_id,
-                          ineco_stock_report.lot_id,
-                          ineco_stock_report.expired,
-                          ineco_stock_report.tracking_id,
-                          ineco_stock_report.product_id,
-                          ineco_stock_report.uom_id,
-                          ineco_stock_report.qty, 
+                          ineco_stock_report_master.id,
+                          ineco_stock_report_master.location_dest_id,
+                          ineco_stock_report_master.lot_id,
+                          ineco_stock_report_master.expired,
+                          ineco_stock_report_master.tracking_id,
+                          ineco_stock_report_master.product_id,
+                          ineco_stock_report_master.uom_id,
+                          ineco_stock_report_master.qty, 
                           ineco_get_stock(uom_id, qty) as total,
                           coalesce((select sum(product_qty) as total from ineco_stock_tracking_line
                             join stock_move on ineco_stock_tracking_line.move_id = stock_move.id
-                            where ineco_stock_tracking_line.tracking_id = ineco_stock_report.tracking_id),0) as usage,
+                            where ineco_stock_tracking_line.tracking_id = ineco_stock_report_master.tracking_id),0) as usage,
                           ineco_get_stock(uom_id, qty) -
                           coalesce((select sum(product_qty) as total from ineco_stock_tracking_line
                             join stock_move on ineco_stock_tracking_line.move_id = stock_move.id
-                            where ineco_stock_tracking_line.tracking_id = ineco_stock_report.tracking_id),0) as available
-                        from ineco_stock_report
-                        join stock_production_lot on ineco_stock_report.lot_id = stock_production_lot.id
-                        join stock_tracking on ineco_stock_report.tracking_id = stock_tracking.id
-                        where ineco_stock_report.product_id = %s and
-                          ineco_get_stock(uom_id, qty) -
-                          coalesce((select sum(product_qty) as total from ineco_stock_tracking_line
-                           join stock_move on ineco_stock_tracking_line.move_id = stock_move.id
-                           where ineco_stock_tracking_line.tracking_id = ineco_stock_report.tracking_id),0) > 0
-                        order by ineco_stock_report.expired, stock_production_lot.date, stock_tracking.name                                 
+                            where ineco_stock_tracking_line.tracking_id = ineco_stock_report_master.tracking_id),0) as available
+                        from ineco_stock_report_master
+                        left join stock_production_lot on ineco_stock_report_master.lot_id = stock_production_lot.id
+                        left join stock_tracking on ineco_stock_report_master.tracking_id = stock_tracking.id
+                        left join stock_location on ineco_stock_report_master.location_dest_id = stock_location.id
+                        where 
+                          ineco_stock_report_master.product_id = %s and
+                          ineco_stock_report_master.qty > 0 and
+                          stock_location.usage = 'internal' and
+                          stock_location.chained_location_type = 'none'              
+                        order by 
+                          ineco_stock_report_master.expired, 
+                          stock_production_lot.date, 
+                          stock_tracking.name                
                     """
+#                    search_sql = """
+#                        select 
+#                          ineco_stock_report.id,
+#                          ineco_stock_report.location_dest_id,
+#                          ineco_stock_report.lot_id,
+#                          ineco_stock_report.expired,
+#                          ineco_stock_report.tracking_id,
+#                          ineco_stock_report.product_id,
+#                          ineco_stock_report.uom_id,
+#                          ineco_stock_report.qty, 
+#                          ineco_get_stock(uom_id, qty) as total,
+#                          coalesce((select sum(product_qty) as total from ineco_stock_tracking_line
+#                            join stock_move on ineco_stock_tracking_line.move_id = stock_move.id
+#                            where ineco_stock_tracking_line.tracking_id = ineco_stock_report.tracking_id),0) as usage,
+#                          ineco_get_stock(uom_id, qty) -
+#                          coalesce((select sum(product_qty) as total from ineco_stock_tracking_line
+#                            join stock_move on ineco_stock_tracking_line.move_id = stock_move.id
+#                            where ineco_stock_tracking_line.tracking_id = ineco_stock_report.tracking_id),0) as available
+#                        from ineco_stock_report
+#                        join stock_production_lot on ineco_stock_report.lot_id = stock_production_lot.id
+#                        join stock_tracking on ineco_stock_report.tracking_id = stock_tracking.id
+#                        where ineco_stock_report.product_id = %s and
+#                          ineco_get_stock(uom_id, qty) -
+#                          coalesce((select sum(product_qty) as total from ineco_stock_tracking_line
+#                           join stock_move on ineco_stock_tracking_line.move_id = stock_move.id
+#                           where ineco_stock_tracking_line.tracking_id = ineco_stock_report.tracking_id),0) > 0
+#                        order by ineco_stock_report.expired, stock_production_lot.date, stock_tracking.name                                 
+#                    """
                     cr.execute(search_sql % move.product_id.id)
                     stock_list = cr.dictfetchall()
                     balance_qty = move.product_qty
@@ -1385,8 +1417,9 @@ ineco_stock_report_template_d()
 class ineco_stock_report(osv.osv):
         
     _name = 'ineco.stock.report'
-    _description = 'Stock Reporting'
-    _auto = False
+    _description = 'Ineco Stock Reporting'
+    _table = 'ineco_stock_report_master'
+    #_auto = False
     _columns = {
         'location_dest_id': fields.many2one('stock.location','Location'),
         'lot_id': fields.many2one('stock.production.lot', 'Production Lot'),
@@ -1394,11 +1427,17 @@ class ineco_stock_report(osv.osv):
         'tracking_id': fields.many2one('stock.tracking', 'Pack'),
         'product_id': fields.many2one('product.product', 'Product'),
         'uom_id': fields.many2one('product.uom', 'UOM'),
-        'qty': fields.float('Quantity'),
+        'qty': fields.float('On Hand'),
         #POP-005
         'warehouse_uom': fields.many2one('product.uom', 'Warehouse UOM'),
         'warehouse_qty': fields.float('Warehouse Qty'),
         'date_input': fields.date('Lot Date'),
+        'quantity': fields.float('Quantity')
+    }
+    
+    _defaults = {
+        'qty': 0,
+        'quantity': 0,
     }
     
     def schedule_sync(self, cr, uid, context=None):
@@ -1531,14 +1570,14 @@ class ineco_stock_barcode_delivery(osv.osv):
                     'location_dest_id': location_out.id,
                     'tracking_id': vals['tracking_id'],
                     'prodlot_id': vals['lot_id'],
-                    'state': 'done',
+                    'state': 'draft',
                     'note': False,
                 })
                 vals.update({'move_id': move_id})
             else:
                 raise osv.except_osv(_('Error !'), _('Output Location cannot set.'))
-
-        return super(ineco_stock_barcode_delivery, self).create(cr, uid, vals, context=context)
+            self.pool.get('stock.move').browse(cr, uid, move_id).write({'state':'done'})
+        return super(ineco_stock_barcode_delivery, self).create(cr, uid, vals, context=context) 
 
     def write(self, cr, uid, ids, vals, context=None):
         if context is None:
@@ -1547,7 +1586,7 @@ class ineco_stock_barcode_delivery(osv.osv):
         if barcode and barcode.move_id:
             stock_move = self.pool.get('stock.move').browse(cr, uid, [barcode.move_id.id])[0]
             if stock_move:
-                stock_move.write({'product_qty': vals['quantity']})
+                stock_move.write({'product_qty': vals['quantity'],'state':'done'})
         return super(ineco_stock_barcode_delivery, self).write(cr, uid, ids, vals, context=context)
 
     def unlink(self, cr, uid, ids, context=None):
@@ -1569,8 +1608,9 @@ class ineco_stock_barcode_delivery(osv.osv):
         track_obj = self.pool.get('stock.tracking')
         track = track_obj.browse(cr, uid, [tracking_id], context=context)[0]
         if track:
+#                select ir.product_id, ir.tracking_id, ir.uom_id, pt.name, ir.qty, ir.location_dest_id, ir.lot_id from tmp_ineco_stock_report ir
             cr.execute("""
-                select ir.product_id, ir.tracking_id, ir.uom_id, pt.name, ir.qty, ir.location_dest_id, ir.lot_id from tmp_ineco_stock_report ir
+                select ir.product_id, ir.tracking_id, ir.uom_id, pt.name, ir.qty, ir.location_dest_id, ir.lot_id from ineco_stock_report_master ir
                   left join stock_tracking st on ir.tracking_id = st.id
                   left join product_template pt on ir.product_id = pt.id
                 where ir.tracking_id = %s
