@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+	    <record model="ir.ui.view" id="view_tcg_sale_order_form">
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="name">tcg.sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<field name="create_date" position="before">
+				    <field name="date_delivery" />
+				</field>
+            </field>
+		</record>
+	</data>
+</openerp>
