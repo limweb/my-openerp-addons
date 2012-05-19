@@ -35,6 +35,10 @@ class sale_order(osv.osv):
     _description = "Sales Order"
     _inherit = "sale.order"
     
+    _columns = {
+        'date_delivery': fields.date('Delivery Date', required=True),
+    }
+    
     def action_ship_create(self, cr, uid, ids, *args):
         wf_service = netsvc.LocalService("workflow")
         picking_id = False
@@ -47,8 +51,9 @@ class sale_order(osv.osv):
             picking_id = False
             for line in order.order_line:
                 proc_id = False
-                date_planned = datetime.now() + relativedelta(days=line.delay or 0.0)
-                date_planned = (date_planned - timedelta(days=company.security_lead)).strftime('%Y-%m-%d %H:%M:%S')
+                #date_planned = datetime.now() + relativedelta(days=line.delay or 0.0)
+                #date_planned = (date_planned - timedelta(days=company.security_lead)).strftime('%Y-%m-%d %H:%M:%S')
+                date_planned = order.date_delivery
 
                 if line.state == 'done':
                     continue

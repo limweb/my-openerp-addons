@@ -35,6 +35,8 @@
         'security.xml',
         'report_data.xml',
         'purchase_view.xml',
+        'purchase_requisition_view.xml',
+        'sale_view.xml',
         ],
     'demo_xml': [],
     'installable': True,
