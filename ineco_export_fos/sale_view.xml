@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="view_ineco_fos_sale_order" model="ir.ui.view">
+			<field name="name">ineco.fos.sale.order</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page[@string='Sales Order']/group/field[@name='state']" position="after">
+				  	<button name="export_fos" states="manual,progress" string="Export to FOS" type="object" icon="gtk-go-forward"/>				    
+				</xpath>
+			</field>
+		</record> 
+
+	</data>
+</openerp>
