@@ -31,6 +31,7 @@ import decimal_precision as dp
 import netsvc
 import csv
 import time
+import codecs
 
 import pymssql
 
@@ -47,6 +48,7 @@ class sale_order(osv.osv):
         if context is None:
             context = {}
         for order in self.pool.get('sale.order').browse(cr, uid, ids):
+            
             sql = """
                 select 
                   substring(client_order_ref,1,23) as bookingno,
@@ -95,7 +97,7 @@ class sale_order(osv.osv):
                   to_char(osp.date_start, 'Q') as quarter,
                   to_char(osp.date_start, 'MM') as mth,
                   SUBSTRING(ospc.name, 'Y*([0-9]{1,})')::Integer as weekno,-- 'wait change' as weekno,
-                  osc.name as chaincd, --'wait change - osrc.chain_id' as chaincd,
+                  substring(osc.name,1,15) as chaincd, --'wait change - osrc.chain_id' as chaincd,
                   amount_untaxed as totdemochg,
                   amount_untaxed as totsubamt,
                   amount_tax as tottaxamt,
@@ -106,7 +108,7 @@ class sale_order(osv.osv):
                   'T' as twoway,
                   3 as dlvsystem, 
                   'Y' as flagworkday,
-                  ru3.login as usercreate,
+                  substring(ru3.login,1,10) as usercreate,
                   so.create_date::date as createdate
                 from sale_order so
                 left join res_partner rp on so.partner_id = rp.id
@@ -131,21 +133,191 @@ class sale_order(osv.osv):
                 insert_field = self._genfield(data,1);
                 insert_value = self._genfield(data,2);
                 insert_contrmf_sql = 'insert into contrmf '+insert_field+' values '+insert_value
+                update_contrmf_sql = "update contrmf set "+self._genfield(data,3)+" where contractno = '%s'" % data['contractno']
                 if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
                     server_ip = order.company_id.fos_host
                     server_user = order.company_id.fos_user
                     server_password = order.company_id.fos_password
                     server_db = order.company_id.fos_dbname
+
                     conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
                                            database=server_db,as_dict=True)
                     cur = conn.cursor()
-                    cur.execute(insert_contrmf_sql)
-                    
-                    #sql_complete = sql % (company.ineco_nav_table,table_name) 
-                    ##cur.execute(sql_complete )
+                    try:
+                        #insert_sql
+                        cur.execute('SET ANSI_WARNINGS off')
+                        cur.execute(insert_contrmf_sql)
+
+                    except:
+                        #update_sql
+                        cur.execute('SET ANSI_WARNINGS off')
+                        cur.execute(update_contrmf_sql)
+
+                    cur.close()
+                    conn.commit()
                     
                 else:
                     raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
+                
+            salescalendar_sql = """
+                select
+                  osc.name as chaincd, --'wait change - osrc.chain_id' as chaincd,
+                  to_char(osp.date_start, 'yyyy') as year,
+                  SUBSTRING(ospc.name, 'Y*([0-9]{1,})')::Integer as weekno,-- 'wait change' as weekno,
+                  pc.id as boothcd, 
+                  client_order_ref as bookingno,
+                  so.name as contractno,
+                  sl.store_code as storecd,
+                  sl.name as storename,
+                  oslg.name as groupcd
+                from sale_order so
+                join sale_branch_line sbl on sbl.sale_id = so.id
+                join stock_location sl on sbl.location_id = sl.id
+                join omg_sale_location_group oslg on sl.location_group_id = oslg.id
+                 join omg_sale_reserve_contact osrc on so.client_order_ref = osrc.name
+                 join omg_sale_period osp on so.period_id = osp.id
+                left join product_category pc on so.service_category_id = pc.id
+                 join omg_sale_chain osc on osrc.chain_id = osc.id
+                 join res_users ru3 on so.create_uid = ru3.id
+                 join omg_sale_period_category ospc on ospc.id = osp.category_id
+                where so.company_id = %s and so.id = %s
+            """
+            cr.execute(salescalendar_sql % (order.company_id.id, order.id))
+            line_data =  cr.dictfetchall()
+            for data in line_data:
+                insert_field = self._genfield(data,1);
+                insert_value = self._genfield(data,2);
+                insert_contrmf_sql = 'insert into salescalendar '+insert_field+' values '+insert_value
+                update_contrmf_sql = "update salescalendar set "+self._genfield(data,3)+" where contractno = '%s' and storecd = '%s' " % ( data['contractno'], data['storecd'])
+                if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
+                    server_ip = order.company_id.fos_host
+                    server_user = order.company_id.fos_user
+                    server_password = order.company_id.fos_password
+                    server_db = order.company_id.fos_dbname
+
+                    conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
+                                           database=server_db,as_dict=True)
+                    cur = conn.cursor()
+                    try:
+                        #insert_sql
+                        cur.execute('SET ANSI_WARNINGS off')
+                        cur.execute(insert_contrmf_sql)
+
+                    except:
+                        #update_sql
+                        cur.execute('SET ANSI_WARNINGS off')
+                        cur.execute(update_contrmf_sql)
+
+                    cur.close()
+                    conn.commit()
+                    
+                else:
+                    raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
+
+            costitem_sql = """
+                select
+                  so.name as contractno,
+                  so.client_order_ref as bookingno,
+                  pp.id as costitem,
+                  1 as lineseq,
+                  'other' as typecd,
+                  pp.name_template as costdesc,
+                  product_uom_qty as chargeqty,
+                  'Day' as chargeuom,
+                  (select count(*) from sale_branch_line where sale_id = so.id) as altqty ,
+                  'Store' as altuom,
+                  coalesce(price_unit,0) as chargerate
+                from 
+                  sale_order so 
+                join sale_order_line sol on so.id = sol.order_id
+                left join omg_sale_reserve_contact osrc on so.client_order_ref = osrc.name
+                left join product_product pp on sol.product_id = pp.id
+               where so.company_id = %s and so.id = %s
+            """
+            cr.execute(costitem_sql % (order.company_id.id, order.id))
+            line_data =  cr.dictfetchall()
+            for data in line_data:
+                insert_field = self._genfield(data,1);
+                insert_value = self._genfield(data,2);
+                insert_contrmf_sql = 'insert into contr_costitem '+insert_field+' values '+insert_value
+                update_contrmf_sql = "update contr_costitem set "+self._genfield(data,3)+" where contractno = '%s' and costitem = %s " % (data['contractno'],data['costitem'])
+                if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
+                    server_ip = order.company_id.fos_host
+                    server_user = order.company_id.fos_user
+                    server_password = order.company_id.fos_password
+                    server_db = order.company_id.fos_dbname
+
+                    conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
+                                           database=server_db,as_dict=True)
+                    cur = conn.cursor()
+                    try:
+                        #insert_sql
+                        cur.execute('SET ANSI_WARNINGS off')
+                        cur.execute(insert_contrmf_sql)
+
+                    except:
+                        #update_sql
+                        cur.execute('SET ANSI_WARNINGS off')
+                        cur.execute(update_contrmf_sql)
+
+                    cur.close()
+                    conn.commit()
+                    
+                else:
+                    raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
+
+            matitem_sql = """
+                select
+                  so.name as contractno,
+                  so.client_order_ref as bookingno,
+                  pp.id as itemno,
+                  1 as lineseq,
+                  'other' as itemtype,
+                  pp.name_template as itemdesc1,
+                  (select count(*) from sale_branch_line where sale_id = so.id) as storeqty,
+                  product_uom_qty as totqty,
+                  pu.name as qtyuom
+                from 
+                  sale_order so 
+                join sale_order_line sol on so.id = sol.order_id
+                left join omg_sale_reserve_contact osrc on so.client_order_ref = osrc.name
+                left join product_product pp on sol.product_id = pp.id
+                left join product_template pt on pp.product_tmpl_id = pt.id
+                left join product_uom pu on pt.uom_id = pu.id
+               where so.company_id = %s and so.id = %s
+            """
+            cr.execute(matitem_sql % (order.company_id.id, order.id))
+            line_data =  cr.dictfetchall()
+            for data in line_data:
+                insert_field = self._genfield(data,1);
+                insert_value = self._genfield(data,2);
+                insert_contrmf_sql = 'insert into contr_matitem '+insert_field+' values '+insert_value
+                update_contrmf_sql = "update contr_matitem set "+self._genfield(data,3)+" where contractno = '%s' and itemno = %s " % (data['contractno'],data['itemno'])
+                if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
+                    server_ip = order.company_id.fos_host
+                    server_user = order.company_id.fos_user
+                    server_password = order.company_id.fos_password
+                    server_db = order.company_id.fos_dbname
+
+                    conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
+                                           database=server_db,as_dict=True)
+                    cur = conn.cursor()
+                    try:
+                        #insert_sql
+                        cur.execute('SET ANSI_WARNINGS off')
+                        cur.execute(insert_contrmf_sql)
+
+                    except:
+                        #update_sql
+                        cur.execute('SET ANSI_WARNINGS off')
+                        cur.execute(update_contrmf_sql)
+
+                    cur.close()
+                    conn.commit()
+                    
+                else:
+                    raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
+
         return True
     
     def _genfield(self, data, sqltype):
@@ -162,7 +334,10 @@ class sale_order(osv.osv):
                     result = result+"null,"
                 else:
                     if isinstance(data[key], (str,unicode,date,datetime)):
-                        result = result+"'%s'," % data[key]
+                        if isinstance(data[key], (str,unicode)) :
+                            result = result+"'%s'," % data[key].encode('utf-8')
+                        else:
+                            result = result+"'%s'," % data[key]
                     else:
                         result = result+"%s," % data[key]
             elif (sqltype == 3):
@@ -170,9 +345,12 @@ class sale_order(osv.osv):
                     result = result+key+"=null, "
                 else: 
                     if isinstance(data[key], (str,unicode,date,datetime)):
-                        result = result+key+"='%s', " % data[key]
+                        if isinstance(data[key], (str,unicode)):
+                            result = result+key+"='%s', " % data[key].encode('utf-8')
+                        else:
+                            result = result+key+"='%s', " % data[key]
                     else:
-                        result = result+key+"=%s, " % data[key]   
+                        result = result+key+"=%s, " % data[key] 
         if (sqltype == 1):
             result = '('+result[0:len(result)-1]+')'
         elif (sqltype == 2):
