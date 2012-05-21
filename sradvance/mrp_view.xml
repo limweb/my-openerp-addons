@@ -179,6 +179,8 @@
 				<tree string="Production Tracking Fixed">
 					<field name="tracking_id" />
 					<field name="workcenter_id" />
+					<field name="product_width" />
+					<field name="product_length" />
 					<field name="date_planned" />
 					<field name="user_id" />
 				</tree>

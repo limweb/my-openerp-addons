@@ -22,6 +22,8 @@
 #
 # 30-01-2012    POP-001        Add Note Field in mrp.production.
 # 13-02-2012    POP-002        Add Delivery Date in Production.
+# 21-05-2012    POP-003        Add Delivery Date In Workcenter Line
+# 21-05-2012    POP-004        Add Finish Product By 1 When Tracking Done
 
 from datetime import datetime
 from osv import osv, fields
@@ -172,7 +174,8 @@ class ineco_mrp_production_tracking(osv.osv):
         prod_obj = self.pool.get('mrp.production')
         for tracking in self.browse(cr, uid, ids):
             for production in self.pool.get('mrp.production').browse(cr, uid, [tracking.production_id.id] ):
-                prod_obj.action_produce(cr, uid, production.id, production.product_qty, "consume_produce", context)
+                #POP-004
+                prod_obj.action_produce(cr, uid, production.id, 1, "consume_produce", context)
             print "Production Done"
         return True
 
@@ -206,6 +209,8 @@ class ineco_mrp_production_tracking_line(osv.osv):
         for line in self.browse(cr, uid, ids):
             for track in self.pool.get('ineco.mrp.production.tracking').browse(cr, uid, [line.tracking_id.id] ):
                 print track.name, track.progress_rate
+                if track.progress_rate == 100:
+                    track.act_done()
         return True
     
     def action_draft(self, cr, uid, ids, context=None):
@@ -271,8 +276,9 @@ class ineco_mrp_production_tracking_line(osv.osv):
                             if track.progress_rate >= 99.99:
                                 all_complete_qty += 1
                     track_percent = min(100.0, all_complete_qty * 100 / (max_prod_qty or 1.00))
-                    if track_percent >= 99.99:
-                         track.act_done()
+                    #Full Production will -> stock
+                    #if track_percent >= 99.99:
+                    #     track.act_done()
         return super(ineco_mrp_production_tracking_line, self).write(cr, uid, ids, vals, context)   
     
 ineco_mrp_production_tracking_line()
@@ -327,6 +333,8 @@ class mrp_production(osv.osv):
                             'sequence': wcl.sequence,
                             'date_planned': wcl.date_planned,
                         })
+                    #POP-003
+                    wcl.write({'sale_target_date':po.sale_target_date,'date_delivery': po.delivery_date})
                 qty += 1
         return result 
 
@@ -380,6 +388,22 @@ class ineco_mrp_production_tracking_fixed(osv.osv):
         for line in self.browse(cr, uid, ids, context=context):
             res[line.id] = line.tracking_id.origin or ""
         return res
+
+    def _get_length(self, cr, uid, ids, field_name, arg, context=None):
+        res = {}
+        if context is None:
+            context = {}
+        for fix in self.browse(cr, uid, ids, context=context):
+            res[fix.id] = fix.tracking_id.production_id.sr_width or 0.0
+        return res
+
+    def _get_width(self, cr, uid, ids, field_name, arg, context=None):
+        res = {}
+        if context is None:
+            context = {}
+        for fix in self.browse(cr, uid, ids, context=context):
+            res[fix.id] = fix.tracking_id.production_id.sr_length or 0.0
+        return res
     
     _name = "ineco.mrp.production.tracking.fixed"
     _description = "Fix Tracking"
@@ -391,6 +415,8 @@ class ineco_mrp_production_tracking_fixed(osv.osv):
         'user_id': fields.many2one('res.users', 'User', readondate_finishedly=True, ondelete='restrict'),
         'product_id': fields.function(_get_product, method=True, string="Product", type="string"),
         'origin': fields.function(_get_origin, method=True, string="Origin", type="string"),
+        'product_length': fields.function(_get_length, method=True, store=True, string="Length", type="float"),
+        'product_width': fields.function(_get_width, method=True, store=True, string="Width", type="float"),        
     }
     _defaults = {
         'user_id': lambda s, cr, u, c: u,
@@ -398,3 +424,15 @@ class ineco_mrp_production_tracking_fixed(osv.osv):
     }
 
 ineco_mrp_production_tracking_fixed()
+
+#POP-003
+class mrp_production_workcenter_line(osv.osv):
+    _name="mrp.production.workcenter.line"
+    _inherit = "mrp.production.workcenter.line"
+    _description = "Add Delivery Date in Operation"
+    _columns = {
+        'sale_target_date': fields.date('Sale Target Date'),
+        'date_delivery': fields.date('Delivery Date'),
+    }
+
+mrp_production_workcenter_line()
