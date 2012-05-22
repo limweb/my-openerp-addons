@@ -34,6 +34,7 @@ import time
 import codecs
 
 import pymssql
+import _mssql
 
 from datetime import *
 
@@ -44,9 +45,28 @@ class sale_order(osv.osv):
     _columns = {
     }
     
+    def testmethod(self, cr, uid, ip, user, database, password, context=None):
+        server_ip = ip
+        server_user = user
+        server_password = password
+        server_db = database
+
+        conn = _mssql.connect(server=server_ip, user=server_user, password=server_password, 
+                               database=server_db)
+        #cur = conn.cursor()
+        
+        sql = "select * from storemf"
+        conn.execute_query(sql)
+        #datas = cur.fetchall()
+        for row in conn:
+            print "ID=%d, Name=%s" % (row['chaincd'], row['storecd'])
+
+        return true
+    
     def export_fos(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
+            
         for order in self.pool.get('sale.order').browse(cr, uid, ids):
             
             sql = """
@@ -54,7 +74,7 @@ class sale_order(osv.osv):
                   substring(client_order_ref,1,23) as bookingno,
                   substring(so.name,1,23) as contractno,
                   'DEMO' as contrpointcd, 
-                  'N' as status,
+                  'C' as status,
                   substring(rp.name,1,100) as company1,
                   substring(rpa.name,1,100) as contact1,
                   substring(rpa.phone,1,30) as tel1,
@@ -82,17 +102,17 @@ class sale_order(osv.osv):
                 left join stock_location sl on sl.id = sbl.location_id
                 left join omg_sale_location_type oslt on sl.location_type_id = oslt.id
                 where oslt.name = 'BKK' and sale_id = so.id) as  nostoreupc,
-                  osp.date_finish - osp.date_start as nodemodays,
+                  ((osp.date_finish - osp.date_start) + 1) * (select count(*) from sale_branch_line where sale_id = so.id) as nodemodays,
                 (select sum(sm.product_qty) from stock_picking sp
                 left join stock_move sm on sm.picking_id = sp.id
                 left join product_product pp on sm.product_id = pp.id
                 left join ineco_stock_sticker_category issc on pp.sticker_category_id = issc.id
                 where type = 'out' and issc.name = 'Pretty' and sm.state <> 'cancel' and sp.sale_id = so.id) as noofprogirl, -- 'wait change' as noofprogirl,
-                  substring(pc3.name,1,20) as categorycd,
+                  'ERP Category' as categorycd,
                   substring(pc2.name,1,25) as subcatcd,
                   substring(pp.name_template,1,100) as brandcd,
                   substring(pp.name_template,1,200) as productdesc,
-                  pc.id as boothcd,
+                  1 as boothcd,
                   to_char(osp.date_start, 'yyyy') as year,
                   to_char(osp.date_start, 'Q') as quarter,
                   to_char(osp.date_start, 'MM') as mth,
@@ -104,12 +124,15 @@ class sale_order(osv.osv):
                   amount_total as totnetamtdue,
                   0 as noofholiday,
                   (osp.date_finish - osp.date_start ) + 1 as noofworkday, --'wait change' as noofworkday,
-                  'F' as oneway,
-                  'T' as twoway,
+                  '' as oneway,
+                  '' as twoway,
                   3 as dlvsystem, 
                   'Y' as flagworkday,
                   substring(ru3.login,1,10) as usercreate,
-                  so.create_date::date as createdate
+                  so.create_date::date as createdate,
+                  'D' as typeserv,  --New Field In Master Product by FOS
+                  7 as taxrate
+                  
                 from sale_order so
                 left join res_partner rp on so.partner_id = rp.id
                 left join res_partner_address rpa on so.partner_order_id = rpa.id
@@ -130,6 +153,7 @@ class sale_order(osv.osv):
             cr.execute(sql % (order.company_id.id, order.id))
             line_data =  cr.dictfetchall()
             for data in line_data:
+                self.testmethod(cr, uid, order.company_id.fos_host, order.company_id.fos_user, order.company_id.fos_dbname, order.company_id.fos_password)
                 insert_field = self._genfield(data,1);
                 insert_value = self._genfield(data,2);
                 insert_contrmf_sql = 'insert into contrmf '+insert_field+' values '+insert_value
@@ -146,12 +170,12 @@ class sale_order(osv.osv):
                     try:
                         #insert_sql
                         cur.execute('SET ANSI_WARNINGS off')
-                        cur.execute(insert_contrmf_sql)
+                        cur.execute(insert_contrmf_sql.encode('cp874'))
 
                     except:
                         #update_sql
                         cur.execute('SET ANSI_WARNINGS off')
-                        cur.execute(update_contrmf_sql)
+                        cur.execute(update_contrmf_sql.encode('cp874'))
 
                     cur.close()
                     conn.commit()
@@ -169,7 +193,9 @@ class sale_order(osv.osv):
                   so.name as contractno,
                   sl.store_code as storecd,
                   sl.name as storename,
-                  oslg.name as groupcd
+                  oslg.name as groupcd,
+                  'Y' as wascontract,
+                  'N' as wascancel
                 from sale_order so
                 join sale_branch_line sbl on sbl.sale_id = so.id
                 join stock_location sl on sbl.location_id = sl.id
@@ -201,12 +227,12 @@ class sale_order(osv.osv):
                     try:
                         #insert_sql
                         cur.execute('SET ANSI_WARNINGS off')
-                        cur.execute(insert_contrmf_sql)
+                        cur.execute(insert_contrmf_sql.encode('cp874'))
 
                     except:
                         #update_sql
                         cur.execute('SET ANSI_WARNINGS off')
-                        cur.execute(update_contrmf_sql)
+                        cur.execute(update_contrmf_sql.encode('cp874'))
 
                     cur.close()
                     conn.commit()
@@ -253,12 +279,12 @@ class sale_order(osv.osv):
                     try:
                         #insert_sql
                         cur.execute('SET ANSI_WARNINGS off')
-                        cur.execute(insert_contrmf_sql)
+                        cur.execute(insert_contrmf_sql.encode('cp874'))
 
                     except:
                         #update_sql
                         cur.execute('SET ANSI_WARNINGS off')
-                        cur.execute(update_contrmf_sql)
+                        cur.execute(update_contrmf_sql.encode('cp874'))
 
                     cur.close()
                     conn.commit()
@@ -300,17 +326,68 @@ class sale_order(osv.osv):
                     server_db = order.company_id.fos_dbname
 
                     conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
-                                           database=server_db,as_dict=True)
+                                           database=server_db,as_dict=True )
                     cur = conn.cursor()
                     try:
                         #insert_sql
                         cur.execute('SET ANSI_WARNINGS off')
-                        cur.execute(insert_contrmf_sql)
+                        cur.execute(insert_contrmf_sql.encode('cp874'))
 
                     except:
                         #update_sql
                         cur.execute('SET ANSI_WARNINGS off')
-                        cur.execute(update_contrmf_sql)
+                        cur.execute(update_contrmf_sql.encode('cp874'))
+
+                    cur.close()
+                    conn.commit()
+                    
+                else:
+                    raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
+
+            asset_sql = """
+                select
+                  so.name as contractno,
+                  so.client_order_ref as bookingno,
+                  pp.id as assetcd,
+                  pp.name_template as assetname,
+                  (select count(*) from sale_branch_line where sale_id = so.id) * product_uom_qty as qtyneed,
+                  (select count(*) from sale_branch_line where sale_id = so.id) as storeqty,
+                  product_uom_qty as qtyneed,
+                  pu.name as uofm
+                from 
+                  sale_order so 
+                join sale_order_line sol on so.id = sol.order_id
+                left join omg_sale_reserve_contact osrc on so.client_order_ref = osrc.name
+                left join product_product pp on sol.product_id = pp.id
+                left join product_template pt on pp.product_tmpl_id = pt.id
+                left join product_uom pu on pt.uom_id = pu.id
+               where so.company_id = %s and so.id = %s and pp.equipment = True
+            """
+            cr.execute(asset_sql % (order.company_id.id, order.id))
+            line_data =  cr.dictfetchall()
+            for data in line_data:
+                insert_field = self._genfield(data,1);
+                insert_value = self._genfield(data,2);
+                insert_contrmf_sql = 'insert into contr_asset '+insert_field+' values '+insert_value
+                update_contrmf_sql = "update contr_asset set "+self._genfield(data,3)+" where contractno = '%s' and assetcd = %s " % (data['contractno'],data['assetcd'])
+                if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
+                    server_ip = order.company_id.fos_host
+                    server_user = order.company_id.fos_user
+                    server_password = order.company_id.fos_password
+                    server_db = order.company_id.fos_dbname
+
+                    conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
+                                           database=server_db,as_dict=True )
+                    cur = conn.cursor()
+                    try:
+                        #insert_sql
+                        cur.execute('SET ANSI_WARNINGS off')
+                        cur.execute(insert_contrmf_sql.encode('cp874') )
+
+                    except:
+                        #update_sql
+                        cur.execute('SET ANSI_WARNINGS off')
+                        cur.execute(update_contrmf_sql.encode('cp874'))
 
                     cur.close()
                     conn.commit()
@@ -335,7 +412,7 @@ class sale_order(osv.osv):
                 else:
                     if isinstance(data[key], (str,unicode,date,datetime)):
                         if isinstance(data[key], (str,unicode)) :
-                            result = result+"'%s'," % data[key].encode('utf-8')
+                            result = result+"'%s'," % data[key]
                         else:
                             result = result+"'%s'," % data[key]
                     else:
@@ -346,7 +423,7 @@ class sale_order(osv.osv):
                 else: 
                     if isinstance(data[key], (str,unicode,date,datetime)):
                         if isinstance(data[key], (str,unicode)):
-                            result = result+key+"='%s', " % data[key].encode('utf-8')
+                            result = result+key+"='%s', " % data[key]
                         else:
                             result = result+key+"='%s', " % data[key]
                     else:
