@@ -22,6 +22,7 @@
 # Date             ID         Message
 # 28-12-2011       POP-001    Change rounding accuracy in store procedure round(1/factor)
 # 07-05-2012       POP-002    Bug round(1/factor) divide by zero
+# 25-05-2012       POP-003    Change ineco_convert_stock Bug
 
 import math
 
@@ -115,7 +116,7 @@ class ineco_public_function_convertstock(osv.osv):
     _columns = {
     }
 
-#POP-001
+#POP-001,  POP-003
     def init(self, cr):
         #POP-002
         cr.execute("""
