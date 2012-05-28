@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,15 +15,23 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
-import purchase
-import purchase_requisition_partner
-import sale
-import purchase_requisition
-import mrp
+from datetime import datetime
+from osv import osv, fields
+from tools.translate import _
+import netsvc
+import time
+import tools
+import decimal_precision as dp
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-
+class mrp_bom(osv.osv):
+    _name = "mrp.bom"
+    _inherit = "mrp.bom"
+    _description = "Change Product Qty Precision"
+    _columns = {
+        'product_qty': fields.float('Product Qty', required=True, digits_compute=dp.get_precision('Product UoM')),
+    }
+mrp_bom()
