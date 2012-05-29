@@ -19,6 +19,8 @@
 #
 ##############################################################################
 
+# 29-05-2012    POP-001    Execute Store Procedure
+
 import math
 
 from osv import fields,osv
@@ -128,6 +130,20 @@ class sale_order(osv.osv):
                     ','+'itemdesc'+str(newindex)+"=%s" % product_name+ \
                     ','+'barcodeno'+str(newindex)+"=%s" % product_ean13+','
                     
+            ##POP-001
+            if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
+                server_ip = order.company_id.fos_host
+                server_user = order.company_id.fos_user
+                server_password = order.company_id.fos_password
+                server_db = order.company_id.fos_dbname
+                
+                conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
+                                       database=server_db,as_dict=True)
+                cur = conn.cursor()
+                cur.execute("execute ineco_modify_salestock '%s'" % order.name)
+                conn.commit()
+            
+            
             if len(product_id_list) > 0:
                 update_sku_sql = 'update contr_prod set '+ update_sku_sql[0:len(update_sku_sql)-1] +" where bookingno = '%s' and contractno= '%s'" % ( order.client_order_ref, order.name)
                 insert_sku_header = insert_sku_header[0:len(insert_sku_header)-1]+') '
@@ -405,28 +421,33 @@ class sale_order(osv.osv):
 
             costitem_sql = """
                 select
-                  so.name as contractno,
-                  so.client_order_ref as bookingno,
-                  pp.id as costitem,
-                  1 as lineseq,
-                  pc.name as typecd,
-                  pp.name_template as costdesc,
-                  product_uom_qty as chargeqty,
-                  'Day' as chargeuom,
-                  (select count(*) from sale_branch_line where sale_id = so.id) as altqty ,
-                  'Store' as altuom,
-                  coalesce(price_unit,0) as chargerate,
-                  product_uom_qty * coalesce((select count(*) from sale_branch_line where sale_id = so.id),1) * coalesce(price_unit,1)  as extcharge
-                from 
-                  sale_order so 
-                join sale_order_line sol on so.id = sol.order_id
-                left join omg_sale_reserve_contact osrc on so.client_order_ref = osrc.name
-                left join product_product pp on sol.product_id = pp.id
-                left join product_template pt on pp.product_tmpl_id = pt.id
-                left join product_category pc on pt.categ_id = pc.id
-               where so.company_id = %s and so.id = %s
-            """
-            cr.execute(costitem_sql % (order.company_id.id, order.id))
+                      osc.name as chaincd, --'wait change - osrc.chain_id' as chaincd,
+                      so.name as contractno,
+                      sl.store_code as storecd,
+                      oslg.name as groupcd,
+                      '0' as flagchkts,
+                      coalesce((select pp.default_code from sale_order  so
+                    join sale_order_line sol on so.id = sol.order_id
+                    join product_product pp on sol.product_id = pp.id
+                    where sol.product_id in (select id from product_product 
+                where default_code in ('TS', 'MC', 'SP', 'Leader', 'Pretty Girl', 'Staff', 'OT', 'PT'))
+                and so.id = %s limit 1),'TS') as typets,
+                      --'TS' as typets,
+                      1 as noofts
+                    from sale_order so
+                    left join sale_branch_line sbl on sbl.sale_id = so.id
+                    left join stock_location sl on sbl.location_id = sl.id
+                    left join omg_sale_location_group oslg on sl.location_group_id = oslg.id
+                     left join omg_sale_reserve_contact osrc on so.client_order_ref = osrc.name
+                     join omg_sale_period osp on so.period_id = osp.id
+                    left join product_category pc on so.service_category_id = pc.id
+                     left join omg_sale_chain osc on osrc.chain_id = osc.id
+                     join res_users ru3 on so.create_uid = ru3.id
+                     left join omg_sale_period_category ospc on ospc.id = osp.category_id
+                     left join omg_sale_location_type oslt on sl.location_type_id = oslt.id 
+                    where so.company_id = %s and so.id = %s            """
+            cr.execute(costitem_sql % (order.id, order.company_id.id, order.id))
+
             line_data =  cr.dictfetchall()
             for data in line_data:
                 insert_field = self._genfield(data,1);
