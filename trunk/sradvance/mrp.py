@@ -39,6 +39,46 @@ image_level = 5
 
 class ineco_mrp_production_tracking(osv.osv):
 
+    def name_get(self, cr, user, ids, context=None):
+        if context is None:
+            context = {}
+        if not len(ids):
+            return []
+        def _name_get(d):
+            name = d.get('name','')
+            code = d.get('id',False)
+            if code:
+                name = '[%s] %s' % (code,name)
+
+            return (d['id'], name)
+
+        result = []
+        for data in self.browse(cr, user, ids, context=context):
+            mydict = {
+                      'id': data.id,
+                      'name': data.name,
+                      }
+            result.append(_name_get(mydict))
+        return result
+
+    def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=100):
+        if not args:
+            args=[]
+        if name:
+            ids = self.search(cr, user, [('id','=',name)]+ args, limit=limit, context=context)
+            if not len(ids):
+                ids = self.search(cr, user, [('id',operator,name)]+ args, limit=limit, context=context)
+                ids += self.search(cr, user, [('name',operator,name)]+ args, limit=limit, context=context)
+            if not len(ids):
+               ptrn=re.compile('(\[(.*?)\])')
+               res = ptrn.search(name)
+               if res:
+                   ids = self.search(cr, user, [('id','=', res.group(2))] + args, limit=limit, context=context)
+        else:
+            ids = self.search(cr, user, args, limit=limit, context=context)
+        result = self.name_get(cr, user, ids, context=context)
+        return result
+
     def _get_date_planned(self, cr, uid, ids, field_name, arg, context=None):
         res = {}
         if context is None:
@@ -182,6 +222,7 @@ class ineco_mrp_production_tracking(osv.osv):
 ineco_mrp_production_tracking()
 
 class ineco_mrp_production_tracking_line(osv.osv):
+    
     _name = "ineco.mrp.production.tracking.line"
     _description = "Tracking production in production line"
     _orderby = 'tracking_id, sequence'
@@ -436,3 +477,51 @@ class mrp_production_workcenter_line(osv.osv):
     }
 
 mrp_production_workcenter_line()
+
+class ineco_mrp_production_barcode(osv.osv):
+
+    def _default_workcenter(self, cr, uid, context=None):
+        if context is None:
+            context = {}
+        barcode_ids = self.pool.get('ineco.mrp.production.barcode').search(cr, uid, [('user_id','=',uid)], limit=1)
+        workcenter_id = False
+        if barcode_ids:
+            barcode = self.pool.get('ineco.mrp.production.barcode').browse(cr, uid, barcode_ids)[0]
+            workcenter_id = barcode.workcenter_id.id or False
+        return workcenter_id
+    
+    _name = "ineco.mrp.production.barcode"
+    _description = "Barcode Production Operation"
+    _columns = {
+        'name': fields.char('Description', size=250),
+        'workcenter_id': fields.many2one('mrp.workcenter','Workcenter', ondelete='restrict'),
+        'tracking_id': fields.many2one('ineco.mrp.production.tracking','Tracking',ondelete='cascade',required=True),
+        'user_id': fields.many2one('res.users', 'User', ondelete='restrict'),
+        'date_finished': fields.datetime('Date Finish'),
+    }
+    _defaults = {
+        'user_id': lambda s, cr, u, c: u,
+        'workcenter_id': _default_workcenter,
+        'date_finished': time.strftime('%Y-%m-%d %H:%M:%S'),
+    }
+    _order = "date_finished desc"
+
+    def create(self, cr, uid, vals, context=None):
+        if context is None:
+            context = {}
+        vals.update({'date_finished': time.strftime('%Y-%m-%d %H:%M:%S')})
+        workcenter_id = vals['workcenter_id']
+        tracking_id = vals['tracking_id']
+        line_ids = self.pool.get('ineco.mrp.production.tracking.line').search(cr, uid, [('tracking_id','=',tracking_id),('workcenter_id','=',workcenter_id)])
+        if line_ids:
+            line = self.pool.get('ineco.mrp.production.tracking.line').browse(cr, uid, line_ids)[0]
+            if line.state <> 'done':
+                line.action_done()
+        return super(ineco_mrp_production_barcode, self).create(cr, uid, vals, context=context) 
+    
+    def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context = {}
+        return super(ineco_mrp_production_barcode, self).write(cr, uid, ids, vals, context=context)
+    
+ineco_mrp_production_barcode()

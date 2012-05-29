@@ -151,7 +151,8 @@
 			<field name="arch" type="xml">
 				<xpath expr="/form/notebook/page[@string='Other Information']/group/field[@name='user_id']" position="after">
 					<field name="user_support_id" />
-					<field name="sticker_note" />					
+					<field name="sticker_note" />	
+					<field name="force_production" groups="base.group_sradvance_forceproduction" />				
 				</xpath>
 			</field>
 		</record>

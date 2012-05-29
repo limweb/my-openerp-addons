@@ -42,6 +42,7 @@
         'wizard/report_workorder_view.xml',
         'mrp_workflow.xml',
         'wizard/wizard_force_production_view.xml',
+        'invoice_view.xml',
 #        'purchase_view.xml',
         ],
     'demo_xml': [],

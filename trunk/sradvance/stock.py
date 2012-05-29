@@ -214,7 +214,7 @@ class stock_move(osv.osv):
         if context is None:
             context = {}
         for line in self.browse(cr, uid, ids, context=context):
-            res[line.id] = line.sale_line_id.sr_width or 0.0
+            res[line.id] = line.sale_line_id.sr_length or 0.0
         return res
 
     def _get_width(self, cr, uid, ids, field_name, arg, context=None):
@@ -222,7 +222,7 @@ class stock_move(osv.osv):
         if context is None:
             context = {}
         for line in self.browse(cr, uid, ids, context=context):
-            res[line.id] = line.sale_line_id.sr_length or 0.0
+            res[line.id] = line.sale_line_id.sr_width or 0.0
         return res
     
     _name = "stock.move"
