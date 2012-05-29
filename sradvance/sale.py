@@ -148,10 +148,12 @@ class sale_order(osv.osv):
         'user_support_id': fields.many2one('res.users', 'Sale Support', states={'draft': [('readonly', False)]}, ondelete='restrict'),
         'date_finished': fields.date('Delivery Date' ),
         'sticker_note': fields.char('Sticker Note', size=50),
+        'force_production': fields.boolean('Force Production'),
     }
     
     _defaults = {
         'user_support_id': lambda obj, cr, uid, context: uid,
+        'force_production': False,
     }
     
     def action_ship_create(self, cr, uid, ids, *args):
@@ -163,6 +165,10 @@ class sale_order(osv.osv):
         for order in self.browse(cr, uid, ids, context={}):
             if order.requested_date == False or order.date_finished == False:
                 raise osv.except_osv(_('Warning'), _("Please input Request Date and Finished Date"))
+
+            for plan in order.plan_ids:
+                if not order.force_production and plan.capacity_planned < plan.capacity_loaded + plan.capacity:
+                    raise osv.except_osv(_('Warning'), _("Max Capacity please contact Production Manager"))
 
             proc_ids = []
             output_id = order.shop_id.warehouse_id.lot_output_id.id
@@ -382,6 +388,7 @@ class sale_order(osv.osv):
                         })
                         seq = seq + 1
                         #mrp_order_obj.action_confirm(cr, uid, [mrp_order_id])
+
             val = {}
 
             #change sale progess on delivery 100%

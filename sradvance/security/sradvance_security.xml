@@ -26,5 +26,9 @@
         <field name="name">SR Advance / Stock Receiving</field>
     </record>
 
+  	<record id="base.group_sradvance_forceproduction" model="res.groups">
+        <field name="name">SR Advance / Force Production</field>
+    </record>
+    
 </data>
 </openerp>

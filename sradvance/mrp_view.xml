@@ -2,6 +2,51 @@
 <openerp>
 	<data>
 
+	  	<record model="ir.ui.view" id="view_ineco_mrp_production_barcode_tree">
+			<field name="name">ineco.mrp.production.barcode.tree</field>
+			<field name="type">tree</field>
+			<field name="model">ineco.mrp.production.barcode</field>
+			<field name="arch" type="xml">
+				<tree string="Production Barcode" editable="top">
+				    <field name="tracking_id" />
+				    <field name="workcenter_id"  />
+				    <field name="user_id" readonly="1" />
+				    <field name="date_finished" readonly="1" />
+				</tree>
+			</field>
+		</record>
+		
+        <record id="view_ineco_mrp_production_barcode_search" model="ir.ui.view">
+            <field name="name">ineco.mrp.production.barcode.search</field>
+            <field name="model">ineco.mrp.production.barcode</field>
+            <field name="type">search</field>
+            <field eval="6" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Production Barcode">
+				    <field name="tracking_id" />
+				    <field name="workcenter_id" />
+				    <field name="user_id" />
+				    <field name="date_finished" />
+                </search>
+            </field>
+        </record>
+	  		  	
+        <record id="action_ineco_mrp_production_barcode" model="ir.actions.act_window">
+            <field name="name">Production Barcode</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.mrp.production.barcode</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_ineco_mrp_production_barcode_tree"/>
+            <field name="search_view_id" ref="view_ineco_mrp_production_barcode_search" />
+        </record>
+
+		<menuitem
+            id="menu_ineco_mrp_production_barcode" 
+            name="Production Barcode"
+            parent="mrp.menu_mrp_planning" 
+            sequence="80"
+            action="action_ineco_mrp_production_barcode"/>   
+        	    
 		<record model="ir.ui.view" id="view_ineco_mrp_production_tracking_tree">
 			<field name="name">ineco.mrp.production.tracking.tree</field>
 			<field name="type">tree</field>
