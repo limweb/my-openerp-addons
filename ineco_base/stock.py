@@ -36,7 +36,7 @@
 # 10-03-2012       POP-014    Change Split in Auto Picking -> Valid by Do it Again
 # 14-03-2012       POP-015    Change way to force compute with delivery
 # 16-03-2012       POP-015    Change Set to Confirm -> Set To Draft
-# 30-03-2012       POP-016    Create ienco.stock.barcode.move
+# 30-03-2012       POP-016    Create ineco.stock.barcode.move
 # 05-04-2012       POP-017    Add Return Columns in Stock Picking
 
 import math
@@ -635,7 +635,7 @@ class stock_picking(osv.osv):
                     #POP-014
                     #if pick.type in ['out','internal']:
                     if pick.type in ['internal']:
-                        check_ids = self.pool.get('ineco.stock.report').search(cr, uid, [('product_id','=',move.product_id.id),('location_dest_id','=',move.location_id.id)])
+                        check_ids = self.pool.get('ineco.stock.report').search(cr, uid, [('product_id','=',move.product_id.id),('location_dest_id','=',move.location_id.id),('qty','>',0)])
                         if check_ids:
                             stock_qty = 0
                             for stock in self.pool.get('ineco.stock.report').browse(cr, uid, check_ids): 
