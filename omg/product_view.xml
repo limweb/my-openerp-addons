@@ -48,7 +48,12 @@
             		<field name="dummy_id" />
             		<field name="service_category" />  
             		<field name="ineco_check_place" />
-            		<field name="ineco_check_categ" />          		
+            		<field name="ineco_check_categ" />
+					<group col="1"  colspan="4">                        
+            		<notebook>
+            		<page string="Retailer Category Name"><field name="retailer_categ_ids" nolabel="1"/></page>          		
+            		</notebook>
+            		</group>
             	</field>
             </field>
         </record>
@@ -85,7 +90,50 @@
 				</xpath>
 			</field>
 		</record> 
-
+		<record id="view_product_category_retailer_tree" model="ir.ui.view">
+            <field name="name">product.category.retailer.tree</field>
+            <field name="model">product.category.retailer</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Retailer Category" editable="bottom">
+					<field name="chain_id" />                    
+					<field name="name"/>
+					<field name="categ_id" />
+				</tree>	
+			</field>
+		</record>		
+		<record model="ir.ui.view" id="view_product_category_retailer_form">
+			<field name="name">product.category.retailer.form</field>
+			<field name="type">form</field>
+			<field name="model">product.category.retailer</field>
+			<field name="arch" type="xml">
+				<form string="Retailer Category">
+					<field name="chain_id" />				    
+					<field name="name"/>
+					<field name="categ_id" />
+				</form>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_product_category_retailer_search">
+			<field name="name">product.category.retailer.search</field>
+			<field name="type">search</field>
+			<field name="model">product.category.retailer</field>
+			<field name="arch" type="xml">
+				<search string="Retailer Category">
+					<field name="chain_id" />				    
+					<field name="name"/>
+					<field name="categ_id" />
+				</search>
+			</field>
+		</record>
+		<record id="act_product_category_retailer" model="ir.actions.act_window">
+			<field name="name">Retailer Category</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">product.category.retailer</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<menuitem action="act_product_category_retailer" id="menu_product_category_retailer" parent="product.prod_config_main" />
+				
 	</data>
 </openerp>
 

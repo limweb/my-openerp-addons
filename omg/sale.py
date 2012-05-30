@@ -175,7 +175,7 @@ class sale_branch_line(osv.osv):
         result = 1000
         service_ids = self.pool.get('ineco.stock.location.category.max').search(cr, uid, [('location_id','=',location_id),('category_id','=',service_categ_id)])
         if service_ids:
-            service = self.pool.get('ineco.stock.location.category.max').browse(cr, uid, [service_ids])[0]
+            service = self.pool.get('ineco.stock.location.category.max').browse(cr, uid, service_ids)[0]
             result = service.quantity
         return result
 

@@ -89,7 +89,8 @@
 				<field name="sub_total" />
 				<field name="state" />
                 <button name="action_process" states="reserve" string="Process" type="object" icon="gtk-go-forward"/>
-                <button name="action_done" states="inprogress" string="Complete" type="object" icon="gtk-yes"/>
+                <button name="action_done"    states="inprogress" string="Complete" type="object" icon="gtk-yes"/>
+                <button name="action_draft"   states="done" string="Set Draft" type="object" icon="gtk-execute"/>
 			</tree>
 		</field>
     </record>

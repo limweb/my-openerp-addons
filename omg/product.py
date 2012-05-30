@@ -20,6 +20,7 @@
 ##############################################################################
 
 # 07-05-2012     POP-001    Add Use Full Warehouse UOM
+# 29-05-2012     DAY-001    Add product_category_retailer
 
 from osv import osv, fields
 import decimal_precision as dp
@@ -73,6 +74,8 @@ class product_category(osv.osv):
         'service_category': fields.boolean('As Service Category'),
         'ineco_check_place': fields.boolean('Check Place'),
         'ineco_check_categ': fields.boolean('Check Category'),
+        'retailer_categ_ids': fields.one2many('product.category.retailer', 'categ_id', 'Retailer Name'),
+         
     }
     _defaults = {
         'service_category': False,
@@ -80,5 +83,15 @@ class product_category(osv.osv):
         'ineco_check_categ': False,
     }
 product_category()
+
+class product_category_retailer(osv.osv):
+    _name = 'product.category.retailer'
+    _description = 'Category by Chain'
+    _columns = {'name':fields.char('Retailer Name', size=64, select=True, required=True),
+                'chain_id': fields.many2one('omg.sale.chain', 'Chain', ondelete="restrict",required=True),
+                'categ_id': fields.many2one('product.category','Category',required=True, ondelete='restrict'),
+                }
+
+product_category_retailer()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
