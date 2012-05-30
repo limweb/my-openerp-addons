@@ -29,6 +29,9 @@
 # 17-04-2012    POP-007    Add Check Max Count In Contact Reservation
 # 18-04-2012    POP-008    Add Period & Chain in Contact Reservatino
 # 18-04-2012    POP-009    Add FOS No 
+# 28-05-2012    DAY-001    Del Location, Copy Contact add booking History
+# 30-05-2012    DAY-002    Set State Draft 
+# 30-05-2012    DAY-003    Update Sale Branch line
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -142,6 +145,10 @@ class omg_sale_reserve_contact(osv.osv):
                     period_id = line.period_id.id or False
                 if not chain_id:
                     chain_id = line.chain_id.id or False
+                location_book_ids = self.pool.get('stock.location.booking').search(cr, uid, [('contact_line_id','=',line.id)])
+                if location_book_ids:
+                    for booking in self.pool.get('stock.location.booking').browse(cr, uid, location_book_ids):
+                        booking.write({'period_id':line.period_id.id})
             vals.update({'period_id': period_id,'chain_id': chain_id})
                                     
         return super(omg_sale_reserve_contact, self).write(cr, uid, ids, vals, context=context)
@@ -158,7 +165,17 @@ class omg_sale_reserve_contact(osv.osv):
             reserve_obj = self.browse(cr, uid, res, context=context)
             for move in reserve_obj.line_ids:
                 move.write({'sale_order_id': False})
-        
+                for line in move.location_lines:
+                    location_booking = {'contact_line_id':move.id,'contact_id':reserve_obj.id ,
+                                        'product_id': reserve_obj.product_id.id, 'category_id': reserve_obj.product_id.categ_id.id,
+                                        'period_id': move.period_id.id,'location_id': line.location_id.id ,
+                                        'group_id':line.location_id.location_group_id.id ,
+                                        'chain_id': move.chain_id.id,'saleman_id':reserve_obj.saleman_id.id,
+                                        'service_category_id':reserve_obj.service_id.categ_id.id,
+                                        'ineco_check_place':reserve_obj.service_id.categ_id.ineco_check_place }                        
+                    self.pool.get('stock.location.booking').create(cr, uid, location_booking)
+                    line.location_id
+                
         return res
 
 
@@ -261,13 +278,37 @@ class omg_sale_reserve_contact_line(osv.osv):
     _sql_constraints = [
         ('sale_reserve_line_uniq', 'unique (contact_id,period_id,chain_id)', 'Period and Chain must be unique.')
     ]
-    
+
+#    def write(self, cr, uid, ids, vals, context=None):
+#        if context is None:
+#            context = {}
+#        contact_obj = self.pool.get('omg.sale.reserve.contact.line').browse(cr, uid, ids[0])
+#        location_book_ids = self.pool.get('stock.location.booking').search(cr, uid, [('contact_line_id','=',ids[0])])
+#        if location_book_ids:
+#            for booking in self.pool.get('stock.location.booking').browse(cr, uid, location_book_ids):
+#                booking.write({'period_id':contact_obj.period_id.id})
+                                                   
+#        return super(omg_sale_reserve_contact_line, self).write(cr, uid, ids, vals, context=context)
+        
     def action_process(self, cr, uid, ids, context=None):
         location_book_ids = self.pool.get('stock.location.booking').search(cr, uid, [('contact_line_id','=',ids[0])])
         if location_book_ids:
             for booking in self.pool.get('stock.location.booking').browse(cr, uid, location_book_ids):
                 booking.write({'state':'booking'})
         self.write(cr, uid, ids, {'state':'inprogress'})
+        return []
+    
+    def action_draft(self, cr, uid, ids, context=None):
+        contact_obj = self.pool.get('omg.sale.reserve.contact.line').browse(cr, uid, ids)[0]
+        if contact_obj.sale_order_id:
+            if contact_obj.sale_order_id.state == 'draft':        
+                location_book_ids = self.pool.get('stock.location.booking').search(cr, uid, [('contact_line_id','=',ids[0])])
+                if location_book_ids:
+                    for booking in self.pool.get('stock.location.booking').browse(cr, uid, location_book_ids):
+                        booking.write({'state':'draft'})
+                self.write(cr, uid, ids, {'state':'reserve'})
+            else:
+                raise osv.except_osv(_('Warning'), _('Set State Sale_Order = Draft'))             
         return []
 
     def _check_booking(self, cr, uid, ids, context=None):
@@ -341,7 +382,7 @@ class omg_sale_reserve_contact_line(osv.osv):
     
         if booking_ids:
             for line in self.pool.get('stock.location.booking').browse(cr, uid, booking_ids):
-                line.write({'state':'cancel'})
+#                line.write({'state':'cancel'})
                 self._send_request(cr, uid, ids, context, line.contact_id.name, line.location_id.name, line.saleman_id)
         return True
     
@@ -368,101 +409,142 @@ class omg_sale_reserve_contact_line(osv.osv):
         shop_id = self.pool.get('sale.shop').browse(cr, uid, shop_ids)[0]
         if self._check_booking(cr, uid, ids, context):
             sale_order_obj = self.pool.get('sale.order')
-            sale_order_id = sale_order_obj.create(cr, uid, {
-                'pricelist_id': contact_obj.contact_id.customer_id.property_product_pricelist.id,
-                'date_order': time.strftime('%Y-%m-%d'),
-                'client_order_ref': contact_obj.contact_id.name,
-                'customer_product_id': contact_obj.contact_id.product_id.id,
-                'user_id': contact_obj.contact_id.saleman_id.id or False,
-                'partner_id': contact_obj.contact_id.customer_id.id,        
-                'partner_order_id': contact_obj.contact_id.customer_id.address[0].id,    
-                'partner_invoice_id': contact_obj.contact_id.customer_id.address[0].id,    
-                'partner_shipping_id': contact_obj.contact_id.customer_id.address[0].id,    
-                'shop_id': shop_id.id,
-                'company_id': contact_obj.contact_id.company_id.id,
-                #POP-003 Check Item Sale
-                'item_sale_check_ids': [(6, 0, [x.id for x in contact_obj.contact_id.product_id.item_sale_check_ids])],
-                'service_product_id': contact_obj.contact_id.service_id.id,
-            })
-            sale_branch_obj = self.pool.get('sale.branch.line')
-            for location in contact_obj.location_lines:
-                if self._can_booking(cr, uid, ids, location.location_id.id, contact_obj.category_id.id, contact_obj.period_id.id, contact_obj.contact_id.service_id.categ_id.id ):
-                    location_categ_ids = self.pool.get('ineco.stock.location.category.max').search(cr, uid, [('category_id','=',contact_obj.contact_id.service_id.categ_id.id),('location_id','=',location.location_id.id)])
-                    #POP-002
-                    estimate = 0
-                    if location_categ_ids:
-                        estimate = self.pool.get('ineco.stock.location.category.max').browse(cr, uid, location_categ_ids)[0].quantity
-                    sale_branch_obj.create(cr,uid,{
-                        'sale_id': sale_order_id,
-                        'location_id': location.location_id.id,
-                        'location_name': location.location_id.name,
-                        'group': location.location_id.location_group_id.name or False,
-                        'department': location.location_id.chain_id.name or False,
-                        'area': location.location_id.location_type_id.name or False,
-                        'estimate': estimate,
+            if contact_obj.sale_order_id:
+                if contact_obj.sale_order_id.state == 'draft':
+                    location_book_ids = self.pool.get('stock.location.booking').search(cr, uid, [('contact_line_id','=',ids[0])])
+                    sale_branch_line_locations = self.pool.get('sale.branch.line').search(cr, uid, [('sale_id','=',contact_obj.sale_order_id.id)]) 
+                    bookings = []
+                    sale_branch_lines = []
+                    if location_book_ids:
+                        for booking in self.pool.get('stock.location.booking').browse(cr, uid, location_book_ids):    
+                            bookings.append(booking.location_id.id)
+                    if sale_branch_line_locations:
+                        for sale_branch_line in self.pool.get('sale.branch.line').browse(cr, uid, sale_branch_line_locations):
+                            sale_branch_lines.append(sale_branch_line.location_id.id)
+                    sale_branch_location_del = list(set(sale_branch_lines) - set(bookings))
+                    sale_branch_location_add = list(set(bookings) - set(sale_branch_lines))
+                    
+                    if sale_branch_location_del:
+                        cr.execute('delete from sale_branch_line where sale_id =%s and location_id in %s' % (contact_obj.sale_order_id.id,tuple(sale_branch_location_del)))
+                        cr.commit()
+                    if sale_branch_location_add:
+                        sale_branch_obj = self.pool.get('sale.branch.line')
+                        for lid in sale_branch_location_add:
+                            location = self.pool.get('stock.location').browse(cr,uid,[lid])[0]
+                            if self._can_booking(cr, uid, ids, location.id, contact_obj.category_id.id, contact_obj.period_id.id, contact_obj.contact_id.service_id.categ_id.id ):
+                                location_categ_ids = self.pool.get('stock.location.line.qty').search(cr, uid, [('categ_id','=',contact_obj.contact_id.product_id.categ_id.id),('location_id','=',location.id)])
+                                #POP-002
+                                estimate = 0
+                                if location_categ_ids:
+                                    estimate = self.pool.get('stock.location.line.qty').browse(cr, uid, location_categ_ids)[0].quantity
+                                sale_branch_obj.create(cr,uid,{
+                                    'sale_id': contact_obj.sale_order_id.id,
+                                    'location_id': location.id,
+                                    'location_name': location.name,
+                                    'group': location.location_group_id.name or False,
+                                    'department': location.chain_id.name or False,
+                                    'area': location.location_type_id.name or False,
+                                    'estimate': estimate,
+                                })
+                    self.write(cr, uid, ids, {'state':'done'})                        
+                else:
+                    raise osv.except_osv(_('Warning'), _('Set State Sale_Order = Draft'))             
+            else:               
+                sale_order_id = sale_order_obj.create(cr, uid, {
+                    'pricelist_id': contact_obj.contact_id.customer_id.property_product_pricelist.id,
+                    'date_order': time.strftime('%Y-%m-%d'),
+                    'client_order_ref': contact_obj.contact_id.name,
+                    'customer_product_id': contact_obj.contact_id.product_id.id,
+                    'user_id': contact_obj.contact_id.saleman_id.id or False,
+                    'partner_id': contact_obj.contact_id.customer_id.id,        
+                    'partner_order_id': contact_obj.contact_id.customer_id.address[0].id,    
+                    'partner_invoice_id': contact_obj.contact_id.customer_id.address[0].id,    
+                    'partner_shipping_id': contact_obj.contact_id.customer_id.address[0].id,    
+                    'shop_id': shop_id.id,
+                    'company_id': contact_obj.contact_id.company_id.id,
+                    #POP-003 Check Item Sale
+                    'item_sale_check_ids': [(6, 0, [x.id for x in contact_obj.contact_id.product_id.item_sale_check_ids])],
+                    'service_product_id': contact_obj.contact_id.service_id.id,
+                })
+                sale_branch_obj = self.pool.get('sale.branch.line')
+                for location in contact_obj.location_lines:
+                    if self._can_booking(cr, uid, ids, location.location_id.id, contact_obj.category_id.id, contact_obj.period_id.id, contact_obj.contact_id.service_id.categ_id.id ):
+                        location_categ_ids = self.pool.get('stock.location.line.qty').search(cr, uid, [('categ_id','=',contact_obj.contact_id.product_id.categ_id.id),('location_id','=',location.location_id.id)])
+                        #POP-002
+                        estimate = 0
+                        if location_categ_ids:
+                            estimate = self.pool.get('stock.location.line.qty').browse(cr, uid, location_categ_ids)[0].quantity
+                        sale_branch_obj.create(cr,uid,{
+                            'sale_id': sale_order_id,
+                            'location_id': location.location_id.id,
+                            'location_name': location.location_id.name,
+                            'group': location.location_id.location_group_id.name or False,
+                            'department': location.location_id.chain_id.name or False,
+                            'area': location.location_id.location_type_id.name or False,
+                            'estimate': estimate,
+                        })
+                sale_period_line_obj = self.pool.get('sale.period.line')
+                sale_period_line_obj.create(cr, uid, {
+                    'period_id': contact_obj.period_id.id,
+                    'sale_id': sale_order_id,
+                    'description': contact_obj.period_id.name,
+                    'date_start': contact_obj.period_id.date_start,
+                    'date_finish' : contact_obj.period_id.date_finish,
+                })
+                fpos = False
+                sale_order_line_obj = self.pool.get('sale.order.line')
+                #POP-004
+                #not sending to sale order line
+                #sale_order_line_obj = self.pool.get('sale.order.line')
+                #sale_order_line_obj.create(cr, uid, {
+                #    'order_id': sale_order_id,
+                #    'product_id': contact_obj.contact_id.service_id.id,
+                #    'name': contact_obj.contact_id.service_id.name,
+                #    'product_uom': contact_obj.contact_id.service_id.uom_id.id,
+                #    'product_uom_qty': 1,
+                #    'price_unit': contact_obj.client_price or contact_obj.contact_id.service_id.list_price , #contact_obj.unit_price,
+                #    'tax_id': [(6, 0, [x.id for x in contact_obj.contact_id.service_id.taxes_id])],
+                #})        
+                #
+                for product in contact_obj.product_lines:
+                    sale_order_line_obj.create(cr, uid, {
+                        'order_id': sale_order_id,
+                        'product_id': product.product_id.id,
+                        'name': product.product_id.name,
+                        'product_uom': product.product_id.uom_id.id,
+                        'product_uom_qty': product.product_qty,
+                        'with_branch': False,
+                        #POP-005
+                        'with_period': True,
+                        'with_branch': True,
+                        'apply_all_store': True,
+                        'price_unit': product.sale_price ,
+                        'tax_id': [(6, 0, [x.id for x in product.product_id.taxes_id])] ,
                     })
-            sale_period_line_obj = self.pool.get('sale.period.line')
-            sale_period_line_obj.create(cr, uid, {
-                'period_id': contact_obj.period_id.id,
-                'sale_id': sale_order_id,
-                'description': contact_obj.period_id.name,
-                'date_start': contact_obj.period_id.date_start,
-                'date_finish' : contact_obj.period_id.date_finish,
-            })
-            fpos = False
-            sale_order_line_obj = self.pool.get('sale.order.line')
-            #POP-004
-            #not sending to sale order line
-            #sale_order_line_obj = self.pool.get('sale.order.line')
-            #sale_order_line_obj.create(cr, uid, {
-            #    'order_id': sale_order_id,
-            #    'product_id': contact_obj.contact_id.service_id.id,
-            #    'name': contact_obj.contact_id.service_id.name,
-            #    'product_uom': contact_obj.contact_id.service_id.uom_id.id,
-            #    'product_uom_qty': 1,
-            #    'price_unit': contact_obj.client_price or contact_obj.contact_id.service_id.list_price , #contact_obj.unit_price,
-            #    'tax_id': [(6, 0, [x.id for x in contact_obj.contact_id.service_id.taxes_id])],
-            #})        
-            #
-            for product in contact_obj.product_lines:
-                sale_order_line_obj.create(cr, uid, {
-                    'order_id': sale_order_id,
-                    'product_id': product.product_id.id,
-                    'name': product.product_id.name,
-                    'product_uom': product.product_id.uom_id.id,
-                    'product_uom_qty': product.product_qty,
-                    'with_branch': False,
-                    #POP-005
-                    'with_period': True,
-                    'with_branch': True,
-                    'apply_all_store': True,
-                    'price_unit': product.sale_price ,
-                    'tax_id': [(6, 0, [x.id for x in product.product_id.taxes_id])] ,
-                })
-
-            for product in contact_obj.summary_lines:
-                sale_order_line_obj.create(cr, uid, {
-                    'order_id': sale_order_id,
-                    'product_id': product.product_id.id,
-                    'name': product.product_id.name,
-                    'product_uom': product.product_id.uom_id.id,
-                    'product_uom_qty': product.product_qty,
-                    'price_unit': product.sale_price, #product.unit_price ,
-                    'with_branch': False,
-                    'with_period': False,
-                    'apply_all_store': True,
-                    'tax_id': [(6, 0, [x.id for x in product.product_id.taxes_id])] ,
-                })
-
-            location_book_ids = self.pool.get('stock.location.booking').search(cr, uid, [('contact_line_id','=',ids[0])])
-            if location_book_ids:
-                for booking in self.pool.get('stock.location.booking').browse(cr, uid, location_book_ids):
-                    booking.write({'state':'done','order_id':sale_order_id})
+    
+                for product in contact_obj.summary_lines:
+                    sale_order_line_obj.create(cr, uid, {
+                        'order_id': sale_order_id,
+                        'product_id': product.product_id.id,
+                        'name': product.product_id.name,
+                        'product_uom': product.product_id.uom_id.id,
+                        'product_uom_qty': product.product_qty,
+                        'price_unit': product.sale_price, #product.unit_price ,
+                        'with_branch': False,
+                        'with_period': False,
+                        'apply_all_store': True,
+                        'tax_id': [(6, 0, [x.id for x in product.product_id.taxes_id])] ,
+                    })
+    
+                location_book_ids = self.pool.get('stock.location.booking').search(cr, uid, [('contact_line_id','=',ids[0])])
+                if location_book_ids:
+                    for booking in self.pool.get('stock.location.booking').browse(cr, uid, location_book_ids):
+                        booking.write({'state':'done','order_id':sale_order_id})
+                    
+                self.write(cr, uid, ids, {'state':'done','sale_order_id':sale_order_id})
                 
-            self.write(cr, uid, ids, {'state':'done','sale_order_id':sale_order_id})
-            
-            for location in contact_obj.location_lines:
-                self._make_cancel(cr, uid, ids, location.location_id.id, contact_obj.category_id.id, contact_obj.period_id.id )
+                for location in contact_obj.location_lines:
+                    self._make_cancel(cr, uid, ids, location.location_id.id, contact_obj.category_id.id, contact_obj.period_id.id )
     
     #        for location in contact_obj.location_lines:
     #            request = "select location_id, chain_id, period_id from omg_sale_reserve_contact_line_location a " \
@@ -497,7 +579,16 @@ class omg_sale_reserve_contact_line_location(osv.osv):
     _sql_constraints = [
         ('sale_reserve_line_location_uniq', 'unique (contact_line_id,location_id)', 'Location must be unique.')
     ]
-
+    def unlink(self, cr, uid, ids, context=None, check=True):
+        if context is None:
+            context = {}
+        for row in self.browse(cr, uid, ids):
+            location_book_ids = self.pool.get('stock.location.booking').search(cr, uid, [('contact_line_id','=',row.contact_line_id.id),('location_id','=',row.location_id.id)])
+            if location_book_ids:
+                self.pool.get('stock.location.booking').unlink(cr, uid, location_book_ids)
+        result = super(omg_sale_reserve_contact_line_location, self).unlink(cr, uid, ids, context)
+        return result            
+    
 omg_sale_reserve_contact_line_location()
 
 class omg_sale_reserve_contact_line_product(osv.osv):
