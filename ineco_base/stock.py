@@ -1607,25 +1607,38 @@ class ineco_stock_barcode_delivery(osv.osv):
         result = {}
         track_obj = self.pool.get('stock.tracking')
         track = track_obj.browse(cr, uid, [tracking_id], context=context)[0]
+        stock = False
         if track:
+            stock_ids = self.pool.get('stock.location').search(cr, uid, [('name','=','Stock'),('company_id','=',False)])
+            if stock_ids:
+                inventory_ids = self.pool.get('ineco.stock.report').search(cr, uid, [('location_dest_id','child_of',stock_ids[0]),('tracking_id','=',track.id),('qty','>',0)])
+                stock = self.pool.get('ineco.stock.report').browse(cr, uid, inventory_ids)
 #                select ir.product_id, ir.tracking_id, ir.uom_id, pt.name, ir.qty, ir.location_dest_id, ir.lot_id from tmp_ineco_stock_report ir
-            cr.execute("""
-                select ir.product_id, ir.tracking_id, ir.uom_id, pt.name, ir.qty, ir.location_dest_id, ir.lot_id from ineco_stock_report_master ir
-                  left join stock_tracking st on ir.tracking_id = st.id
-                  left join product_template pt on ir.product_id = pt.id
-                where ir.tracking_id = %s
-                """ % (track.id) )
-            stock = cr.dictfetchall()
+#            cr.execute("""
+#                select ir.product_id, ir.tracking_id, ir.uom_id, pt.name, ir.qty, ir.location_dest_id, ir.lot_id from ineco_stock_report_master ir
+#                  left join stock_tracking st on ir.tracking_id = st.id
+#                  left join product_template pt on ir.product_id = pt.id
+#                where ir.tracking_id = %s and ir.qty > 0
+#                """ % (track.id) )
+#            stock = cr.dictfetchall()
             if stock:
                 data = stock[0]
                 if data['qty'] and data['qty'] > 0 :
                     result = {
-                        'name': data['name'] ,
-                        'product_id':  data['product_id'],
-                        'quantity': data['qty'],
-                        'uom_id': data['uom_id'],
-                        'location_id': data['location_dest_id'],
-                        'lot_id': data['lot_id']}
+                        'name': data.product_id.name,
+                        'product_id': data.product_id.id,
+                        'quantity': data.qty,
+                        'uom_id': data.uom_id.id,
+                        'location_id': data.location_dest_id.id,
+                        'lot_id': data.lot_id.id,
+                    }
+#                    result = {
+#                        'name': data['name'] ,
+#                        'product_id':  data['product_id'],
+#                        'quantity': data['qty'],
+#                        'uom_id': data['uom_id'],
+#                        'location_id': data['location_dest_id'],
+#                        'lot_id': data['lot_id']}
                 else:
                     raise osv.except_osv(_('Error !'), _('Not have stock!'))
         else:
