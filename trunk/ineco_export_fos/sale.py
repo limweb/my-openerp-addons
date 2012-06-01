@@ -278,15 +278,15 @@ class sale_order(osv.osv):
                     conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
                                            database=server_db,as_dict=True)
                     cur = conn.cursor()
-                    try:
+                    #try:
                         #insert_sql
-                        cur.execute('SET ANSI_WARNINGS off')
-                        cur.execute(insert_contrmf_sql.encode('utf-8'))
+                    cur.execute('SET ANSI_WARNINGS off')
+                    cur.execute(insert_contrmf_sql.encode('utf-8'))
 
-                    except:
+                    #except:
                         #update_sql
-                        cur.execute('SET ANSI_WARNINGS off')
-                        cur.execute(update_contrmf_sql.encode('utf-8'))
+                    #    cur.execute('SET ANSI_WARNINGS off')
+                    #    cur.execute(update_contrmf_sql.encode('utf-8'))
 
                     cur.close()
                     conn.commit()
