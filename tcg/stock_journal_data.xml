@@ -47,5 +47,10 @@
             <field name="sequence_id" ref="seq_stock_journal_fg_ds" />
         </record>
 
+        <record id="ineco_stock_journal_en" model="stock.journal">
+            <field name="name">EN</field>
+            <field name="sequence_id" ref="seq_stock_journal_en" />
+        </record>
+        
     </data>
 </openerp>

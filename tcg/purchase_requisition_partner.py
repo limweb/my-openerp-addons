@@ -94,7 +94,8 @@ class purchase_requisition_partner(osv.osv_memory):
                             'product_uom': uom_id,
                             'price_unit': price,
                             'date_planned': newdate.strftime('%Y-%m-%d %H:%M:%S'),
-                            'notes': product.description_purchase,
+                            #'notes': product.description_purchase,
+                            'notes': tender.description + ' ' + (product.description_purchase or ''),
                     }
                     taxes_ids = line.product_id.product_tmpl_id.supplier_taxes_id
                     taxes = acc_pos_obj.map_tax(cr, uid, partner.property_account_position, taxes_ids)
