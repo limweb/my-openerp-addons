@@ -281,8 +281,8 @@ class sale_order(osv.osv):
                     #try:
                         #insert_sql
                     cur.execute('SET ANSI_WARNINGS off')
-                    cur.execute(insert_contrmf_sql.encode('utf-8'))
                     raise osv.except_osv(_('Error !'), _(insert_contrmf_sql))
+                    cur.execute(insert_contrmf_sql.encode('utf-8'))
 
                     #except:
                         #update_sql
