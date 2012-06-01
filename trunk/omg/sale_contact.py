@@ -349,8 +349,8 @@ class omg_sale_reserve_contact_line(osv.osv):
         period_ids = self._get_period_ids(cr, uid, ids, period_id)
         if not period_ids:
               raise osv.except_osv(_('Warning'), _('List of Period is empty.'))       
-        booking_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('category_id','=',category_id),('state','=','done')])
-        max_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('state','=','done'),('service_category_id','=',service_categ_id),('ineco_check_place','=',1)])
+        booking_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('category_id','=',category_id),('state','!=','cancel')])
+        max_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('state','!=','cancel'),('service_category_id','=',service_categ_id),('ineco_check_place','=',1)])
         can_book = True
         location = self.pool.get('stock.location').browse(cr, uid, [location_id])[0]
         contact_obj = self.pool.get('omg.sale.reserve.contact.line').browse(cr, uid, ids)[0]
