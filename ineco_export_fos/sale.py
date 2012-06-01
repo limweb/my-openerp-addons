@@ -450,6 +450,7 @@ class sale_order(osv.osv):
 
 
             costitem_sql = """
+            select
                 so.name as contractno,
                 so.client_order_ref as bookingno,
                 pp.id as costitem,
