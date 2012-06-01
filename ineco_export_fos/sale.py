@@ -63,7 +63,7 @@ class sale_order(osv.osv):
         for row in conn:
             print "ID=%d, Name=%s" % (row['chaincd'], row['storecd'])
 
-        return true
+        return True
     
     def export_fos(self, cr, uid, ids, context=None):
         if context is None:
@@ -117,6 +117,8 @@ class sale_order(osv.osv):
                                 'Product Sampling','S','pcs')
                         cur.close()
                         cur = conn.cursor()
+                        cur.execute('SET ANSI_WARNINGS off')
+                        conn.commit()
                         cur.execute(itemmf_insert_sql.encode('utf-8'))
                         cur.close()
                         conn.commit()
