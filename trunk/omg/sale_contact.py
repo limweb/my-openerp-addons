@@ -349,8 +349,8 @@ class omg_sale_reserve_contact_line(osv.osv):
         period_ids = self._get_period_ids(cr, uid, ids, period_id)
         if not period_ids:
               raise osv.except_osv(_('Warning'), _('List of Period is empty.'))       
-        booking_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('category_id','=',category_id),('state','!=','cancel')])
-        max_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('state','!=','cancel'),('service_category_id','=',service_categ_id),('ineco_check_place','=',1)])
+        booking_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('category_id','=',category_id),('state','!=','cancel'),('contact_line_id','!=',ids[0])])
+        max_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('state','!=','cancel'),('service_category_id','=',service_categ_id),('ineco_check_place','=',1),('contact_line_id','!=',ids[0])])
         can_book = True
         location = self.pool.get('stock.location').browse(cr, uid, [location_id])[0]
         contact_obj = self.pool.get('omg.sale.reserve.contact.line').browse(cr, uid, ids)[0]
@@ -417,8 +417,7 @@ class omg_sale_reserve_contact_line(osv.osv):
                     sale_branch_lines = []
                     if location_book_ids:
                         for booking in self.pool.get('stock.location.booking').browse(cr, uid, location_book_ids):    
-                            bookings.append(booking.location_id.id)
-                            booking.write({'state':'done'})                            
+                            bookings.append(booking.location_id.id)                           
                     if sale_branch_line_locations:
                         for sale_branch_line in self.pool.get('sale.branch.line').browse(cr, uid, sale_branch_line_locations):
                             sale_branch_lines.append(sale_branch_line.location_id.id)
@@ -440,22 +439,25 @@ class omg_sale_reserve_contact_line(osv.osv):
                         sale_branch_obj = self.pool.get('sale.branch.line')
                         for lid in sale_branch_location_add:
                             location = self.pool.get('stock.location').browse(cr,uid,[lid])[0]
-                            if self._can_booking(cr, uid, ids, location.id, contact_obj.category_id.id, contact_obj.period_id.id, contact_obj.contact_id.service_id.categ_id.id ):
-                                location_categ_ids = self.pool.get('stock.location.line.qty').search(cr, uid, [('categ_id','=',contact_obj.contact_id.product_id.categ_id.id),('location_id','=',location.id)])
+                            location_categ_ids = self.pool.get('stock.location.line.qty').search(cr, uid, [('categ_id','=',contact_obj.contact_id.product_id.categ_id.id),('location_id','=',location.id)])
                                 #POP-002
-                                estimate = 0
-                                if location_categ_ids:
-                                    estimate = self.pool.get('stock.location.line.qty').browse(cr, uid, location_categ_ids)[0].quantity
-                                sale_branch_obj.create(cr,uid,{
-                                    'sale_id': contact_obj.sale_order_id.id,
-                                    'location_id': location.id,
-                                    'location_name': location.name,
-                                    'group': location.location_group_id.name or False,
-                                    'department': location.chain_id.name or False,
-                                    'area': location.location_type_id.name or False,
-                                    'estimate': estimate,
+                            estimate = 0
+                            if location_categ_ids:
+                                estimate = self.pool.get('stock.location.line.qty').browse(cr, uid, location_categ_ids)[0].quantity
+                            sale_branch_obj.create(cr,uid,{
+                                'sale_id': contact_obj.sale_order_id.id,
+                                'location_id': location.id,
+                                'location_name': location.name,
+                                'group': location.location_group_id.name or False,
+                                'department': location.chain_id.name or False,
+                                'area': location.location_type_id.name or False,
+                                'estimate': estimate,
                                 })
-                    self.write(cr, uid, ids, {'state':'done'})                        
+                    if location_book_ids:
+                        for booking in self.pool.get('stock.location.booking').browse(cr, uid, location_book_ids):
+                            booking.write({'state':'done'})
+                    self.write(cr, uid, ids, {'state':'done'})
+                                            
                 else:
                     raise osv.except_osv(_('Warning'), _('Set State Sale_Order = Draft'))             
             else:               
