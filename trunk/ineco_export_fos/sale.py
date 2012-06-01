@@ -625,9 +625,9 @@ class sale_order(osv.osv):
                     else:
                         if isinstance(data[key], (str,unicode,date,datetime)):
                             if isinstance(data[key], (str,unicode)) :
-                                result = result+"'%s'," % data[key].encode('cp874')
+                                result = result+"'%s'," % data[key]
                             else:
-                                result = result+"'%s'," % data[key].encode('cp874')
+                                result = result+"'%s'," % data[key]
                         else:
                             result = result+"%s," % data[key]
                 elif (sqltype == 3):
