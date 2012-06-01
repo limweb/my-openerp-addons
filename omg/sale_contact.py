@@ -418,6 +418,7 @@ class omg_sale_reserve_contact_line(osv.osv):
                     if location_book_ids:
                         for booking in self.pool.get('stock.location.booking').browse(cr, uid, location_book_ids):    
                             bookings.append(booking.location_id.id)
+                            booking.write({'state':'done'})                            
                     if sale_branch_line_locations:
                         for sale_branch_line in self.pool.get('sale.branch.line').browse(cr, uid, sale_branch_line_locations):
                             sale_branch_lines.append(sale_branch_line.location_id.id)
@@ -425,8 +426,16 @@ class omg_sale_reserve_contact_line(osv.osv):
                     sale_branch_location_add = list(set(bookings) - set(sale_branch_lines))
                     
                     if sale_branch_location_del:
-                        cr.execute('delete from sale_branch_line where sale_id =%s and location_id in %s' % (contact_obj.sale_order_id.id,tuple(sale_branch_location_del)))
-                        cr.commit()
+                        if len(sale_branch_location_del) == 1:
+                            for locaton_del in sale_branch_location_del:
+                                sql_delete_branch = 'delete from sale_branch_line where sale_id =%s and location_id = %s' % (contact_obj.sale_order_id.id,locaton_del)
+                                cr.execute(sql_delete_branch)                        
+                                cr.commit()
+                        else:
+                            sql_delete_branch = 'delete from sale_branch_line where sale_id =%s and location_id in %s' % (contact_obj.sale_order_id.id,tuple(sale_branch_location_del))
+                            cr.execute(sql_delete_branch)                        
+                            cr.commit()
+
                     if sale_branch_location_add:
                         sale_branch_obj = self.pool.get('sale.branch.line')
                         for lid in sale_branch_location_add:
