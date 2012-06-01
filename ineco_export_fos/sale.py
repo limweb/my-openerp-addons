@@ -416,7 +416,7 @@ class sale_order(osv.osv):
 #                 left join omg_sale_location_type oslt on sl.location_type_id = oslt.id 
 #                where so.company_id = %s and so.id = %s 
 #            """
-            cr.execute(contr_detailts % (order.company_id.id, order.id))
+            cr.execute(contr_detailts % (order.id, order.company_id.id, order.id))
             line_data =  cr.dictfetchall()
             for data in line_data:
                 insert_field = self._genfield(data,1);
