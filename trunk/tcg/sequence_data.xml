@@ -27,6 +27,11 @@
             <field name="code">ineco.type.stock.journal.fa</field>
         </record>
 
+       	<record id="seq_stock_journal_type_en" model="ir.sequence.type">
+            <field name="name">EN</field>
+            <field name="code">ineco.type.stock.journal.en</field>
+        </record>
+        
         <record id="seq_stock_journal_type_wip_fd" model="ir.sequence.type">
             <field name="name">WIP FD</field>
             <field name="code">ineco.type.stock.wip.fd</field>
@@ -80,6 +85,13 @@
             <field name="code">ineco.type.stock.journal.fa</field>
             <field eval="5" name="padding"/>
             <field name="prefix">FIN%(y)s%(month)s-</field>
+        </record>
+
+   		<record id="seq_stock_journal_en" model="ir.sequence">
+            <field name="name">EN Sequence</field>
+            <field name="code">ineco.type.stock.journal.en</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">EIN%(y)s%(month)s-</field>
         </record>
         
         <record id="seq_stock_journal_hr" model="ir.sequence">

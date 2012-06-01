@@ -42,6 +42,14 @@
 	        <field name="name">Warehouse / FG - User</field>
 	    </record>
 
+	  	<record id="base.group_picking_en" model="res.groups">
+	        <field name="name">Warehouse / EN - Manager</field>
+	    </record>
+
+	    <record id="base.group_picking_en_user" model="res.groups">
+	        <field name="name">Warehouse / EN - User</field>
+	    </record>
+	    
 	    <record id="base.group_picking_production" model="res.groups">
 	        <field name="name">Warehouse / Production Manager</field>
 	    </record>
