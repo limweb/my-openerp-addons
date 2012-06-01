@@ -473,7 +473,7 @@ class sale_order(osv.osv):
                     except:
                         #update_sql
                         cur.execute('SET ANSI_WARNINGS off')
-                        cur.execute(update_contrmf_sql.encode('utf-8'), (data['contractno'], data['costitem'],))
+                       # cur.execute(update_contrmf_sql.encode('utf-8'), (data['contractno'], data['costitem'],))
 
                     cur.close()
                     conn.commit()
