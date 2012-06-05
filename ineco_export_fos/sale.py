@@ -113,6 +113,24 @@ class sale_order(osv.osv):
                 cur = conn.cursor()
                 cur.execute(sql_clear_prod)
                 conn.commit()
+
+            sql_contr_detail_delete = """
+                delete from contr_detailtsbystore where contractno = '%s' 
+            """
+            sql_contr_detail_delete = sql_contr_detail_delete % (order.name)
+        
+            if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
+                server_ip = order.company_id.fos_host
+                server_user = order.company_id.fos_user
+                server_password = order.company_id.fos_password
+                server_db = order.company_id.fos_dbname
+                
+                conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
+                                       database=server_db,as_dict=True)
+                cur = conn.cursor()
+                cur.execute(sql_contr_detail_delete)
+                conn.commit()
+
             
             for index in range(len(product_id_list)):
                 newindex = index+1
@@ -397,7 +415,7 @@ class sale_order(osv.osv):
                     
                 else:
                     raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
-
+                
             contr_detailts = """
 
                 select
