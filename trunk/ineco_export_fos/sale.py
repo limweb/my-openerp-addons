@@ -287,7 +287,11 @@ class sale_order(osv.osv):
                   '' as oneway,
                   '' as twoway,
                   3 as dlvsystem, 
-                  'Y' as flagworkday,
+                  case 
+                     when ((osp.date_finish - osp.date_start ) + 1) <= 6 then 'Y'
+                     else 'N'
+                  end as flagworkday,
+                  --'Y' as flagworkday,
                   substring(ru3.login,1,10) as usercreate,
                   so.create_date::date as createdate,
                   'D' as typeserv,  --New Field In Master Product by FOS
