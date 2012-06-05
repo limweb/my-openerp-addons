@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_wizard_export_stock_counting" model="ir.ui.view">
+            <field name="name">Export Stock Counting</field>
+            <field name="model">wizard.ineco.export.stock.counting</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form string="Export Stock Counting">
+                    <group colspan="4">
+                        <group colspan="4" states="choose">
+                            <separator colspan="4" string="Selecting"/>
+                            <field name="check_zero" />
+                            <field name="check_less" />
+                            <field invisible="1" name="state"/>
+                        </group>
+                        <group colspan="4" states="get">
+                            <separator string="Export Done" colspan="4"/>
+                          	<field name="report" nolabel="1" readonly="1" fieldname="name" colspan="8"/>
+                        </group>
+                    </group>
+                    <group colspan="8" col="8" states="choose">
+                        <separator string="" colspan="8"/>
+                        <button icon="gtk-cancel" name="act_cancel" special="cancel" string="_Close" type="object"/>
+                        <button icon="gtk-ok" name="export_report" string="_Execute" type="object"/>
+                    </group>
+                    <group colspan="8" col="8" states="get">
+                        <separator string="" colspan="8"/>
+                        <button icon="gtk-close" name="act_destroy" special="cancel" string="_Close" type="object"/>
+                    </group>
+            	</form>
+            </field>
+        </record>
+
+        <record id="action_wizard_export_stock_counting" model="ir.actions.act_window">
+            <field name="name">Export Stock Counting</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.ineco.export.stock.counting</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+		 <act_window name="Export Stock Counting"		    
+			res_model="wizard.ineco.export.stock.counting"
+			src_model="ineco.stock.report"
+			view_mode="form"
+           	multi="True"
+			target="new"        
+			key2="client_action_multi"    
+			id="action_wizard_export_stock_counting"/>	
+
+
+    </data>
+</openerp>
