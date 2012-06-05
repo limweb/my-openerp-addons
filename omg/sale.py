@@ -705,7 +705,7 @@ class sale_order(osv.osv):
                         output_id = order.shop_id.warehouse_id.lot_output_id.id
                         picking_id = False
                         for line in order.order_line:
-                            #print "Location %s -> %s %s" % (location.location_id.name, line.product_id.name, datetime.now()-t0)
+                            print "Location %s -> %s %s" % (location.location_id.name, line.product_id.name, datetime.now()-t0)
                             proc_id = False
                             date_planned = datetime.strptime(period.date_start, '%Y-%m-%d') - relativedelta(days=line.delay or 0.0) - relativedelta(days=location.location_id.chained_delay or 0.0)
                             date_planned = (date_planned - timedelta(days=company.security_lead)).strftime('%Y-%m-%d %H:%M:%S')
@@ -891,61 +891,94 @@ class sale_order(osv.osv):
                                     #POP-017
                                     move_id = False
                                     if not (not location.location_id.omg_alway_equipment and line.product_id.equipment) or order.force_equipment :
-                                        move_id = self.pool.get('stock.move').create(cr, uid, {
-                                            'name': line.name[:64],
-                                            'picking_id': picking_id,
-                                            #POP-019
-                                            #'product_id': line.product_id.id,
-                                            'product_id': new_product_id.id,
-                                            'date': date_planned,
-                                            'date_expected': date_planned,
-                                            'product_qty': new_qty,
-                                            'product_uom': line.product_uom.id,
-                                            'product_uos_qty': new_qty,
-                                            'product_uos': (line.product_uos and line.product_uos.id)\
-                                                    or line.product_uom.id,
-                                            'product_packaging': line.product_packaging.id,
-                                            'address_id': location.location_id.address_id.id,
-                                            'location_id': location_id,
-                                            'location_dest_id': location.location_id.id,
-                                            'sale_line_id': line.id,
-                                            'tracking_id': False,
-                                            'state': 'draft',
-                                            #'state': 'waiting',
-                                            'note': line.notes,
-                                            'company_id': order.company_id.id,
-                                            'period_id': period.period_id.id,
-                                            'customer_product_id': order.customer_product_id.id,
-                                            #POP-022
-                                            'price_unit': line.price_unit or 0,
-                                        })
+                                        #Excute BOM Process
+                                        bom_ids = self.pool.get('mrp.bom').search(cr, uid, [('bom_id','=',False),('product_id','=',new_product_id.id)])
+                                        if not bom_ids:
+                                            move_id = self.pool.get('stock.move').create(cr, uid, {
+                                                'name': line.name[:64],
+                                                'picking_id': picking_id,
+                                                #POP-019
+                                                #'product_id': line.product_id.id,
+                                                'product_id': new_product_id.id,
+                                                'date': date_planned,
+                                                'date_expected': date_planned,
+                                                'product_qty': new_qty,
+                                                'product_uom': line.product_uom.id,
+                                                'product_uos_qty': new_qty,
+                                                'product_uos': (line.product_uos and line.product_uos.id)\
+                                                        or line.product_uom.id,
+                                                'product_packaging': line.product_packaging.id,
+                                                'address_id': location.location_id.address_id.id,
+                                                'location_id': location_id,
+                                                'location_dest_id': location.location_id.id,
+                                                'sale_line_id': line.id,
+                                                'tracking_id': False,
+                                                'state': 'draft',
+                                                #'state': 'waiting',
+                                                'note': line.notes,
+                                                'company_id': order.company_id.id,
+                                                'period_id': period.period_id.id,
+                                                'customer_product_id': order.customer_product_id.id,
+                                                #POP-022
+                                                'price_unit': line.price_unit or 0,
+                                            })
+                                        else:
+                                            for boms in self.pool.get('mrp.bom').browse(cr, uid, bom_ids):
+                                                for bom in boms.bom_lines:
+                                                    move_id = self.pool.get('stock.move').create(cr, uid, {
+                                                        'name': line.name[:64],
+                                                        'picking_id': picking_id,
+                                                        #POP-019
+                                                        #'product_id': line.product_id.id,
+                                                        'product_id': bom.product_id.id,
+                                                        'date': date_planned,
+                                                        'date_expected': date_planned,
+                                                        'product_qty': new_qty,
+                                                        'product_uom': bom.product_id.uom_id.id,
+                                                        'product_uos_qty': new_qty,
+                                                        'product_uos': bom.product_id.uom_id.id,
+                                                        'product_packaging': line.product_packaging.id,
+                                                        'address_id': location.location_id.address_id.id,
+                                                        'location_id': location_id,
+                                                        'location_dest_id': location.location_id.id,
+                                                        'sale_line_id': line.id,
+                                                        'tracking_id': False,
+                                                        'state': 'draft',
+                                                        #'state': 'waiting',
+                                                        'note': line.notes,
+                                                        'company_id': order.company_id.id,
+                                                        'period_id': period.period_id.id,
+                                                        'customer_product_id': order.customer_product_id.id,
+                                                        #POP-022
+                                                        'price_unit': line.price_unit or 0,
+                                                    })
+                                            move_id = False    
                             #POP-017                            
-                            if line.product_id and new_qty <> 0 and move_id :
-                                #print "Procurement Start --> %s %s" % (location.location_id.name, datetime.now()-t0)
-                                proc_id = self.pool.get('procurement.order').create(cr, uid, {
-                                    'name': line.name,
-                                    'origin': order.name,
-                                    'date_planned': date_planned,
-                                    #'product_id': line.product_id.id,
-                                    #POP-019
-                                    'product_id': new_product_id.id,
-                                    'product_qty': new_qty,
-                                    'product_uom': line.product_uom.id,
-                                    'product_uos_qty': (line.product_uos and line.product_uos_qty)\
-                                            or new_qty,
-                                    'product_uos': (line.product_uos and line.product_uos.id)\
-                                            or line.product_uom.id,
-                                    'location_id': order.shop_id.warehouse_id.lot_stock_id.id,
-                                    'procure_method': line.type,
-                                    'move_id': move_id,
-                                    'property_ids': [(6, 0, [x.id for x in line.property_ids])],
-                                    'company_id': order.company_id.id,
-                                    'period_id': period.period_id.id,
-                                    'customer_product_id': order.customer_product_id.id,
-                                })
+                            #if line.product_id and new_qty <> 0 and move_id :
+                            #    #print "Procurement Start --> %s %s" % (location.location_id.name, datetime.now()-t0)
+                            #    proc_id = self.pool.get('procurement.order').create(cr, uid, {
+                            #        'name': line.name,
+                            #        'origin': order.name,
+                            #        'date_planned': date_planned,
+                            #        #'product_id': line.product_id.id,
+                            #        #POP-019
+                            #        'product_id': new_product_id.id,
+                            #        'product_qty': new_qty,
+                            #        'product_uom': line.product_uom.id,
+                            #        'product_uos_qty': (line.product_uos and line.product_uos_qty)\
+                            #                or new_qty,
+                            #        'product_uos': (line.product_uos and line.product_uos.id)\
+                            #                or line.product_uom.id,
+                            #        'location_id': order.shop_id.warehouse_id.lot_stock_id.id,
+                            #        'procure_method': line.type,
+                            #        'move_id': move_id,
+                            #        'property_ids': [(6, 0, [x.id for x in line.property_ids])],
+                            #        'company_id': order.company_id.id,
+                            #        'period_id': period.period_id.id,
+                            #        'customer_product_id': order.customer_product_id.id,
+                            #    })
                                 
-                                #Change this when you want to Procurement Start (RFQ Auto)
-                                #wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
+                            #    wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
                                 
                                 #print "Procurement Finish --> %s %s" % (location.location_id.name, datetime.now()-t0)
                                 #proc_ids.append(proc_id)
@@ -961,7 +994,8 @@ class sale_order(osv.osv):
                                                         proc_obj.write(cr, uid, [proc_id], {'product_qty': new_qty, 'product_uos_qty': new_qty})
             
                         val = {}
-                        #print "Work Flow --> %s %s" % (location.location_id.name, datetime.now()-t0)
+                        
+                        #print "Work Flow BOM Explore--> %s %s" % (location.location_id.name, datetime.now()-t0)
                         #if not order.force_draft_state:
                         #    if picking_id:
                         #        print "Picking Confirm Start --> %s %s" % (location.location_id.name, datetime.now()-t0)
@@ -985,9 +1019,9 @@ class sale_order(osv.osv):
                         
                         #POP-001 
                         #print "Create Stock Move --> %s %s" % (location.location_id.name, datetime.now()-t0)
-                        stock_ids = self.pool.get('stock.move').search(cr, uid, [('picking_id','=',picking_id)])
-                        for stock_move_line in self.pool.get('stock.move').browse(cr, uid, stock_ids):
-                            stock_move_line.write({'location_dest_id':location.location_id.id})
+                        #stock_ids = self.pool.get('stock.move').search(cr, uid, [('picking_id','=',picking_id)])
+                        #for stock_move_line in self.pool.get('stock.move').browse(cr, uid, stock_ids):
+                        #    stock_move_line.write({'location_dest_id':location.location_id.id})
                         #POP-001                        
 
                 #Create Request for Customer Material
