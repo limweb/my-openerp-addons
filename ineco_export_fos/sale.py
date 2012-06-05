@@ -410,7 +410,7 @@ class sale_order(osv.osv):
                     join sale_order_line sol on so.id = sol.order_id
                     join product_product pp on sol.product_id = pp.id
                     where sol.product_id in (select id from product_product 
-                where default_code in ('TS', 'MC', 'SP', 'Leader', 'Pretty Girl', 'Staff', 'OT', 'PT'))
+                where default_code in ('TS', 'STS', 'MC', 'SP', 'Leader', 'Pretty Girl', 'Staff', 'OT', 'PT'))
                 and so.id = %s limit 1),'TS') as typets,
                       --'TS' as typets,
                      1 as noofts
