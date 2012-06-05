@@ -96,7 +96,7 @@ class sale_order(osv.osv):
                     itemno7 = null, itemdesc7=null, barcodeno7=null,
                     itemno8 = null, itemdesc8=null, barcodeno8=null
                 where 
-                    where bookingno = '%s' and contractno= '%s' 
+                    bookingno = '%s' and contractno= '%s' 
                     
             """
             sql_clear_prod = sql_clear_prod % ( order.client_order_ref, order.name)
