@@ -43,7 +43,7 @@
             context="{}"	    	
             view_mode="form"
             target="new"
-            multi="True"        
+            multi="False"        
             id="action_wizard_ineco_stock_report_print"  />    
 
     </data>

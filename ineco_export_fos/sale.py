@@ -20,6 +20,7 @@
 ##############################################################################
 
 # 29-05-2012    POP-001    Execute Store Procedure
+# 05-06-2012    POP-002    Change Bug in Contr_prod Clear All Values
 
 import math
 
@@ -83,6 +84,34 @@ class sale_order(osv.osv):
             update_sku_sql = ''
             insert_sku_header = 'insert into contr_prod (lineseq, bookingno, contractno, '
             insert_sku_value = "1, '%s', '%s'," % (order.client_order_ref, order.name)
+            #POP-002
+            sql_clear_prod = """
+                update contr_prod 
+                set itemno1 = null, itemdesc1=null, barcodeno1=null,
+                    itemno2 = null, itemdesc2=null, barcodeno2=null,
+                    itemno3 = null, itemdesc3=null, barcodeno3=null,
+                    itemno4 = null, itemdesc4=null, barcodeno4=null,
+                    itemno5 = null, itemdesc5=null, barcodeno5=null,
+                    itemno6 = null, itemdesc6=null, barcodeno6=null,
+                    itemno7 = null, itemdesc7=null, barcodeno7=null,
+                    itemno8 = null, itemdesc8=null, barcodeno8=null
+                where 
+                    where bookingno = '%s' and contractno= '%s'" 
+                    
+            """
+            sql_clear_prod = sql_clear_prod % ( order.client_order_ref, order.name)
+            if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
+                server_ip = order.company_id.fos_host
+                server_user = order.company_id.fos_user
+                server_password = order.company_id.fos_password
+                server_db = order.company_id.fos_dbname
+                
+                conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
+                                       database=server_db,as_dict=True)
+                cur = conn.cursor()
+                cur.execute(sql_clear_prod)
+                conn.commit()
+            
             for index in range(len(product_id_list)):
                 newindex = index+1
                 insert_sku_header = insert_sku_header+\

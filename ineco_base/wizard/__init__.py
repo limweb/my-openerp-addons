@@ -23,3 +23,4 @@ import wizard_schedule_delivery_compute
 import wizard_stock_report_print
 #import wizard_ineco_dispatch_kitting_report
 import stock_return_picking
+import wizard_export_stock_counting
