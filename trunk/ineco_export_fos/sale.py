@@ -288,7 +288,7 @@ class sale_order(osv.osv):
                   '' as twoway,
                   3 as dlvsystem, 
                   case 
-                     when ((osp.date_finish - osp.date_start ) + 1) <= 6 then 'Y'
+                     when ((osp.date_finish - osp.date_start ) + 1) >= 6 then 'Y'
                      else 'N'
                   end as flagworkday,
                   --'Y' as flagworkday,
@@ -361,7 +361,11 @@ class sale_order(osv.osv):
                   oslg.name as groupcd,
                   'Y' as wascontract,
                   'N' as wascancel,
-                  coalesce(substring(oslt.name,1,1),'B') as storeregion
+                  coalesce(substring(oslt.name,1,1),'B') as storeregion,
+                  case 
+                     when ((osp.date_finish - osp.date_start ) + 1) >= 6 then 'Y'
+                     else 'N'
+                  end as flagworkday
                 from sale_order so
                 join sale_branch_line sbl on sbl.sale_id = so.id
                 join stock_location sl on sbl.location_id = sl.id
