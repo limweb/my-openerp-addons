@@ -482,6 +482,7 @@ class sale_order(osv.osv):
 
 
             costitem_sql = """
+            
             select
                 so.name as contractno,
                 so.client_order_ref as bookingno,
@@ -489,21 +490,69 @@ class sale_order(osv.osv):
                 1 as lineseq,
                 pc.name as typecd,
                 pp.name_template as costdesc,
-                product_uom_qty as chargeqty,
+                --product_uom_qty as chargeqty,
+                case with_branch
+                  when false then 1
+                  else 
+            case with_period 
+               when false then product_uom_qty
+               else ((date_period_finish - date_period_start) + 1) * product_uom_qty
+            end 
+                end as chargeqty,
                 'Day' as chargeuom,
-                (select count(*) from sale_branch_line where sale_id = so.id) as altqty ,
+                --(select count(*) from sale_branch_line where sale_id = so.id) as altqty ,
+                case with_branch 
+                  when true then (select count(*) from sale_branch_line where sale_id = so.id)
+                  else product_uom_qty
+                end as altqty,
                 'Store' as altuom,
                 coalesce(price_unit,0) as chargerate,
-                  product_uom_qty * coalesce((select count(*) from sale_branch_line where sale_id = so.id),1) * coalesce(price_unit,1)  as extcharge
-                from
+                --product_uom_qty * coalesce((select count(*) from sale_branch_line where sale_id = so.id),1) * coalesce(price_unit,1)  as extcharge
+                (case with_branch
+                  when false then 1
+                  else 
+            case with_period 
+               when false then product_uom_qty
+               else ((date_period_finish - date_period_start) + 1) * product_uom_qty
+            end 
+                end) * (case with_branch 
+                  when true then (select count(*) from sale_branch_line where sale_id = so.id)
+                  else product_uom_qty
+                end) *  coalesce(price_unit,1) as extcharge
+              from
                 sale_order so
                 join sale_order_line sol on so.id = sol.order_id
                 left join omg_sale_reserve_contact osrc on so.client_order_ref = osrc.name
                 left join product_product pp on sol.product_id = pp.id
                 left join product_template pt on pp.product_tmpl_id = pt.id
                 left join product_category pc on pt.categ_id = pc.id
+                left join omg_sale_period osp on so.period_id = osp.id
                 where so.company_id = %s and so.id = %s
+            
                 """
+#
+#            select
+#                so.name as contractno,
+#                so.client_order_ref as bookingno,
+#                pp.id as costitem,
+#                1 as lineseq,
+#                pc.name as typecd,
+#                pp.name_template as costdesc,
+#                product_uom_qty as chargeqty,
+#                'Day' as chargeuom,
+#                (select count(*) from sale_branch_line where sale_id = so.id) as altqty ,
+#                'Store' as altuom,
+#                coalesce(price_unit,0) as chargerate,
+#                  product_uom_qty * coalesce((select count(*) from sale_branch_line where sale_id = so.id),1) * coalesce(price_unit,1)  as extcharge
+#                from
+#                sale_order so
+#                join sale_order_line sol on so.id = sol.order_id
+#                left join omg_sale_reserve_contact osrc on so.client_order_ref = osrc.name
+#                left join product_product pp on sol.product_id = pp.id
+#                left join product_template pt on pp.product_tmpl_id = pt.id
+#                left join product_category pc on pt.categ_id = pc.id
+#                where so.company_id = %s and so.id = %s
+                
             cr.execute(costitem_sql % (order.company_id.id, order.id))
             line_data =  cr.dictfetchall()
             for data in line_data:
