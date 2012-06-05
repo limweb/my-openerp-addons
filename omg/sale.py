@@ -695,13 +695,17 @@ class sale_order(osv.osv):
                 self.write(cr, uid, [order.id], val)
             else: #this is change
                 for period in order.sale_period_ids:
+                    t0 = datetime.now()
+                    #print "Start Period %s %s" % ('OK', datetime.now() - t0)
                     if period.period_id.warehouse_lock:
                         raise osv.except_osv(_('Period Locked.'), _('Peiord ('+ period.period_id.name +') was locked by Logistic Control.'))
-                    for location in order.sale_location_ids:                        
+                    for location in order.sale_location_ids:      
+                        print "Location %s %s" % (location.location_id.name, datetime.now()-t0)                  
                         proc_ids = []
                         output_id = order.shop_id.warehouse_id.lot_output_id.id
                         picking_id = False
                         for line in order.order_line:
+                            #print "Location %s -> %s %s" % (location.location_id.name, line.product_id.name, datetime.now()-t0)
                             proc_id = False
                             date_planned = datetime.strptime(period.date_start, '%Y-%m-%d') - relativedelta(days=line.delay or 0.0) - relativedelta(days=location.location_id.chained_delay or 0.0)
                             date_planned = (date_planned - timedelta(days=company.security_lead)).strftime('%Y-%m-%d %H:%M:%S')
@@ -770,7 +774,7 @@ class sale_order(osv.osv):
                                         'name': pick_name,
                                         'origin': order.name,
                                         'type': 'out',
-                                        'state': 'auto',
+                                        'state': 'draft',
                                         'move_type': order.picking_policy,
                                         'sale_id': order.id,
                                         'address_id': location.location_id.address_id.id or "",
@@ -915,8 +919,9 @@ class sale_order(osv.osv):
                                             #POP-022
                                             'price_unit': line.price_unit or 0,
                                         })
-                            #POP-017
+                            #POP-017                            
                             if line.product_id and new_qty <> 0 and move_id :
+                                #print "Procurement Start --> %s %s" % (location.location_id.name, datetime.now()-t0)
                                 proc_id = self.pool.get('procurement.order').create(cr, uid, {
                                     'name': line.name,
                                     'origin': order.name,
@@ -938,7 +943,11 @@ class sale_order(osv.osv):
                                     'period_id': period.period_id.id,
                                     'customer_product_id': order.customer_product_id.id,
                                 })
-                                wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
+                                
+                                #Change this when you want to Procurement Start (RFQ Auto)
+                                #wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
+                                
+                                #print "Procurement Finish --> %s %s" % (location.location_id.name, datetime.now()-t0)
                                 #proc_ids.append(proc_id)
                                 self.pool.get('sale.order.line').write(cr, uid, [line.id], {'procurement_id': proc_id})
                                 if order.state == 'shipping_except':
@@ -952,14 +961,16 @@ class sale_order(osv.osv):
                                                         proc_obj.write(cr, uid, [proc_id], {'product_qty': new_qty, 'product_uos_qty': new_qty})
             
                         val = {}
-            
-                        if not order.force_draft_state:
-                            if picking_id:
-                                wf_service.trg_validate(uid, 'stock.picking', picking_id, 'button_confirm', cr)
+                        #print "Work Flow --> %s %s" % (location.location_id.name, datetime.now()-t0)
+                        #if not order.force_draft_state:
+                        #    if picking_id:
+                        #        print "Picking Confirm Start --> %s %s" % (location.location_id.name, datetime.now()-t0)
+                        #        wf_service.trg_validate(uid, 'stock.picking', picking_id, 'button_confirm', cr)
+                        #        print "Picking Confirm Start --> %s %s" % (location.location_id.name, datetime.now()-t0)
             
                         #for proc_id in proc_ids:
                         #    wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
-            
+                       
                         if order.state == 'shipping_except':
                             val['state'] = 'progress'
                             val['shipped'] = False
@@ -969,9 +980,11 @@ class sale_order(osv.osv):
                                     if (not line.invoiced) and (line.state not in ('cancel', 'draft')):
                                         val['state'] = 'manual'
                                         break
+                        #print "Write Sale Order --> %s %s" % (location.location_id.name, datetime.now()-t0)
                         self.write(cr, uid, [order.id], val)
                         
                         #POP-001 
+                        #print "Create Stock Move --> %s %s" % (location.location_id.name, datetime.now()-t0)
                         stock_ids = self.pool.get('stock.move').search(cr, uid, [('picking_id','=',picking_id)])
                         for stock_move_line in self.pool.get('stock.move').browse(cr, uid, stock_ids):
                             stock_move_line.write({'location_dest_id':location.location_id.id})
@@ -979,6 +992,7 @@ class sale_order(osv.osv):
 
                 #Create Request for Customer Material
                 #03-11-11 By Tititab Srisookco
+                print "Start RFQ Customer Material %s " % (datetime.now() - t0)
                 customer_material_sql = """
                     select 
                       sp.origin as order_no,
@@ -1083,6 +1097,7 @@ class sale_order(osv.osv):
 
                 #Create Request for Cash Advance
                 #03-11-11 By Tititab Srisookco
+                print "Start Cash Advance %s " % (datetime.now() - t0)
                 customer_material_sql = """
                     select 
                       sp.origin as order_no,
