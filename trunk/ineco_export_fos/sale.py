@@ -100,7 +100,7 @@ class sale_order(osv.osv):
                     
             """
             sql_clear_prod = sql_clear_prod % ( order.client_order_ref, order.name)
-            #raise osv.except_osv(_('Message Hit !'), _(sql_clear_prod))
+            raise osv.except_osv(_('Message Hit !'), _(sql_clear_prod))
         
             if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
                 server_ip = order.company_id.fos_host
