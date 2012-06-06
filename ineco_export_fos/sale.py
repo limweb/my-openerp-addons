@@ -432,7 +432,7 @@ class sale_order(osv.osv):
                       sl.store_code as storecd,
                       oslg.name as groupcd,
                       '0' as flagchkts,
-                      select coalesce( (select pp2.default_code from sale_order  so
+                      coalesce( (select pp2.default_code from sale_order  so
                         join sale_order_line sol on so.id = sol.order_id
                         join product_product pp on sol.product_id = pp.product_tmpl_id
                         join mrp_bom mb on sol.product_id = mb.product_id
