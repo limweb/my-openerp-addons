@@ -162,7 +162,7 @@ class sale_order(osv.osv):
                     row = cur.fetchone()
                     if row[0] == 0:
                         itemmf_insert_sql = "insert into itemmf (itemno, itemdesc1, marketercd, barcodeno, itemtype, itemgroup, baseunit) values " + \
-                            "( '%s', %s, '%s', %s, '%s', '%s','%s')" % (product_id_list[index],product_name,order.partner_id.website,product_ean13,
+                            "( '%s', %s, '%s', %s, '%s', '%s','%s')" % (product_id_list[index],product_name,order.partner_id.comment,product_ean13,
                                 'Product Sampling','S','pcs')
                         cur.close()
                         cur = conn.cursor()
@@ -238,7 +238,7 @@ class sale_order(osv.osv):
                   substring(rpa.name,1,100) as contact1,
                   substring(rpa.phone,1,30) as tel1,
                   substring(rpa.fax,1,30) as fax1,
-                  substring(rp.website,1,100) as marketercd,
+                  substring(rp.comment,1,100) as marketercd,
                   substring(rp.name,1,100) as mktcompany2,
                   substring(rpa.name,1,100) as mktcontact2,
                   substring(rpa.phone,1,30) as mkttel2,
