@@ -547,12 +547,16 @@ class sale_order(osv.osv):
                 coalesce(price_unit,0) as chargerate,
                 --product_uom_qty * coalesce((select count(*) from sale_branch_line where sale_id = so.id),1) * coalesce(price_unit,1)  as extcharge
                 (case with_branch
-                  when false then 1
+                  when false then 
+                    case with_period 
+                       when false then product_uom_qty
+                       else ((date_period_finish - date_period_start) + 1)
+                    end 
                   else 
-            case with_period 
-               when false then product_uom_qty
-               else ((date_period_finish - date_period_start) + 1) * product_uom_qty
-            end 
+                    case with_period 
+                       when false then product_uom_qty
+                       else ((date_period_finish - date_period_start) + 1) * product_uom_qty
+                    end 
                 end) * (case with_branch 
                   when true then (select count(*) from sale_branch_line where sale_id = so.id)
                   else product_uom_qty
