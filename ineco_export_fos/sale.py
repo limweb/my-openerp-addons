@@ -432,13 +432,17 @@ class sale_order(osv.osv):
                       sl.store_code as storecd,
                       oslg.name as groupcd,
                       '0' as flagchkts,
-                      coalesce((select pp.default_code from sale_order  so
-                    join sale_order_line sol on so.id = sol.order_id
-                    join product_product pp on sol.product_id = pp.id
-                    where sol.product_id in (select id from product_product 
-                where default_code in ('TS', 'STS', 'MC', 'SP', 'Leader', 'Pretty Girl', 'Staff', 'OT', 'PT'))
-                and so.id = %s limit 1),'TS') as typets,
-                      --'TS' as typets,
+                      select coalesce( (select pp2.default_code from sale_order  so
+                        join sale_order_line sol on so.id = sol.order_id
+                        join product_product pp on sol.product_id = pp.product_tmpl_id
+                        join mrp_bom mb on sol.product_id = mb.product_id
+                        join mrp_bom mb2 on mb2.bom_id = mb.id
+                        join product_product pp2 on mb2.product_id = pp2.product_tmpl_id
+                        where  
+                          so.id = %s and 
+                          pp2.default_code in ('TS', 'STS', 'MC', 'SP', 'Leader', 'Pretty Girl', 'Staff', 'OT', 'PT')
+                        limit 1), 'TS') as typets,              
+                     --'TS' as typets,
                      1 as noofts
                     from sale_order so
                     left join sale_branch_line sbl on sbl.sale_id = so.id
@@ -452,6 +456,14 @@ class sale_order(osv.osv):
                      left join omg_sale_period_category ospc on ospc.id = osp.category_id
                      left join omg_sale_location_type oslt on sl.location_type_id = oslt.id 
                     where so.company_id = %s and so.id = %s            """
+
+#                      coalesce((select pp.default_code from sale_order  so
+#                        join sale_order_line sol on so.id = sol.order_id
+#                        join product_product pp on sol.product_id = pp.id
+#                        where sol.product_id in (select id from product_product 
+#                        where default_code in ('TS', 'STS', 'MC', 'SP', 'Leader', 'Pretty Girl', 'Staff', 'OT', 'PT'))
+#                        and so.id = %s limit 1),'TS') as typets,
+
 
 #                select
 #                  osc.name as chaincd, --'wait change - osrc.chain_id' as chaincd,
