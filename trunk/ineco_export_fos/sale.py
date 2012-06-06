@@ -640,7 +640,7 @@ class sale_order(osv.osv):
                 left join product_template pt on pp.product_tmpl_id = pt.id
                 left join product_category pc on pt.categ_id = pc.id
                 left join product_uom pu on pt.uom_id = pu.id
-               where so.company_id = %s and so.id = %s and (pp.equipment = True or pp.customer_material = True)
+               where pp.equipment = False and  so.company_id = %s and so.id = %s and (pp.equipment = True or pp.customer_material = True)
             """
             cr.execute(matitem_sql % (order.company_id.id, order.id))
             line_data =  cr.dictfetchall()
