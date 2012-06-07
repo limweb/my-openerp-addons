@@ -530,7 +530,11 @@ class sale_order(osv.osv):
                 pp.name_template as costdesc,
                 --product_uom_qty as chargeqty,
                 case with_branch
-                  when false then 1
+                  when false then             
+            case with_period 
+               when false then product_uom_qty
+               else ((date_period_finish - date_period_start) + 1)
+            end 
                   else 
             case with_period 
                when false then product_uom_qty
