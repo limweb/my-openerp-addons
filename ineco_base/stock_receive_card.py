@@ -24,6 +24,7 @@
 # 17-01-2012    POP-002    Change load packing card not in cancel state.
 # 18-01-2012    POP-003    Change sure pack no available in load packing no.
 # 09-05-2012    POP-004    Add Default Category ID
+# 08-06-2012    POP-005    Change Load Pack State assigned->draft
 
 from osv import fields, osv
 from tools.translate import _
@@ -75,7 +76,8 @@ class stock_receive_card(osv.osv_memory):
                             'location_id': stock_obj.location_dest_id.id, # move.location_dest_id.id,
                             'location_dest_id': location_dest_id.id,
                             'sale_line_id': False,
-                            'state': 'assigned',
+                            #POP-005
+                            'state': 'draft',
                             'note': 'load packing',
                             'company_id': pick_obj.company_id.id,# move.company_id.id,
                             #POP-004
@@ -106,7 +108,8 @@ class stock_receive_card(osv.osv_memory):
                             'location_id': stock_obj.location_dest_id.id, # move.location_dest_id.id,
                             'location_dest_id': location_dest_id.id,
                             'sale_line_id': False,
-                            'state': 'assigned',
+                            #POP-005
+                            'state': 'draft',
                             'note': 'load packing',
                             'company_id': pick_obj.company_id.id,# move.company_id.id,
                             #POP-004

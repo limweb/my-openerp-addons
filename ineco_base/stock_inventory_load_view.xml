@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="ineco_view_stock_inventory_load_wizard" model="ir.ui.view">
+            <field name="name">Load Pack No</field>
+            <field name="model">ineco.stock.inventory.card</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Load Pack No">
+                <separator string="Load Pack No into Physical Inventory" colspan="4"/>
+                <field name="tracking_id"/>
+                <button icon='gtk-cancel' special="cancel"
+                    string="_Cancel" />
+                <button name="load" string="Ok"
+                    type="object" icon="gtk-ok" />
+            </form>
+            </field>
+        </record>
+        
+        <record id="stock_inventory_load" model="ir.actions.act_window">
+            <field name="name">Load Pack No</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.stock.inventory.card</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        
+        <record id="ineco_view_inventory_loadpack_form" model="ir.ui.view">
+            <field name="name">stock.inventory.loadpack.form</field>
+            <field name="model">stock.inventory</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field eval="12" name="priority"/>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='General Informations']/field[@name='inventory_line_id']" position="before">
+            		<button
+                        name="%(ineco_base.stock_inventory_load)d"
+                        string="Load Pack"
+                        type="action" 
+                        icon="terp-stock_effects-object-colorize"
+                        colspan="4"
+                         />            
+            	</xpath>            	
+            </field>
+        </record>	
+        
+    </data>
+</openerp>

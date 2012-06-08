@@ -149,6 +149,7 @@ class stock_move(osv.osv):
         for move in move_ids:
             #POP-005
             if move.product_uom.category_id.id <> move.product_id.uom_id.category_id.id:
+                raise osv.except_osv(_('Error'), _('UOM Category Error, Please check-> '+move.product_id.name+' in product master.' ))
                 new_uom = move.product_id.uom_id.id
             else:
                 new_uom = move.product_uom.id

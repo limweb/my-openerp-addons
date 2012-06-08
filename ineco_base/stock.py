@@ -38,6 +38,7 @@
 # 16-03-2012       POP-015    Change Set to Confirm -> Set To Draft
 # 30-03-2012       POP-016    Create ineco.stock.barcode.move
 # 05-04-2012       POP-017    Add Return Columns in Stock Picking
+# 08-06-2012       POP-018    Change Date -> DateTime in Stock Move Barcode Delivery
 
 import math
 
@@ -78,8 +79,12 @@ class stock_inventory(osv.osv):
             for line in inv.inventory_line_id:
                 pid = line.product_id.id
                 product_context.update(uom=line.product_uom.id,date=inv.date)
-                stock_report_ids = self.pool.get('ineco.stock.report').search(cr, uid, 
-                    [('location_dest_id','=',line.location_id.id),('product_id','=',line.product_id.id)])
+                if line.tracking_id and line.prod_lot_id:
+                    stock_report_ids = self.pool.get('ineco.stock.report').search(cr, uid, 
+                        [('lot_id','=',line.prod_lot_id.id),('tracking_id','=',line.tracking_id.id)])
+                else:
+                    stock_report_ids = self.pool.get('ineco.stock.report').search(cr, uid, 
+                        [('location_dest_id','=',line.location_id.id),('product_id','=',line.product_id.id)])
                 amount = 0
                 if stock_report_ids:
                     stock_report = self.pool.get('ineco.stock.report').browse(cr, uid, stock_report_ids)[0]
@@ -140,7 +145,8 @@ class stock_inventory_line(osv.osv):
             prod = self.pool.get('product.product').browse(cr, uid, [product], {'uom': uom})[0]
             uom = prod.uom_id.id
             uom_categ_id = prod.uom_id.category_id.id
-        stock_report_ids = self.pool.get('ineco.stock.report').search(cr, uid, [('location_dest_id','=',location_id),('product_id','=',product)])
+        stock_location_ids = self.pool.get("stock.location").search(cr, uid, [('name','=','Stock'),('location_id','=',1)])
+        stock_report_ids = self.pool.get('ineco.stock.report').search(cr, uid, [('location_dest_id','=',location_id),('product_id','=',product),('location_dest_id','child_of',stock_location_ids),('qty','!=',0)])
         lot_id = False
         tracking_id = False
         amount = 0
@@ -1562,8 +1568,9 @@ class ineco_stock_barcode_delivery(osv.osv):
                     'name': 'barcode',
                     'picking_id': False,
                     'product_id': vals['product_id'],
-                    'date': time.strftime('%Y-%m-%d'),
-                    'date_expected': time.strftime('%Y-%m-%d'),
+                    #POP-018
+                    'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                    'date_expected': time.strftime('%Y-%m-%d %H:%M:%S'),
                     'product_qty': vals['quantity'] or 0.0,
                     'product_uom': vals['uom_id'],
                     'location_id': vals['location_id'],
