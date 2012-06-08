@@ -191,7 +191,7 @@ class ineco_public_function_getstocklimit(osv.osv):
                     total alias for $2;
                     tmp_quantity int default 0;
             begin
-                for stock in select id, qty from ineco_stock_report where product_id = local_product_id and qty > 0  order by expired, date_input, qty loop
+                for stock in select id, qty from ineco_stock_report_master where product_id = local_product_id and qty > 0  order by expired, date_input, qty loop
                     tmp_quantity = tmp_quantity + stock.qty;
                     if tmp_quantity >= total then
                         reccount = reccount + 1;
