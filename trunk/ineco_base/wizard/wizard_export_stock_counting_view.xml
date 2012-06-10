@@ -3,7 +3,7 @@
     <data>
 
         <record id="view_wizard_export_stock_counting" model="ir.ui.view">
-            <field name="name">Export Stock Counting</field>
+            <field name="name">Create Physical Inventory</field>
             <field name="model">wizard.ineco.export.stock.counting</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
@@ -34,7 +34,7 @@
         </record>
 
         <record id="action_wizard_export_stock_counting" model="ir.actions.act_window">
-            <field name="name">Export Stock Counting</field>
+            <field name="name">Create Physical Inventory</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">wizard.ineco.export.stock.counting</field>
             <field name="view_type">form</field>
@@ -42,7 +42,7 @@
             <field name="target">new</field>
         </record>
 
-		 <act_window name="Export Stock Counting"		    
+		 <act_window name="Create Physical Inventory"		    
 			res_model="wizard.ineco.export.stock.counting"
 			src_model="ineco.stock.report"
 			view_mode="form"

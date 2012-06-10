@@ -58,8 +58,7 @@ class stock_inventory_load(osv.osv_memory):
                     'location_id': stock_report_obj.location_dest_id.id
                 })            
             else:
-                raise osv.except_osv(_('Error !'), _('Can not find pack'))
-            
+                raise osv.except_osv(_('Error !'), _('Can not find data.'))
         return {'type': 'ir.actions.act_window_close'}
     
 stock_inventory_load()

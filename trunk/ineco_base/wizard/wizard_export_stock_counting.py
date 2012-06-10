@@ -47,13 +47,16 @@ class wizard_ineco_export_stock_counting(osv.osv_memory):
         return {'type':'ir.actions.act_window_close' }
 
     def str_thai(self, d):
-        if isinstance(d, basestring):
-            d = d.replace('\n',' ').replace('\t',' ')
-            try:
-                d = d.encode('cp874')
-            except:
-                pass
-            if d is False: d = None
+        if not d:
+            return ""
+        else:
+            if isinstance(d, basestring):
+                d = d.replace('\n',' ').replace('\t',' ')
+                try:
+                    d = d.encode('cp874')
+                except:
+                    pass
+                if d is False: d = None
         return d
 
     def export_report(self, cr, uid, ids, context=None):
@@ -66,48 +69,49 @@ class wizard_ineco_export_stock_counting(osv.osv_memory):
         for field in datas['form'].keys():
             if isinstance(datas['form'][field], tuple):
                 datas['form'][field] = datas['form'][field][0]
-
-        location_obj = self.pool.get('stock.location')
-        report = False
-        stock_ids = location_obj.search(cr, uid, [('name','=','Stock')])
-        if stock_ids:
-            location_ids = location_obj.search(cr, uid, [('location_id','child_of',stock_ids)])
-            if location_ids:
-                
-                try:
-                    fp = StringIO()
-                    writer = csv.writer(fp, quoting=csv.QUOTE_ALL)
-
-                    for location in self.pool.get('stock.location').browse(cr, uid, sorted(location_ids)):
-                        stock_ids = self.pool.get('ineco.stock.report').search(cr, uid, [('location_dest_id','=',location.id)])
-                        for data in self.pool.get('ineco.stock.report').browse(cr, uid, stock_ids):
-                            row = []
-                            row.append(location.name.replace('\n',' ').replace('\t',' '))
-                            row.append(self.str_thai(data.product_id.name))
-                            row.append(self.str_thai(data.lot_id.name))
-                            row.append(self.str_thai(data.tracking_id.name))
-                            row.append(self.str_thai(data.uom_id.name))
-                            row.append(data.qty)                
-                            writer.writerow(row)
-                        
-                    fp.seek(0)
-                    output = fp.read()
-                    fp.close()
-                    #report = base64.encodestring(output.getvalue())
-                except IOError, (errno, strerror):
-                    raise osv.except_osv(_("Operation failed\nI/O error")+"(%s)" % (errno,))                
-                
-        else:
-            raise osv.except_osv(_('Error !'),_('"Stock", Name not found!'))
-
-        return self.write(cr, uid, ids, {'state':'get', 'report':output, 'name':'report.csv'}, context=context)
+        user_obj = self.pool.get('res.users').browse(cr, uid, uid)
+        if datas['ids'] :
+            location_from_obj = self.pool.get('ineco.stock.report').browse(cr, uid, datas['ids'][0])
+            location_to_obj = self.pool.get('ineco.stock.report').browse(cr, uid, datas['ids'][len(datas['ids'])-1])
+            inventory_id = self.pool.get('stock.inventory').create(cr, uid,
+                {'name': 'Counting Stock By '+user_obj.name + " ["+location_from_obj.location_dest_id.name+"..."+location_to_obj.location_dest_id.name+']',
+                 'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                 }
+            )
+            for stock in self.pool.get('ineco.stock.report').browse(cr, uid, datas['ids']):
+                line_id = self.pool.get('stock.inventory.line').create(cr, uid, 
+                   { 'inventory_id': inventory_id,
+                     'product_id': stock.product_id.id or False ,
+                     'product_uom': stock.uom_id.id or False,
+                     'location_id': stock.location_dest_id.id or False ,
+                     'prod_lot_id': stock.lot_id.id or False,
+                     'tracking_id': stock.tracking_id.id or False,
+                     'product_qty': stock.qty, 
+                    }
+                ) 
+            mod_obj = self.pool.get('ir.model.data')
+            res = mod_obj.get_object_reference(cr, uid, 'stock', 'view_inventory_form')
+            res_id = res and res[1] or False,
+            return {
+                'name': 'Physical Inventory',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'view_id': list(res_id),
+                'res_model': 'stock.inventory',
+                'type': 'ir.actions.act_window',
+                'nodestroy': True,
+                'target': 'current',
+                'res_id': inventory_id ,
+            }  
+        else:          
+            return {'type':'ir.actions.act_window_close' }
     
     _name = "wizard.ineco.export.stock.counting"
     _description = "Export Stock Counting"
 
     _columns = {
         'name': fields.char('Filename', 16, readonly=True),       
-        'report': fields.binary('Report File'),
+        'report': fields.binary('Report File', readonly=True),
         'check_zero': fields.boolean('Only Zero Quantity'),
         'check_less': fields.boolean('Only Quantity < 0'),         
         'state': fields.selection( ( ('choose','choose'), ('get','get'), ) ),
