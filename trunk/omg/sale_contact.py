@@ -32,6 +32,7 @@
 # 28-05-2012    DAY-001    Del Location, Copy Contact add booking History
 # 30-05-2012    DAY-002    Set State Draft 
 # 30-05-2012    DAY-003    Update Sale Branch line
+# 11-06-2012    DAY-004    Check Categ,Check Place
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -315,9 +316,10 @@ class omg_sale_reserve_contact_line(osv.osv):
         can_book = True
         contact_obj = self.pool.get('omg.sale.reserve.contact.line').browse(cr, uid, ids)[0]
         self.allow = contact_obj.allow_duplicate
-        for location in contact_obj.location_lines:
-            if can_book:
-                can_book = self._can_booking(cr, uid, ids, location.location_id.id, contact_obj.category_id.id, contact_obj.period_id.id, contact_obj.contact_id.service_id.categ_id.id )
+        if contact_obj.contact_id.service_id.categ_id.ineco_check_categ:
+            for location in contact_obj.location_lines:
+                if can_book:
+                    can_book = self._can_booking(cr, uid, ids, location.location_id.id, contact_obj.category_id.id, contact_obj.period_id.id, contact_obj.contact_id.service_id.categ_id.id )
         return can_book
     
     def _get_max_service(self, cr, uid, ids, location_id, service_categ_id, context=None):
@@ -354,27 +356,29 @@ class omg_sale_reserve_contact_line(osv.osv):
         can_book = True
         location = self.pool.get('stock.location').browse(cr, uid, [location_id])[0]
         contact_obj = self.pool.get('omg.sale.reserve.contact.line').browse(cr, uid, ids)[0]
-        
-        if contact_obj.allow_duplicate:
-            booking_ids = []
-        else:
-            if len(booking_ids) > 0:
-               raise osv.except_osv(_('Warning'), _('You have selected Duplication Category')) 
-           
-        #POP-007
-        if location and location.max_place_qty == 0:
-            can_book = True
-        elif location and location.max_place_qty < len(max_ids):
-            can_book = False
-            raise osv.except_osv(_('Warning'), _('You have Over Max Place can be sold ->'+location.name+', ' + str(location.max_place_qty)+','+str(len(max_ids)) ))            
-                  
-        #POP-001
-        max_service_qty = self._get_max_service(cr,uid,ids,location.id, service_categ_id, context)
-        if len(booking_ids) == 0 and location and max_service_qty > len(max_ids):
-            can_book = True
-        else:
-            can_book = False
-            raise osv.except_osv(_('Warning'), _('You have Over Max Service can be sold ->'+location.name+', ' + contact_obj.contact_id.service_id.categ_id.name))            
+        #DAY 004
+        if contact_obj.contact_id.service_id.categ_id.ineco_check_categ:        
+            if contact_obj.allow_duplicate:
+                booking_ids = []
+            else:
+                if len(booking_ids) > 0:
+                   raise osv.except_osv(_('Warning'), _('You have selected Duplication Category')) 
+        #DAY 004
+        if contact_obj.contact_id.service_id.categ_id.ineco_check_place: 
+            #POP-007
+            if location and location.max_place_qty == 0:
+                can_book = True
+            elif location and location.max_place_qty < len(max_ids):
+                can_book = False
+                raise osv.except_osv(_('Warning'), _('You have Over Max Place can be sold ->'+location.name+', ' + str(location.max_place_qty)+','+str(len(max_ids)) ))            
+                      
+            #POP-001
+            max_service_qty = self._get_max_service(cr,uid,ids,location.id, service_categ_id, context)
+            if len(booking_ids) == 0 and location and max_service_qty > len(max_ids):
+                can_book = True
+            else:
+                can_book = False
+                raise osv.except_osv(_('Warning'), _('You have Over Max Service can be sold ->'+location.name+', ' + contact_obj.contact_id.service_id.categ_id.name))            
         return can_book
     
     def _make_cancel(self, cr, uid, ids, location_id, category_id, period_id, context=None):
