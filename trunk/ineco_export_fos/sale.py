@@ -143,6 +143,7 @@ class sale_order(osv.osv):
                     product_name = "'"+product_name_list[index]+"'"
                 if product_ean13_list[index] == False:
                     product_ean13 = 'null'
+                    raise osv.except_osv(_('Error !'), _('Please fill EAN13 in ' + product_name)) 
                 else:
                     product_ean13 = "'"+product_ean13_list[index]+"'"
                 insert_sku_value = insert_sku_value + str(product_id_list[index])+','+product_name+','+product_ean13+','
