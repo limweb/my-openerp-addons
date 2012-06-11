@@ -171,6 +171,17 @@ class sale_order(osv.osv):
                         cur.execute(itemmf_insert_sql.encode('utf-8'))
                         cur.close()
                         conn.commit()
+                    else:
+                        itemmf_update_sql = "update itemmf set itemdesc1 = '%s', marketercd = '%s', barcodeno = '%s' where itemno = '%s' " \
+                            % (product_name, order.partner_id.comment, product_ean13, product_id_list[index] )
+                        cur.close()
+                        cur = conn.cursor()
+                        cur.execute('SET ANSI_WARNINGS off')
+                        conn.commit()
+                        cur.execute(itemmf_update_sql.encode('utf-8'))
+                        cur.close()
+                        conn.commit()
+                        
                 else:
                     raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
 
