@@ -172,8 +172,8 @@ class sale_order(osv.osv):
                         cur.close()
                         conn.commit()
                     else:
-                        itemmf_update_sql = "update itemmf set itemdesc1 = '%s', marketercd = '%s', barcodeno = '%s' where itemno = '%s' " \
-                            % (product_name, order.partner_id.comment, product_ean13, product_id_list[index] )
+                        itemmf_update_sql = "update itemmf set itemdesc1 = '%s', marketercd = '%s', barcodeno = '%s' where itemno = '%s' " % (product_name, order.partner_id.comment, product_ean13, product_id_list[index] )
+                        print itemmf_update_sql
                         cur.close()
                         cur = conn.cursor()
                         cur.execute('SET ANSI_WARNINGS off')
