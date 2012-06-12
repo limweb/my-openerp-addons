@@ -27,6 +27,7 @@
 # 11-04-2012    POP-005    Change uom default when not in same category
 # 17-04-2012    POP-006    Add ineco.stock.location.product.mapping
 # 02-05-2012    DAY-001    Add OMG Field
+# 11-06-2012    POP-007    Check Stock Before Intermal Move
 
 import socket
 import sys
@@ -147,6 +148,15 @@ class stock_move(osv.osv):
     def action_done(self, cr, uid, ids, context=None):
         move_ids = self.pool.get('stock.move').browse(cr, uid, ids)
         for move in move_ids:
+            #POP-007
+            if move.picking_id.type == 'internal':
+                if move.location_id.usage == 'internal':
+                    stock_ids = self.pool.get("ineco.stock.report").search(cr, uid, [('location_id','=',move.location_id.id),('lot_id','=',move.prod_lot_id.id),('tracking_id','=',move.tracking_id.id),('qty','>',0)])
+                    max_qty = 0
+                    for stock in self.pool.get("ineco.stock.report").browse(cr, uid, stock_ids):
+                        max_qty += stock.qty
+                    if round(move.product_qty / move.product_uom.factor) > max_qty:
+                        raise osv.except_osv(_('Error'), _('Stock Unavailable -> '+move.product_id.name+'.' ))                        
             #POP-005
             if move.product_uom.category_id.id <> move.product_id.uom_id.category_id.id:
                 raise osv.except_osv(_('Error'), _('UOM Category Error, Please check-> '+move.product_id.name+' in product master.' ))
