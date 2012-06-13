@@ -193,19 +193,7 @@ class sale_order(osv.osv):
                     ','+'itemdesc'+str(newindex)+"=%s" % product_name+ \
                     ','+'barcodeno'+str(newindex)+"=%s" % product_ean13+','
                     
-            ##POP-001
-            if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
-                server_ip = order.company_id.fos_host
-                server_user = order.company_id.fos_user
-                server_password = order.company_id.fos_password
-                server_db = order.company_id.fos_dbname
-                
-                conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
-                                       database=server_db,as_dict=True)
-                cur = conn.cursor()
-                cur.execute("execute ineco_modify_salestock '%s'" % order.name)
-                conn.commit()
-            
+            ##POP-001            
             
             if len(product_id_list) > 0:
                 update_sku_sql = 'update contr_prod set '+ update_sku_sql[0:len(update_sku_sql)-1] +" where bookingno = '%s' and contractno= '%s'" % ( order.client_order_ref, order.name)
@@ -744,6 +732,18 @@ class sale_order(osv.osv):
                     
                 else:
                     raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
+
+            if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
+                server_ip = order.company_id.fos_host
+                server_user = order.company_id.fos_user
+                server_password = order.company_id.fos_password
+                server_db = order.company_id.fos_dbname
+                
+                conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
+                                       database=server_db,as_dict=True)
+                cur = conn.cursor()
+                cur.execute("execute ineco_modify_salestock '%s'" % order.name)
+                conn.commit()
 
         return True
     
