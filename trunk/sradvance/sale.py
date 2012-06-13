@@ -366,7 +366,7 @@ class sale_order(osv.osv):
                             sticker_note = sticker_note + line.notes 
                         mrp_order_id = mrp_order_obj.create(cr, uid, {
                             #must change date planned after scheduling
-                            'name': order.name+'#'+'%02d' % (seq,),
+                            'name': order.name+'-'+'%02d' % (seq,),
                             'date_planned' : production_date,
                             'origin': order.name,
                             'product_qty': line.product_uom_qty,
