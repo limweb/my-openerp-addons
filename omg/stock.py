@@ -28,6 +28,7 @@
 # 17-04-2012    POP-006    Add ineco.stock.location.product.mapping
 # 02-05-2012    DAY-001    Add OMG Field
 # 11-06-2012    POP-007    Check Stock Before Intermal Move
+# 13-06-2012    POP-008     Lock Stock Move When state 'Done'
 
 import socket
 import sys
@@ -151,7 +152,7 @@ class stock_move(osv.osv):
             #POP-007
             if move.picking_id.type == 'internal':
                 if move.location_id.usage == 'internal':
-                    stock_ids = self.pool.get("ineco.stock.report").search(cr, uid, [('location_id','=',move.location_id.id),('lot_id','=',move.prod_lot_id.id),('tracking_id','=',move.tracking_id.id),('qty','>',0)])
+                    stock_ids = self.pool.get("ineco.stock.report").search(cr, uid, [('location_dest_id','=',move.location_id.id),('lot_id','=',move.prodlot_id.id),('tracking_id','=',move.tracking_id.id),('qty','>',0)])
                     max_qty = 0
                     for stock in self.pool.get("ineco.stock.report").browse(cr, uid, stock_ids):
                         max_qty += stock.qty
@@ -316,6 +317,15 @@ class stock_move(osv.osv):
     def action_return_arrival(self, cr, uid, ids, context=None):
         self.write(cr, uid, ids, {'date_completed':False, 'state':'arrival'})
         return []
+    
+    #POP-008
+    def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context = {}
+        for move in self.pool.get('stock.move').browse(cr, uid, ids):
+            if move.state == 'done' and 'product_qty' in vals :
+                raise osv.except_osv(_('Error'), _('Stock Move Locked -> '+move.product_id.name+'.' ))
+        return super(stock_move, self).write(cr, uid, ids, vals, context=context)
 
 stock_move()
 
