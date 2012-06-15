@@ -58,6 +58,7 @@ def _launch_wizard(self, cr, uid, data, context=None):
     return {
         'type': 'ir.actions.act_url',
         'url':url,
+        'nodestroy': True,
         'target': 'new'
     }
 

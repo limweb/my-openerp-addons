@@ -322,9 +322,10 @@ class stock_move(osv.osv):
     def write(self, cr, uid, ids, vals, context=None):
         if context is None:
             context = {}
-        for move in self.pool.get('stock.move').browse(cr, uid, ids):
-            if move.state == 'done' and 'product_qty' in vals :
-                raise osv.except_osv(_('Error'), _('Stock Move Locked -> '+move.product_id.name+'.' ))
+        if ids:
+            for move in self.pool.get('stock.move').browse(cr, uid, ids):
+                if move.state == 'done' and 'product_qty' in vals :
+                    raise osv.except_osv(_('Error'), _('Stock Move Locked -> '+move.product_id.name+'.' ))
         return super(stock_move, self).write(cr, uid, ids, vals, context=context)
 
 stock_move()
