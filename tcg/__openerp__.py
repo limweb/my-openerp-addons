@@ -37,6 +37,7 @@
         'purchase_view.xml',
         'purchase_requisition_view.xml',
         'sale_view.xml',
+        'product_view.xml',
         ],
     'demo_xml': [],
     'installable': True,
