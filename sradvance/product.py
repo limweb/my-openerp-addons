@@ -96,6 +96,7 @@ class product_product(osv.osv):
             context = {}
         if not len(ids):
             return []
+        
         def _name_get(d):
             name = d.get('name','')
             code = d.get('default_code',False)
@@ -108,10 +109,11 @@ class product_product(osv.osv):
             return (d['id'], name)
 
         partner_id = context.get('partner_id', False)
-
+    
         result = []
         for product in self.browse(cr, user, ids, context=context):
-            sellers = filter(lambda x: x.name.id == partner_id, product.seller_ids)
+            #sellers = filter(lambda x: x.name.id == partner_id, product.seller_ids)
+            sellers = False
             if sellers:
                 for s in sellers:
                     mydict = {
@@ -122,13 +124,17 @@ class product_product(osv.osv):
                               }
                     result.append(_name_get(mydict))
             else:
-                mydict = {
-                          'id': product.id,
-                          'name': product.name,
-                          'default_code': product.default_code,
-                          'variants': product.variants
-                          }
-                result.append(_name_get(mydict))
+                try:
+                    if product and product.name:
+                        mydict = {
+                                  'id': product.id,
+                                  'name': product.name ,
+                                  'default_code': product.default_code,
+                                  'variants': product.variants
+                                  }
+                        result.append(_name_get(mydict))
+                except:
+                    pass
         return result
     
 product_product()
