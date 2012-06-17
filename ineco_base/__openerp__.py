@@ -39,6 +39,7 @@
         "base_menu.xml",
         "partner_view.xml",
         "wizard_split_view.xml",
+        "wizard_physical_inventory_zero_view.xml",
         "stock_receive_card_view.xml",
         "stock_view.xml",
         "company_view.xml",

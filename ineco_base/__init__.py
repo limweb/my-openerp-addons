@@ -21,6 +21,7 @@
 
 import store_function
 import wizard_split
+import wizard_physical_inventory_zero
 import stock_receive_card
 import product
 import stock

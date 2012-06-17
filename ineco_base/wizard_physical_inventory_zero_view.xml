@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+        <record id="ineco_physical_inventory_zero_view" model="ir.ui.view">
+            <field name="name">Set Quantity</field>
+            <field name="model">ineco.physical.inventory.setquantity</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Change Quantity All">
+                <separator string="Quantity to be change" colspan="4"/>
+                <field name="quantity" />
+
+                <button icon='gtk-cancel' special="cancel"
+                    string="_Cancel" />
+                <button name="set_quantity" string="Ok"
+                    type="object" icon="gtk-ok" />
+            </form>
+            </field>
+        </record>
+        
+        <record id="ineco_physical_inventory_zero_action" model="ir.actions.act_window">
+            <field name="name">Set Quantity</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.physical.inventory.setquantity</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>
