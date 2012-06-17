@@ -982,7 +982,21 @@
             sequence="60"
             action="action_ineco_stock_barcode_move"/>   
 
+		<record id="view_ineco_inventory_setquantity_form" model="ir.ui.view">
+            <field name="name">ineco.stock.inventory.form</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <!-- /form/group/button[@name='action_confirm']  -->
+            	<xpath expr="/form/notebook/page/field[@name='inventory_line_id']" position="before">
+            		<button name="%(ineco_physical_inventory_zero_action)d" string="Set Quantity" type="action" />            		
+            	</xpath>
+            </field>
+        </record>
+		
 	</data>
-	
+	             
+		
 </openerp>
 
