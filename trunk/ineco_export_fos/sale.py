@@ -21,6 +21,7 @@
 
 # 29-05-2012    POP-001    Execute Store Procedure
 # 05-06-2012    POP-002    Change Bug in Contr_prod Clear All Values
+# 17-06-2012    POP-003    Add MarketerMF
 
 import math
 
@@ -71,6 +72,64 @@ class sale_order(osv.osv):
             context = {}
             
         for order in self.pool.get('sale.order').browse(cr, uid, ids):
+            
+            cr.execute('update res_partner set comment = id where id = %s' % (order.partner_id.id))
+            cr.commit()
+            
+            #POP-003
+            sql = """
+                select 
+                  rp.id as marketercd,
+                  left(rp.name,100),
+                  'Customer' as status,
+                  'Commercial' as dptype,
+                  '' as MKTTYPE,
+                  rpa.street as add1,
+                  rpa.street2 as add2,
+                  rpa.name as contact1,
+                  zip as addzip,
+                  phone as addphone1,
+                  mobile as addphone2,
+                  fax as addfax2,
+                  email as addemail,
+                  2 as noofpayment
+                from
+                  res_partner rp
+                join res_partner_address rpa on rp.id = rpa.partner_id           
+                where rpa.id = %s 
+            """
+            cr.execute(sql % (order.partner_invoice_id.id))
+            line_data =  cr.dictfetchall()
+            for data in line_data:
+                insert_field = self._genfield(data,1);
+                insert_value = self._genfield(data,2);
+                insert_contrmf_sql = 'insert into marketermf '+insert_field+' values '+insert_value
+                update_contrmf_sql = "update marketermf set "+self._genfield(data,3)+" where marketercd = '%s'" % data['marketercd']
+                if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
+                    server_ip = order.company_id.fos_host
+                    server_user = order.company_id.fos_user
+                    server_password = order.company_id.fos_password
+                    server_db = order.company_id.fos_dbname
+
+                    conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
+                                           database=server_db,as_dict=True)
+                    cur = conn.cursor()
+                    try:
+                        #insert_sql
+                        cur.execute('SET ANSI_WARNINGS off')
+                        cur.execute(insert_contrmf_sql.encode('utf-8'))
+
+                    except:
+                        #update_sql
+                        cur.execute('SET ANSI_WARNINGS off')
+                        cur.execute(update_contrmf_sql.encode('utf-8'))
+
+                    cur.close()
+                    conn.commit()
+                    
+                else:
+                    raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))                
+            
             #contr_prod
             i = 0
             product_id_list = {}
@@ -225,6 +284,7 @@ class sale_order(osv.osv):
                         conn.commit()
                 else:
                     raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
+                
 
             #print insert_sku_sql
                         
