@@ -64,14 +64,26 @@ class ineco_mrp_production_tracking(osv.osv):
     def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=100):
         if not args:
             args=[]
+        searchValue = False
+        searchList = False
         if name:
-            ids = self.search(cr, user, [('id','=',name)]+ args, limit=limit, context=context)
+            if isinstance(name, int):
+                searchValue = name
+            elif isinstance(name, unicode) or isinstance(name, str):
+                if name.find('ineco') != -1:
+                    searchList = name.split(':')
+                    if len(searchList) > 0:
+                        searchValue = int(searchList[1])
+                else:
+                    searchValue = int(name)
+            
+            ids = self.search(cr, user, [('id','=',searchValue)]+ args, limit=limit, context=context)
             if not len(ids):
-                ids = self.search(cr, user, [('id',operator,name)]+ args, limit=limit, context=context)
-                ids += self.search(cr, user, [('name',operator,name)]+ args, limit=limit, context=context)
+                ids = self.search(cr, user, [('id',operator,searchValue)]+ args, limit=limit, context=context)
+                ids += self.search(cr, user, [('name',operator,searchValue)]+ args, limit=limit, context=context)
             if not len(ids):
                ptrn=re.compile('(\[(.*?)\])')
-               res = ptrn.search(name)
+               res = ptrn.search(searchValue)
                if res:
                    ids = self.search(cr, user, [('id','=', res.group(2))] + args, limit=limit, context=context)
         else:
