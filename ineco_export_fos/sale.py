@@ -354,7 +354,7 @@ class sale_order(osv.osv):
                   --'Y' as flagworkday,
                   substring(ru3.login,1,10) as usercreate,
                   so.create_date::date as createdate,
-                  'D' as typeserv,  --New Field In Master Product by FOS
+                  coalesce(pp2.default_code,'D') as typeserv,  --New Field In Master Product by FOS
                   7 as taxrate
                   
                 from sale_order so
@@ -372,6 +372,7 @@ class sale_order(osv.osv):
                 left join omg_sale_chain osc on osrc.chain_id = osc.id
                 left join res_users ru3 on so.create_uid = ru3.id
                 left join omg_sale_period_category ospc on ospc.id = osp.category_id
+                left join product_product pp2 on so.service_product_id = pp2.id
                 where so.company_id = %s and so.id = %s           
             """
             cr.execute(sql % (order.company_id.id, order.id))
