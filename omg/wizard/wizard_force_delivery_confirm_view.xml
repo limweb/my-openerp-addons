@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_wizard_force_delivery_confirm" model="ir.ui.view">
+            <field name="name">Force Delivery Confirm</field>
+            <field name="model">wizard.ineco.delivery.forceconfirm</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form string="Please check this box?">
+                    <group colspan="4">
+                        <group colspan="4" states="choose">
+                            <separator colspan="4" string="Selecting"/>
+                            <field name="check_sure" />
+                            <field invisible="1" name="state"/>
+                        </group>
+                    </group>
+                    <group colspan="8" col="8" states="choose">
+                        <separator string="" colspan="8"/>
+                        <button icon="gtk-cancel" name="act_cancel" special="cancel" string="_Close" type="object"/>
+                        <button icon="gtk-ok" name="force_confirm" string="_Execute" type="object"/>
+                    </group>
+            	</form>
+            </field>
+        </record>
+
+        <!-- 
+        <record id="action_wizard_force_delivery_confirm" model="ir.actions.act_window">
+            <field name="name">Force Delivery Confirm</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.ineco.delivery.forceconfirm</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+         -->
+
+		 <act_window name="Force Delivery Confirm"		    
+			res_model="wizard.ineco.delivery.forceconfirm"
+			src_model="stock.picking"
+			view_mode="form"
+           	multi="True"
+			target="new"        
+			key2="client_action_multi"    
+			id="action_wizard_force_delivery_confirm"/>	
+
+    </data>
+</openerp>
