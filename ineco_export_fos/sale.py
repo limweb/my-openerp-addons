@@ -80,7 +80,7 @@ class sale_order(osv.osv):
             sql = """
                 select 
                   rp.id as marketercd,
-                  left(rp.name,100),
+                  rp.name as marketername,
                   'Customer' as status,
                   'Commercial' as dptype,
                   '' as MKTTYPE,
