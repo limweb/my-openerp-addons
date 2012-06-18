@@ -105,9 +105,10 @@ class sale_order(osv.osv):
         proc_obj = self.pool.get('procurement.order')
         for sale in self.browse(cr, uid, ids, context=context):
             for pick in sale.picking_ids:
-                if pick.state not in ('draft', 'cancel'):
-                    if pick.state == 'done':
-                        pick.action_done_draft()
+                if pick.state not in ('cancel'):
+                    #if pick.state == 'done':
+                    pick.action_done_draft()
+                #pick.action_cancel()
                 #if pick.state == 'cancel':
                 #    for mov in pick.move_lines:
                 #        proc_ids = proc_obj.search(cr, uid, [('move_id', '=', mov.id)])

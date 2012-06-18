@@ -1411,12 +1411,12 @@ class ineco_stock_report_template_d(osv.osv):
             )
         """)
         #tools.sql.drop_view_if_exists(cr, 'ineco_stock_report')
-        cr.execute("select count(1) from pg_class where relkind=%s and relname=%s", ('r', 'ineco_stock_report'))
-        if cr.fetchone()[0]:
-            cr.execute("DROP table %s" % ('ineco_stock_report'))
-            cr.commit()
+        #cr.execute("select count(1) from pg_class where relkind=%s and relname=%s", ('r', 'ineco_stock_report'))
+        #if cr.fetchone()[0]:
+        #    cr.execute("DROP table %s" % ('ineco_stock_report'))
+        #    cr.commit()
 
-        cr.execute("select * into ineco_stock_report from tmp_ineco_stock_report")
+        #cr.execute("select * into ineco_stock_report from tmp_ineco_stock_report")
 
 ineco_stock_report_template_d()
 
