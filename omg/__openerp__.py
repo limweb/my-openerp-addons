@@ -34,6 +34,7 @@
     'update_xml': [
         'omg_groups.xml',
         'wizard/wizard_location_set_view.xml',
+        'wizard/wizard_force_delivery_confirm_view.xml',
         'purchase_requisition_view.xml',
         'analytic_data.xml',
         'sale_view.xml',
