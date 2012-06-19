@@ -38,8 +38,8 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
             	<xpath expr="/form/notebook/page[@string='General Information']/group/button[@name='action_process']" position="after">
-            		<button name="action_done_draft" groups="base.group_system" states="done" string="Set to Draft" type="object" icon="gtk-ok"/>          		
-            		<button name="action_cancel_draft" groups="base.group_system" states="cancel" string="Set to Draft" type="object" icon="gtk-ok"/>          		
+            		<button name="action_done_draft" states="done" string="Set to Draft" type="object" icon="gtk-ok"/>          		
+            		<button name="action_cancel_draft" states="cancel" string="Set to Draft" type="object" icon="gtk-ok"/>          		
             	</xpath>
             </field>
         </record>
@@ -82,8 +82,8 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
             	<xpath expr="/form/notebook/page[@string='Products']/group/button[@name='action_process']" position="after">
-            		<button name="action_done_draft" groups="base.group_system" states="done" string="Set to Draft" type="object" icon="gtk-ok"/>          		
-            		<button name="action_cancel_draft" groups="base.group_system" states="cancel" string="Set to Draft" type="object" icon="gtk-ok"/>          		
+            		<button name="action_done_draft" states="done" string="Set to Draft" type="object" icon="gtk-ok"/>          		
+            		<button name="action_cancel_draft" states="cancel" string="Set to Draft" type="object" icon="gtk-ok"/>          		
             	</xpath>
             </field>
      	</record>            
@@ -96,8 +96,8 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
             	<xpath expr="/form/notebook/page[@string='Products']/group/button[@name='action_process']" position="after">
-            		<button name="action_done_draft" groups="base.group_system" states="done" string="Set to Draft" type="object" icon="gtk-ok"/>          		
-            		<button name="action_cancel_draft" groups="base.group_system" states="cancel" string="Set to Draft" type="object" icon="gtk-ok"/>          		
+            		<button name="action_done_draft"  states="done" string="Set to Draft" type="object" icon="gtk-ok"/>          		
+            		<button name="action_cancel_draft"  states="cancel" string="Set to Draft" type="object" icon="gtk-ok"/>          		
             	</xpath>
             </field>
      	</record>            
