@@ -765,7 +765,7 @@ class stock_production_lot(osv.osv):
                     lot_id,
                     sum(ineco_get_stock(uom_id,qty))
                 from
-                    ineco_stock_report
+                    ineco_stock_report_master
                 where
                     location_dest_id IN %s and lot_id IN %s group by lot_id''',(tuple(locations),tuple(ids),))
             res.update(dict(cr.fetchall()))
@@ -781,7 +781,7 @@ class stock_production_lot(osv.osv):
                 lot_id,
                 sum(ineco_get_stock(uom_id,qty))
             from
-                ineco_stock_report
+                ineco_stock_report_master
             where
                 location_dest_id IN %s group by lot_id
             having  sum(ineco_get_stock(uom_id,qty)) '''+ str(args[0][1]) + str(args[0][2]),(tuple(locations),))
@@ -1130,7 +1130,7 @@ class stock_tracking(osv.osv):
                     tracking_id,
                     sum(ineco_get_stock(uom_id,qty))
                 from
-                    ineco_stock_report
+                    ineco_stock_report_master
                 where
                     tracking_id IN %s group by tracking_id''',(tuple(tracking),))
             res.update(dict(cr.fetchall()))
