@@ -73,6 +73,7 @@
         'wizard/wizard_change_delivery_date_view.xml',
         'wizard/wizard_report_delivery_return_view.xml',
         'address_view.xml',
+        'wizard/update_location_qty_view.xml',
         ],
     'demo_xml': [],
     'installable': True,

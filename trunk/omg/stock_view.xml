@@ -535,19 +535,57 @@
 				</form>
 			</field>
 		</record>
-
-
-        <record id="omg_view_picking_out_search2_inherit" model="ir.ui.view">
-            <field name="name">omg.stock.picking.out2.search</field>
-            <field name="model">stock.picking</field>
-            <field name="type">search</field>
-			<field name="inherit_id" ref="stock.view_picking_out_search"/>
-            <field name="arch" type="xml">
-             	<filter name="done" position="before">
-                        <filter icon="terp-camera_test" name="draft" string="Draft" domain="[('state','=','draft'),('type','=','out')]" help="Draft Delivery Orders"/>
-             	</filter>
-            </field>
+		
+	<!-- Location Qty Update -->	
+		<record model="ir.ui.view" id="view_stock_location_line_qty_update_form">
+			<field name="name">stock.location.line.qty.update.form</field>
+			<field name="type">form</field>
+			<field name="model">stock.location.line.qty.update</field>
+			<field name="arch" type="xml">
+				<form string="Location Qty Update">
+					<field name="name" />
+					<field name="categ_id"/>
+					<field name="location_id"/>
+					<field name="quantity" />
+				</form>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_stock_location_line_qty_update_tree">
+			<field name="name">stock.location.line.qty.update.tree</field>
+			<field name="type">tree</field>
+			<field name="model">stock.location.line.qty.update</field>
+			<field name="arch" type="xml">
+				<tree string="Location Qty Update">
+					<field name="name" />
+					<field name="categ_id"/>
+					<field name="location_id"/>
+					<field name="quantity" />
+				</tree>
+			</field>
+		</record>	
+		
+		<record model="ir.ui.view" id="view_stock_location_line_qty_update_search">
+			<field name="name">stock.location.line.qty.update.search</field>
+			<field name="type">search</field>
+			<field name="model">stock.location.line.qty.update</field>
+			<field name="arch" type="xml">
+				<search string="Location Qty Update">
+					<field name="name" />
+					<field name="categ_id"/>
+					<field name="location_id"/>
+				</search>
+			</field>
+		</record>	
+		
+        <record id="act_stock_location_line_qty_update" model="ir.actions.act_window">
+            <field name="name">Location Estimate</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.location.line.qty.update</field>
+            <field name="view_mode">tree,form</field>
         </record>
+        
+        <menuitem action="act_stock_location_line_qty_update" id="menu_stock_location_line_qty_update" 
+            parent="base.menu_sale_config_sales" />		
 						
 	</data>
 </openerp>
