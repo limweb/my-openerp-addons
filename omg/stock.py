@@ -29,6 +29,8 @@
 # 02-05-2012    DAY-001    Add OMG Field
 # 11-06-2012    POP-007    Check Stock Before Intermal Move
 # 13-06-2012    POP-008     Lock Stock Move When state 'Done'
+# 18-06-2012    DAY-002    Check Approve Stock_location
+# 18-06-2012    DAY-003    Add Class Update Categ Location Qty
 
 import socket
 import sys
@@ -768,5 +770,17 @@ class ineco_stock_location_stock_product_mapping(osv.osv):
         'product_id_to': fields.many2one('product.product','To Product', required=True),
     }
 ineco_stock_location_stock_product_mapping()
+
+class stock_location_line_qty_update(osv.osv):
+    _name = "stock.location.line.qty.update"
+    _description = "Stock Location Qty update"
+    _columns = {
+        'name': fields.char('Description',size=64),
+        'location_id': fields.many2one('stock.location','Location',required=True, ondelete='restrict'),
+        'categ_id': fields.many2one('product.category','Product Category',required=True, ondelete='restrict'),
+        'quantity': fields.integer('Quantity'),
+    }
+
+stock_location_line_qty_update()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

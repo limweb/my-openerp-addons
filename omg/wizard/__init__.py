@@ -42,6 +42,7 @@ import wizard_change_delivery_date
 import search_special_luanch
 import wizard_report_delivery_return
 import wizard_force_delivery_confirm
+import update_location_qty
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
