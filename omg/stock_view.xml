@@ -536,6 +536,19 @@
 			</field>
 		</record>
 
+
+        <record id="omg_view_picking_out_search2_inherit" model="ir.ui.view">
+            <field name="name">omg.stock.picking.out2.search</field>
+            <field name="model">stock.picking</field>
+            <field name="type">search</field>
+			<field name="inherit_id" ref="stock.view_picking_out_search"/>
+            <field name="arch" type="xml">
+             	<filter name="done" position="before">
+                        <filter icon="terp-camera_test" name="draft" string="Draft" domain="[('state','=','draft'),('type','=','out')]" help="Draft Delivery Orders"/>
+             	</filter>
+            </field>
+        </record>
+						
 	</data>
 </openerp>
 
