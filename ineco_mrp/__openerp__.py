@@ -32,6 +32,7 @@
     'website': 'http://openerp.tititab.com',
     'update_xml': [
         'product_view.xml',
+        'mrp_view.xml',
         ],
     'demo_xml': [],
     'installable': True,

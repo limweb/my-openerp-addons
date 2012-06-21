@@ -105,7 +105,8 @@ class mrp_bom(osv.osv):
                 result2 = result2 + res[1]
                 if res[2]:
                     for key, value in res[2].iteritems():
-                        result3[key] = value
+                        result3[key] = result3.get(key, [])
+                        result3[key] += value
         return result, result2, result3    
     
 mrp_bom()
@@ -116,7 +117,9 @@ class mrp_production(osv.osv):
     _name = 'mrp.production'
     _inherit = 'mrp.production'
     _description = 'Manufacturing Order'
-    _columns = {}
+    _columns = {
+        'ineco_stock_picking_ids': fields.one2many('stock.picking','production_id','Stock Picking'),
+    }
     
     def action_compute(self, cr, uid, ids, properties=[]):
         """ Computes bills of material of a product.
@@ -128,9 +131,12 @@ class mrp_production(osv.osv):
         uom_obj = self.pool.get('product.uom')
         prod_line_obj = self.pool.get('mrp.production.product.line')
         workcenter_line_obj = self.pool.get('mrp.production.workcenter.line')
+        stock_picking_obj = self.pool.get("stock.picking")
+        stock_move_obj = self.pool.get('stock.move')
         for production in self.browse(cr, uid, ids):
             cr.execute('delete from mrp_production_product_line where production_id=%s', (production.id,))
             cr.execute('delete from mrp_production_workcenter_line where production_id=%s', (production.id,))
+            cr.execute('delete from stock_picking where production_id=%s', (production.id,))
             bom_point = production.bom_id
             bom_id = production.bom_id.id
             if not bom_point:
@@ -147,7 +153,46 @@ class mrp_production(osv.osv):
             res = bom_obj._bom_explode(cr, uid, bom_point, factor / bom_point.product_qty, properties)
             results = res[0]
             results2 = res[1]
-            raise osv.except_osv(_('Check Value !'), _('%s' % res[2]))                
+            results3 = res[2]
+            for key, value in results3.iteritems():
+                print key
+                stock_journal = self.pool.get('stock.journal').browse(cr, uid, [key])
+                if stock_journal:
+                    seq_obj_name = stock_journal[0].sequence_id.code
+                    picking_name = self.pool.get('ir.sequence').get(cr, uid, seq_obj_name)
+                else:
+                    raise osv.except_osv(_('Check Value !'), _('Sequence empty in Stock Journal'))
+                picking = {
+                    'name': picking_name,
+                    'production_id': production.id,
+                    'origin': (production.origin or '').split(':')[0] + ':' + production.name,
+                    'stock_journal_id': key,        
+                    'type': 'internal',            
+                    'move_type': 'one',
+                    'company_id': production.company_id.id,
+                    'state': 'draft',
+                }
+                picking_id = stock_picking_obj.create(cr, uid, picking)
+                production_location = production.product_id.product_tmpl_id.property_stock_production.id
+                newdate = production.date_planned
+                for data in value:
+                    print data
+                    move_id = stock_move_obj.create(cr, uid, {
+                        'name':'PROD:' + production.name,
+                        'picking_id':picking_id,
+                        'product_id': data['product_id'],
+                        'product_qty': data['product_qty'],
+                        'product_uom': data['product_uom'],
+                        'product_uos_qty': data['product_qty'],
+                        'product_uos': data['product_uom'],
+                        'date': newdate,
+                        'location_id': production.location_src_id.id,
+                        'location_dest_id': production_location,
+                        'state': 'waiting',
+                        'company_id': production.company_id.id,
+                    })
+                    
+            #raise osv.except_osv(_('Check Value !'), _('%s' % res[2]))                
 
             for line in results:
                 line['production_id'] = production.id
@@ -156,5 +201,65 @@ class mrp_production(osv.osv):
                 line['production_id'] = production.id
                 workcenter_line_obj.create(cr, uid, line)
         return len(results)    
+
+    def action_confirm(self, cr, uid, ids):
+        """ Confirms production order.
+        @return: Newly generated picking Id.
+        """
+        stock_picking_obj = self.pool.get("stock.picking")
+        move_obj = self.pool.get('stock.move')
+        for production in self.browse(cr, uid, ids):
+            if not production.product_lines:
+                self.action_compute(cr, uid, [production.id])
+                production = self.browse(cr, uid, [production.id])[0]
+
+            source = production.product_id.product_tmpl_id.property_stock_production.id
+            if production.product_id.ineco_stock_journal_id:
+                stock_journal = self.pool.get('stock.journal').browse(cr, uid, [production.product_id.ineco_stock_journal_id.id])
+                if stock_journal:
+                    seq_obj_name = stock_journal[0].sequence_id.code
+                    picking_name = self.pool.get('ir.sequence').get(cr, uid, seq_obj_name)
+                else:
+                    raise osv.except_osv(_('Check Value !'), _('Sequence empty in Stock Journal'))
+            else:
+                raise osv.except_osv(_('Check Value !'), _('Stock Journal Empty in Product:'+production.product_id.name))
+            
+            picking = {
+                'name': picking_name,
+                'production_id': production.id,
+                'origin': (production.origin or '').split(':')[0] + ':' + production.name,
+                'stock_journal_id': production.product_id.ineco_stock_journal_id.id,        
+                'type': 'internal',            
+                'move_type': 'one',
+                'company_id': production.company_id.id,
+                'state': 'draft',
+            }
+            picking_id = stock_picking_obj.create(cr, uid, picking)
+
+            data = {
+                'name':'PROD:' + production.name,
+                'date': production.date_planned,
+                'product_id': production.product_id.id,
+                'product_qty': production.product_qty,
+                'product_uom': production.product_uom.id,
+                'product_uos_qty': production.product_uos and production.product_uos_qty or False,
+                'product_uos': production.product_uos and production.product_uos.id or False,
+                'location_id': source,
+                'location_dest_id': production.location_dest_id.id,
+                'move_dest_id': production.move_prod_id.id,
+                'state': 'waiting',
+                'company_id': production.company_id.id,
+                'picking_id': picking_id,
+            }
+            res_final_id = move_obj.create(cr, uid, data)
+            #self.write(cr, uid, [production.id], {'move_created_ids': [(6, 0, [res_final_id])]})
+            self.write(cr, uid, [production.id], {'state':'ready'})
+            
+            message = _("Manufacturing order '%s' is scheduled for the %s.") % (
+                production.name,
+                datetime.strptime(production.date_planned,'%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y'),
+            )
+            self.log(cr, uid, production.id, message)
+        return picking_id
 
 mrp_production()
