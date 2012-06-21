@@ -34,6 +34,7 @@
     'update_xml': [
         'company_view.xml',
         'sale_view.xml',
+        'partner_view.xml',
         ],
     'demo_xml': [],
     'installable': True,

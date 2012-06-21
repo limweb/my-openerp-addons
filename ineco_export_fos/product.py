@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,13 +15,25 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
-import partner
-import company
-import sale 
+from datetime import datetime
+from osv import osv, fields
+from tools.translate import _
+import netsvc
+import time
+import tools
+import decimal_precision as dp
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-
+class product_product(osv.osv):
+    
+    _name = 'product.product'
+    _inherit = 'product.product'
+    _description = 'Add Fos Code In Product.Product'
+    _columns = {
+        'ineco_fos_code': fields.char('FOS Code', size=20),
+    }
+    
+product_product()

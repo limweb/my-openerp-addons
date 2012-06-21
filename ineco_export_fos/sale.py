@@ -73,9 +73,12 @@ class sale_order(osv.osv):
             
         for order in self.pool.get('sale.order').browse(cr, uid, ids):
             
-            cr.execute('update res_partner set comment = id where id = %s' % (order.partner_id.id))
+            cr.execute('update res_partner set ineco_fos_code = id where id = %s and ineco_fos_code is null' % (order.partner_id.id))
             cr.commit()
-            
+
+            if not order.partner_id.ineco_fos_code:
+                raise osv.except_osv(_('Error !'), _('Please fill FOS Code in Partner.'))
+                        
             #POP-003
             sql = """
                 select 
@@ -222,7 +225,7 @@ class sale_order(osv.osv):
                     row = cur.fetchone()
                     if row[0] == 0:
                         itemmf_insert_sql = "insert into itemmf (itemno, itemdesc1, marketercd, barcodeno, itemtype, itemgroup, baseunit) values " + \
-                            "( '%s', %s, '%s', %s, '%s', '%s','%s')" % (product_id_list[index],product_name,order.partner_id.comment,product_ean13,
+                            "( '%s', %s, '%s', %s, '%s', '%s','%s')" % (product_id_list[index],product_name,order.partner_id.ineco_fos_code,product_ean13,
                                 'Product Sampling','S','pcs')
                         cur.close()
                         cur = conn.cursor()
@@ -232,7 +235,7 @@ class sale_order(osv.osv):
                         cur.close()
                         conn.commit()
                     else:
-                        itemmf_update_sql = "update itemmf set itemdesc1 = %s, marketercd = '%s', barcodeno = %s where itemno = '%s' " % (product_name, order.partner_id.comment, product_ean13 or '', product_id_list[index] )
+                        itemmf_update_sql = "update itemmf set itemdesc1 = %s, marketercd = '%s', barcodeno = %s where itemno = '%s' " % (product_name, order.partner_id.ineco_fos_code, product_ean13 or '', product_id_list[index] )
                         print itemmf_update_sql
                         cur.close()
                         cur = conn.cursor()
@@ -298,7 +301,7 @@ class sale_order(osv.osv):
                   substring(rpa.name,1,100) as contact1,
                   substring(rpa.phone,1,30) as tel1,
                   substring(rpa.fax,1,30) as fax1,
-                  substring(rp.comment,1,100) as marketercd,
+                  substring(rp.ineco_fos_code,1,100) as marketercd,
                   substring(rp.name,1,100) as mktcompany2,
                   substring(rpa.name,1,100) as mktcontact2,
                   substring(rpa.phone,1,30) as mkttel2,

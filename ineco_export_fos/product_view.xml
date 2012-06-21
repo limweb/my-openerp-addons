@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="view_ineco_fos_code_form" model="ir.ui.view">
+			<field name="name">ineco.foscode.product.product</field>
+			<field name="model">product.product</field>
+			<field name="inherit_id" ref="product.product_normal_form_view" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<field name="categ_id" position="after">
+					<field name="ineco_fos_code" />
+				</field>
+			</field>
+		</record> 
+	</data>
+</openerp>
