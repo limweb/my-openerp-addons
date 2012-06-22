@@ -43,14 +43,7 @@ class purchase_order(osv.osv):
         'purchase_order_no': fields.char('Purchase Order No', size=64),
         'department_id': fields.many2one('hr.department','Department'),
     }
-
-#    def create(self, cr, user, vals, context=None):
-#        if ('department_id' not in vals):
-#            user_obj = self.pool.get('res.users').browse(cr, user, user)
-#            vals['department_id'] = user_obj.context_department_id.id or False
-#        new_id = super(stock_picking, self).create(cr, user, vals, context)
-#        return new_id
-
+    
     def action_cancel(self, cr, uid, ids, context=None):
         for purchase in self.browse(cr, uid, ids, context=context):
             for pick in purchase.picking_ids:

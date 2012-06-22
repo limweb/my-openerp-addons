@@ -32,9 +32,11 @@ class purchase_requisition(osv.osv):
     _description="Purchase Requisition"
     _columns = {
         'cash_only': fields.boolean('Cash'),
+        'amount': fields.integer('Amount'),
     }
     _defaults = {
         'cash_only': False,
+        'date_start': time.strftime('%Y-%m-%d %H:%M:%S'),
     }
 
 purchase_requisition()
