@@ -259,7 +259,23 @@ class mrp_production(osv.osv):
                 production.name,
                 datetime.strptime(production.date_planned,'%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y'),
             )
+            wf_service = netsvc.LocalService("workflow")
+            wf_service.trg_validate(uid, 'mrp.production',  production.id, 'button_produce', cr)
             self.log(cr, uid, production.id, message)
         return picking_id
+
+    def copy(self, cr, uid, id, default={}, context=None, done_list=[], local=False):
+        if not default:
+            default = {}
+        default = default.copy()
+        default['ineco_stock_picking_ids'] = False
+        default['date_planned'] = time.strftime('%Y-%m-%d %H:%M:%S')
+        if not local:
+            done_list = []
+        return super(mrp_production, self).copy(cr, uid, id, default, context=context)
+
+    def force_production(self, cr, uid, ids, *args):
+        self.write(cr, uid, ids, {'state':'ready'})
+        return True
 
 mrp_production()
