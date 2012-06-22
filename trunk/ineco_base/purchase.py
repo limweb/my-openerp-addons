@@ -87,6 +87,37 @@ class purchase_order(osv.osv):
                 'purchase.order.line': (_get_order, None, 10),
             }, multi="sums",help="The total amount"),
     }
+
+    def _set_minimum_planned_date(self, cr, uid, ids, name, value, arg, context=None):
+        if not value: return False
+        if type(ids)!=type([]):
+            ids=[ids]
+        for po in self.browse(cr, uid, ids, context=context):
+            for picking in po.picking_ids:
+                if picking.state not in ['done','cancel']:
+                    for move in picking.move_lines:
+                        move.write({'date':value,'date_expected':value})
+                    picking.write({'min_date':value})
+            if po.order_line:
+                cr.execute("""update purchase_order_line set
+                        date_planned=%s
+                    where
+                        order_id=%s """, (value,po.id))
+            cr.execute("""update purchase_order set
+                    minimum_planned_date=%s where id=%s""", (value, po.id))
+        return True
+
+    def write(self, cr, uid, ids, vals, context=None):
+        new_delivery_date = vals.get('minimum_planned_date',False)
+        if new_delivery_date:
+            for po in self.browse(cr, uid, ids, context=context):
+                for picking in po.picking_ids:
+                    if picking.state not in ['done','cancel']:
+                        for move in picking.move_lines:
+                            if move.state not in ['done','cancel']:
+                                move.write({'date':new_delivery_date,'date_expected':new_delivery_date})
+                        picking.write({'min_date':new_delivery_date})
+        return  super(purchase_order, self).write(cr, uid, ids, vals, context=context)
     
 purchase_order()
 
