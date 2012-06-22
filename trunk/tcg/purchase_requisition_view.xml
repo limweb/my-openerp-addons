@@ -9,8 +9,22 @@
             <field name="arch" type="xml">
 				<field name="origin" position="after">
 				    <field name="cash_only" />
+				    <field name="amount" attrs="{'invisible':[('cash_only','=',0)],'required':[('cash_only','=',1)]}"/>
 				</field>
             </field>
 		</record>
+
+	   	<record model="ir.ui.view" id="view_tcg_purchase_requisition2_form">
+            <field name="name">tcg.purchase.requisition2.form</field>
+            <field name="model">purchase.requisition</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<field name="date_start" position="replace">
+				    <field name="date_start" readonly="1" />
+				</field>
+            </field>
+		</record>
+	    	
 	</data>
 </openerp>
