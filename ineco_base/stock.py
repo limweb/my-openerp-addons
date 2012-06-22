@@ -39,6 +39,8 @@
 # 30-03-2012       POP-016    Create ineco.stock.barcode.move
 # 05-04-2012       POP-017    Add Return Columns in Stock Picking
 # 08-06-2012       POP-018    Change Date -> DateTime in Stock Move Barcode Delivery
+# 22-06-2012       POP-019    Add Unique Name of Production Lot
+#                  POP-020    Add Product ID in Stock Packing
 
 import math
 
@@ -745,6 +747,19 @@ class stock_production_lot(osv.osv):
     _inherit = "stock.production.lot"
     _description = "Add Expiry Date in Production Lot"
 
+    #POP-019
+    #    update stock_production_lot
+    #    set name = name || '-' || ltrim(to_char(id,'9999999'))
+    #    where id in (
+    #    select id from stock_production_lot
+    #    where name in (
+    #    select name from stock_production_lot
+    #    group by name
+    #    having count(*) > 1) )
+    _sql_constraints = [
+        ('name_unique_idx', 'unique (name)', 'Production Lot Must be unique !')
+    ]
+
     def _get_stock(self, cr, uid, ids, field_name, arg, context=None):
         """ Gets stock of products for locations
         @return: Dictionary of values
@@ -1142,7 +1157,23 @@ class stock_tracking(osv.osv):
             help="Current quantity of products with this Pack No available in company warehouses",
             digits_compute=dp.get_precision('Product UoM')),
 ##        'track_line_ids': fields.one2many('ineco.stock.tracking.line','tracking_id','History'),
+        'product_id': fields.many2one('product.product','Product'),
     }
+
+    # update stock_tracking
+    # set name = name || '-' || ltrim(to_char(id,'9999999'))
+    # where id in (
+    # select id from stock_tracking
+    # where name in (
+    # select name from stock_tracking
+    # group by name
+    # having count(*) > 1) )
+    
+    # create index ineco_stock_report_master_tracking_idx on ineco_stock_report_master (tracking_id)
+
+    _sql_constraints = [
+        ('name_unique_idx', 'unique (name)', 'Pack No Must be unique !')
+    ]
     
     def make_id(self, cr, uid, context=None):
         sequence = self.pool.get('ir.sequence').get(cr, uid, 'stock.lot.tracking')
