@@ -1172,7 +1172,7 @@ class stock_tracking(osv.osv):
     # create index ineco_stock_report_master_tracking_idx on ineco_stock_report_master (tracking_id)
 
     _sql_constraints = [
-        ('name_unique_idx', 'unique (name)', 'Pack No Must be unique !')
+        ('name_product_unique_idx', 'unique (name, product_id)', 'Pack No and Product must be unique !')
     ]
     
     def make_id(self, cr, uid, context=None):
