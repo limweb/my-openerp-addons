@@ -590,6 +590,7 @@
                     <field name="uom_id"/>
                     <field name="warehouse_qty" />
                     <field name="warehouse_uom" />
+                    <field name="available" />
                 </tree>
             </field>
         </record>
@@ -608,6 +609,7 @@
                     <field name="product_id" />
                     <field name="uom_id"/>
                     <field name="qty" />
+                    <field name="available" />
                 </form>
             </field>
         </record>

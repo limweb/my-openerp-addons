@@ -1452,6 +1452,155 @@ class ineco_stock_report_template_d(osv.osv):
 ineco_stock_report_template_d()
 
 class ineco_stock_report(osv.osv):
+
+    def _get_product_available(self, cr, uid, ids, field_name, arg, context=None):
+        """ Finds whether product is available or not in particular warehouse.
+        @return: Dictionary of values
+        """
+        if context is None:
+            context = {}
+        context.update({ 'states': ('done',), 'what': ('in', 'out') })
+        states = context.get('states',[])
+        what = context.get('what',())
+        if not ids:
+            ids = self.search(cr, uid, [])
+        res = {}.fromkeys(ids, 0.0)
+        if not ids:
+            return res
+        
+        for line in self.browse(cr, uid, ids):
+
+            # TODO: write in more ORM way, less queries, more pg84 magic
+            if line.product_id:            
+                if context.get('shop', False):
+                    cr.execute('select warehouse_id from sale_shop where id=%s', (int(context['shop']),))
+                    res2 = cr.fetchone()
+                    if res2:
+                        context['warehouse'] = res2[0]
+        
+                if context.get('warehouse', False):
+                    cr.execute('select lot_stock_id from stock_warehouse where id=%s', (int(context['warehouse']),))
+                    res2 = cr.fetchone()
+                    if res2:
+                        context['location'] = res2[0]
+        
+                #if context.get('location', False):
+                #    if type(context['location']) == type(1):
+                #        location_ids = [context['location']]
+                #    elif type(context['location']) in (type(''), type(u'')):
+                #        location_ids = self.pool.get('stock.location').search(cr, uid, [('name','ilike',context['location'])], context=context)
+                #    else:
+                #        location_ids = context['location']
+                #else:
+                #    location_ids = []
+                #    wids = self.pool.get('stock.warehouse').search(cr, uid, [], context=context)
+                #    for w in self.pool.get('stock.warehouse').browse(cr, uid, wids, context=context):
+                #        location_ids.append(w.lot_stock_id.id)
+        
+                location_ids = [line.location_dest_id.id]
+    
+                # build the list of ids of children of the location given by id
+                #if context.get('compute_child',True):
+                #    child_location_ids = self.pool.get('stock.location').search(cr, uid, [('location_id', 'child_of', location_ids)])
+                #    location_ids = child_location_ids or location_ids
+                #else:
+                #    location_ids = location_ids
+        
+                uoms_o = {}
+                product2uom = {}
+                for product in self.pool.get('product.template').browse(cr, uid, [line.product_id.id], context=context):
+                    try:                                         
+                        product2uom[product.id] = product.uom_id.id
+                        uoms_o[product.uom_id.id] = product.uom_id
+                    except:
+                        pass
+        
+                results = []
+                results2 = []
+        
+                #from_date = context.get('from_date',False)
+                #to_date = context.get('to_date',False)
+                #date_str = False
+                #date_values = False
+                where = [tuple(location_ids),tuple(location_ids),tuple([line.product_id.id]),tuple(states)]
+                #if from_date and to_date:
+                #    date_str = "date>=%s and date<=%s"
+                #    where.append(tuple([from_date]))
+                #    where.append(tuple([to_date]))
+                #elif from_date:
+                #    date_str = "date>=%s"
+                #    date_values = [from_date]
+                #elif to_date:
+                #    date_str = "date<=%s"
+                #    date_values = [to_date]
+        
+        
+                # TODO: perhaps merge in one query.
+                #if date_values:
+                #    where.append(tuple(date_values))
+                prodlot_sql = ''
+                if line.lot_id:
+                    prodlot_sql = ' = '+str(line.lot_id.id)
+                else:
+                    prodlot_sql = ' is null '
+                tracking_sql = ''
+                if line.tracking_id:
+                    tracking_sql = ' = '+str(line.tracking_id.id)
+                else:
+                    tracking_sql = ' is null '
+                if 'in' in what:
+                    # all moves from a location out of the set to a location in the set
+                    cr.execute(
+                        'select sum(product_qty), product_id, product_uom '\
+                        'from stock_move '\
+                        'where location_id NOT IN %s'\
+                        'and location_dest_id IN %s'\
+                        'and product_id IN %s'\
+                        'and state IN %s' + ' '\
+                        'and prodlot_id ' + prodlot_sql + ' '\
+                        'and tracking_id ' + tracking_sql+ ' '\
+                        'group by product_id,product_uom',tuple(where))
+                    results = cr.fetchall()
+                if 'out' in what:
+                    # all moves from a location in the set to a location out of the set
+                    cr.execute(
+                        'select sum(product_qty), product_id, product_uom '\
+                        'from stock_move '\
+                        'where location_id IN %s'\
+                        'and location_dest_id NOT IN %s '\
+                        'and product_id  IN %s'\
+                        'and state in %s' + ' '\
+                        'and prodlot_id ' + prodlot_sql + ' '\
+                        'and tracking_id ' + tracking_sql+ ' '\
+                        'group by product_id,product_uom',tuple(where))
+                    results2 = cr.fetchall()
+                uom_obj = self.pool.get('product.uom')
+                uoms = map(lambda x: x[2], results) + map(lambda x: x[2], results2)
+                if context.get('uom', False):
+                    uoms += [context['uom']]
+        
+                uoms = filter(lambda x: x not in uoms_o.keys(), uoms)
+                if uoms:
+                    uoms = uom_obj.browse(cr, uid, list(set(uoms)), context=context)
+                    for o in uoms:
+                        uoms_o[o.id] = o
+                #TOCHECK: before change uom of product, stock move line are in old uom.
+                context.update({'raise-exception': False})
+                for amount, prod_id, prod_uom in results:
+                    try:
+                        amount = uom_obj._compute_qty_obj(cr, uid, uoms_o[prod_uom], amount,
+                                 uoms_o[context.get('uom', False) or product2uom[prod_id]], context=context)
+                    except:
+                        amount = 0
+                    res[line.id] += amount
+                for amount, prod_id, prod_uom in results2:
+                    try:
+                        amount = uom_obj._compute_qty_obj(cr, uid, uoms_o[prod_uom], amount,
+                                uoms_o[context.get('uom', False) or product2uom[prod_id]], context=context)
+                    except:
+                        amount = 0
+                    res[line.id] -= amount
+        return res
         
     _name = 'ineco.stock.report'
     _description = 'Ineco Stock Reporting'
@@ -1469,7 +1618,8 @@ class ineco_stock_report(osv.osv):
         'warehouse_uom': fields.many2one('product.uom', 'Warehouse UOM'),
         'warehouse_qty': fields.float('Warehouse Qty'),
         'date_input': fields.date('Lot Date'),
-        'quantity': fields.float('Quantity')
+        'quantity': fields.float('Quantity'),
+        'available': fields.function(_get_product_available, string="Available", type="float", method=True),
     }
     
     _defaults = {
@@ -1477,11 +1627,13 @@ class ineco_stock_report(osv.osv):
         'quantity': 0,
     }
     
-    def schedule_sync(self, cr, uid, context=None):
-        cr.execute("delete from ineco_stock_report")
-        cr.commit()
-        cr.execute("insert into ineco_stock_report select * from tmp_ineco_stock_report")
-        cr.commit()
+#    def schedule_sync(self, cr, uid, context=None):
+    #   cr.execute("delete from ineco_stock_report")
+    #   cr.commit()
+    #   cr.execute("insert into ineco_stock_report select * from tmp_ineco_stock_report")
+    #   cr.commit()
+        
+        
 
 #        cr.execute("""
 #            select * from ineco_stock_report
