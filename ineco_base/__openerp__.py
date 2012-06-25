@@ -49,6 +49,7 @@
         "report_data.xml",
         "wizard/wizard_stock_report_print_view.xml",
         "wizard/wizard_export_stock_counting_view.xml",
+        "wizard/wizard_adjust_stock_report_view.xml",
         "stock_inventory_load_view.xml",
          ],
     'demo_xml': [],
