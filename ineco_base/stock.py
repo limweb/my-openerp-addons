@@ -1601,6 +1601,21 @@ class ineco_stock_report(osv.osv):
                         amount = 0
                     res[line.id] -= amount
         return res
+
+    def _problemed(self, cr, uid, ids, name, arg, context=None):
+        res = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            res[line.id] = line.qty <> line.available
+        return res
+
+    def _problemed_search(self, cr, uid, obj, name, args, context=None):
+        res = {}
+        ids = self.search(cr, uid, [])
+        for line in self.browse(cr, uid, ids, context=context):
+            res[line.id] = line.qty <> line.available
+        if not res:
+            return [('id', '=', 0)]
+        return [('id', 'in', [x[0] for x in res])]
         
     _name = 'ineco.stock.report'
     _description = 'Ineco Stock Reporting'
@@ -1619,7 +1634,8 @@ class ineco_stock_report(osv.osv):
         'warehouse_qty': fields.float('Warehouse Qty'),
         'date_input': fields.date('Lot Date'),
         'quantity': fields.float('Quantity'),
-        'available': fields.function(_get_product_available, string="Available", type="float", method=True),
+        'available': fields.function(_get_product_available,  string="Available", type="float", method=True),
+        'problemed': fields.function(_problemed, method=True, string='Problem', fnct_search=_problemed_search, type='boolean'),
     }
     
     _defaults = {
