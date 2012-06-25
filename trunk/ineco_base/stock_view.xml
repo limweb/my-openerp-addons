@@ -590,7 +590,7 @@
                     <field name="uom_id"/>
                     <field name="warehouse_qty" />
                     <field name="warehouse_uom" />
-                    <field name="available" />
+                    <field name="available" groups="base.group_ineco_adjust_stock" />
                 </tree>
             </field>
         </record>
@@ -609,7 +609,7 @@
                     <field name="product_id" />
                     <field name="uom_id"/>
                     <field name="qty" />
-                    <field name="available" />
+                    <field name="available" groups="base.group_ineco_adjust_stock" />
                 </form>
             </field>
         </record>
@@ -622,6 +622,7 @@
             <field name="arch" type="xml">
                 <search string="Stock Report">
                 	<filter string="Available" icon="terp-personal" domain="[('qty','>',0)]" />
+                	<filter string="Problem" icon="terp-check" domain="[('problem','=',True)]" groups="base.group_ineco_adjust_stock"/>
                     <separator orientation="vertical"/>
                     <field name="product_id" />
                     <field name="location_dest_id" />
