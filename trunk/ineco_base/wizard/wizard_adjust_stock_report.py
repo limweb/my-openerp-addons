@@ -57,10 +57,11 @@ class wizard_ineco_adjust_stock_report(osv.osv_memory):
             if isinstance(datas['form'][field], tuple):
                 datas['form'][field] = datas['form'][field][0]
         user_obj = self.pool.get('res.users').browse(cr, uid, uid)
-        stock_report_ids = self.pool.get('ineco.stock.report').search(cr, uid, [])
-        for line in self.pool.get('ineco.stock.report').browse(cr, uid, stock_report_ids):
-            if line.qty <> line.available:
-                line.write({'qty':line.available})
+        if datas['ids']:
+            #stock_report_ids = self.pool.get('ineco.stock.report').search(cr, uid, [])
+            for line in self.pool.get('ineco.stock.report').browse(cr, uid, datas['ids']):
+                if line.qty <> line.available:
+                    line.write({'qty':line.available})
         return {'type':'ir.actions.act_window_close' }
     
     _name = "wizard.ineco.adjust.stock.report"

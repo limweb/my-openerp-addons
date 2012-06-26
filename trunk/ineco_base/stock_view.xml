@@ -622,7 +622,7 @@
             <field name="arch" type="xml">
                 <search string="Stock Report">
                 	<filter string="Available" icon="terp-personal" domain="[('qty','>',0)]" />
-                	<filter string="Problem" icon="terp-check" domain="[('problem','=',True)]" groups="base.group_ineco_adjust_stock"/>
+                	<filter string="Problem" icon="gtk-cancel" domain="[('problemed','=',True)]" />
                     <separator orientation="vertical"/>
                     <field name="product_id" />
                     <field name="location_dest_id" />

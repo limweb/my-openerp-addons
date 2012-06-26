@@ -41,6 +41,7 @@
 # 08-06-2012       POP-018    Change Date -> DateTime in Stock Move Barcode Delivery
 # 22-06-2012       POP-019    Add Unique Name of Production Lot
 #                  POP-020    Add Product ID in Stock Packing
+# 26-06-2012       POP-021    Add Button Problem
 
 import math
 
@@ -1602,6 +1603,7 @@ class ineco_stock_report(osv.osv):
                     res[line.id] -= amount
         return res
 
+    #POP-021
     def _problemed(self, cr, uid, ids, name, arg, context=None):
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
@@ -1610,9 +1612,34 @@ class ineco_stock_report(osv.osv):
 
     def _problemed_search(self, cr, uid, obj, name, args, context=None):
         res = {}
-        ids = self.search(cr, uid, [])
-        for line in self.browse(cr, uid, ids, context=context):
-            res[line.id] = line.qty <> line.available
+        sql = """
+            select 
+              id
+            from ineco_stock_report_master 
+            where
+              qty - 
+              coalesce( (select sum(ineco_get_stock(stock_move.product_uom, stock_move.product_qty)) from stock_move 
+               where 
+                stock_move.location_id <> ineco_stock_report_master.location_dest_id
+                  and stock_move.location_dest_id = ineco_stock_report_master.location_dest_id
+                  and stock_move.product_id = ineco_stock_report_master.product_id
+                  and stock_move.state = 'done'
+                  and stock_move.prodlot_id = ineco_stock_report_master.lot_id
+                  and coalesce(stock_move.tracking_id,'0') = coalesce(ineco_stock_report_master.tracking_id,'0')
+               ),0) -
+               coalesce((select sum(ineco_get_stock(stock_move.product_uom, stock_move.product_qty)) from stock_move 
+               where 
+                stock_move.location_id = ineco_stock_report_master.location_dest_id
+                  and stock_move.location_dest_id <> ineco_stock_report_master.location_dest_id
+                  and stock_move.product_id = ineco_stock_report_master.product_id
+                  and stock_move.state = 'done'
+                  and coalesce(stock_move.prodlot_id,'0') = coalesce(ineco_stock_report_master.lot_id,'0')
+                  and coalesce(stock_move.tracking_id,'0') = coalesce(ineco_stock_report_master.tracking_id,'0')
+               ),0) <> 0        
+        
+        """
+        cr.execute(sql)
+        res = cr.fetchall()
         if not res:
             return [('id', '=', 0)]
         return [('id', 'in', [x[0] for x in res])]
