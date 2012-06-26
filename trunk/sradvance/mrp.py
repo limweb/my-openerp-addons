@@ -261,7 +261,7 @@ class ineco_mrp_production_tracking_line(osv.osv):
         self.write(cr, uid, ids, {'state':'done','date_finished':time.strftime('%Y-%m-%d %H:%M:%S')})
         for line in self.browse(cr, uid, ids):
             for track in self.pool.get('ineco.mrp.production.tracking').browse(cr, uid, [line.tracking_id.id] ):
-                print track.name, track.progress_rate
+                #print track.name, track.progress_rate
                 if track.progress_rate == 100:
                     track.act_done()
         return True
