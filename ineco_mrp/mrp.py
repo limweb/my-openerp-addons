@@ -278,4 +278,22 @@ class mrp_production(osv.osv):
         self.write(cr, uid, ids, {'state':'ready'})
         return True
 
+    def do_production(self, cr, uid, ids, *args):
+        for production in self.browse(cr, uid, ids):
+            res = True
+            for picking in production.ineco_stock_picking_ids:
+                isOutput = False
+                for move in picking.move_lines:
+                    if move.product_id.id == production.product_id.id:
+                        isOutput = True
+                if not isOutput:
+                    if picking.state not in ['done','cancel']:
+                        res = False;
+            if res:
+                self.write(cr, uid, ids, {'state': 'in_production', 'date_start': time.strftime('%Y-%m-%d %H:%M:%S')})
+            else:
+                raise osv.except_osv(_('Warning!'), _('Some stock picking is not complete.'))
+        return True
+
+
 mrp_production()
