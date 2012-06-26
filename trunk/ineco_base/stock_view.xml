@@ -590,7 +590,7 @@
                     <field name="uom_id"/>
                     <field name="warehouse_qty" />
                     <field name="warehouse_uom" />
-                    <field name="available" groups="base.group_ineco_adjust_stock" />
+                    <field name="available" groups="base.group_ineco_adjust_stock" /> 
                 </tree>
             </field>
         </record>

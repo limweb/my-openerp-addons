@@ -1615,28 +1615,8 @@ class ineco_stock_report(osv.osv):
         sql = """
             select 
               id
-            from ineco_stock_report_master 
-            where
-              qty - 
-              coalesce( (select sum(ineco_get_stock(stock_move.product_uom, stock_move.product_qty)) from stock_move 
-               where 
-                stock_move.location_id <> ineco_stock_report_master.location_dest_id
-                  and stock_move.location_dest_id = ineco_stock_report_master.location_dest_id
-                  and stock_move.product_id = ineco_stock_report_master.product_id
-                  and stock_move.state = 'done'
-                  and stock_move.prodlot_id = ineco_stock_report_master.lot_id
-                  and coalesce(stock_move.tracking_id,'0') = coalesce(ineco_stock_report_master.tracking_id,'0')
-               ),0) -
-               coalesce((select sum(ineco_get_stock(stock_move.product_uom, stock_move.product_qty)) from stock_move 
-               where 
-                stock_move.location_id = ineco_stock_report_master.location_dest_id
-                  and stock_move.location_dest_id <> ineco_stock_report_master.location_dest_id
-                  and stock_move.product_id = ineco_stock_report_master.product_id
-                  and stock_move.state = 'done'
-                  and coalesce(stock_move.prodlot_id,'0') = coalesce(ineco_stock_report_master.lot_id,'0')
-                  and coalesce(stock_move.tracking_id,'0') = coalesce(ineco_stock_report_master.tracking_id,'0')
-               ),0) <> 0        
-        
+            from 
+              ineco_stock_report_problem 
         """
         cr.execute(sql)
         res = cr.fetchall()
@@ -1669,6 +1649,39 @@ class ineco_stock_report(osv.osv):
         'qty': 0,
         'quantity': 0,
     }
+
+    def schedule_problem_sync(self, cr, uid, context=None):
+        cr.execute("drop table ineco_stock_report_problem")
+        cr.commit()
+        sql = """
+            select 
+              id
+            into ineco_stock_report_problem
+            from ineco_stock_report_master 
+            where
+              qty - 
+              coalesce( (select sum(ineco_get_stock(stock_move.product_uom, stock_move.product_qty)) from stock_move 
+               where 
+                stock_move.location_id <> ineco_stock_report_master.location_dest_id
+                  and stock_move.location_dest_id = ineco_stock_report_master.location_dest_id
+                  and stock_move.product_id = ineco_stock_report_master.product_id
+                  and stock_move.state = 'done'
+                  and stock_move.prodlot_id = ineco_stock_report_master.lot_id
+                  and coalesce(stock_move.tracking_id,'0') = coalesce(ineco_stock_report_master.tracking_id,'0')
+               ),0) -
+               coalesce((select sum(ineco_get_stock(stock_move.product_uom, stock_move.product_qty)) from stock_move 
+               where 
+                stock_move.location_id = ineco_stock_report_master.location_dest_id
+                  and stock_move.location_dest_id <> ineco_stock_report_master.location_dest_id
+                  and stock_move.product_id = ineco_stock_report_master.product_id
+                  and stock_move.state = 'done'
+                  and coalesce(stock_move.prodlot_id,'0') = coalesce(ineco_stock_report_master.lot_id,'0')
+                  and coalesce(stock_move.tracking_id,'0') = coalesce(ineco_stock_report_master.tracking_id,'0')
+               ),0) <> 0        
+        
+        """
+        cr.execute(sql)
+        cr.commit()
     
 #    def schedule_sync(self, cr, uid, context=None):
     #   cr.execute("delete from ineco_stock_report")
