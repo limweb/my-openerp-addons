@@ -60,8 +60,9 @@ class wizard_ineco_adjust_stock_report(osv.osv_memory):
         if datas['ids']:
             #stock_report_ids = self.pool.get('ineco.stock.report').search(cr, uid, [])
             for line in self.pool.get('ineco.stock.report').browse(cr, uid, datas['ids']):
-                if line.qty <> line.available:
-                    line.write({'qty':line.available})
+                line.write({'qty':line.available})
+                cr.execute('delete from ineco_stock_report_problem where id = %s' % (line.id))
+                cr.commit()
         return {'type':'ir.actions.act_window_close' }
     
     _name = "wizard.ineco.adjust.stock.report"

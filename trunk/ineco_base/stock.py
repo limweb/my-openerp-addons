@@ -1641,7 +1641,7 @@ class ineco_stock_report(osv.osv):
         'warehouse_qty': fields.float('Warehouse Qty'),
         'date_input': fields.date('Lot Date'),
         'quantity': fields.float('Quantity'),
-        'available': fields.function(_get_product_available,  string="Available", type="float", method=True),
+        'available': fields.function(_get_product_available,  string="Stock Move Quantity (Real Stock)", type="float", method=True),
         'problemed': fields.function(_problemed, method=True, string='Problem', fnct_search=_problemed_search, type='boolean'),
     }
     
@@ -1654,12 +1654,12 @@ class ineco_stock_report(osv.osv):
         cr.execute("delete from ineco_stock_report_problem")
         cr.commit()
         sql = """
-            insert into ineco_stock_report_problem (id)
+            insert into ineco_stock_report_problem
             select 
               id
             from ineco_stock_report_master 
             where
-              qty - 
+              qty <> 
               coalesce( (select sum(ineco_get_stock(stock_move.product_uom, stock_move.product_qty)) from stock_move 
                where 
                 stock_move.location_id <> ineco_stock_report_master.location_dest_id
@@ -1677,7 +1677,7 @@ class ineco_stock_report(osv.osv):
                   and stock_move.state = 'done'
                   and coalesce(stock_move.prodlot_id,'0') = coalesce(ineco_stock_report_master.lot_id,'0')
                   and coalesce(stock_move.tracking_id,'0') = coalesce(ineco_stock_report_master.tracking_id,'0')
-               ),0) <> 0                
+               ),0)                 
         """
         cr.execute(sql)
         cr.commit()
