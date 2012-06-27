@@ -715,19 +715,24 @@
             </field>
         </record>
 
-<!--       <record id="view_ineco_stock_picking_out_delivery_date_search" model="ir.ui.view">
+       <record id="view_ineco_stock_picking_out_delivery_date_search" model="ir.ui.view">
             <field name="name">ineco.delivery.date.stock.picking.out.search</field>
             <field name="model">stock.picking</field>
             <field name="type">search</field>
 			<field name="inherit_id" ref="stock.view_picking_out_search"/>
             <field name="arch" type="xml">
-             	<field name="stock_journal_id" position="before">
-					<field name="ineco_delivery_date" />
-             	</field>
+             	<xpath expr="/search/group[@string='Group By...']" position="replace">
+             	    <newline/>
+             	    <group expand="0" string="Extended Filter..." colspan="4" col="8">
+             	        <filter icon="terp-check" name="draft" string="Draft" domain="[('state','=','draft')]" help="Draft Delivery Orders"/>
+                        <separator orientation="vertical" />
+             	        <field name="ineco_delivery_date" />
+             	    </group>
+             	</xpath>
             </field>
         </record>
 
-        <record id="view_ineco_stock_picking_out_hide_journal_search" model="ir.ui.view">
+<!--        <record id="view_ineco_stock_picking_out_hide_journal_search" model="ir.ui.view">
             <field name="name">ineco.delivery.hide.journal.stock.picking.out.search</field>
             <field name="model">stock.picking</field>
             <field name="type">search</field>

@@ -127,11 +127,12 @@
 			</field>
 		</record>
  
-<!--         <record id="omg_view_picking_out_search_inherit" model="ir.ui.view">
+         <record id="omg_view_picking_out_search_inherit" model="ir.ui.view">
             <field name="name">omg.stock.picking.out.search</field>
             <field name="model">stock.picking</field>
             <field name="type">search</field>
-			<field name="inherit_id" ref="stock.view_picking_out_search"/>
+            <field name="inherit_id" ref="ineco_base.view_ineco_stock_picking_out_delivery_date_search"/>
+			<!-- <field name="inherit_id" ref="stock.view_picking_out_search"/>  -->
             <field name="arch" type="xml">
              	<field name="ineco_delivery_date" position="after">
 					<field name="period_id" />
@@ -141,7 +142,7 @@
 					<field name="location_store_id" />
              	</field>
             </field>
-        </record>   -->
+        </record>  
  
  <!-- 
         <record id="omg_view_picking_out_search_inherited2" model="ir.ui.view">
@@ -586,7 +587,7 @@
         <menuitem action="act_stock_location_line_qty_update" id="menu_stock_location_line_qty_update" 
             parent="base.menu_sale_config_sales" />		
 
-        <record id="omg_view_picking_out_search_inherit" model="ir.ui.view">
+<!--        <record id="omg_view_picking_out_search_inherit" model="ir.ui.view">
             <field name="name">omg.stock.picking.out.search</field>
             <field name="model">stock.picking</field>
             <field name="type">search</field>
@@ -597,7 +598,7 @@
              	</filter>
             </field>
         </record>
-        
+ -->        
         						
 	</data>
 </openerp>

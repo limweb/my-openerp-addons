@@ -345,6 +345,8 @@ class stock_picking(osv.osv):
         for line in self.browse(cr, uid, ids, context=context):
             if line.period_id:
                 res[line.id] = line.period_id.date_start
+            else:
+                res[line.id] = False
         return res
 
     def _get_warehouse_lock(self, cr, uid, ids, field_name, arg, context=None):
@@ -354,6 +356,8 @@ class stock_picking(osv.osv):
         for line in self.browse(cr, uid, ids, context=context):
             if line.period_id:
                 res[line.id] = line.period_id.warehouse_lock
+            else:
+                res[line.id] = False
         return res
 
     _name = "stock.picking"
