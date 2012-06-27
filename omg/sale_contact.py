@@ -521,6 +521,7 @@ class omg_sale_reserve_contact_line(osv.osv):
                 #    'tax_id': [(6, 0, [x.id for x in contact_obj.contact_id.service_id.taxes_id])],
                 #})        
                 #
+                
                 for product in contact_obj.product_lines:
                     sale_order_line_obj.create(cr, uid, {
                         'order_id': sale_order_id,
@@ -569,7 +570,16 @@ class omg_sale_reserve_contact_line(osv.osv):
     #            for res in cr.dictfetchall():
     #                accounts[res['id']] = res           
         return []
-
+    def unlink(self, cr, uid, ids, context=None, check=True):
+        if context is None:
+            context = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            if line.state != 'done':
+                result = super(omg_sale_reserve_contact_line, self).unlink(cr, uid, ids, context)
+            else:
+                raise osv.except_osv(_('Warning'), _('Not Delete State = Done'))                 
+        return result
+    
 omg_sale_reserve_contact_line()
 
 class omg_sale_reserve_contact_line_location(osv.osv):
