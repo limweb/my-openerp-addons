@@ -688,12 +688,14 @@ class stock_location(osv.osv):
     def write(self, cr, uid, ids, vals, context=None):
             
         stock_omg_approve = self.pool.get('stock.location').browse(cr, uid, ids[0]).omg_approve
-        cr.execute("select gid from res_groups_users_rel where uid=%s and gid=35 " %(uid))
-        user_group =  cr.fetchall()
-        if stock_omg_approve == True and len(user_group) == 0:           
-            raise osv.except_osv(_('Warning'), _('Can not update Stock_location = Approve')) 
-        else:
-            return super(stock_location, self).write(cr, uid, ids, vals, context=context)
+        gid = self.pool.get('res.groups').search(cr, uid, [('name','=','OMG / Location Approval')])
+        if gid: #In Location Approval
+            cr.execute("select gid from res_groups_users_rel where uid=%s and gid=%s " %(uid, gid[0]))
+            user_group =  cr.fetchall()                
+            if stock_omg_approve == True and len(user_group) == 0:           
+                raise osv.except_osv(_('Warning'), _('Can not update Stock_location = Approve')) 
+
+        return super(stock_location, self).write(cr, uid, ids, vals, context=context)
 
 stock_location()
 
