@@ -127,14 +127,13 @@
 			</field>
 		</record>
  
-        <record id="omg_view_picking_out_search_inherit" model="ir.ui.view">
+<!--         <record id="omg_view_picking_out_search_inherit" model="ir.ui.view">
             <field name="name">omg.stock.picking.out.search</field>
             <field name="model">stock.picking</field>
             <field name="type">search</field>
 			<field name="inherit_id" ref="stock.view_picking_out_search"/>
             <field name="arch" type="xml">
-             	<field name="stock_journal_id" position="after">
-					<newline />
+             	<field name="ineco_delivery_date" position="after">
 					<field name="period_id" />
 					<field name="customer_product_id" />
 					<field name="address_id" />	
@@ -142,7 +141,7 @@
 					<field name="location_store_id" />
              	</field>
             </field>
-        </record>
+        </record>   -->
  
  <!-- 
         <record id="omg_view_picking_out_search_inherited2" model="ir.ui.view">
@@ -593,7 +592,7 @@
             <field name="type">search</field>
 			<field name="inherit_id" ref="stock.view_picking_out_search"/>
             <field name="arch" type="xml">
-             	<filter name="available" position="before">
+             	<filter name="name" position="before">
                 	<filter icon="terp-check" name="draft" string="Draft" domain="[('state','=','draft')]" help="Draft Delivery Orders"/>
              	</filter>
             </field>

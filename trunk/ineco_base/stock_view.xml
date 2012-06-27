@@ -706,7 +706,7 @@
         <record id="view_ineco_stock_picking_out_delivery_date_tree" model="ir.ui.view">
             <field name="name">ineco.delivery.date.stock.picking.out.tree</field>
             <field name="model">stock.picking</field>
-            <field name="type">search</field>
+            <field name="type">tree</field>
 			<field name="inherit_id" ref="stock.view_picking_out_tree"/>
             <field name="arch" type="xml">
              	<field name="min_date" position="after">
@@ -715,7 +715,7 @@
             </field>
         </record>
 
-        <record id="view_ineco_stock_picking_out_delivery_date_search" model="ir.ui.view">
+<!--       <record id="view_ineco_stock_picking_out_delivery_date_search" model="ir.ui.view">
             <field name="name">ineco.delivery.date.stock.picking.out.search</field>
             <field name="model">stock.picking</field>
             <field name="type">search</field>
@@ -737,7 +737,7 @@
 					<field name="stock_journal_id" invisible="1" />
              	</field>
             </field>
-        </record>
+        </record>  
 
         <record id="view_ineco_stock_picking_out_hide_company_search" model="ir.ui.view">
             <field name="name">ineco.delivery.hide.company.stock.picking.out.search</field>
@@ -748,21 +748,21 @@
              	<field name="company_id" position="replace">
 					<field name="company_id" invisible="1" />
              	</field>
-            </field>
-        </record>
+            </field> 
+        </record> -->
 
-        <record id="view_ineco_stock_picking_out_no_delivery_search" model="ir.ui.view">
+<!--         <record id="view_ineco_stock_picking_out_no_delivery_search" model="ir.ui.view">
             <field name="name">ineco.delivery.nodate.stock.picking.out.search</field>
             <field name="model">stock.picking</field>
             <field name="type">search</field>
 			<field name="inherit_id" ref="stock.view_picking_out_search"/>
             <field name="arch" type="xml">
              	<field name="name" position="before">
-                        <filter icon="terp-dolar" name="no_delivery" string="No Delivery Date" domain="[('ineco_delivery_date','=',False)]" />
+                   	<filter icon="terp-dolar" name="no_delivery" string="No Delivery Date" domain="[('ineco_delivery_date','=',False)]" />
              	</field>
             </field>
         </record>
-
+ -->
 
 		<!-- Add New Multiple Pack Generate -->
         <record id="ineco_view_picking_in_form_split_into" model="ir.ui.view">
