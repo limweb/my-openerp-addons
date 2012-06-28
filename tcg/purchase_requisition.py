@@ -38,5 +38,9 @@ class purchase_requisition(osv.osv):
         'cash_only': False,
         'date_start': time.strftime('%Y-%m-%d %H:%M:%S'),
     }
+    
+    def create(self, cr, uid, vals, context=None):
+        vals.update({'date_start': time.strftime('%Y-%m-%d %H:%M:%S')})
+        return super(purchase_requisition, self).create(cr, uid, vals, context)
 
 purchase_requisition()
