@@ -24,7 +24,6 @@ import purchase_requisition_partner
 import sale
 import purchase_requisition
 import mrp
-import product 
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
