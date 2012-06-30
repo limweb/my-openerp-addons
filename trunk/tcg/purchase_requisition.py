@@ -32,7 +32,7 @@ class purchase_requisition(osv.osv):
     _description="Purchase Requisition"
     _columns = {
         'cash_only': fields.boolean('Cash'),
-        'amount': fields.integer('Amount'),
+        'amount': fields.float('Amount', digits_compute= dp.get_precision('Account')),
     }
     _defaults = {
         'cash_only': False,
