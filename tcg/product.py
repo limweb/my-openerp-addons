@@ -27,16 +27,16 @@ import time
 import tools
 import decimal_precision as dp
 
-class product_product(osv.osv):
+#class product_product(osv.osv):
+#    
+#    _name = 'product.product'
+#    _inherit = 'product.product'
+#    _description = 'Add Stock Journal In Product.Product'
+#    _columns = {
+#        'ineco_stock_journal_id': fields.many2one('stock.journal','Stock Journal'),
+#    }
     
-    _name = 'product.product'
-    _inherit = 'product.product'
-    _description = 'Add Stock Journal In Product.Product'
-    _columns = {
-        'ineco_stock_journal_id': fields.many2one('stock.journal','Stock Journal'),
-    }
-    
-product_product()
+#product_product()
 
 class product_uom(osv.osv):
     
