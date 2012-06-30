@@ -24,6 +24,7 @@ import time
 import netsvc
 
 from osv import fields,osv
+import decimal_precision as dp
 from tools.translate import _
 
 class purchase_requisition(osv.osv):
