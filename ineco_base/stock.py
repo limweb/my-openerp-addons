@@ -42,6 +42,7 @@
 # 22-06-2012       POP-019    Add Unique Name of Production Lot
 #                  POP-020    Add Product ID in Stock Packing
 # 26-06-2012       POP-021    Add Button Problem
+# 29-06-2012       POP-022    Change Default Warehoues UOM
 
 import math
 
@@ -197,32 +198,196 @@ class stock_move(osv.osv):
         'location_dest_id': _ineco_default_location_destination,
     }
 
-    def write(self, cr, uid, ids, vals, context=None):
+    #POP-022 Change Default Warehouse UOM
+    def create(self, cr, uid, vals, context=None):
         if context is None:
             context = {}
-        if 'product_id' in vals and 'product_qty' in vals:
+        if 'product_id' in vals and 'product_qty' in vals and 'product_uom' in vals:
+            uom_obj = self.pool.get('product.uom')
             product_obj = self.pool.get('product.product').browse(cr, uid, vals['product_id'])
+            product_tmpl_obj = self.pool.get('product.template').browse(cr, uid, vals['product_id'])
+            default_uom_id = product_tmpl_obj.uom_id.id
             warehouse_uom_id = product_obj.warehouse_uom.id
+            product_uom =  self.pool.get('product.uom').browse(cr, uid, vals['product_uom'])
             product_qty = vals['product_qty']
             warehouse_qty = product_qty
             diff = 0
             if warehouse_uom_id:
-                cr.execute("select ineco_convert_stock(%s, %s)" % (warehouse_uom_id, product_qty)) 
-                warehouse_res = cr.fetchone()
-                if warehouse_res:
-                    warehouse_qty = warehouse_res[0]
-                    cr.execute("select ineco_get_stock(%s, %s)" % (warehouse_uom_id, warehouse_qty))
-                    stock_res = cr.fetchone()
-                    if stock_res:
-                        full_qty = stock_res[0]
-                        if full_qty > product_qty:
-                            warehouse_qty = warehouse_qty - 1
-                cr.execute("select ineco_get_stock(%s, %s)" % (warehouse_uom_id, warehouse_qty))
-                diff_res = cr.fetchone()
-                #diff = 0
-                if diff_res:
-                    diff = product_qty - diff_res[0] 
-            vals.update({'warehouse_uom': warehouse_uom_id,'warehouse_qty': warehouse_qty,'warehouse_diff': diff})
+                warehouse_qty = uom_obj._compute_qty_obj(cr, uid, product_uom , 
+                    product_qty, product_obj.warehouse_uom, context=context )
+            vals.update({'warehouse_uom': warehouse_uom_id,'warehouse_qty': warehouse_qty}) #'warehouse_diff': diff
+        return super(stock_move, self).create(cr, uid, vals, context)
+
+    #POP-022
+    def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context = {}
+        
+        if not isinstance(ids,list):
+            ids = [ids]
+        for sm in self.pool.get('stock.move').browse(cr, uid, ids):
+            uom_obj = self.pool.get('product.uom')
+            product_obj = False
+            product_tmpl_obj = False
+            if 'product_id' in vals:
+                product_obj = self.pool.get('product.product').browse(cr, uid, vals['product_id'])
+                product_tmpl_obj = self.pool.get('product.template').browse(cr, uid, vals['product_id'])
+            else:
+                product_obj = sm.product_id
+                product_tmpl_obj = self.pool.get('product.template').browse(cr, uid, product_obj.id)
+            default_uom = product_tmpl_obj.uom_id
+            warehouse_uom_id = product_obj.warehouse_uom.id
+            product_uom = False
+            if 'product_uom' in vals:
+                product_uom =  self.pool.get('product.uom').browse(cr, uid, vals['product_uom'])
+            else:
+                product_uom = sm.product_uom
+            if 'product_qty' in vals:
+                product_qty = vals['product_qty']
+            else:
+                product_qty = sm.product_qty or 0.0
+            warehouse_qty = product_qty
+            if warehouse_uom_id:
+                warehouse_qty = uom_obj._compute_qty_obj(cr, uid, product_uom , 
+                    product_qty, product_obj.warehouse_uom, context=context )
+            if 'prodlot_id' in vals:
+                lot_id = vals['prodlot_id']
+                
+            else:
+                lot_id = sm.prodlot_id.id or False 
+            date_input = False
+            date_expired = False
+            if lot_id:
+                lot_obj = self.pool.get('stock.production.lot').browse(cr, uid, [lot_id])[0]
+                date_input = lot_obj.date
+                date_expired = lot_obj.date_expired
+            
+            if 'tracking_id' in vals:
+                tracking_id = vals['tracking_id'] 
+            else:
+                tracking_id = sm.tracking_id.id or False
+            if 'location_id' in vals:
+                location_id = vals['location_id'] 
+            else:
+                location_id = sm.location_id.id or False
+            if 'location_dest_id' in vals:
+                location_dest_id = vals['location_dest_id'] 
+            else:
+                location_dest_id = sm.location_dest_id.id or False
+            state_last = sm.state
+            if 'state' in vals:
+                state_current = vals['state'] 
+            else:
+                state_current = sm.state or False
+            update_qty = uom_obj._compute_qty_obj(cr, uid, product_uom, product_qty, default_uom)
+            #? -> done <> 'done' -> 'done' +
+            #done -> ? <> 'done' -> 'done' -
+            if state_current and (state_current == 'done' or state_last == 'done'):
+                location_source_stock_ids = self.pool.get('ineco.stock.report').search(cr, uid, 
+                    [('product_id','=',product_obj.id),
+                     ('lot_id','=',lot_id or False),
+                     ('tracking_id','=',tracking_id or False),
+                     ('location_dest_id','=',location_id)])
+                location_dest_stock_ids = self.pool.get('ineco.stock.report').search(cr, uid, 
+                    [('product_id','=',product_obj.id),
+                     ('lot_id','=',lot_id or False),
+                     ('tracking_id','=',tracking_id or False),
+                     ('location_dest_id','=',location_dest_id)])
+                
+                #Stock Issue
+                if state_current == 'done' and state_last <> 'done':  
+                    if location_source_stock_ids:  
+                        source_obj = self.pool.get('ineco.stock.report').browse(cr, uid, location_source_stock_ids)[0]
+                        update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom , 
+                            source_obj.qty-update_qty, product_obj.warehouse_uom, context=context )
+                        source_obj.write({'qty':source_obj.qty-update_qty,'warehouse_qty':update_warehouse_qty})
+                    else:
+                        update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom , 
+                            -update_qty, product_obj.warehouse_uom, context=context )
+                        source_obj_id = self.pool.get('ineco.stock.report').create(cr, uid, 
+                            { 
+                             'product_id': product_obj.id,
+                             'lot_id': lot_id or False,
+                             'tracking_id': tracking_id or False,
+                             'location_dest_id': location_id or False,
+                             'qty': -update_qty or 0.0,
+                             'quantity': -update_qty or 0.0,
+                             'uom_id': default_uom.id or False,
+                             'warehouse_qty': update_warehouse_qty or 0.0,
+                             'warehouse_uom': product_obj.warehouse_uom.id or False,
+                             'date_input': date_input or False,
+                             'expired': date_expired or False,
+                            })
+                    if location_dest_stock_ids:
+                        destination_obj = self.pool.get('ineco.stock.report').browse(cr, uid, location_dest_stock_ids)[0]
+                        update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom , 
+                            destination_obj.qty+update_qty, product_obj.warehouse_uom, context=context )
+                        destination_obj.write({'qty':destination_obj.qty+update_qty,'warehouse_qty':update_warehouse_qty})
+                    else:
+                        update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom , 
+                            update_qty, product_obj.warehouse_uom, context=context )
+                        destination_obj_id = self.pool.get('ineco.stock.report').create(cr, uid, 
+                            { 
+                             'product_id': product_obj.id,
+                             'lot_id': lot_id or False,
+                             'tracking_id': tracking_id or False,
+                             'location_dest_id': location_dest_id or False,
+                             'qty': update_qty or 0.0,
+                             'quantity': update_qty or 0.0,
+                             'uom_id': default_uom.id or False,
+                             'warehouse_qty': update_warehouse_qty or 0.0,
+                             'warehouse_uom': product_obj.warehouse_uom.id or False,
+                             'date_input': date_input or False,
+                             'expired': date_expired or False,
+                            })
+                
+                #Stock Done
+                if state_current <> 'done' and state_last == 'done':
+                    if location_source_stock_ids:
+                        source_obj = self.pool.get('ineco.stock.report').browse(cr, uid, location_source_stock_ids)[0]
+                        update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom, 
+                            source_obj.qty + update_qty, product_obj.warehouse_uom, context=context )
+                        source_obj.write({'qty':source_obj.qty + update_qty,'warehouse_qty':update_warehouse_qty})
+                    else:
+                        update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom, 
+                            update_qty, product_obj.warehouse_uom, context=context )
+                        source_obj_id = self.pool.get('ineco.stock.report').create(cr, uid, 
+                            { 
+                             'product_id': product_obj.id,
+                             'lot_id': lot_id or False,
+                             'tracking_id': tracking_id or False,
+                             'location_dest_id': location_id or False,
+                             'qty': update_qty or 0.0,
+                             'quantity': update_qty or 0.0,
+                             'uom_id': default_uom.id or False,
+                             'warehouse_qty': update_warehouse_qty or 0.0,
+                             'warehouse_uom': product_obj.warehouse_uom.id or False,
+                             'date_input': date_input or False,
+                             'expired': date_expired or False,
+                            })
+                    if location_dest_stock_ids:
+                        destination_obj = self.pool.get('ineco.stock.report').browse(cr, uid, location_dest_stock_ids)[0]
+                        update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom , 
+                           destination_obj.qty-update_qty, product_obj.warehouse_uom, context=context )
+                        destination_obj.write({'qty':destination_obj.qty-update_qty,'warehouse_qty':update_warehouse_qty})
+                    else:
+                        update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom , 
+                           -update_qty, product_obj.warehouse_uom, context=context )
+                        destination_obj_id = self.pool.get('ineco.stock.report').create(cr, uid, 
+                            { 
+                             'product_id': product_obj.id,
+                             'lot_id': lot_id or False,
+                             'tracking_id': tracking_id or False,
+                             'location_dest_id': location_dest_id or False,
+                             'qty': -update_qty or 0.0,
+                             'quantity': -update_qty or 0.0,
+                             'uom_id': default_uom.id or False,
+                             'warehouse_qty': update_warehouse_qty or 0.0,
+                             'warehouse_uom': product_obj.warehouse_uom.id or False,
+                             'date_input': date_input or False,
+                             'expired': date_expired or False,
+                            })
+                vals.update({'warehouse_uom': warehouse_uom_id,'warehouse_qty': warehouse_qty}) #'warehouse_diff': diff
         return super(stock_move, self).write(cr, uid, ids, vals, context=context)
     
     def onchange_product_id(self, cr, uid, ids, prod_id=False, loc_id=False,loc_dest_id=False, address_id=False):
@@ -1680,6 +1845,8 @@ class ineco_stock_report(osv.osv):
                ),0)                 
         """
         cr.execute(sql)
+        cr.commit()
+        cr.execute("update ineco_stock_report_master set create_uid = 1, create_date = now()")
         cr.commit()
     
 #    def schedule_sync(self, cr, uid, context=None):

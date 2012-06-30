@@ -97,10 +97,10 @@ class product_uom(osv.osv):
         'name': fields.char('Name', size=64, required=True, translate=True),
         'category_id': fields.many2one('product.uom.categ', 'UoM Category', required=True, ondelete='cascade',
             help="Quantity conversions may happen automatically between Units of Measure in the same category, according to their respective ratios."),
-        'factor': fields.float('Ratio', required=True,digits=(12, 12),
+        'factor': fields.float('Ratio', required=True, digits=(12, 12),
             help='How many times this UoM is smaller than the reference UoM in this category:\n'\
                     '1 * (reference unit) = ratio * (this unit)'),
-        'factor_inv': fields.function(_factor_inv, digits_compute=dp.get_precision('Product UoM'),
+        'factor_inv': fields.function(_factor_inv, digits=(12, 12), #digits_compute=dp.get_precision('Product UoM'),
             fnct_inv=_factor_inv_write,
             method=True, string='Ratio',
             help='How many times this UoM is bigger than the reference UoM in this category:\n'\
@@ -116,7 +116,7 @@ class product_uom(osv.osv):
 
     _defaults = {
         'active': 1,
-        'rounding': 0.01,
+        'rounding': 1.00,
         'uom_type': 'reference',
     }
 
