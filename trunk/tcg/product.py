@@ -38,6 +38,11 @@ import decimal_precision as dp
     
 #product_product()
 
+def rounding(f, r):
+    if not r:
+        return f
+    return round(f / r) * r
+
 class product_uom(osv.osv):
     
     _name = 'product.uom'

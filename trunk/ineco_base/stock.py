@@ -32,7 +32,7 @@
 # 28-01-2012       POP-010    Move ineco.stock.keeping.method to product.py
 # 15-01-2012       POP-011    Create Query query.ineco.stock.report 
 # 20-02-2012       POP-012    Create ienco.stock.barcode.delivery
-# 08-03-2012       POP-013    Make performace auto picking
+# 08-03-2012       POP-013    Make performance auto picking
 # 10-03-2012       POP-014    Change Split in Auto Picking -> Valid by Do it Again
 # 14-03-2012       POP-015    Change way to force compute with delivery
 # 16-03-2012       POP-015    Change Set to Confirm -> Set To Draft
@@ -42,7 +42,7 @@
 # 22-06-2012       POP-019    Add Unique Name of Production Lot
 #                  POP-020    Add Product ID in Stock Packing
 # 26-06-2012       POP-021    Add Button Problem
-# 29-06-2012       POP-022    Change Default Warehoues UOM
+# 29-06-2012       POP-022    Change Default Warehouse UOM
 
 import math
 
@@ -423,175 +423,6 @@ class stock_move(osv.osv):
         if loc_dest_id:
             result['location_dest_id'] = loc_dest_id
         return {'value': result}
-
-    def check_assign(self, cr, uid, ids, context=None):
-        """ Checks the product type and accordingly writes the state.
-        @return: No. of moves done
-        """
-        done = []
-        count = 0
-        pickings = {}
-        if context is None:
-            context = {}
-        for move in self.browse(cr, uid, ids, context=context):
-            if not ((move.prodlot_id and move.tracking_id) or move.picking_id.ineco_return) :
-                if move.product_id.type == 'service' or move.location_id.usage == 'supplier':
-                    if move.state in ('confirmed', 'waiting'):
-                        done.append(move.id)
-                    pickings[move.picking_id.id] = 1
-                    continue
-                if move.state in ('confirmed', 'waiting'):
-                    #POP-013
-                    delete_sql = """
-                        delete from ineco_stock_tracking_line
-                        where id not in (
-                            select a.id from ineco_stock_tracking_line a
-                            join stock_move b on a.move_id = b.id and a.tracking_id = b.tracking_id and b.state <> 'cancel')
-                    """
-                    cr.execute(delete_sql)
-                    cr.commit()
-                    #POP-003 
-                    search_sql = """
-                        select 
-                          ineco_stock_report_master.id,
-                          ineco_stock_report_master.location_dest_id,
-                          ineco_stock_report_master.lot_id,
-                          ineco_stock_report_master.expired,
-                          ineco_stock_report_master.tracking_id,
-                          ineco_stock_report_master.product_id,
-                          ineco_stock_report_master.uom_id,
-                          ineco_stock_report_master.qty, 
-                          ineco_get_stock(uom_id, qty) as total,
-                          coalesce((select sum(product_qty) as total from ineco_stock_tracking_line
-                            join stock_move on ineco_stock_tracking_line.move_id = stock_move.id
-                            where ineco_stock_tracking_line.tracking_id = ineco_stock_report_master.tracking_id),0) as usage,
-                          ineco_get_stock(uom_id, qty) -
-                          coalesce((select sum(product_qty) as total from ineco_stock_tracking_line
-                            join stock_move on ineco_stock_tracking_line.move_id = stock_move.id
-                            where ineco_stock_tracking_line.tracking_id = ineco_stock_report_master.tracking_id),0) as available
-                        from ineco_stock_report_master
-                        left join stock_production_lot on ineco_stock_report_master.lot_id = stock_production_lot.id
-                        left join stock_tracking on ineco_stock_report_master.tracking_id = stock_tracking.id
-                        left join stock_location on ineco_stock_report_master.location_dest_id = stock_location.id
-                        where 
-                          ineco_stock_report_master.product_id = %s and
-                          ineco_stock_report_master.qty > 0 and
-                          stock_location.usage = 'internal' and
-                          stock_location.chained_location_type = 'none'              
-                        order by 
-                          ineco_stock_report_master.expired, 
-                          stock_production_lot.date, 
-                          stock_tracking.name                
-                    """
-#                    search_sql = """
-#                        select 
-#                          ineco_stock_report.id,
-#                          ineco_stock_report.location_dest_id,
-#                          ineco_stock_report.lot_id,
-#                          ineco_stock_report.expired,
-#                          ineco_stock_report.tracking_id,
-#                          ineco_stock_report.product_id,
-#                          ineco_stock_report.uom_id,
-#                          ineco_stock_report.qty, 
-#                          ineco_get_stock(uom_id, qty) as total,
-#                          coalesce((select sum(product_qty) as total from ineco_stock_tracking_line
-#                            join stock_move on ineco_stock_tracking_line.move_id = stock_move.id
-#                            where ineco_stock_tracking_line.tracking_id = ineco_stock_report.tracking_id),0) as usage,
-#                          ineco_get_stock(uom_id, qty) -
-#                          coalesce((select sum(product_qty) as total from ineco_stock_tracking_line
-#                            join stock_move on ineco_stock_tracking_line.move_id = stock_move.id
-#                            where ineco_stock_tracking_line.tracking_id = ineco_stock_report.tracking_id),0) as available
-#                        from ineco_stock_report
-#                        join stock_production_lot on ineco_stock_report.lot_id = stock_production_lot.id
-#                        join stock_tracking on ineco_stock_report.tracking_id = stock_tracking.id
-#                        where ineco_stock_report.product_id = %s and
-#                          ineco_get_stock(uom_id, qty) -
-#                          coalesce((select sum(product_qty) as total from ineco_stock_tracking_line
-#                           join stock_move on ineco_stock_tracking_line.move_id = stock_move.id
-#                           where ineco_stock_tracking_line.tracking_id = ineco_stock_report.tracking_id),0) > 0
-#                        order by ineco_stock_report.expired, stock_production_lot.date, stock_tracking.name                                 
-#                    """
-                    cr.execute(search_sql % move.product_id.id)
-                    stock_list = cr.dictfetchall()
-                    balance_qty = move.product_qty
-                    last_move_id = move.id
-                    for list in stock_list:
-                        if balance_qty > 0:
-                            balance_qty = balance_qty - list['available']
-                            if balance_qty > 0:
-                                tracking_line_qty = list['available']
-                                self.write(cr, uid, [last_move_id], {
-                                    'product_qty':tracking_line_qty,
-                                    'prodlot_id': list['lot_id'],
-                                    'state':'assigned',
-                                    'tracking_id': list['tracking_id'],
-                                    'location_id':list['location_dest_id']})
-                                tracking_line = self.pool.get('ineco.stock.tracking.line')
-                                tracking_line.create(cr, uid, {
-                                    'name': move.product_id.name,
-                                    'move_id': last_move_id,
-                                    'tracking_id': list['tracking_id']
-                                })
-                                #last_move_id = self.copy(cr, uid, last_move_id, {'product_qty': balance_qty,'state':'assigned','location_id':list['location_dest_id']})
-                                #POP-014
-                                last_move_id = self.copy(cr, uid, last_move_id, {'product_qty': balance_qty})
-                            else:
-                                self.write(cr, uid, [last_move_id], {
-                                    'state':'assigned',
-                                    'prodlot_id': list['lot_id'],
-                                    'tracking_id': list['tracking_id'],
-                                    'location_id': list['location_dest_id']})
-    
-                                tracking_line = self.pool.get('ineco.stock.tracking.line')
-                                tracking_line.create(cr, uid, {
-                                    'name': move.product_id.name,
-                                    'move_id': last_move_id,
-                                    'tracking_id': list['tracking_id']
-                                })
-                    pickings[move.picking_id.id] = 1
-            else:
-                done.append(move.id)
-                pickings[move.picking_id.id] = 1
-        if done:
-            self.write(cr, uid, done, {'state':'assigned'})
-                    
-                # Important: we must pass lock=True to _product_reserve() to avoid race conditions and double reservations
-                #res = self.pool.get('stock.location')._product_reserve(cr, uid, [move.location_id.id], move.product_id.id, move.product_qty, {'uom': move.product_uom.id}, lock=True)
-                #if res:
-                    #_product_available_test depends on the next status for correct functioning
-                    #the test does not work correctly if the same product occurs multiple times
-                    #in the same order. This is e.g. the case when using the button 'split in two' of
-                    #the stock outgoing form
-                #    self.write(cr, uid, [move.id], {'state':'assigned'})
-                #    done.append(move.id)
-                #    pickings[move.picking_id.id] = 1
-                #    r = res.pop(0)
-                #    cr.execute('update stock_move set location_id=%s, product_qty=%s where id=%s', (r[1], r[0], move.id))
-
-                #    while res:
-                #        r = res.pop(0)
-                #        move_id = self.copy(cr, uid, move.id, {'product_qty': r[0], 'location_id': r[1]})
-                #        done.append(move_id)
-                #Important - End
-    
-        cando = True
-        for move in self.browse(cr, uid, ids, context=context):
-            if cando:
-                if move.state in ('confirmed', 'waiting'):
-                    cando = False
-        #new by pop
-        if cando:
-            for pick_id in pickings:
-                wf_service = netsvc.LocalService("workflow")
-                wf_service.trg_write(uid, 'stock.picking', pick_id, cr)
-                
-        #if count:
-        #    for pick_id in pickings:
-        #        wf_service = netsvc.LocalService("workflow")
-                #mark by pop
-                #wf_service.trg_write(uid, 'stock.picking', pick_id, cr)
-        return count
-
            
 stock_move()
 
@@ -809,26 +640,30 @@ class stock_picking(osv.osv):
                     #POP-014
                     #if pick.type in ['out','internal']:
                     if pick.type in ['internal']:
-                        check_ids = self.pool.get('ineco.stock.report').search(cr, uid, [('product_id','=',move.product_id.id),('location_dest_id','=',move.location_id.id),('qty','>',0)])
-                        if check_ids:
-                            stock_qty = 0
-                            for stock in self.pool.get('ineco.stock.report').browse(cr, uid, check_ids): 
-                                stock_qty = stock_qty + stock.qty
-                            sql = """
-                            select ineco_get_stock(%s, %s) as total
-                            """
-                            cr.execute(sql % (move.product_uom.id, str(int(move.product_qty))))
-                            total = cr.dictfetchall()
-                            product_qty = 0
-                            if total:
-                                product_qty = total[0]['total']
-                                if stock_qty >= product_qty: #change in default_uom qty 
-                                    if move.state == 'assigned':
-                                        todo.append(move.id)
-    #                            else:
-    #                                raise osv.except_osv(_('Error !'), _('Stock insufficient in source location. [' + move.product_id.name + '->'+move.location_id.name+']'))
-    #                    else:
-    #                        raise osv.except_osv(_('Error !'), _('Can not found stock in source location.'))
+                        if move.location_id.validate_stock:
+                            check_ids = self.pool.get('ineco.stock.report').search(cr, uid, [('product_id','=',move.product_id.id),('location_dest_id','=',move.location_id.id),('qty','>',0)])
+                            if check_ids:
+                                stock_qty = 0
+                                for stock in self.pool.get('ineco.stock.report').browse(cr, uid, check_ids): 
+                                    stock_qty = stock_qty + stock.qty
+                                sql = """
+                                select ineco_get_stock(%s, %s) as total
+                                """
+                                cr.execute(sql % (move.product_uom.id, str(int(move.product_qty))))
+                                total = cr.dictfetchall()
+                                product_qty = 0
+                                if total:
+                                    product_qty = total[0]['total']
+                                    if stock_qty >= product_qty: #change in default_uom qty 
+                                        if move.state == 'assigned':
+                                            todo.append(move.id)
+                                    else:
+                                        raise osv.except_osv(_('Error !'), _('Stock insufficient in source location. [' + move.product_id.name + '->'+move.location_id.name+']'))
+                            else:
+                                raise osv.except_osv(_('Error !'), _('Can not found "'+move.product_id.name+'" in '+move.location_id.name+'. Please checking Stock Report.'))
+                        else:
+                            #Location Not Validate Stock
+                            todo.append(move.id)
                     else:
                         if move.state == 'assigned':
                             todo.append(move.id)
@@ -1227,7 +1062,12 @@ class stock_location(osv.osv):
     _columns = {
         'keeping_id': fields.many2one('ineco.stock.keeping.method', 'Keeping Method', ondelete="restrict"),
         'available': fields.function(_get_location_available, string="Available", type="boolean", method=True),
+        'validate_stock': fields.boolean('Validate Stock')
 #        'ineco_stock_real': fields.function(_product_value, store=True, method=True, type='float', string='Real Stock', multi="stock"),
+    }
+    
+    _defaults = {
+        'validate_stock': False,
     }
     
 stock_location()
