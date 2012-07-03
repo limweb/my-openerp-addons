@@ -42,11 +42,28 @@ import _mssql
 
 from datetime import *
 
+class sale_order_iteminfocus(osv.osv):
+    
+    _name = "sale.order.iteminfocus"
+    _description = "Item Not Check"
+    _columns = {
+        'name': fields.char('Description', size=250, required=True),
+        'sale_order_id': fields.many2one('sale.order','Sale Order',required=True),
+        'product_id': fields.many2one('product.product','Product',required=True),
+        'location_id': fields.many2one('stock.location', 'Store', required=True),
+    }
+    _sql_constraints = [
+        ('order_product_location_unique', 'unique (sale_order_id, product_id, location_id)', 'Product and Location must be unique!')
+    ]
+    
+sale_order_iteminfocus()
+
 class sale_order(osv.osv):
     _name = "sale.order"
     _description = "export to fos only"
     _inherit = "sale.order"
     _columns = {
+        'item_infocus_ids': fields.one2many('sale.order.iteminfocus','sale_order_id','Item Not Check'),
     }
     
     def testmethod(self, cr, uid, ip, user, database, password, context=None):
@@ -66,6 +83,32 @@ class sale_order(osv.osv):
             print "ID=%d, Name=%s" % (row['chaincd'], row['storecd'])
 
         return True
+    
+    def action_cancel(self, cr, uid, ids, context=None):
+        for order in self.pool.get('sale.order').browse(cr, uid, ids):
+            if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
+                server_ip = order.company_id.fos_host
+                server_user = order.company_id.fos_user
+                server_password = order.company_id.fos_password
+                server_db = order.company_id.fos_dbname
+
+                conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
+                                       database=server_db,as_dict=True)
+                sql_contr_update = """
+                    update contrmf set status = 'N' where contractno = '%s' 
+                """
+                sql_contr_update = sql_contr_update % (order.name)
+                cur = conn.cursor()
+                cur.execute('SET ANSI_WARNINGS off')
+                cur.execute(sql_contr_update.encode('utf-8'))
+                cur.close()
+                conn.commit()
+            else:
+                raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))                
+            
+        super(sale_order, self).action_cancel(cr, uid, ids, context=context)        
+        return True
+
     
     def export_fos(self, cr, uid, ids, context=None):
         if context is None:
@@ -851,4 +894,6 @@ class sale_order(osv.osv):
             result = result[0:len(result)-2]
         result = result.replace('None','null') 
         return result 
+    
 sale_order()
+

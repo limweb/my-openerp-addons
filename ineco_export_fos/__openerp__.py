@@ -32,6 +32,7 @@
     'depends': ["base","sale"],
     'website': 'http://openerp.tititab.com',
     'update_xml': [
+        'security.xml',
         'company_view.xml',
         'sale_view.xml',
         'partner_view.xml',
