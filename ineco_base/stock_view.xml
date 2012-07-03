@@ -341,6 +341,7 @@
             <field name="arch" type="xml">
             	<field name="address_id" position="before">
             		<field name="keeping_id" />
+            		<field name="validate_stock" />
             	</field>
 			</field>
 		</record>		
@@ -353,6 +354,7 @@
             <field name="arch" type="xml">
             	<field name="usage" position="after">
             		<field name="keeping_id" />
+            		<field name="validate_stock" />
             	</field>
             </field>
         </record>
