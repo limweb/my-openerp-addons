@@ -874,7 +874,7 @@ class sale_order(osv.osv):
                           contractno = '%s' and storecd = '%s' and skuitemno1 = '%s'
                     """
                     update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
-                    cur.execute(update_sql)
+                    cur.execute(update_sql.encode('utf-8'))
                     conn.commit()
                     #SKU Item-2
                     update_sql = """
@@ -885,7 +885,7 @@ class sale_order(osv.osv):
                           contractno = '%s' and storecd = '%s' and skuitemno2 = '%s'
                     """
                     update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
-                    cur.execute(update_sql)
+                    cur.execute(update_sql.encode('utf-8'))
                     conn.commit()
                     #SKU Item-3
                     update_sql = """
@@ -896,7 +896,7 @@ class sale_order(osv.osv):
                           contractno = '%s' and storecd = '%s' and skuitemno3 = '%s'
                     """
                     update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
-                    cur.execute(update_sql)
+                    cur.execute(update_sql.encode('utf-8'))
                     conn.commit()
                     #SKU Item-4
                     update_sql = """
@@ -907,7 +907,7 @@ class sale_order(osv.osv):
                           contractno = '%s' and storecd = '%s' and skuitemno4 = '%s'
                     """
                     update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
-                    cur.execute(update_sql)
+                    cur.execute(update_sql.encode('utf-8'))
                     conn.commit()
                     #SKU Item-5
                     update_sql = """
@@ -918,7 +918,7 @@ class sale_order(osv.osv):
                           contractno = '%s' and storecd = '%s' and skuitemno5 = '%s'
                     """
                     update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
-                    cur.execute(update_sql)
+                    cur.execute(update_sql.encode('utf-8'))
                     conn.commit()
                     #SKU Item-6
                     update_sql = """
@@ -929,7 +929,7 @@ class sale_order(osv.osv):
                           contractno = '%s' and storecd = '%s' and skuitemno6 = '%s'
                     """
                     update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
-                    cur.execute(update_sql)
+                    cur.execute(update_sql.encode('utf-8'))
                     conn.commit()
                     #SKU Item-7
                     update_sql = """
@@ -940,7 +940,7 @@ class sale_order(osv.osv):
                           contractno = '%s' and storecd = '%s' and skuitemno7 = '%s'
                     """
                     update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
-                    cur.execute(update_sql)
+                    cur.execute(update_sql.encode('utf-8'))
                     conn.commit()
                     #SKU Item-8
                     update_sql = """
@@ -951,7 +951,7 @@ class sale_order(osv.osv):
                           contractno = '%s' and storecd = '%s' and skuitemno8 = '%s'
                     """
                     update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
-                    cur.execute(update_sql)
+                    cur.execute(update_sql.encode('utf-8'))
                     conn.commit()
                     
 
