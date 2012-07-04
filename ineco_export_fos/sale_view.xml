@@ -54,7 +54,8 @@
 						<newline/>
 						<field colspan="4" name="item_infocus_ids" mode="tree,form" nolabel="1">
 							<form string="Item List">
-						   	    <field name="location_id" domain="[('id','in',[ x[2]['location_id'] for x in parent.sale_location_ids])]" />
+						   	    <field name="location_id" domain="[('id','in',[ x[2]['location_id'][0] for x in parent.sale_location_ids])]" />
+						   	    <!-- <field name="location_id" domain="[('id','in',[ x[2]['location_id'] for x in parent.sale_location_ids])]" /> for Client-->
 						   	    <field name="product_id" domain="[('id','in', [ x[2] for x in parent.item_sale_check_ids][0] )]" />
 						   	    <field name="name" />
 							</form>
