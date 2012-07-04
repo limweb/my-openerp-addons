@@ -574,11 +574,9 @@ class omg_sale_reserve_contact_line(osv.osv):
         if context is None:
             context = {}
         for line in self.browse(cr, uid, ids, context=context):
-            if line.state != 'done':
-                result = super(omg_sale_reserve_contact_line, self).unlink(cr, uid, ids, context)
-            else:
+            if line.state == 'done':
                 raise osv.except_osv(_('Warning'), _('Not Delete State = Done'))                 
-        return result
+        return super(omg_sale_reserve_contact_line, self).unlink(cr, uid, ids, context)
     
 omg_sale_reserve_contact_line()
 
