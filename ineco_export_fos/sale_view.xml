@@ -50,10 +50,12 @@
 						<!-- <field name="sale_period_days" colspan="4" />
 						<newline/>
 						 -->
+						<button name="action_resenditem" colspan="4" string="Resend to FOS" type="object" icon="gtk-go-forward" attrs="{'invisible': [('fos_pass','!=',True)]}"/>
+						<newline/>
 						<field colspan="4" name="item_infocus_ids" mode="tree,form" nolabel="1">
 							<form string="Item List">
-						   	    <field name="location_id" domain="[('name','in',[ x for x in parent.sale_location_ids])]" />
-						   	    <field name="product_id" />
+						   	    <field name="location_id" domain="[('id','in',[ x[2]['location_id'] for x in parent.sale_location_ids])]" />
+						   	    <field name="product_id" domain="[('id','in', [ x[2] for x in parent.item_sale_check_ids][0] )]" />
 						   	    <field name="name" />
 							</form>
 							<tree string="Item Not Check">
@@ -66,6 +68,21 @@
 				</xpath>
 			</field>
 		</record>
-		
+
+		<record id="view_omg_sale_order_fos_form" model="ir.ui.view">
+			<field name="name">ineco.fos2.sale.order</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="omg.view_omg_sale_order_form" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page[@string='Item Check Sales']/field[@name='item_sale_check_ids']" position="before">
+					<button name="action_resenditem" colspan="4" string="Resend to FOS" type="object" icon="gtk-go-forward" attrs="{'invisible': [('fos_pass','!=',True)]}"/>
+					<newline/>
+					<field name="fos_pass" readonly="1" />
+					<newline/>
+				</xpath>
+			</field>
+		</record> 
+						
 	</data>
 </openerp>

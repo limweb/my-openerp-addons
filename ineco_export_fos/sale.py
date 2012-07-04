@@ -22,6 +22,7 @@
 # 29-05-2012    POP-001    Execute Store Procedure
 # 05-06-2012    POP-002    Change Bug in Contr_prod Clear All Values
 # 17-06-2012    POP-003    Add MarketerMF
+# 04-07-2012    POP-004    Add Item Not Check
 
 import math
 
@@ -62,8 +63,14 @@ class sale_order(osv.osv):
     _name = "sale.order"
     _description = "export to fos only"
     _inherit = "sale.order"
+    #POP-004
     _columns = {
+        'fos_pass': fields.boolean('FOS Passed'),
         'item_infocus_ids': fields.one2many('sale.order.iteminfocus','sale_order_id','Item Not Check'),
+    }
+    
+    _defaults = {
+        'fos_pass': False,
     }
     
     def testmethod(self, cr, uid, ip, user, database, password, context=None):
@@ -84,8 +91,13 @@ class sale_order(osv.osv):
 
         return True
     
+    def action_resenditem(self, cr, uid, ids, context=None):
+        
+        return True
+    
     def action_cancel(self, cr, uid, ids, context=None):
         for order in self.pool.get('sale.order').browse(cr, uid, ids):
+            order.write({'fos_pass':False})
             if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
                 server_ip = order.company_id.fos_host
                 server_user = order.company_id.fos_user
@@ -115,7 +127,7 @@ class sale_order(osv.osv):
             context = {}
             
         for order in self.pool.get('sale.order').browse(cr, uid, ids):
-            
+            order.write({'fos_pass':True})
             cr.execute('update res_partner set ineco_fos_code = id where id = %s and ineco_fos_code is null' % (order.partner_id.id))
             cr.commit()
 
@@ -851,6 +863,97 @@ class sale_order(osv.osv):
                 cur = conn.cursor()
                 cur.execute("execute ineco_modify_salestock '%s'" % order.name)
                 conn.commit()
+                #POP-004
+                for line in order.item_infocus_ids:
+                    #SKU Item-1
+                    update_sql = """
+                        update contr_salestock
+                        set remark1 = '%s',
+                            orderremark1 = '%s'
+                        where
+                          contractno = '%s' and storecd = '%s' and skuitemno1 = '%s'
+                    """
+                    update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
+                    cur.execute(update_sql)
+                    conn.commit()
+                    #SKU Item-2
+                    update_sql = """
+                        update contr_salestock
+                        set remark2 = '%s',
+                            orderremark2 = '%s'
+                        where
+                          contractno = '%s' and storecd = '%s' and skuitemno2 = '%s'
+                    """
+                    update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
+                    cur.execute(update_sql)
+                    conn.commit()
+                    #SKU Item-3
+                    update_sql = """
+                        update contr_salestock
+                        set remark3 = '%s',
+                            orderremark3 = '%s'
+                        where
+                          contractno = '%s' and storecd = '%s' and skuitemno3 = '%s'
+                    """
+                    update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
+                    cur.execute(update_sql)
+                    conn.commit()
+                    #SKU Item-4
+                    update_sql = """
+                        update contr_salestock
+                        set remark4 = '%s',
+                            orderremark4 = '%s'
+                        where
+                          contractno = '%s' and storecd = '%s' and skuitemno4 = '%s'
+                    """
+                    update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
+                    cur.execute(update_sql)
+                    conn.commit()
+                    #SKU Item-5
+                    update_sql = """
+                        update contr_salestock
+                        set remark5 = '%s',
+                            orderremark5 = '%s'
+                        where
+                          contractno = '%s' and storecd = '%s' and skuitemno5 = '%s'
+                    """
+                    update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
+                    cur.execute(update_sql)
+                    conn.commit()
+                    #SKU Item-6
+                    update_sql = """
+                        update contr_salestock
+                        set remark6 = '%s',
+                            orderremark6 = '%s'
+                        where
+                          contractno = '%s' and storecd = '%s' and skuitemno6 = '%s'
+                    """
+                    update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
+                    cur.execute(update_sql)
+                    conn.commit()
+                    #SKU Item-7
+                    update_sql = """
+                        update contr_salestock
+                        set remark7 = '%s',
+                            orderremark7 = '%s'
+                        where
+                          contractno = '%s' and storecd = '%s' and skuitemno7 = '%s'
+                    """
+                    update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
+                    cur.execute(update_sql)
+                    conn.commit()
+                    #SKU Item-8
+                    update_sql = """
+                        update contr_salestock
+                        set remark8 = '%s',
+                            orderremark8 = '%s'
+                        where
+                          contractno = '%s' and storecd = '%s' and skuitemno8 = '%s'
+                    """
+                    update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
+                    cur.execute(update_sql)
+                    conn.commit()
+                    
 
         return True
     

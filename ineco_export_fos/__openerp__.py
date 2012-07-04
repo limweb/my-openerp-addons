@@ -29,7 +29,7 @@
         This module will export data direct FOS. 
         """,
     'author': 'INECO LIMITED PARTNERSHIP',
-    'depends': ["base","sale"],
+    'depends': ["base","sale","omg"],
     'website': 'http://openerp.tititab.com',
     'update_xml': [
         'security.xml',
