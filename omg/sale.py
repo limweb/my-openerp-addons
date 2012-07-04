@@ -44,6 +44,7 @@
 # 23-04-2012       POP-021    Raise when sale order cancel over lock period.
 # 23-04-2012       POP-022    Add Price in Stock Move when Cash Advance
 # 07-05-2012       POP-023    Use Full Warehouse UOM
+# 02-07-2012       DAY-001    Update Use Full Warehouse UOM
 
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
@@ -134,7 +135,7 @@ class omg_stock_location_group_special(osv.osv):
     _name = 'omg.stock.location.group.special'
     _description = "Location Group Special"
     _columns = {
-        'name': fields.char('Description', size=100),
+        'name': fields.char('DescDAY-001ription', size=100),
         'location_id': fields.many2one('stock.location', 'Location'),
         'group_id': fields.many2one('omg.sale.group.special', 'Group'),
     }
@@ -837,6 +838,7 @@ class sale_order(osv.osv):
                                                 #POP-009
                                                 new_qty = round(new_qty)
                                     #POP-023
+                                    #DAY-001 ต่ำกว่า 0.25 = 0 , 0.25-0.75 = 0.5 , 0.76+ = 1
                                     if line.product_id.uom_id <> line.product_id.warehouse_uom and line.product_id.full_warehouse_uom:
                                         full_warehouse_qty = round(1/(line.product_id.warehouse_uom.factor or 1))
                                         if full_warehouse_qty > 1:
@@ -844,12 +846,15 @@ class sale_order(osv.osv):
                                             fullpack = round(new_qty,2) / round(full_warehouse_qty,2)
                                             if fullpack:
                                                 if fullpack > 1:
-                                                    fullpack = round(fullpack)
+                                                    #fullpack = round(fullpack)
+                                                    fullpack = round(new_qty,2) // round(full_warehouse_qty,2)
                                                     less_ratio = lesspack / full_warehouse_qty
-                                                    #less > 50% add fullpack
-                                                    if less_ratio and less_ratio >= 0.5:
+                                                    if less_ratio and less_ratio >= 0.75:
                                                         fullpack = fullpack + 1
                                                         new_qty = fullpack * full_warehouse_qty
+                                                    elif less_ratio and less_ratio >= 0.25:
+                                                        fullpack = fullpack + 0.5
+                                                        new_qty = round(fullpack * full_warehouse_qty)
                                                     else:
                                                         new_qty = fullpack * full_warehouse_qty
                                                 else:
@@ -861,7 +866,7 @@ class sale_order(osv.osv):
                                 
                                 #only bom process -> delivery
                                 if line.product_id.procure_method == 'make_to_order' and line.product_id.supply_method == 'produce':
-                                    new_qty = line.product_uom_qty 
+                                    new_qty = line.product_uom_qty
                                 
                                 
                                 if new_qty <> 0:                               
