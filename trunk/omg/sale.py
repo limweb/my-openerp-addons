@@ -45,6 +45,7 @@
 # 23-04-2012       POP-022    Add Price in Stock Move when Cash Advance
 # 07-05-2012       POP-023    Use Full Warehouse UOM
 # 02-07-2012       DAY-001    Update Use Full Warehouse UOM
+# 05-07-2012       POP-024    Add Adjust Stock Store
 
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
@@ -584,6 +585,28 @@ class sale_order(osv.osv):
                         picking_obj.write(cr, uid, map(lambda x: x.id, order.picking_ids), {'invoice_state': 'invoiced'})
                     cr.execute('insert into sale_order_invoice_rel (order_id,invoice_id) values (%s,%s)', (order.id, res))
         return res
+    
+    #POP-024
+    def _get_stock_store(self, cr, uid, product_id, location_id, quantity, equipment, context=None):
+        stock_qty = 0.0
+        if equipment:
+            store_ids = self.pool.get('ineco.stock.location.inventory').search(cr, uid, [('product_id','=',product_id),('location_id','=',location_id),('quantity','>',0)] )
+            if store_ids:
+                store_inv = self.pool.get('ineco.stock.location.inventory').browse(cr, uid, store_ids)[0]
+                stock_qty = min(quantity, store_inv.quantity) or 0.0
+                store_inv.write({'quantity': store_inv.quantity - stock_qty})
+        return stock_qty
+
+    #POP-024
+    def _get_stock_store_return(self, cr, uid, product_id, location_id, quantity, equipment, context=None):
+        stock_qty = 0.0
+        if equipment:
+            store_ids = self.pool.get('ineco.stock.location.inventory').search(cr, uid, [('product_id','=',product_id),('location_id','=',location_id)] )
+            if store_ids:
+                store_inv = self.pool.get('ineco.stock.location.inventory').browse(cr, uid, store_ids)[0]
+                stock_qty = quantity
+                store_inv.write({'quantity': store_inv.quantity + stock_qty})
+        return stock_qty
 
     def action_ship_create(self, cr, uid, ids, *args):
         wf_service = netsvc.LocalService("workflow")
@@ -701,7 +724,7 @@ class sale_order(osv.osv):
                     if period.period_id.warehouse_lock:
                         raise osv.except_osv(_('Period Locked.'), _('Peiord ('+ period.period_id.name +') was locked by Logistic Control.'))
                     for location in order.sale_location_ids:      
-                        print "Location %s %s" % (location.location_id.name, datetime.now()-t0)                  
+                        #print "Location %s %s" % (location.location_id.name, datetime.now()-t0)                  
                         proc_ids = []
                         output_id = order.shop_id.warehouse_id.lot_output_id.id
                         picking_id = False
@@ -926,6 +949,8 @@ class sale_order(osv.osv):
                                                 'customer_product_id': order.customer_product_id.id,
                                                 #POP-022
                                                 'price_unit': line.price_unit or 0,
+                                                #POP-024
+                                                'store_qty': self._get_stock_store(cr, uid, new_product_id.id, location.location_id.id, new_qty, new_product_id.equipment or False  ),
                                             })
                                         else:
                                             for boms in self.pool.get('mrp.bom').browse(cr, uid, bom_ids):
@@ -956,6 +981,8 @@ class sale_order(osv.osv):
                                                         'customer_product_id': order.customer_product_id.id,
                                                         #POP-022
                                                         'price_unit': line.price_unit or 0,
+                                                        #POP-024
+                                                        'store_qty': self._get_stock_store(cr, uid, bom.product_id.id, location.location_id.id, new_qty * bom.product_qty, bom.product_id.equipment or False ),
                                                     })
                                             move_id = False    
                             #POP-017                            
@@ -1031,7 +1058,7 @@ class sale_order(osv.osv):
 
                 #Create Request for Customer Material
                 #03-11-11 By Tititab Srisookco
-                print "Start RFQ Customer Material %s " % (datetime.now() - t0)
+                #print "Start RFQ Customer Material %s " % (datetime.now() - t0)
                 customer_material_sql = """
                     select 
                       sp.origin as order_no,
@@ -1256,6 +1283,12 @@ class sale_order(osv.osv):
                     [('order_id','=',location_book.sale_id.id),('location_id','=',location_book.location_id.id)])
                 if location_booking_ids:
                     self.pool.get('stock.location.booking').write(cr, uid, location_booking_ids, {'state':'cancel'})
+
+            for pick in order.picking_ids:
+                if pick.state not in ('cancel'):
+                    for line in pick.move_lines:
+                        self._get_stock_store_return(cr, uid, line.product_id.id, line.location_dest_id.id, line.product_qty, line.product_id.equipment or False)
+                        
         return super(sale_order, self).action_cancel(cr, uid, ids, context=context)
 
 sale_order()

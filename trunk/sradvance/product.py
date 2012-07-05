@@ -139,4 +139,14 @@ class product_product(osv.osv):
     
 product_product()
 
+class product_category(osv.osv):
+    _name = 'product.category'
+    _inherit = "product.category"
+    _description = 'Product Category'
+    _columns = {
+        'name': fields.char('Name', size=250, required=True, translate=True),
+    }
+product_category()
+
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
