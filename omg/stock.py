@@ -31,6 +31,7 @@
 # 13-06-2012    POP-008     Lock Stock Move When state 'Done'
 # 18-06-2012    DAY-002    Check Approve Stock_location
 # 18-06-2012    DAY-003    Add Class Update Categ Location Qty
+# 05-07-2012    POP-008    Add Store Inventory
 
 import socket
 import sys
@@ -99,6 +100,24 @@ def send_sms(host, post, message):
     print 'Received', repr(data)  #wait parsing xml and record in database
     return True  
 
+#POP-008
+class ineco_stock_location_inventory(osv.osv):
+    _name = "ineco.stock.location.inventory"
+    _description = "Store Inventory"
+    _columns = {
+        'name': fields.char('Description', size=100),
+        'location_id': fields.many2one('stock.location','Location',required=True),
+        'product_id': fields.many2one('product.product','Product', required=True),
+        'uom_id': fields.many2one('product.uom','Uom',required=True),
+        'quantity': fields.integer('Quantity'),
+    }
+    _defaults = {
+        'quantity': 0,
+    }
+    
+ineco_stock_location_inventory()
+
+
 class stock_move(osv.osv):
        
     def _get_date_arrival_planned(self, cr, uid, ids, prop, unknow_none, context=None):
@@ -142,10 +161,12 @@ class stock_move(osv.osv):
         'date_audit': fields.datetime('Audit Date'),        
         'date_forced': fields.datetime('Force Date'),
         'user_forced': fields.many2one('res.users', 'Force User',),
+        'store_qty': fields.integer('Store Qty'),
     }
 
     _defaults = {
         'receive_qty': 0,
+        'store_qty': 0,
     }    
 
     def action_done(self, cr, uid, ids, context=None):
@@ -685,6 +706,8 @@ class stock_location(osv.osv):
         'omg_concentratedrink3': fields.char('Concentrate Drink 3', size=100),
         'omg_alway_equipment': fields.boolean('Alway Send Equipment'),
         'mapping_ids': fields.one2many('ineco.stock.location.product.mapping', 'location_id', 'Product Mapping'),
+        #POP-008
+        'inventory_ids': fields.one2many('ineco.stock.location.inventory', 'location_id', 'Inventory'),
     }
     _defaults = {
         'omg_approve': False,
@@ -788,5 +811,7 @@ class stock_location_line_qty_update(osv.osv):
     }
 
 stock_location_line_qty_update()
+
+
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
