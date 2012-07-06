@@ -44,7 +44,20 @@
 						<page string="Category Capacity"><field name="max_category_ids" nolabel="1"/></page>
 						<page string="Group Special"><field name="location_group_spedical_ids" nolabel="1" widget="many2many"/></page>
 						<page string="Product Mapping"><field name="mapping_ids" nolabel="1"/></page>
-						<page string="Inventory" attrs="{'invisible': [('usage','!=','customer')]}"><field name="inventory_ids" nolabel="1"/></page>
+						<page string="Inventory" attrs="{'invisible': [('usage','!=','customer')]}">
+						    <field name="inventory_ids" nolabel="1">
+						        <tree string="Stock">
+						        	<field name="product_id" />
+						        	<field name="uom_id" />
+						        	<field name="quantity" />    
+						        </tree>
+						        <form string="Stock">
+						        	<field name="product_id" />
+						        	<field name="uom_id" />
+						        	<field name="quantity" />    
+						        </form>						        						        
+						    </field>
+						</page>
 					</notebook>
        			</field>
 			</field>

@@ -23,6 +23,7 @@
 # 05-06-2012    POP-002    Change Bug in Contr_prod Clear All Values
 # 17-06-2012    POP-003    Add MarketerMF
 # 04-07-2012    POP-004    Add Item Not Check
+# 06-07-2012    POP-005    Insert new table contr_salestock_nochk
 
 import math
 
@@ -92,6 +93,286 @@ class sale_order(osv.osv):
         return True
     
     def action_resenditem(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+            
+        for order in self.pool.get('sale.order').browse(cr, uid, ids):            
+            #contr_prod
+            i = 0
+            product_id_list = {}
+            product_name_list = {}
+            product_ean13_list = {}
+            for product in order.item_sale_check_ids:
+                product_id_list[i] = product.id
+                product_name_list[i] = product.name
+                product_ean13_list[i] = product.ean13
+                i = i + 1
+            update_sku_sql = ''
+            insert_sku_header = 'insert into contr_prod (lineseq, bookingno, contractno, '
+            insert_sku_value = "1, '%s', '%s'," % (order.client_order_ref, order.name)
+            #POP-002
+            sql_clear_prod = """
+                update contr_prod 
+                set itemno1 = '', itemdesc1=null, barcodeno1=null,
+                    itemno2 = '', itemdesc2=null, barcodeno2=null,
+                    itemno3 = '', itemdesc3=null, barcodeno3=null,
+                    itemno4 = '', itemdesc4=null, barcodeno4=null,
+                    itemno5 = '', itemdesc5=null, barcodeno5=null,
+                    itemno6 = '', itemdesc6=null, barcodeno6=null,
+                    itemno7 = '', itemdesc7=null, barcodeno7=null,
+                    itemno8 = '', itemdesc8=null, barcodeno8=null
+                where 
+                    bookingno = '%s' and contractno= '%s' 
+                    
+            """
+            sql_clear_prod = sql_clear_prod % ( order.client_order_ref, order.name)
+            #raise osv.except_osv(_('Message Hit !'), _(sql_clear_prod))
+        
+            if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
+                server_ip = order.company_id.fos_host
+                server_user = order.company_id.fos_user
+                server_password = order.company_id.fos_password
+                server_db = order.company_id.fos_dbname
+                
+                conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
+                                       database=server_db,as_dict=True)
+                cur = conn.cursor()
+                cur.execute(sql_clear_prod)
+                conn.commit()
+            
+            for index in range(len(product_id_list)):
+                newindex = index+1
+                insert_sku_header = insert_sku_header+\
+                    'itemno'+str(newindex)+','+'itemdesc'+str(newindex)+','+'barcodeno'+str(newindex)+','
+                
+                if product_name_list[index] == False:
+                    product_name='null'
+                else:
+                    product_name = "'"+product_name_list[index]+"'"
+                if product_ean13_list[index] == False:
+                    product_ean13 = 'null'
+                    raise osv.except_osv(_('Error !'), _('Please fill EAN13 in ' + product_name)) 
+                else:
+                    product_ean13 = "'"+product_ean13_list[index]+"'"
+                insert_sku_value = insert_sku_value + str(product_id_list[index])+','+product_name+','+product_ean13+','
+
+                #itemmf
+                itemmf_find_sql = "select count(*) as total from itemmf where itemno = '%s' " %  product_id_list[index]
+                if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
+                    server_ip = order.company_id.fos_host
+                    server_user = order.company_id.fos_user
+                    server_password = order.company_id.fos_password
+                    server_db = order.company_id.fos_dbname
+                    
+                    conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
+                                           database=server_db,as_dict=True)
+                    cur = conn.cursor()
+                    cur.execute(itemmf_find_sql)
+                    row = cur.fetchone()
+                    if row[0] == 0:
+                        itemmf_insert_sql = "insert into itemmf (itemno, itemdesc1, marketercd, barcodeno, itemtype, itemgroup, baseunit) values " + \
+                            "( '%s', %s, '%s', %s, '%s', '%s','%s')" % (product_id_list[index],product_name,order.partner_id.ineco_fos_code,product_ean13,
+                                'Product Sampling','S','pcs')
+                        cur.close()
+                        cur = conn.cursor()
+                        cur.execute('SET ANSI_WARNINGS off')
+                        conn.commit()
+                        cur.execute(itemmf_insert_sql.encode('utf-8'))
+                        cur.close()
+                        conn.commit()
+                    else:
+                        itemmf_update_sql = "update itemmf set itemdesc1 = %s, marketercd = '%s', barcodeno = %s where itemno = '%s' " % (product_name, order.partner_id.ineco_fos_code, product_ean13 or '', product_id_list[index] )
+                        print itemmf_update_sql
+                        cur.close()
+                        cur = conn.cursor()
+                        cur.execute('SET ANSI_WARNINGS off')
+                        conn.commit()
+                        cur.execute(itemmf_update_sql.encode('utf-8'))
+                        cur.close()
+                        conn.commit()
+                        
+                else:
+                    raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
+
+                #end itemmf
+
+                update_sku_sql = update_sku_sql + \
+                    'itemno'+str(newindex)+"=%s" % product_id_list[index]+ \
+                    ','+'itemdesc'+str(newindex)+"=%s" % product_name+ \
+                    ','+'barcodeno'+str(newindex)+"=%s" % product_ean13+','
+                    
+            ##POP-001            
+            
+            if len(product_id_list) > 0:
+                update_sku_sql = 'update contr_prod set '+ update_sku_sql[0:len(update_sku_sql)-1] +" where bookingno = '%s' and contractno= '%s'" % ( order.client_order_ref, order.name)
+                insert_sku_header = insert_sku_header[0:len(insert_sku_header)-1]+') '
+                insert_sku_sql =  insert_sku_header+' values ('+insert_sku_value[0:len(insert_sku_value)-1]+') '
+                if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
+                    server_ip = order.company_id.fos_host
+                    server_user = order.company_id.fos_user
+                    server_password = order.company_id.fos_password
+                    server_db = order.company_id.fos_dbname
+                    
+                    conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
+                                           database=server_db,as_dict=True)
+                    cur = conn.cursor()
+                    find_sql = "select count(*) from contr_prod where contractno = '%s' " % order.name
+                    cur.execute(find_sql)
+                    row = cur.fetchone()
+                    if row[0] == 0:
+                        cur.close()
+                        cur = conn.cursor()
+                        cur.execute(insert_sku_sql.encode('utf-8'))
+                        cur.close()
+                        conn.commit()
+                    else:
+                        cur.close()
+                        cur = conn.cursor()
+                        cur.execute(update_sku_sql.encode('utf-8'))
+                        cur.close()
+                        conn.commit()
+                else:
+                    raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
+                                 
+            if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
+                server_ip = order.company_id.fos_host
+                server_user = order.company_id.fos_user
+                server_password = order.company_id.fos_password
+                server_db = order.company_id.fos_dbname
+                
+                conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
+                                       database=server_db,as_dict=True)
+                cur = conn.cursor()
+                cur.execute("execute ineco_modify_salestock '%s'" % order.name)
+                conn.commit()    
+                
+                #POP-005
+                delete_notchk_sql = """
+                    delete from contr_salestock_notchk where contractno = '%s'
+                """           
+                delete_notchk_sql = delete_notchk_sql % (order.name)
+                cur.execute(delete_notchk_sql)
+                conn.commit()
+                                
+                #POP-004
+                clear_olddata_sql = """
+                    update contr_salestock
+                    set 
+                      remark1 = '', orderremark1 = '',
+                      remark2 = '', orderremark2 = '',
+                      remark3 = '', orderremark3 = '',
+                      remark4 = '', orderremark4 = '',
+                      remark5 = '', orderremark5 = '',
+                      remark6 = '', orderremark6 = '',
+                      remark7 = '', orderremark7 = '',
+                      remark8 = '', orderremark8 = ''
+                    where
+                        contractno = '%s' 
+                """
+                clear_olddata_sql = clear_olddata_sql % (order.name)
+                cur.execute(clear_olddata_sql)
+                conn.commit()
+                
+                user_name = self.pool.get('res.users').browse(cr, uid, [uid])[0].name
+                
+                for line in order.item_infocus_ids:
+                    #POP-005
+                    insert_notchk_sql = """
+                        insert into contr_salestock_notchk (contractno, storecd, itemno, barcode, note, senddate, sendby)
+                        values ('%s','%s','%s','%s','%s', getdate(), '%s')                        
+                    """
+                    insert_notchk_sql = insert_notchk_sql % (order.name, line.location_id.store_code, line.product_id.id, line.product_id.ean13 or False, line.name, user_name)
+                    cur.execute(insert_notchk_sql.encode('utf-8'))
+                    conn.commit()
+                    
+                    #SKU Item-1
+                    update_sql = """
+                        update contr_salestock
+                        set remark1 = '%s',
+                            orderremark1 = '%s'
+                        where
+                          contractno = '%s' and storecd = '%s' and skuitemno1 = '%s'
+                    """
+                    update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
+                    cur.execute(update_sql.encode('utf-8'))
+                    conn.commit()
+                    #SKU Item-2
+                    update_sql = """
+                        update contr_salestock
+                        set remark2 = '%s',
+                            orderremark2 = '%s'
+                        where
+                          contractno = '%s' and storecd = '%s' and skuitemno2 = '%s'
+                    """
+                    update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
+                    cur.execute(update_sql.encode('utf-8'))
+                    conn.commit()
+                    #SKU Item-3
+                    update_sql = """
+                        update contr_salestock
+                        set remark3 = '%s',
+                            orderremark3 = '%s'
+                        where
+                          contractno = '%s' and storecd = '%s' and skuitemno3 = '%s'
+                    """
+                    update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
+                    cur.execute(update_sql.encode('utf-8'))
+                    conn.commit()
+                    #SKU Item-4
+                    update_sql = """
+                        update contr_salestock
+                        set remark4 = '%s',
+                            orderremark4 = '%s'
+                        where
+                          contractno = '%s' and storecd = '%s' and skuitemno4 = '%s'
+                    """
+                    update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
+                    cur.execute(update_sql.encode('utf-8'))
+                    conn.commit()
+                    #SKU Item-5
+                    update_sql = """
+                        update contr_salestock
+                        set remark5 = '%s',
+                            orderremark5 = '%s'
+                        where
+                          contractno = '%s' and storecd = '%s' and skuitemno5 = '%s'
+                    """
+                    update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
+                    cur.execute(update_sql.encode('utf-8'))
+                    conn.commit()
+                    #SKU Item-6
+                    update_sql = """
+                        update contr_salestock
+                        set remark6 = '%s',
+                            orderremark6 = '%s'
+                        where
+                          contractno = '%s' and storecd = '%s' and skuitemno6 = '%s'
+                    """
+                    update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
+                    cur.execute(update_sql.encode('utf-8'))
+                    conn.commit()
+                    #SKU Item-7
+                    update_sql = """
+                        update contr_salestock
+                        set remark7 = '%s',
+                            orderremark7 = '%s'
+                        where
+                          contractno = '%s' and storecd = '%s' and skuitemno7 = '%s'
+                    """
+                    update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
+                    cur.execute(update_sql.encode('utf-8'))
+                    conn.commit()
+                    #SKU Item-8
+                    update_sql = """
+                        update contr_salestock
+                        set remark8 = '%s',
+                            orderremark8 = '%s'
+                        where
+                          contractno = '%s' and storecd = '%s' and skuitemno8 = '%s'
+                    """
+                    update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
+                    cur.execute(update_sql.encode('utf-8'))
+                    conn.commit()
         
         return True
     
@@ -852,6 +1133,7 @@ class sale_order(osv.osv):
                 else:
                     raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
 
+
             if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
                 server_ip = order.company_id.fos_host
                 server_user = order.company_id.fos_user
@@ -863,8 +1145,46 @@ class sale_order(osv.osv):
                 cur = conn.cursor()
                 cur.execute("execute ineco_modify_salestock '%s'" % order.name)
                 conn.commit()
+                
+                #POP-005
+                delete_notchk_sql = """
+                    delete from contr_salestock_notchk where contractno = '%s'
+                """           
+                delete_notchk_sql = delete_notchk_sql % (order.name)
+                cur.execute(delete_notchk_sql)
+                conn.commit()
+                
                 #POP-004
+                clear_olddata_sql = """
+                    update contr_salestock
+                    set 
+                      remark1 = '', orderremark1 = '',
+                      remark2 = '', orderremark2 = '',
+                      remark3 = '', orderremark3 = '',
+                      remark4 = '', orderremark4 = '',
+                      remark5 = '', orderremark5 = '',
+                      remark6 = '', orderremark6 = '',
+                      remark7 = '', orderremark7 = '',
+                      remark8 = '', orderremark8 = ''
+                    where
+                        contractno = '%s' 
+                """
+                clear_olddata_sql = clear_olddata_sql % (order.name)
+                cur.execute(clear_olddata_sql)
+                conn.commit()
+
+                user_name = self.pool.get('res.users').browse(cr, uid, [uid])[0].name
+                
                 for line in order.item_infocus_ids:
+                    #POP-005
+                    insert_notchk_sql = """
+                        insert into contr_salestock_notchk (contractno, storecd, itemno, barcode, note, senddate, sendby)
+                        values ('%s','%s','%s','%s','%s', getdate(), '%s')                        
+                    """
+                    insert_notchk_sql = insert_notchk_sql % (order.name, line.location_id.store_code, line.product_id.id, line.product_id.ean13 or False, line.name, user_name)
+                    cur.execute(insert_notchk_sql.encode('utf-8'))
+                    conn.commit()
+
                     #SKU Item-1
                     update_sql = """
                         update contr_salestock
