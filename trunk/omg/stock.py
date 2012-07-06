@@ -173,7 +173,7 @@ class stock_move(osv.osv):
         move_ids = self.pool.get('stock.move').browse(cr, uid, ids)
         for move in move_ids:
             #POP-007
-            if move.picking_id.type == 'internal':
+            if move.picking_id.type == 'internal' and not move.state in ('done','cancel'):
                 if move.location_id.usage == 'internal':
                     stock_ids = self.pool.get("ineco.stock.report").search(cr, uid, [('location_dest_id','=',move.location_id.id),('lot_id','=',move.prodlot_id.id),('tracking_id','=',move.tracking_id.id),('qty','>',0)])
                     max_qty = 0

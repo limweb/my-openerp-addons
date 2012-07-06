@@ -369,6 +369,8 @@ class stock_move(osv.osv):
                         destination_obj = self.pool.get('ineco.stock.report').browse(cr, uid, location_dest_stock_ids)[0]
                         update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom , 
                            destination_obj.qty-update_qty, product_obj.warehouse_uom, context=context )
+                        if state_current == 'cancel' and destination_obj.qty-update_qty < 0:
+                            raise 
                         destination_obj.write({'qty':destination_obj.qty-update_qty,'warehouse_qty':update_warehouse_qty})
                     else:
                         update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom , 
