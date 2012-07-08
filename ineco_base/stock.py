@@ -43,6 +43,7 @@
 #                  POP-020    Add Product ID in Stock Packing
 # 26-06-2012       POP-021    Add Button Problem
 # 29-06-2012       POP-022    Change Default Warehouse UOM
+# 07-07-2012       POP-023    Add Before Qty in Physical Inventory
 
 import math
 
@@ -96,9 +97,13 @@ class stock_inventory(osv.osv):
                     #amount = location_obj._product_get(cr, uid, line.location_id.id, [pid], product_context)[pid]
 
                 change = line.product_qty - amount
-                lot_id = line.prod_lot_id.id
+                lot_id = False
+                if line.prod_lot_id:                
+                    lot_id = line.prod_lot_id.id
                 if change:
-                    location_id = line.product_id.product_tmpl_id.property_stock_inventory.id
+                    product_template = self.pool.get('product.template').browse(cr ,uid, [line.product_id.id] )[0]
+                    location_id = product_template.property_stock_inventory.id
+                    #location_id = line.product_id.product_tmpl_id.property_stock_inventory.id
                     value = {
                         'name': 'INV:' + str(line.inventory_id.id) + ':' + line.inventory_id.name,
                         'product_id': line.product_id.id,
@@ -138,7 +143,12 @@ class stock_inventory_line(osv.osv):
     _description = "Inventory Line"
     _columns = {
         'uom_category_id': fields.many2one('product.uom.categ', 'UOM Category', ondelete="restrict"),
-        'tracking_id': fields.many2one('stock.tracking', 'Pack')
+        'tracking_id': fields.many2one('stock.tracking', 'Pack'),
+        #POP-023
+        'before_qty': fields.float('Before Qty'),
+    }
+    _defaults = {
+        'before_qty': 0,
     }
 
     def on_change_product_id(self, cr, uid, ids, location_id, product, uom=False, to_date=False):
@@ -160,7 +170,7 @@ class stock_inventory_line(osv.osv):
             lot_id = stock_report.lot_id.id
             tracking_id = stock_report.tracking_id.id
         #amount = self.pool.get('stock.location')._product_get(cr, uid, location_id, [product], {'uom': uom, 'to_date': to_date})[product]
-        result = {'product_qty': amount, 'product_uom': uom,'uom_category_id': uom_categ_id,'tracking_id':tracking_id,'prod_lot_id':lot_id}
+        result = {'before_qty': amount, 'product_qty': amount, 'product_uom': uom,'uom_category_id': uom_categ_id,'tracking_id':tracking_id,'prod_lot_id':lot_id}
         return {'value': result}
 
 stock_inventory_line()
@@ -204,10 +214,15 @@ class stock_move(osv.osv):
             context = {}
         if 'product_id' in vals and 'product_qty' in vals and 'product_uom' in vals:
             uom_obj = self.pool.get('product.uom')
+            #product_ids = self.pool.get("product.product").search(cr, uid, [('id','=',vals['product_id'])])
+            #warning product outsize your company
             product_obj = self.pool.get('product.product').browse(cr, uid, vals['product_id'])
             product_tmpl_obj = self.pool.get('product.template').browse(cr, uid, vals['product_id'])
             default_uom_id = product_tmpl_obj.uom_id.id
-            warehouse_uom_id = product_obj.warehouse_uom.id
+            if product_obj.warehouse_uom:
+                warehouse_uom_id = product_obj.warehouse_uom.id
+            else:
+                warehouse_uom_id = default_uom_id
             product_uom =  self.pool.get('product.uom').browse(cr, uid, vals['product_uom'])
             product_qty = vals['product_qty']
             warehouse_qty = product_qty
@@ -1802,6 +1817,11 @@ class ineco_stock_barcode_delivery(osv.osv):
         tracking_id = vals['tracking_id']
         track = self.pool.get('stock.tracking').browse(cr, uid, [tracking_id])
         if track:
+            inventory_ids = self.pool.get('ineco.stock.report').search(cr, uid, [('location_dest_id','=',vals['location_id']),('tracking_id','=',tracking_id),('product_id','=',vals['product_id']),('qty','>',0)])
+            stock = self.pool.get('ineco.stock.report').browse(cr, uid, inventory_ids)[0]
+            if stock:
+                if stock.qty < vals['quantity']:
+                    raise osv.except_osv(_('Error !'), _('Stock Unavailable.'))
             location_ids = self.pool.get('stock.location').search(cr, uid, [('name','=','Output')])
             if location_ids:
                 location_out = self.pool.get('stock.location').browse(cr, uid, location_ids)[0]

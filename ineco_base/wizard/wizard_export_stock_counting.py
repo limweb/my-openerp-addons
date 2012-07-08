@@ -74,7 +74,7 @@ class wizard_ineco_export_stock_counting(osv.osv_memory):
             location_from_obj = self.pool.get('ineco.stock.report').browse(cr, uid, datas['ids'][0])
             location_to_obj = self.pool.get('ineco.stock.report').browse(cr, uid, datas['ids'][len(datas['ids'])-1])
             inventory_id = self.pool.get('stock.inventory').create(cr, uid,
-                {'name': 'Counting Stock By '+user_obj.name + " ["+location_from_obj.location_dest_id.name+"..."+location_to_obj.location_dest_id.name+']',
+                {'name': 'Adjust By '+user_obj.login + " ["+location_from_obj.location_dest_id.name+"..."+location_to_obj.location_dest_id.name+']',
                  'date': time.strftime('%Y-%m-%d %H:%M:%S'),
                  }
             )
@@ -87,6 +87,7 @@ class wizard_ineco_export_stock_counting(osv.osv_memory):
                      'prod_lot_id': stock.lot_id.id or False,
                      'tracking_id': stock.tracking_id.id or False,
                      'product_qty': stock.qty, 
+                     'before_qty': stock.qty,
                     }
                 ) 
             mod_obj = self.pool.get('ir.model.data')

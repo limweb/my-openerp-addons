@@ -534,24 +534,24 @@ class product_product(osv.osv):
 
         result = []
         for product in self.browse(cr, user, ids, context=context):
-            sellers = filter(lambda x: x.name.id == partner_id, product.seller_ids)
-            if sellers:
-                for s in sellers:
-                    mydict = {
-                              'id': product.id,
-                              'name': s.product_name or product.name,
-                              'default_code': s.product_code or product.default_code,
-                              'variants': product.variants
-                              }
-                    result.append(_name_get(mydict))
-            else:
-                mydict = {
-                          'id': product.id,
-                          'name': product.name,
-                          'default_code': product.default_code,
-                          'variants': product.variants
-                          }
-                result.append(_name_get(mydict))
+            #sellers = filter(lambda x: x.name.id == partner_id, product.seller_ids)
+            #if sellers:
+            #    for s in sellers:
+            #        mydict = {
+            #                  'id': product.id,
+            #                  'name': s.product_name or product.name,
+            #                  'default_code': s.product_code or product.default_code,
+            #                  'variants': product.variants
+            #                  }
+            #        result.append(_name_get(mydict))
+            #else:
+            mydict = {
+                      'id': product.id,
+                      'name': product.name,
+                      'default_code': product.default_code,
+                      'variants': product.variants
+            }
+            result.append(_name_get(mydict))
         return result
 
     def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=100):

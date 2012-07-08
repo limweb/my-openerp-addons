@@ -191,6 +191,7 @@
             		<field name="product_uom" domain="[('category_id','=',uom_category_id)]" />
             		<field name="uom_category_id" readonly="1"/>
             		<field name="tracking_id" />
+            		<field name="before_qty" />
             	</xpath>            	
             </field>
         </record>	
@@ -593,6 +594,10 @@
                     <field name="warehouse_qty" />
                     <field name="warehouse_uom" />
                     <field name="available" groups="base.group_ineco_adjust_stock" /> 
+            		<button name="%(action_ineco_stock_clearing)d" string="Change Stock" 
+            		    type="action"
+            		    icon="gtk-justify-fill"
+                     	groups="base.group_ineco_adjust_stock" />                    
                 </tree>
             </field>
         </record>
@@ -612,6 +617,10 @@
                     <field name="uom_id"/>
                     <field name="qty" />
                     <field name="available" groups="base.group_ineco_adjust_stock" />
+            		<button name="%(action_ineco_stock_clearing)d" string="Change Stock" 
+            		    type="action"
+            		    icon="gtk-justify-fill"
+                     	groups="base.group_ineco_adjust_stock" />                                 
                 </form>
             </field>
         </record>
