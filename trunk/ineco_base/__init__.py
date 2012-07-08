@@ -20,6 +20,7 @@
 ##############################################################################
 
 import store_function
+import wizard_clearing_stock
 import wizard_split
 import wizard_physical_inventory_zero
 import stock_receive_card

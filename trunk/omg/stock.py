@@ -173,14 +173,20 @@ class stock_move(osv.osv):
         move_ids = self.pool.get('stock.move').browse(cr, uid, ids)
         for move in move_ids:
             #POP-007
-            if move.picking_id.type == 'internal' and not move.state in ('done','cancel'):
-                if move.location_id.usage == 'internal':
-                    stock_ids = self.pool.get("ineco.stock.report").search(cr, uid, [('location_dest_id','=',move.location_id.id),('lot_id','=',move.prodlot_id.id),('tracking_id','=',move.tracking_id.id),('qty','>',0)])
-                    max_qty = 0
-                    for stock in self.pool.get("ineco.stock.report").browse(cr, uid, stock_ids):
-                        max_qty += stock.qty
-                    if round(move.product_qty / move.product_uom.factor) > max_qty:
-                        raise osv.except_osv(_('Error'), _('Stock Unavailable -> '+move.product_id.name+'.' ))                        
+            if move.picking_id:
+                if move.picking_id.type == 'internal' and not move.state in ['done','cancel']:
+                    if move.location_id.usage == 'internal':
+                        stock_ids = self.pool.get("ineco.stock.report").search(cr, uid, [('location_dest_id','=',move.location_id.id),('lot_id','=',move.prodlot_id.id),('tracking_id','=',move.tracking_id.id),('qty','>',0)])
+                        max_qty = 0
+                        for stock in self.pool.get("ineco.stock.report").browse(cr, uid, stock_ids):
+                            max_qty += stock.qty
+                        if round(move.product_qty / move.product_uom.factor) > max_qty:
+                            raise osv.except_osv(_('Error'), _('Stock Unavailable -> '+move.product_id.name+'.' ))
+                elif move.picking_id.type == 'out':
+                    supplier_loc_ids = self.pool.get('stock.location').search(cr, uid, [('name','=','Suppliers')])
+                    if supplier_loc_ids:                    
+                        move.write({'location_id': supplier_loc_ids[0]})                    
+                                      
             #POP-005
             if move.product_uom.category_id.id <> move.product_id.uom_id.category_id.id:
                 raise osv.except_osv(_('Error'), _('UOM Category Error, Please check-> '+move.product_id.name+' in product master.' ))
@@ -190,9 +196,8 @@ class stock_move(osv.osv):
             if move.picking_id.date_done:
                 move.write({'date_finished': move.picking_id.date_done, 'product_uom':new_uom})
             else:
-                move.write({'date_finished': time.strftime('%Y-%m-%d %H:%M:%S'), 'product_uom':new_uom})
-        super(stock_move, self).action_done(cr, uid, ids, context)
-        return True
+                move.write({'date_finished': time.strftime('%Y-%m-%d %H:%M:%S'), 'product_uom':new_uom})        
+        return super(stock_move, self).action_done(cr, uid, ids, context)
 
     def action_arrival(self, cr, uid, ids, context=None):
         ##please check none value only
@@ -458,10 +463,6 @@ class stock_picking(osv.osv):
                     if pr: 
                         pr.write({'state':'done'})
             elif pick.type == 'out':
-                supplier_loc_ids = self.pool.get('stock.location').search(cr, uid, [('name','=','Suppliers')])
-                if supplier_loc_ids:                    
-                    for line in pick.move_lines:
-                        line.write({'location_id': supplier_loc_ids[0]})
                 host_ids = self.pool.get('omg.configuration').search(cr, uid, [('type','=','sms')])
                 customer_product = pick.customer_product_id.name
                 location_name = pick.move_lines[0].location_dest_id.name

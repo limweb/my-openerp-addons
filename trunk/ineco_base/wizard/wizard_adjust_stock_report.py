@@ -59,8 +59,15 @@ class wizard_ineco_adjust_stock_report(osv.osv_memory):
         user_obj = self.pool.get('res.users').browse(cr, uid, uid)
         if datas['ids']:
             #stock_report_ids = self.pool.get('ineco.stock.report').search(cr, uid, [])
+            uom_obj = self.pool.get('product.uom')
             for line in self.pool.get('ineco.stock.report').browse(cr, uid, datas['ids']):
-                line.write({'qty':line.available})
+                if line.product_id.product_tmpl_id:
+                    warehouse_qty = uom_obj._compute_qty_obj(cr, uid, 
+                        line.product_id.product_tmpl_id.uom_id , 
+                        line.available, 
+                        line.product_id.warehouse_uom, 
+                        context=context )
+                line.write({'qty':line.available,'warehouse_qty': warehouse_qty or False,'warehouse_uom':line.product_id.warehouse_uom.id or False})
                 cr.execute('delete from ineco_stock_report_problem where id = %s' % (line.id))
                 cr.commit()
         return {'type':'ir.actions.act_window_close' }

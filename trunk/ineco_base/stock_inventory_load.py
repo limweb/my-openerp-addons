@@ -21,6 +21,7 @@
 
 #
 # 08-06-2012    POP-001    Change no-duplicate load pack
+# 07-07-2012    POP-002    Add Before Qty
 
 from osv import fields, osv
 from tools.translate import _
@@ -55,7 +56,9 @@ class stock_inventory_load(osv.osv_memory):
                     'product_uom': stock_report_obj.uom_id.id,
                     'prod_lot_id': stock_report_obj.lot_id.id,
                     'product_qty': stock_report_obj.qty,
-                    'location_id': stock_report_obj.location_dest_id.id
+                    'location_id': stock_report_obj.location_dest_id.id,
+                    #POP-002
+                    'before_qty': stock_report_obj.qty,
                 })            
             else:
                 raise osv.except_osv(_('Error !'), _('Can not find data.'))
