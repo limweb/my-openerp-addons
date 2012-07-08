@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+        <record id="view_ineco_stock_clearing" model="ir.ui.view">
+            <field name="name">Stock Counting</field>
+            <field name="model">ineco.stock.clearing</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Stock Counting">
+                <separator string="Quantity" colspan="4"/>
+                <field name="product_id" colspan="4" readonly="1" />
+                <field name="uom_id" colspan="4" domain="[('category_id','=',category_id)]"/>
+                <field name="category_id" colspan="4" readonly="1" />
+                <field name="quantity" colspan="4"/>
+                <button icon='gtk-cancel' special="cancel"
+                    string="_Cancel" />
+                <button name="execute" string="Ok"
+                    type="object" icon="gtk-ok" />
+            </form>
+            </field>
+        </record>
+        
+        <record id="action_ineco_stock_clearing" model="ir.actions.act_window">
+            <field name="name">Stock Counting</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.stock.clearing</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>
