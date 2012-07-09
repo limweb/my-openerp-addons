@@ -24,6 +24,7 @@
 # 17-06-2012    POP-003    Add MarketerMF
 # 04-07-2012    POP-004    Add Item Not Check
 # 06-07-2012    POP-005    Insert new table contr_salestock_nochk
+# 09-07-2012    POP-006    Check Data Item Not Check in Item Check
 
 import math
 
@@ -41,6 +42,7 @@ import codecs
 
 import pymssql
 import _mssql
+from operator import itemgetter
 
 from datetime import *
 
@@ -87,16 +89,39 @@ class sale_order(osv.osv):
         sql = "select * from storemf"
         conn.execute_query(sql)
         #datas = cur.fetchall()
-        for row in conn:
-            print "ID=%d, Name=%s" % (row['chaincd'], row['storecd'])
+        #for row in conn:
+        #    print "ID=%d, Name=%s" % (row['chaincd'], row['storecd'])
 
         return True
+    
+    def _check_sync(self, cr, uid, sale_id, context=None):
+        if context is None:
+            context = {}
+            
+        check_sync_sql = """
+            select id from sale_order_iteminfocus 
+            where sale_order_id = %s and product_id not in 
+            (select product_tmpl_id from product_product_sale_check_rel where sale_id = %s)
+        """
+        cr.execute(check_sync_sql % (sale_id, sale_id))
+        item_ids = map(itemgetter(0), cr.fetchall())
+        if item_ids:
+            for data in self.pool.get('sale.order.iteminfocus').browse(cr, uid, item_ids):
+                raise osv.except_osv(_('Error!'), _('%s :: Not In (Item Check Sale).' % (data.product_id.name)))
+            return False
+        else:
+            return True
     
     def action_resenditem(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
             
-        for order in self.pool.get('sale.order').browse(cr, uid, ids):            
+            
+        for order in self.pool.get('sale.order').browse(cr, uid, ids):    
+               
+            #POP-006     
+            self._check_sync(cr, uid, order.id)
+            
             #contr_prod
             i = 0
             product_id_list = {}
@@ -182,7 +207,7 @@ class sale_order(osv.osv):
                         conn.commit()
                     else:
                         itemmf_update_sql = "update itemmf set itemdesc1 = %s, marketercd = '%s', barcodeno = %s where itemno = '%s' " % (product_name, order.partner_id.ineco_fos_code, product_ean13 or '', product_id_list[index] )
-                        print itemmf_update_sql
+                        #print itemmf_update_sql
                         cur.close()
                         cur = conn.cursor()
                         cur.execute('SET ANSI_WARNINGS off')
@@ -408,6 +433,9 @@ class sale_order(osv.osv):
             context = {}
             
         for order in self.pool.get('sale.order').browse(cr, uid, ids):
+            #POP-006
+            self._check_sync(cr, uid, order.id)
+            
             order.write({'fos_pass':True})
             cr.execute('update res_partner set ineco_fos_code = id where id = %s and ineco_fos_code is null' % (order.partner_id.id))
             cr.commit()
@@ -572,7 +600,7 @@ class sale_order(osv.osv):
                         conn.commit()
                     else:
                         itemmf_update_sql = "update itemmf set itemdesc1 = %s, marketercd = '%s', barcodeno = %s where itemno = '%s' " % (product_name, order.partner_id.ineco_fos_code, product_ean13 or '', product_id_list[index] )
-                        print itemmf_update_sql
+                        #print itemmf_update_sql
                         cur.close()
                         cur = conn.cursor()
                         cur.execute('SET ANSI_WARNINGS off')
