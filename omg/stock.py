@@ -32,6 +32,7 @@
 # 18-06-2012    DAY-002    Check Approve Stock_location
 # 18-06-2012    DAY-003    Add Class Update Categ Location Qty
 # 05-07-2012    POP-008    Add Store Inventory
+# 11-07-2012    DAY-004    Add Field Check Cate
 
 import socket
 import sys
@@ -616,6 +617,8 @@ class stock_location_booking(osv.osv):
         'order_id': fields.many2one('sale.order','Sale Order'),
         'group_special_id': fields.many2one('omg.sale.group.special', 'Group Special'),
         'ineco_check_place': fields.boolean('Check Place'),
+        #DAY-004
+        'ineco_check_cate': fields.boolean('Check Cate'),
     }
     _order = "date_booking"
     _defaults = {
@@ -624,6 +627,7 @@ class stock_location_booking(osv.osv):
         'date_booking': lambda *a: time.strftime('%Y-%m-%d'),
         'saleman_id': lambda self, cr, uid, context: uid,
         'ineco_check_place': True,
+        'ineco_check_cate': True,
     }
 stock_location_booking()
 

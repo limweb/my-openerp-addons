@@ -33,6 +33,7 @@
 # 30-05-2012    DAY-002    Set State Draft 
 # 30-05-2012    DAY-003    Update Sale Branch line
 # 11-06-2012    DAY-004    Check Categ,Check Place
+# 11-07-2012    DAT-005    Check Categ
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -351,7 +352,8 @@ class omg_sale_reserve_contact_line(osv.osv):
         period_ids = self._get_period_ids(cr, uid, ids, period_id)
         if not period_ids:
               raise osv.except_osv(_('Warning'), _('List of Period is empty.'))       
-        booking_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('category_id','=',category_id),('state','!=','cancel'),('contact_line_id','!=',ids[0])])
+        #DAY-005
+        booking_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('category_id','=',category_id),('state','!=','cancel'),('ineco_check_cate','=',1),('contact_line_id','!=',ids[0])])
         max_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('state','!=','cancel'),('service_category_id','=',service_categ_id),('ineco_check_place','=',1),('contact_line_id','!=',ids[0])])
         can_book = True
         location = self.pool.get('stock.location').browse(cr, uid, [location_id])[0]
