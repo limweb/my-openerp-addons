@@ -19,6 +19,8 @@
 #
 ##############################################################################
 
+# 11-07-2012    POP-001    Add auto create when stock move done
+
 import math
 
 from osv import fields,osv
@@ -49,6 +51,35 @@ class stock_move(osv.osv):
         'ineco_quality_pass': False,
     }
     
+    #POP-001
+    def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context = {}
+        if not isinstance(ids,list):
+            ids = [ids]
+        if 'state' in vals and vals['state'] == 'done':
+            for sm in self.pool.get('stock.move').browse(cr, uid, ids):
+                if sm.product_id.ineco_quality_journal_id:
+                    quality_obj = self.pool.get('ineco.quality.control')
+                    quality_ids = quality_obj.search(cr,uid,[('move_id','=',sm.id)])
+                    if not quality_ids:
+                        new_data = {
+                           'user_id': uid,
+                           'product_id': sm.product_id.id,
+                           'qc_force_pass': False,
+                           'quality_journal_id': sm.product_id.ineco_quality_journal_id.id,
+                           'uom_id': sm.product_uom.id,
+                           'prodlot_id': sm.prodlot_id.id or False,
+                           'date': sm.date,
+                           'quantity': sm.product_qty,
+                           'move_id': sm.id,
+                           'picking_id': sm.picking_id.id or False,
+                           'partner_id': sm.purchase_line_id and sm.purchase_line_id.partner_id and sm.purchase_line_id.partner_id.id or False,
+                           'name': '/',
+                        }
+                        quality_id = quality_obj.create(cr, uid, new_data)
+        return super(stock_move, self).write(cr, uid, ids, vals, context=context)
+
     def action_confirm(self, cr, uid, ids, context=None):
         """ Confirms stock move.
         @return: List of ids.

@@ -35,3 +35,13 @@ class mrp_bom(osv.osv):
         'product_qty': fields.float('Product Qty', required=True, digits_compute=dp.get_precision('Product UoM')),
     }
 mrp_bom()
+
+class mrp_production_product_line(osv.osv):
+    _name = 'mrp.production.product.line'
+    _inherit = 'mrp.production.product.line'
+    _description = 'Production Scheduled Product'
+    _columns = {
+        'product_qty': fields.float('Product Qty', required=True, digits_compute=dp.get_precision('Product UoM')),
+        'product_uos_qty': fields.float('Product UOS Qty', digits_compute=dp.get_precision('Product UoM')),
+    }
+mrp_production_product_line()
