@@ -98,7 +98,7 @@ def send_sms(host, post, message):
     s.send(package)
     data = s.recv(1024)
     s.close()
-    print 'Received', repr(data)  #wait parsing xml and record in database
+    #print 'Received', repr(data)  #wait parsing xml and record in database
     return True  
 
 #POP-008
@@ -110,14 +110,26 @@ class ineco_stock_location_inventory(osv.osv):
         'location_id': fields.many2one('stock.location','Location',required=True),
         'product_id': fields.many2one('product.product','Product', required=True),
         'uom_id': fields.many2one('product.uom','Uom',required=True),
+        'category_id': fields.many2one('product.uom.categ','Category'),
         'quantity': fields.integer('Quantity'),
     }
     _defaults = {
         'quantity': 0,
     }
     
-ineco_stock_location_inventory()
-
+    def onchange_product_id(self, cr, uid, ids, product_id, context=None):
+        """ Changes UoM and name if product_id changes.
+        @param name: Name of the field
+        @param product_id: Changed product_id
+        @return:  Dictionary of changed values
+        """
+        value = {'uom_id': False,'category_id': False}
+        if product_id:
+            prod = self.pool.get('product.template').browse(cr, uid, product_id, context=context)
+            value = {'uom_id': prod.uom_id.id, 'category_id': prod.uom_id.category_id.id  }
+        return {'value': value}
+    
+ineco_stock_location_inventory() 
 
 class stock_move(osv.osv):
        
