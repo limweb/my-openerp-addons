@@ -42,6 +42,7 @@ class product_product(osv.osv):
     _description = "Add QA/QC for checking"
     _columns = {
         'ineco_quality': fields.boolean('Quality Control'),
+        'ineco_quality_journal_id': fields.many2one('ineco.quality.journal','Quality Journal'),
     }
     _defaults = {
         'ineco_quality': False

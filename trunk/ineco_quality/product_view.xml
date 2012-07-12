@@ -8,7 +8,7 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<field name="product_manager" position="after">
-					<field name="ineco_quality" />
+					<field name="ineco_quality_journal_id" groups="base.group_ineco_quality_manager" />
 				</field>
 			</field>
 		</record> 

@@ -13,6 +13,10 @@
     <record id="base.group_ineco_adjust_stock" model="res.groups">
         <field name="name">INECO Adjust Stock</field>
     </record>
+
+    <record id="base.group_ineco_unused" model="res.groups">
+        <field name="name">INECO Unused</field>
+    </record>
     
     <record id="secure_ineco_stock_report" model="ir.model.access">
         <field name="name">Employees</field>
