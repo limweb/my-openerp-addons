@@ -49,13 +49,13 @@
 						        <tree string="Stock">
 						        	<field name="product_id" />
 						        	<field name="uom_id" domain="[('category_id','=',category_id)]" />
-						        	<field name="category_id" readonly="1" />
+						        	<field name="category_id" invisible="1" />
 						        	<field name="quantity" />    
 						        </tree>
 						        <form string="Stock">
 						        	<field name="product_id" on_change="onchange_product_id(product_id)"/>
 						        	<field name="uom_id" domain="[('category_id','=',category_id)]" />
-						        	<field name="category_id" readonly="1" />
+						        	<field name="category_id" invisible="1" />
 						        	<field name="quantity" />    
 						        </form>						        						        
 						    </field>
@@ -182,9 +182,10 @@
 			<field name="model">ineco.stock.location.inventory</field>
 			<field name="arch" type="xml">
 				<form string="Stock">
-					<field name="product_id" on_change="onchange_product_id(product_id)"/>
+				    <field name="location_id" />
+				    <field name="product_id" on_change="onchange_product_id(product_id)"/>
 					<field name="uom_id" domain="[('category_id','=',category_id)]" />
-					<field name="category_id" readonly="1" />
+					<field name="category_id" invisible="1" />
 					<field name="quantity" />    
 				</form>						        						        
 			</field>
@@ -196,9 +197,10 @@
 			<field name="model">ineco.stock.location.inventory</field>
 			<field name="arch" type="xml">
 				<tree string="Stock" editable="bottom">
+				    <field name="location_id" />
 					<field name="product_id" on_change="onchange_product_id(product_id)"/>
 					<field name="uom_id" domain="[('category_id','=',category_id)]" />
-					<field name="category_id" readonly="1" />
+					<field name="category_id" invisible="1" />
 					<field name="quantity" />    
 				</tree>			    				
 			</field>

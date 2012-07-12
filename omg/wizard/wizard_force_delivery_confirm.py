@@ -21,6 +21,7 @@
 
 #
 #18-06-2012        POP-001        Create New Report
+#12-07-2012        POP-002        Add Stock Inventory when Picking Done
 
 import time
 from lxml import etree
@@ -76,6 +77,22 @@ class wizard_ineco_force_delivery_confirm(osv.osv_memory):
                 where state <> 'cancel' and type = 'out' and id in %s         
             """
             cr.execute(sql_stock_picking % value)
+            
+            #POP-002
+            for pick in self.pool.get('stock.picking').browse(cr, uid, datas['ids']):
+                if pick.type == 'out':
+                    uom_obj = self.pool.get('product.uom')
+                    for sm in pick.move_lines:
+                        if sm.product_id and sm.state == 'done':
+                            context['raise-exception'] = False
+                            new_qty = uom_obj._compute_qty_obj(cr, uid, sm.product_uom , sm.product_qty, sm.product_id.uom_id, context=context )
+                            pick._update_stock_store(sm.product_id.id, 
+                                                     sm.location_dest_id.id, 
+                                                     new_qty or 0.0, 
+                                                     sm.product_id.equipment or False, 
+                                                     sm.product_id.uom_id.id, 
+                                                     sm.product_id.uom_id.category_id.id)                
+                
             return {'type':'ir.actions.act_window_close' }
         else:          
             return {'type':'ir.actions.act_window_close' }

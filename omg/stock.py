@@ -33,6 +33,7 @@
 # 18-06-2012    DAY-003    Add Class Update Categ Location Qty
 # 05-07-2012    POP-008    Add Store Inventory
 # 11-07-2012    DAY-004    Add Field Check Cate
+# 12-07-2012    POP-009    Add Stock when Picking Done 
 
 import socket
 import sys
@@ -455,6 +456,27 @@ class stock_picking(osv.osv):
             self.send_sms_to_store(cr, uid, row['id'], context, row['mobile'], template_sms)
             self.log(cr, uid, row['id'], 'sms->store:'+template_sms)
     
+    #POP-009
+    def _update_stock_store(self, cr, uid, ids, product_id, location_id, quantity, equipment, uom_id, category_id, context=None):
+        stock_qty = 0.0        
+        if equipment and product_id and location_id and uom_id and category_id :
+            store_inventory = self.pool.get('ineco.stock.location.inventory')
+            store_ids = store_inventory.search(cr, uid, [('product_id','=',product_id),('location_id','=',location_id)] )
+            if store_ids:
+                store_inv = store_inventory.browse(cr, uid, store_ids)[0]
+                stock_qty = min(quantity, store_inv.quantity) or 0.0
+                store_inv.write({'quantity': store_inv.quantity + stock_qty})
+            else:
+                new_data = {
+                    'product_id': product_id,
+                    'uom_id': uom_id,
+                    'category_id': category_id,
+                    'location_id': location_id,
+                    'quantity': quantity,
+                }
+                new_id = store_inventory.create(cr, uid, new_data)                
+        return True            
+    
     def action_done(self, cr, uid, ids, context=None ):
         #self.write(cr, uid, ids, {'state': 'done', 'date_done': time.strftime('%Y-%m-%d %H:%M:%S')})
         picking = self.pool.get('stock.picking').browse(cr, uid, ids)
@@ -509,6 +531,19 @@ class stock_picking(osv.osv):
                     #    self.send_sms_to_store(cr, uid, ids, context, template_mobile, template_sms[65:] )
                     #else:
                     #    self.send_sms_to_store(cr, uid, ids, context, template_mobile, template_sms)
+        for pick in picking:
+            if pick.type == 'out':
+                uom_obj = self.pool.get('product.uom')
+                for sm in pick.move_lines:
+                    if sm.product_id and sm.state == 'done':
+                        new_qty = uom_obj._compute_qty_obj(cr, uid, sm.product_uom , sm.product_qty, sm.product_id.uom_id, context=context )
+                        self._update_stock_store(cr, uid, sm.product_id.id, 
+                                                 sm.location_dest_id.id, 
+                                                 new_qty, 
+                                                 sm.product_id.equipment, 
+                                                 sm.product_id.uom_id.id, 
+                                                 sm.product_id.uom_id.category_id.id,
+                                                 context=context)                
         return True
     
     def send_sms_to_store(self, cr, uid, ids, context, mobile_to, text, sender_name='SMS', schedule='', force='standard'):
