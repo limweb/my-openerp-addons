@@ -464,8 +464,8 @@ class stock_picking(osv.osv):
             store_ids = store_inventory.search(cr, uid, [('product_id','=',product_id),('location_id','=',location_id)] )
             if store_ids:
                 store_inv = store_inventory.browse(cr, uid, store_ids)[0]
-                stock_qty = min(quantity, store_inv.quantity) or 0.0
-                store_inv.write({'quantity': store_inv.quantity + stock_qty})
+                #stock_qty = min(quantity, store_inv.quantity) or 0.0
+                store_inv.write({'quantity': store_inv.quantity + quantity})
             else:
                 new_data = {
                     'product_id': product_id,

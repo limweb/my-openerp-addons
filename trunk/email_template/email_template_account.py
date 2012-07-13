@@ -364,7 +364,8 @@ unless it is already specified in the From Email, e.g: John Doe <john@doe.com>",
                 try:
                     serv.sendmail(payload_part['From'], addresses_l['all-recipients'], payload_part.as_string())
                 except Exception, error:
-                    logging.getLogger('email_template').error(_("Mail from Account %s failed. Probable Reason: Server Send Error\n Description: %s"), id, error, exc_info=True)
+                    #logging.getLogger('email_template').error(_("Mail from Account %s failed. Probable Reason: Server Send Error\n Description: %s"), id, error, exc_info=True)
+                    #core_obj.unlink()
                     return {'error_msg': _("Server Send Error\nDescription: %s")%error}
                 #The mail sending is complete
                 serv.close()
