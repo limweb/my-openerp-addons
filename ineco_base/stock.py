@@ -227,7 +227,7 @@ class stock_move(osv.osv):
             product_qty = vals['product_qty']
             warehouse_qty = product_qty
             diff = 0
-            if warehouse_uom_id:
+            if warehouse_uom_id and product_obj.warehouse_uom:
                 warehouse_qty = uom_obj._compute_qty_obj(cr, uid, product_uom , 
                     product_qty, product_obj.warehouse_uom, context=context )
             vals.update({'warehouse_uom': warehouse_uom_id,'warehouse_qty': warehouse_qty}) #'warehouse_diff': diff
