@@ -62,6 +62,9 @@ class stock_move(osv.osv):
                 if sm.product_id.ineco_quality_journal_id:
                     quality_obj = self.pool.get('ineco.quality.control')
                     quality_ids = quality_obj.search(cr,uid,[('move_id','=',sm.id)])
+                    partner_id = 1 #default
+                    if sm.purchase_line_id and sm.purchase_line_id.partner_id:
+                        partner_id = sm.purchase_line_id.partner_id
                     if not quality_ids:
                         new_data = {
                            'user_id': uid,
@@ -74,7 +77,7 @@ class stock_move(osv.osv):
                            'quantity': sm.product_qty,
                            'move_id': sm.id,
                            'picking_id': sm.picking_id.id or False,
-                           'partner_id': sm.purchase_line_id and sm.purchase_line_id.partner_id and sm.purchase_line_id.partner_id.id or False,
+                           'partner_id': partner_id,
                            'name': '/',
                         }
                         quality_id = quality_obj.create(cr, uid, new_data)

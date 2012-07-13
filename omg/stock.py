@@ -476,6 +476,36 @@ class stock_picking(osv.osv):
                 }
                 new_id = store_inventory.create(cr, uid, new_data)                
         return True            
+
+    def action_cancel(self, cr, uid, ids, context=None):
+        #POP-009
+        for pick in self.pool.get('stock.picking').browse(cr, uid, ids):
+            if pick.type == 'out':
+                uom_obj = self.pool.get('product.uom')
+                for sm in pick.move_lines:
+                    if sm.product_id :
+                        new_qty = uom_obj._compute_qty_obj(cr, uid, sm.product_uom , sm.product_qty, sm.product_id.uom_id, context=context )
+                        self._update_stock_store(cr, uid, pick.id, sm.product_id.id, 
+                                                 sm.location_dest_id.id, 
+                                                 -new_qty, 
+                                                 sm.product_id.equipment, 
+                                                 sm.product_id.uom_id.id, 
+                                                 sm.product_id.uom_id.category_id.id,
+                                                 context=context)                
+            elif pick.type == 'in':
+                uom_obj = self.pool.get('product.uom')
+                for sm in pick.move_lines:
+                    if sm.product_id :
+                        new_qty = uom_obj._compute_qty_obj(cr, uid, sm.product_uom , sm.product_qty, sm.product_id.uom_id, context=context )
+                        self._update_stock_store(cr, uid, pick.id, sm.product_id.id, 
+                                                 sm.location_id.id, 
+                                                 new_qty, 
+                                                 sm.product_id.equipment, 
+                                                 sm.product_id.uom_id.id, 
+                                                 sm.product_id.uom_id.category_id.id,
+                                                 context=context
+                                                 )                        
+        return super(stock_picking, self).action_cancel(cr, uid, ids, context)
     
     def action_done(self, cr, uid, ids, context=None ):
         #self.write(cr, uid, ids, {'state': 'done', 'date_done': time.strftime('%Y-%m-%d %H:%M:%S')})
@@ -531,19 +561,33 @@ class stock_picking(osv.osv):
                     #    self.send_sms_to_store(cr, uid, ids, context, template_mobile, template_sms[65:] )
                     #else:
                     #    self.send_sms_to_store(cr, uid, ids, context, template_mobile, template_sms)
+        #POP-009
         for pick in picking:
             if pick.type == 'out':
                 uom_obj = self.pool.get('product.uom')
                 for sm in pick.move_lines:
                     if sm.product_id and sm.state == 'done':
                         new_qty = uom_obj._compute_qty_obj(cr, uid, sm.product_uom , sm.product_qty, sm.product_id.uom_id, context=context )
-                        self._update_stock_store(cr, uid, sm.product_id.id, 
+                        self._update_stock_store(cr, uid, pick.id, sm.product_id.id, 
                                                  sm.location_dest_id.id, 
                                                  new_qty, 
                                                  sm.product_id.equipment, 
                                                  sm.product_id.uom_id.id, 
                                                  sm.product_id.uom_id.category_id.id,
                                                  context=context)                
+            elif pick.type == 'in':
+                uom_obj = self.pool.get('product.uom')
+                for sm in pick.move_lines:
+                    if sm.product_id and sm.state == 'done':
+                        new_qty = uom_obj._compute_qty_obj(cr, uid, sm.product_uom , sm.product_qty, sm.product_id.uom_id, context=context )
+                        self._update_stock_store(cr, uid, pick.id, sm.product_id.id, 
+                                                 sm.location_id.id, 
+                                                 -new_qty, 
+                                                 sm.product_id.equipment, 
+                                                 sm.product_id.uom_id.id, 
+                                                 sm.product_id.uom_id.category_id.id,
+                                                 context=context
+                                                 )                
         return True
     
     def send_sms_to_store(self, cr, uid, ids, context, mobile_to, text, sender_name='SMS', schedule='', force='standard'):
