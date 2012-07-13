@@ -106,7 +106,7 @@ class ineco_stock_clearing(osv.osv_memory):
         lot_id = False
         if stock_report.lot_id:                
             lot_id = stock_report.lot_id.id
-        track_id = False
+        tracking_id = False
         if stock_report.tracking_id:
             tracking_id = stock_report.tracking_id.id
         if change:
