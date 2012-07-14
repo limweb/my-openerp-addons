@@ -64,7 +64,7 @@ class stock_move(osv.osv):
                     quality_ids = quality_obj.search(cr,uid,[('move_id','=',sm.id)])
                     partner_id = 1 #default
                     if sm.purchase_line_id and sm.purchase_line_id.partner_id:
-                        partner_id = sm.purchase_line_id.partner_id
+                        partner_id = sm.purchase_line_id.partner_id.id
                     if not quality_ids:
                         new_data = {
                            'user_id': uid,
