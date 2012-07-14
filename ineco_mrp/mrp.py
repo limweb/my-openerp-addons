@@ -20,6 +20,7 @@
 
 # 19-06-2012     POP-001    Initialization
 # 10-07-2012     POP-002    Add Planned Date
+# 14-07-2012     POP-003    Change SM State Default, Add Category ID
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -184,8 +185,11 @@ class mrp_production(osv.osv):
                 picking_id = stock_picking_obj.create(cr, uid, picking)
                 production_location = production.product_id.product_tmpl_id.property_stock_production.id
                 newdate = production.date_planned
+                
                 for data in value:
-                    print data
+                    #POP-003
+                    uom_id = self.pool.get('product.uom').browse(cr, uid, [data['product_uom']] )[0]
+                    #print data
                     move_id = stock_move_obj.create(cr, uid, {
                         'name':'PROD:' + production.name,
                         'picking_id':picking_id,
@@ -197,9 +201,10 @@ class mrp_production(osv.osv):
                         'date': date_create.strftime('%Y-%m-%d %H:%M:%S'),
                         'location_id': production.location_src_id.id,
                         'location_dest_id': production_location,
-                        'state': 'waiting',
+                        'state': 'draft',
                         'company_id': production.company_id.id,
-                        'date_expected': newdate,
+                        'date_expected': date_create.strftime('%Y-%m-%d %H:%M:%S'), #newdate,
+                        'category_id': uom_id.category_id.id,
                     })
                     
             #raise osv.except_osv(_('Check Value !'), _('%s' % res[2]))                
@@ -248,13 +253,13 @@ class mrp_production(osv.osv):
                 'company_id': production.company_id.id,
                 'state': 'draft',
                 'min_date': production.date_planned,
-                'date': date_create.strftime('%Y-%m-%d %H:%M:%S'),
+                'date': time.strftime('%Y-%m-%d %H:%M:%S'),
             }
             picking_id = stock_picking_obj.create(cr, uid, picking)
 
             data = {
                 'name':'PROD:' + production.name,
-                'date': date_create.strftime('%Y-%m-%d %H:%M:%S'),
+                'date': time.strftime('%Y-%m-%d %H:%M:%S'), #date_create.strftime('%Y-%m-%d %H:%M:%S'),
                 'product_id': production.product_id.id,
                 'product_qty': production.product_qty,
                 'product_uom': production.product_uom.id,
@@ -266,7 +271,7 @@ class mrp_production(osv.osv):
                 'state': 'waiting',
                 'company_id': production.company_id.id,
                 'picking_id': picking_id,
-                'date_expected': production.date_planned,
+                'date_expected': date_create.strftime('%Y-%m-%d %H:%M:%S'), #production.date_planned,
             }
             res_final_id = move_obj.create(cr, uid, data)
             #self.write(cr, uid, [production.id], {'move_created_ids': [(6, 0, [res_final_id])]})

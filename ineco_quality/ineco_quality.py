@@ -129,13 +129,32 @@ class ineco_quality_control(osv.osv):
         'qc_pass': fields.function(_get_pass, string='Pass', method=True,  type='boolean', store=True),
         'quality_journal_id': fields.many2one('ineco.quality.journal','Quality Journal'),
         'qc_force_pass': fields.boolean('Force Pass'),
-        'note': fields.text('Note')
+        'note': fields.text('Note'),
+        'state':fields.selection(
+            [('draft','Draft'),
+             ('inprogress','In Progress'),
+             ('done','Done'),
+             ('cancel','Cancelled'),
+            ], 'State', readonly=True, size=32),
     }
     _defaults = {
         'name': '/',
         'user_id': lambda self, cr, uid, context: uid,
-        'date': lambda *a: time.strftime('%Y-%m-%d'),        
+        'date': lambda *a: time.strftime('%Y-%m-%d'), 
+        'state':'draft',       
     }
+    
+    def act_confirm(self, cr, uid, ids, context=None):
+        self.write(cr, uid, ids, {'state':'inprogress'})
+        return []
+
+    def act_done(self, cr, uid, ids, context=None):
+        self.write(cr, uid, ids, {'state':'done'})
+        return []
+
+    def act_cancel(self, cr, uid, ids, context=None):
+        self.write(cr, uid, ids, {'state':'cancel'})
+        return []
 
     def create(self, cr, user, vals, context=None):
         if ('name' not in vals) or (vals.get('name')=='/'):

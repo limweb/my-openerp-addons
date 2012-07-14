@@ -208,6 +208,7 @@
 					<field name="prodlot_id" />
 					<field name="qc_pass" />
 					<field name="user_id" />
+					<field name="state" />
 				</tree>
             </field>
         </record>
@@ -219,25 +220,39 @@
             <field name="arch" type="xml">
 				<form string="Quality Control">
 					<group colspan="6" col="6" >
-						<field name="name" />
-						<field name="date" />
-						<field name="picking_id" />
-						<field name="product_id" />
-						<field name="uom_id" />
-						<field name="quantity" />
-						<field name="partner_id" />
-						<field name="prodlot_id" />
+						<field name="name" attrs="{'readonly':[('state','!=','draft')]}"/>
+						<field name="date" attrs="{'readonly':[('state','!=','draft')]}"/>
+						<field name="picking_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+						<field name="product_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+						<field name="uom_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+						<field name="quantity" attrs="{'readonly':[('state','=','done')]}"/>
+						<field name="partner_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+						<field name="prodlot_id" attrs="{'readonly':[('state','!=','draft')]}"/>
 						<field name="qc_pass" />
-						<field name="user_id" />
-						<field name="quality_journal_id" />
-						<field name="qc_force_pass"  />
+						<field name="user_id" attrs="{'readonly':[('state','=','done')]}"/>
+						<field name="quality_journal_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+						<field name="qc_force_pass" attrs="{'readonly':[('state','=','done')]}"/>
 					</group>
 					<newline />
-					<button name="%(action_quality_load_template_wizard)d" string="Load Template" 
-						type="action" icon="gtk-execute" colspan="4"/>
-					<field name="line_ids" colspan="4" nolabel="1" />
+					<notebook colspan="4" >
+					    <page string="Data">
+							<button name="%(action_quality_load_template_wizard)d" string="Load Template" 
+								type="action" icon="gtk-execute" colspan="4" attrs="{'invisible':[('state','=','done')]}"/>
+							<field name="line_ids" colspan="4" nolabel="1" attrs="{'readonly':[('state','=','done')]}"/>							        					        
+					    </page>
+					    <page string="Note">
+							<field name="note" colspan="4" nolabel="1" attrs="{'required':[('qc_force_pass','!=',False)]}"/>
+					    </page>
+					</notebook>
 					<newline />
-					<field name="note" colspan="4" attrs="{'required':[('qc_force_pass','!=',False)]}"/>
+					<group colspan="4">
+						<field name="state" colspan="2" />
+						<group colspan="2">
+							<button name="act_cancel" string="Cancel" icon="gtk-zoom-in" states="draft,inprogress" type="object" />
+							<button name="act_confirm" string="Confirm" icon="gtk-zoom-in" states="draft" type="object"/>
+							<button name="act_done" string="Done"  icon="gtk-zoom-in"  states="inprogress" type="object"/>
+						</group>
+					</group>
 				</form>
             </field>
         </record>
