@@ -46,6 +46,7 @@
 # 07-05-2012       POP-023    Use Full Warehouse UOM
 # 02-07-2012       DAY-001    Update Use Full Warehouse UOM
 # 05-07-2012       POP-024    Add Adjust Stock Store
+# 17-07-2012       DAY-002    Group Invoice
 
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
@@ -509,6 +510,26 @@ class sale_order(osv.osv):
         if currency_ids:
             currency_obj = self.pool.get('res.currency').browse(cr, uid, currency_ids)[0]
         currency_id = currency_obj.id
+ #DAY-002        
+        if lines:
+            invoice_lines = {}
+            invoice_line_dir = {}
+            liness = []
+            for j in range(len(lines)):
+                account_invoice_lines = self.pool.get('account.invoice.line').browse(cr, uid, lines[j], context=context)
+                invoice_lines = {'product_id': account_invoice_lines.product_id,
+                                 'price_unit': account_invoice_lines.price_unit,
+                                 'quantity': account_invoice_lines.quantity,
+                                 'price_subtotal': account_invoice_lines.price_subtotal }
+                invoice_line_dir[j] = invoice_lines
+                for i in range(j):
+                    if invoice_line_dir[i]['product_id'] == invoice_line_dir[j]['product_id'] and invoice_line_dir[i]['price_unit'] == invoice_line_dir[j]['price_unit']:
+                        data = { 'quantity' : (invoice_line_dir[i]['quantity'] + invoice_line_dir[j]['quantity']),
+                                 'price_subtotal':(invoice_line_dir[i]['price_subtotal'] + invoice_line_dir[j]['price_subtotal']) }
+                        obj_invoice_line.write(cr,uid,lines[i],data,context=context)
+                        liness.append(lines[j])
+            lines = list(set(lines) - set(liness))                                         
+                        
         inv = {
             'name': order.client_order_ref or '',
             'origin': order.name,
