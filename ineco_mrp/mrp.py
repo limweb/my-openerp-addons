@@ -124,6 +124,38 @@ class mrp_production(osv.osv):
     _columns = {
         'ineco_stock_picking_ids': fields.one2many('stock.picking','production_id','Stock Picking'),
     }
+
+    def action_produce(self, cr, uid, production_id, production_qty, production_mode, context=None):
+        production = self.browse(cr, uid, production_id, context=context)
+        product = production.product_id
+        uom = production.product_uom
+        stock_move_obj = self.pool.get('stock.move')
+        stock_move_ids = self.pool.get('stock.move').search(cr, uid, 
+            [('product_id','=',product.id),('production_id','=',production.id),('state','=','waiting')])
+        if stock_move_ids:
+            balance_qty = production_qty
+            for sm in self.pool.get('stock.move').browse(cr, uid, stock_move_ids):
+                if balance_qty >= sm.product_qty:
+                    sm.write({'product_qty':balance_qty,'state':'assigned'})
+                else:
+                    default_val = {
+                       'product_qty': balance_qty,
+                       'state': 'assigned',
+                    }
+                    balance_qty = sm.product_qty - balance_qty 
+                    if balance_qty > 0:
+                        new_sm_id = stock_move_obj.copy(cr, uid, sm.id, default_val)
+                        sm.write({'product_qty':balance_qty})
+        stock_move_all_ids = self.pool.get('stock.move').search(cr, uid, 
+                        [('product_id','=',product.id),('production_id','=',production.id)])
+        result = True
+        for sm in self.pool.get('stock.move').browse(cr, uid, stock_move_all_ids):
+            if sm.state in ['draft','waiting']:
+                result = False
+        if result:
+            production.write({'state': 'done', 'date_finish': time.strftime('%Y-%m-%d %H:%M:%S')})        
+            
+        return True 
     
     def action_compute(self, cr, uid, ids, properties=[]):
         """ Computes bills of material of a product.
@@ -272,6 +304,7 @@ class mrp_production(osv.osv):
                 'company_id': production.company_id.id,
                 'picking_id': picking_id,
                 'date_expected': date_create.strftime('%Y-%m-%d %H:%M:%S'), #production.date_planned,
+                'production_id': production.id,
             }
             res_final_id = move_obj.create(cr, uid, data)
             #self.write(cr, uid, [production.id], {'move_created_ids': [(6, 0, [res_final_id])]})
@@ -319,3 +352,56 @@ class mrp_production(osv.osv):
 
 
 mrp_production()
+
+
+class mrp_product_produce(osv.osv_memory):
+    _inherit = "mrp.product.produce"
+    _description = "Inherit Product Produce Wizard"
+
+    def _get_product_qty(self, cr, uid, context=None):
+        """ To obtain product quantity
+        @param self: The object pointer.
+        @param cr: A database cursor
+        @param uid: ID of the user currently logged in
+        @param context: A standard dictionary
+        @return: Quantity
+        """
+        if context is None:
+            context = {}
+        prod = self.pool.get('mrp.production').browse(cr, uid,
+                                context['active_id'], context=context)
+        done = 0.0
+        stock_move_ids = self.pool.get('stock.move').search(cr, uid, 
+            [('product_id','=',prod.product_id.id),
+             ('production_id','=',prod.id),
+             ('state','=','waiting')])
+
+        for move in self.pool.get('stock.move').browse(cr, uid,stock_move_ids) :
+            done += move.product_qty
+        return done or prod.product_qty
+
+    _defaults = {
+         'product_qty': _get_product_qty,
+         'mode': lambda *x: 'consume_produce'
+    }
+
+    def do_produce(self, cr, uid, ids, context=None):
+        """ To check the product type
+        @param self: The object pointer.
+        @param cr: A database cursor
+        @param uid: ID of the user currently logged in
+        @param ids: the ID or list of IDs if we want more than one
+        @param context: A standard dictionary
+        @return:
+        """
+        if context is None:
+            context = {}
+        prod_obj = self.pool.get('mrp.production')
+        move_ids = context.get('active_ids', [])
+        for data in self.browse(cr, uid, ids, context=context):
+            for move_id in move_ids:
+                prod_obj.action_produce(cr, uid, move_id,
+                                    data.product_qty, data.mode, context=context)
+        return {'type':'ir.actions.act_window_close' }
+    
+mrp_product_produce()
