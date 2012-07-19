@@ -48,3 +48,21 @@ class stock_picking(osv.osv):
     }
     
 stock_picking()
+
+class stock_production_lot(osv.osv):
+
+    _inherit = 'stock.production.lot'
+    _description = 'Add Default Ref in Production lot'
+
+#    def create(self, cr, user, vals, context=None):
+#        if ('product_id' in vals) :
+#            product = self.pool.get('product.product').browse(cr, user, [vals['product_id']])[0]
+#            vals['ref'] = product.default_code or vals['product_id']
+#        new_id = super(stock_production_lot, self).create(cr, user, vals, context)
+#        return new_id
+    
+    _sql_constraints = [
+        ('name_product_uniq', 'unique (name, product_id)', 'The combination of Serial and Product must be unique !'),
+    ]
+
+stock_production_lot()

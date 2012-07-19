@@ -44,6 +44,7 @@
 # 26-06-2012       POP-021    Add Button Problem
 # 29-06-2012       POP-022    Change Default Warehouse UOM
 # 07-07-2012       POP-023    Add Before Qty in Physical Inventory
+# 18-07-2012       POP-024    Remove Unique Index in stock.production.lot
 
 import math
 
@@ -774,9 +775,10 @@ class stock_production_lot(osv.osv):
     #    select name from stock_production_lot
     #    group by name
     #    having count(*) > 1) )
-    _sql_constraints = [
-        ('name_unique_idx', 'unique (name)', 'Production Lot Must be unique !')
-    ]
+    #
+    #_sql_constraints = [
+    #    ('name_unique_idx', 'unique (name)', 'Production Lot Must be unique !')
+    #]
 
     def _get_stock(self, cr, uid, ids, field_name, arg, context=None):
         """ Gets stock of products for locations
