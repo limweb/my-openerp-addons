@@ -21,6 +21,7 @@
 
 # 07-05-2012     POP-001    Add Use Full Warehouse UOM
 # 29-05-2012     DAY-001    Add product_category_retailer
+# 20-07-2012     POP-002    Add Not Print Delivery Order
 
 from osv import osv, fields
 import decimal_precision as dp
@@ -55,6 +56,8 @@ class product_product(osv.osv):
         'name_lock': fields.function(_get_name_lock, method=True, type='boolean', string="Lock By PM"),
         #POP-001
         'full_warehouse_uom': fields.boolean('Full Warehouse Uom'),
+        #POP-002
+        'not_print_do': fields.boolean("Not Print Delivery Order"),
     }
     
     _defaults = {

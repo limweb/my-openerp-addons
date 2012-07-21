@@ -1407,9 +1407,9 @@ class stock_production_lot(osv.osv):
         'name': lambda x, y, z, c: x.pool.get('ir.sequence').get(y, z, 'stock.lot.serial'),
         'product_id': lambda x, y, z, c: c.get('product_id', False),
     }
-    _sql_constraints = [
-        ('name_ref_uniq', 'unique (name, ref)', 'The combination of serial number and internal reference must be unique !'),
-    ]
+    #_sql_constraints = [
+    #    ('name_ref_uniq', 'unique (name, ref)', 'The combination of serial number and internal reference must be unique !'),
+    #]
     def action_traceability(self, cr, uid, ids, context=None):
         """ It traces the information of a product
         @param self: The object pointer.
