@@ -9,6 +9,7 @@
 			<field name="arch" type="xml">
 				<field name="categ_id" position="after">
 					<field name="ineco_stock_journal_id" />
+					<field name="ineco_stock_transfer_journal_id" />
 				</field>
 			</field>
 		</record> 

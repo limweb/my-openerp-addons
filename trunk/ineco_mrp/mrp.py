@@ -22,6 +22,7 @@
 # 10-07-2012     POP-002    Add Planned Date
 # 14-07-2012     POP-003    Change SM State Default, Add Category ID
 # 20-07-2012     POP-004    Add Default Lot ID
+# 21-07-2012     POP-005    Change Transfer Journal
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -83,14 +84,25 @@ class mrp_bom(osv.osv):
                     'product_uos_qty': bom.product_uos and bom.product_uos_qty * factor or False,
                     'product_uos': bom.product_uos and bom.product_uos.id or False,
                 })
-                if bom.product_id.ineco_stock_journal_id:
-                    result3[bom.product_id.ineco_stock_journal_id.id] = []
-                    data = {
-                        'product_id': bom.product_id.id,
-                        'product_qty': bom.product_qty * factor,
-                        'product_uom': bom.product_uom.id,
-                    }
-                    result3[bom.product_id.ineco_stock_journal_id.id] = [data]
+                #POP-005
+                if bom.bom_id:
+                    if bom.product_id.ineco_stock_journal_id:
+                        result3[bom.product_id.ineco_stock_journal_id.id] = []
+                        data = {
+                            'product_id': bom.product_id.id,
+                            'product_qty': bom.product_qty * factor,
+                            'product_uom': bom.product_uom.id,
+                        }
+                        result3[bom.product_id.ineco_stock_journal_id.id] = [data]
+                else:
+                    if bom.product_id.ineco_stock_journal_id:
+                        result3[bom.product_id.ineco_stock_transfer_journal_id.id] = []
+                        data = {
+                            'product_id': bom.product_id.id,
+                            'product_qty': bom.product_qty * factor,
+                            'product_uom': bom.product_uom.id,
+                        }
+                        result3[bom.product_id.ineco_stock_transfer_journal_id.id] = [data]
             if bom.routing_id:
                 for wc_use in bom.routing_id.workcenter_lines:
                     wc = wc_use.workcenter_id
