@@ -54,6 +54,14 @@ class stock_production_lot(osv.osv):
     _inherit = 'stock.production.lot'
     _description = 'Add Default Ref in Production lot'
 
+    #Change Sequence in Stock Production Lot to %(year)s%(month)s%(day)s and step = 0
+    def create(self, cr, uid, vals, context=None):
+        product_obj = self.pool.get('product.product').browse(cr, uid, vals['product_id'])
+        lot_name = self.pool.get('ir.sequence').get(cr, uid, 'stock.lot.serial')
+        lot_ids =  self.pool.get('stock.production.lot').search(cr, uid, [('product_id','=',product_obj.id),('name','=',lot_name)]) 
+        vals.update({'prefix': product_obj.default_code,'ref': len(lot_ids) + 1 })
+        return super(stock_production_lot, self).create(cr, uid, vals, context)
+
 #    def create(self, cr, user, vals, context=None):
 #        if ('product_id' in vals) :
 #            product = self.pool.get('product.product').browse(cr, user, [vals['product_id']])[0]
@@ -62,7 +70,7 @@ class stock_production_lot(osv.osv):
 #        return new_id
     
     _sql_constraints = [
-        ('name_product_uniq', 'unique (name, product_id)', 'The combination of Serial and Product must be unique !'),
+        ('name_product_ref_uniq', 'unique (name, product_id, ref)', 'The combination of Serial, Ref and Product must be unique !'),
     ]
 
 stock_production_lot()

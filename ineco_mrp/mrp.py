@@ -21,6 +21,7 @@
 # 19-06-2012     POP-001    Initialization
 # 10-07-2012     POP-002    Add Planned Date
 # 14-07-2012     POP-003    Change SM State Default, Add Category ID
+# 20-07-2012     POP-004    Add Default Lot ID
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -135,12 +136,18 @@ class mrp_production(osv.osv):
         if stock_move_ids:
             balance_qty = production_qty
             for sm in self.pool.get('stock.move').browse(cr, uid, stock_move_ids):
+                #POP-004
+                product_val = {
+                    'product_id': sm.product_id.id,
+                }
+                prolot_id = self.pool.get('stock.production.lot').create(cr, uid, product_val)
                 if balance_qty >= sm.product_qty:
-                    sm.write({'product_qty':balance_qty,'state':'assigned'})
+                    sm.write({'product_qty':balance_qty,'state':'assigned','prodlot_id':prolot_id})
                 else:
                     default_val = {
                        'product_qty': balance_qty,
                        'state': 'assigned',
+                       'prodlot_id':prolot_id,
                     }
                     balance_qty = sm.product_qty - balance_qty 
                     if balance_qty > 0:

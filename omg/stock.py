@@ -34,6 +34,7 @@
 # 05-07-2012    POP-008    Add Store Inventory
 # 11-07-2012    DAY-004    Add Field Check Cate
 # 12-07-2012    POP-009    Add Stock when Picking Done 
+# 20-07-2012    POP-010    Add PM Note/Check
 
 import socket
 import sys
@@ -176,11 +177,15 @@ class stock_move(osv.osv):
         'date_forced': fields.datetime('Force Date'),
         'user_forced': fields.many2one('res.users', 'Force User',),
         'store_qty': fields.integer('Store Qty'),
+        #POP-010
+        'pm_note': fields.char('PM Note', size=50),
+        'warehouse_nogo': fields.boolean('No Go'),
     }
 
     _defaults = {
         'receive_qty': 0,
-        'store_qty': 0,
+        'store_qty':  0,
+        #'warehouse_nogo': False
     }    
 
     def action_done(self, cr, uid, ids, context=None):
