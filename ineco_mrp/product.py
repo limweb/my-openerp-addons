@@ -34,6 +34,7 @@ class product_product(osv.osv):
     _description = 'Add Stock Journal In Product.Product'
     _columns = {
         'ineco_stock_journal_id': fields.many2one('stock.journal','Stock Journal'),
+        'ineco_stock_transfer_journal_id': fields.many2one('stock.journal','Stock Transfer Journal'),
     }
     
 product_product()

@@ -20,6 +20,7 @@
 ##############################################################################
 
 # 11-07-2012    POP-001    Add auto create when stock move done
+# 21-07-2012    POP-002    Add QC Check in Stock Journal
 
 import math
 
@@ -37,6 +38,21 @@ from dateutil.relativedelta import relativedelta
 
 from operator import itemgetter
 from itertools import groupby
+
+#POP-002
+class stock_journal(osv.osv):
+    
+    _inherit = "stock.journal"
+    _description = "Add QC Check in Stock Journal"
+    _columns = {
+        'ineco_qc_check': fields.boolean('QC Check'),
+    }
+    _defaults = {
+        'ineco_qc_check': False    
+    }
+
+stock_journal()
+
 
 class stock_move(osv.osv):
     _name = "stock.move"
@@ -59,7 +75,15 @@ class stock_move(osv.osv):
             ids = [ids]
         if 'state' in vals and vals['state'] == 'done':
             for sm in self.pool.get('stock.move').browse(cr, uid, ids):
-                if sm.product_id.ineco_quality_journal_id:
+                
+                #POP-002
+                use_quality_form = False
+                if not use_quality_form:
+                    use_quality_form = not sm.picking_id.stock_journal_id
+                if not use_quality_form:
+                    use_quality_form = sm.picking_id.stock_journal_id.ineco_qc_check
+                    
+                if use_quality_form and sm.product_id.ineco_quality_journal_id :
                     quality_obj = self.pool.get('ineco.quality.control')
                     quality_ids = quality_obj.search(cr,uid,[('move_id','=',sm.id)])
                     partner_id = 1 #default
@@ -73,7 +97,7 @@ class stock_move(osv.osv):
                            'quality_journal_id': sm.product_id.ineco_quality_journal_id.id,
                            'uom_id': sm.product_uom.id,
                            'prodlot_id': sm.prodlot_id.id or False,
-                           'date': sm.date,
+                           'date': time.strftime('%Y-%m-%d'),
                            'quantity': sm.product_qty,
                            'move_id': sm.id,
                            'picking_id': sm.picking_id.id or False,
@@ -109,6 +133,5 @@ class stock_move(osv.osv):
         moves = self.browse(cr, uid, ids, context=context)
         self.write(cr, uid, ids, {'ineco_quality_pass': True, 'state': 'done'})        
         return True
-    
-    
+        
 stock_move()
