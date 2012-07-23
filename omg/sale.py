@@ -47,6 +47,7 @@
 # 02-07-2012       DAY-001    Update Use Full Warehouse UOM
 # 05-07-2012       POP-024    Add Adjust Stock Store
 # 17-07-2012       DAY-002    Group Invoice
+# 23-07-2012       DAY-003    Add Class Cash Advance Other
 
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
@@ -119,6 +120,26 @@ class sale_period_line(osv.osv):
 
 sale_period_line()
 
+#DAY-003
+class sale_cash_advance_other_line(osv.osv):
+    _name = 'sale.cash.advance.other.line'
+    _description = 'Cash Advance Other from Location'
+    _columns = {
+        'sale_id': fields.many2one('sale.order','Sale Order',ondelete="restrict"),
+        'cash_advance_other_id':fields.many2one('stock.location.cash.advance.other','Cash Advance Other',ondelete="restrict"),
+        'location_id': fields.many2one('stock.location','Location', required=True, ondelete="restrict"),
+        'product_id': fields.many2one('product.product','Cash Advance',required=True),
+        'amount': fields.float('Amount',required=True),                      
+    }
+    def onchange_product_id(self, cr, uid, ids, product_id):
+        v = {}
+        if product_id:
+            product = self.pool.get('product.product').browse(cr, uid, product_id)
+            v['amount'] = product.list_price
+        return {'value': v}
+        
+sale_cash_advance_other_line()
+    
 #POP-006
 class omg_sale_group_special(osv.osv):
     _name = 'omg.sale.group.special'
@@ -388,6 +409,8 @@ class sale_order(osv.osv):
     _description = "Extended sale period for Sales Order"
 
     _columns = {
+#DAY-003        
+        'sale_cash_advance_ids':fields.one2many('sale.cash.advance.other.line','sale_id','Cash Advance Other'),
         'sale_period_ids': fields.one2many('sale.period.line', 'sale_id', 'Period Lines'),
         'sale_location_ids': fields.one2many('sale.branch.line', 'sale_id', 'Location Lines'),
         'sale_quotation_ids': fields.one2many('sale.order.quotation.line', 'saleorder_id', 'Quotation Manual'),
