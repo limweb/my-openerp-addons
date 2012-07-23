@@ -44,6 +44,20 @@
 							</tree>
 						</field>
 					</page>
+					<page string="Cash Advance Other">
+						<field colspan="4" name="sale_cash_advance_ids" mode="tree,form" nolabel="1" widget="one2many_list">
+							<form string="Cash Advance Other">
+								<field name="location_id" domain="[('omg_approve','=',True)]"/>
+								<field name="product_id" on_change="onchange_product_id(product_id)" domain="[('cash_advance','=',True)]"/>
+								<field name="amount" />
+							</form>
+							<tree string="Cash Advance Other">
+								<field name="location_id" />
+								<field name="product_id" />
+								<field name="amount" />
+							</tree>
+						</field>
+					</page>					
 					<page string="Item Check Sales">
 						<field name="item_sale_check_ids" colspan="4" nolabel="1">
 							<tree>

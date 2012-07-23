@@ -35,6 +35,7 @@
 # 11-07-2012    DAY-004    Add Field Check Cate
 # 12-07-2012    POP-009    Add Stock when Picking Done 
 # 20-07-2012    POP-010    Add PM Note/Check
+# 23-07-2012    DAY-005    Add Cash Advance Other
 
 import socket
 import sys
@@ -809,6 +810,8 @@ class stock_location(osv.osv):
         'mapping_ids': fields.one2many('ineco.stock.location.product.mapping', 'location_id', 'Product Mapping'),
         #POP-008
         'inventory_ids': fields.one2many('ineco.stock.location.inventory', 'location_id', 'Inventory'),
+        #DAY-005
+        'cash_advance_ids': fields.one2many('stock.location.cash.advance.other', 'location_id', 'Cash Advance'),
     }
     _defaults = {
         'omg_approve': False,
@@ -913,6 +916,22 @@ class stock_location_line_qty_update(osv.osv):
 
 stock_location_line_qty_update()
 
-
+#DAY-005
+class stock_location_cash_advance_other(osv.osv):
+    _name = "stock.location.cash.advance.other"
+    _description = "Cash Advance Other"
+    _columns = {
+        'location_id': fields.many2one('stock.location','Location',required=True, ondelete='restrict'),
+        'product_id': fields.many2one('product.product','Cash Advance',required=True),
+        'amount': fields.float('Amount'),
+    }
+    def onchange_product_id(self, cr, uid, ids, product_id):
+        v = {}
+        if product_id:
+            product = self.pool.get('product.product').browse(cr, uid, product_id)
+            v['amount'] = product.list_price
+        return {'value': v}
+    
+stock_location_cash_advance_other()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
