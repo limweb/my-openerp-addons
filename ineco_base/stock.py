@@ -45,6 +45,7 @@
 # 29-06-2012       POP-022    Change Default Warehouse UOM
 # 07-07-2012       POP-023    Add Before Qty in Physical Inventory
 # 18-07-2012       POP-024    Remove Unique Index in stock.production.lot
+# 24-07-2012       POP-025    Add Picking Do Parial
 
 import math
 
@@ -57,7 +58,7 @@ import decimal_precision as dp
 import netsvc
 
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
 from operator import itemgetter
@@ -457,6 +458,158 @@ class stock_picking(osv.osv):
     _defaults = {
         'ineco_request_user_id': lambda self, cr, uid, context: uid,
     }
+    
+    #POP-025
+    def do_partial(self, cr, uid, ids, partial_datas, context=None):
+        """ Makes partial picking and moves done.
+        @param partial_datas : Dictionary containing details of partial picking
+                          like partner_id, address_id, delivery_date,
+                          delivery moves with product_id, product_qty, uom
+        @return: Dictionary of values
+        """
+        if context is None:
+            context = {}
+        else:
+            context = dict(context)
+        res = {}
+        move_obj = self.pool.get('stock.move')
+        product_obj = self.pool.get('product.product')
+        currency_obj = self.pool.get('res.currency')
+        uom_obj = self.pool.get('product.uom')
+        sequence_obj = self.pool.get('ir.sequence')
+        wf_service = netsvc.LocalService("workflow")
+        for pick in self.browse(cr, uid, ids, context=context):
+            new_picking = None
+            complete, too_many, too_few = [], [], []
+            move_product_qty = {}
+            prodlot_ids = {}
+            product_avail = {}
+            for move in pick.move_lines:
+                if move.state in ('done', 'cancel'):
+                    continue
+                partial_data = partial_datas.get('move%s'%(move.id), {})
+                product_qty = partial_data.get('product_qty',0.0)
+                move_product_qty[move.id] = product_qty
+                product_uom = partial_data.get('product_uom',False)
+                product_price = partial_data.get('product_price',0.0)
+                product_currency = partial_data.get('product_currency',False)
+                prodlot_id = partial_data.get('prodlot_id')
+                prodlot_ids[move.id] = prodlot_id
+                if move.product_qty == product_qty:
+                    complete.append(move)
+                elif move.product_qty > product_qty:
+                    too_few.append(move)
+                else:
+                    too_many.append(move)
+
+                # Average price computation
+                if (pick.type == 'in') and (move.product_id.cost_method == 'average'):
+                    product = product_obj.browse(cr, uid, move.product_id.id)
+                    move_currency_id = move.company_id.currency_id.id
+                    context['currency_id'] = move_currency_id
+                    qty = uom_obj._compute_qty(cr, uid, product_uom, product_qty, product.uom_id.id)
+
+                    if product.id in product_avail:
+                        product_avail[product.id] += qty
+                    else:
+                        product_avail[product.id] = product.qty_available
+
+                    if qty > 0:
+                        new_price = currency_obj.compute(cr, uid, product_currency,
+                                move_currency_id, product_price)
+                        new_price = uom_obj._compute_price(cr, uid, product_uom, new_price,
+                                product.uom_id.id)
+                        if product.qty_available <= 0:
+                            new_std_price = new_price
+                        else:
+                            # Get the standard price
+                            amount_unit = product.price_get('standard_price', context)[product.id]
+                            new_std_price = ((amount_unit * product_avail[product.id])\
+                                + (new_price * qty))/(product_avail[product.id] + qty)
+                        # Write the field according to price type field
+                        product_obj.write(cr, uid, [product.id], {'standard_price': new_std_price})
+
+                        # Record the values that were chosen in the wizard, so they can be
+                        # used for inventory valuation if real-time valuation is enabled.
+                        move_obj.write(cr, uid, [move.id],
+                                {'price_unit': product_price,
+                                 'price_currency_id': product_currency})
+
+
+            for move in too_few:
+                product_qty = move_product_qty[move.id]
+
+                if not new_picking:
+                    #POP-025
+                    if pick.stock_journal_id and pick.stock_journal_id.sequence_id:
+                        sequence_code = pick.stock_journal_id.sequence_id.code
+                    else:
+                        sequence_code = 'stock.picking.%s'%(pick.type)
+                    new_picking = self.copy(cr, uid, pick.id,
+                            {
+                                'name': sequence_obj.get(cr, uid, sequence_code ),
+                                'move_lines' : [],
+                                'state':'draft',
+                            })
+                if product_qty != 0:
+                    defaults = {
+                            'product_qty' : product_qty,
+                            'product_uos_qty': product_qty, #TODO: put correct uos_qty
+                            'picking_id' : new_picking,
+                            'state': 'waiting',
+                            'move_dest_id': False,
+                            'price_unit': move.price_unit,
+                    }
+                    prodlot_id = prodlot_ids[move.id]
+                    if prodlot_id:
+                        defaults.update(prodlot_id=prodlot_id)
+                    move_obj.copy(cr, uid, move.id, defaults)
+
+                move_obj.write(cr, uid, [move.id],
+                        {
+                            'product_qty' : move.product_qty - product_qty,
+                            'product_uos_qty':move.product_qty - product_qty, #TODO: put correct uos_qty
+                            'state': 'waiting',
+                        })
+
+            if new_picking:
+                move_obj.write(cr, uid, [c.id for c in complete], {'picking_id': new_picking})
+            for move in complete:
+                if prodlot_ids.get(move.id):
+                    move_obj.write(cr, uid, move.id, {'prodlot_id': prodlot_ids[move.id]})
+            for move in too_many:
+                product_qty = move_product_qty[move.id]
+                defaults = {
+                    'product_qty' : product_qty,
+                    'product_uos_qty': product_qty, #TODO: put correct uos_qty
+                }
+                prodlot_id = prodlot_ids.get(move.id)
+                if prodlot_ids.get(move.id):
+                    defaults.update(prodlot_id=prodlot_id)
+                if new_picking:
+                    defaults.update(picking_id=new_picking)
+                move_obj.write(cr, uid, [move.id], defaults)
+
+
+            # At first we confirm the new picking (if necessary)
+            if new_picking:
+                #wf_service.trg_validate(uid, 'stock.picking', new_picking, 'button_confirm', cr)
+                # Then we finish the good picking
+                self.write(cr, uid, [pick.id], {'backorder_id': new_picking})
+                #self.action_move(cr, uid, [new_picking])
+                #wf_service.trg_validate(uid, 'stock.picking', new_picking, 'button_done', cr)
+                #wf_service.trg_write(uid, 'stock.picking', pick.id, cr)
+                delivered_pack_id = new_picking
+            else:
+                self.action_move(cr, uid, [pick.id])
+                wf_service.trg_validate(uid, 'stock.picking', pick.id, 'button_done', cr)
+                delivered_pack_id = pick.id
+
+            delivered_pack = self.browse(cr, uid, delivered_pack_id, context=context)
+            res[pick.id] = {'delivered_picking': delivered_pack.id or False}
+
+        return res
+    
 
     #POP-008 Add new sequence by stock journal 
     def create(self, cr, user, vals, context=None):
@@ -780,6 +933,14 @@ class stock_production_lot(osv.osv):
     #    ('name_unique_idx', 'unique (name)', 'Production Lot Must be unique !')
     #]
 
+    def _get_expire_context(self, cr, uid, context=None):
+        result = False
+        if 'wip_expired_date' in context:
+            result = context['wip_expired_date']
+        else:
+            result = (datetime.today() + relativedelta( years = 1)).strftime('%Y-%m-%d')
+        return result
+
     def _get_stock(self, cr, uid, ids, field_name, arg, context=None):
         """ Gets stock of products for locations
         @return: Dictionary of values
@@ -831,10 +992,13 @@ class stock_production_lot(osv.osv):
         "date_expired": fields.date('Expire Date', help="Date of Expiration"),
         "lastmove_ids": fields.one2many('ineco.production.lot.lastmove', 'prodlot_id', 'Last Move'),
         'stock_report_ids': fields.one2many('ineco.stock.report','lot_id','Stock Report'),
+        'ineco_mfg_printed': fields.char('MFG Printed', size=50),
+        
     }
     
     _defaults = {
-        "date_expired": time.strftime('%Y-%m-%d')
+        #"date_expired": time.strftime('%Y-%m-%d')
+        'date_expired': _get_expire_context ,
     }
     
 stock_production_lot()

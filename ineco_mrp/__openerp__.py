@@ -28,11 +28,12 @@
         This module will change new method for MRP process.
         """,
     'author': 'INECO LIMITED PARTNERSHIP',
-    'depends': ["mrp"],
+    'depends': ["mrp","stock"],
     'website': 'http://openerp.tititab.com',
     'update_xml': [
         'product_view.xml',
         'mrp_view.xml',
+        'stock_view.xml',
         ],
     'demo_xml': [],
     'installable': True,

@@ -23,6 +23,7 @@
 # 14-07-2012     POP-003    Change SM State Default, Add Category ID
 # 20-07-2012     POP-004    Add Default Lot ID
 # 21-07-2012     POP-005    Change Transfer Journal
+# 24-07-2012     POP-006    Add Expired Date Lot By WIP
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -141,18 +142,28 @@ class mrp_production(osv.osv):
     def action_produce(self, cr, uid, production_id, production_qty, production_mode, context=None):
         production = self.browse(cr, uid, production_id, context=context)
         product = production.product_id
+        #POP-006
+        wip_expired_date = False
+        for pick in production.ineco_stock_picking_ids:
+            if pick.stock_journal_id.ineco_stock_type == 'wip' and pick.stock_journal_id.name == 'WIP'and not wip_expired_date:
+                for move in pick.move_lines:
+                    if not wip_expired_date:
+                        wip_expired_date = move.prodlot_id.date_expired
+                        
         uom = production.product_uom
         stock_move_obj = self.pool.get('stock.move')
         stock_move_ids = self.pool.get('stock.move').search(cr, uid, 
-            [('product_id','=',product.id),('production_id','=',production.id),('state','=','waiting')])
+            [('product_id','=',product.id),('production_id','=',production.id),('state','in',['waiting'])])
         if stock_move_ids:
             balance_qty = production_qty
             for sm in self.pool.get('stock.move').browse(cr, uid, stock_move_ids):
                 #POP-004
+                if wip_expired_date and sm.picking_id.stock_journal_id.ineco_use_expire:
+                    context['wip_expired_date'] = wip_expired_date
                 product_val = {
                     'product_id': sm.product_id.id,
                 }
-                prolot_id = self.pool.get('stock.production.lot').create(cr, uid, product_val)
+                prolot_id = self.pool.get('stock.production.lot').create(cr, uid, product_val, context=context)
                 if balance_qty >= sm.product_qty:
                     sm.write({'product_qty':balance_qty,'state':'assigned','prodlot_id':prolot_id})
                 else:
@@ -169,7 +180,7 @@ class mrp_production(osv.osv):
                         [('product_id','=',product.id),('production_id','=',production.id)])
         result = True
         for sm in self.pool.get('stock.move').browse(cr, uid, stock_move_all_ids):
-            if sm.state in ['draft','waiting']:
+            if sm.state in ['draft','waiting','assigned']:
                 result = False
         if result:
             production.write({'state': 'done', 'date_finish': time.strftime('%Y-%m-%d %H:%M:%S')})        
@@ -393,11 +404,11 @@ class mrp_product_produce(osv.osv_memory):
         stock_move_ids = self.pool.get('stock.move').search(cr, uid, 
             [('product_id','=',prod.product_id.id),
              ('production_id','=',prod.id),
-             ('state','=','waiting')])
+             ('state','in',['waiting'])])
 
         for move in self.pool.get('stock.move').browse(cr, uid,stock_move_ids) :
             done += move.product_qty
-        return done or prod.product_qty
+        return done 
 
     _defaults = {
          'product_qty': _get_product_qty,
