@@ -21,6 +21,7 @@
 
 # Date             ID         Message
 # 21-06-2012       POP-001    Initialization
+# 24-07-2012       POP-002    Add Default Expire Date +1 Year
 
 import math
 
@@ -74,3 +75,21 @@ class stock_production_lot(osv.osv):
     ]
 
 stock_production_lot()
+
+class stock_journal(osv.osv):
+    
+    _inherit = "stock.journal"
+    _description = "Add Use Expire Date Stock Journal"
+    _columns = {
+        'ineco_use_expire': fields.boolean('Use WIP Expire Date'),
+        'ineco_stock_type': fields.selection([('raw','Raw Material'),
+                                              ('pack','Packaging'),
+                                              ('wip','Work In Process'),
+                                              ('fg','Finish Goods')
+                                             ],'Stock Type' )
+    }
+    _defaults = {
+        'ineco_use_expire': False    
+    }
+
+stock_journal()

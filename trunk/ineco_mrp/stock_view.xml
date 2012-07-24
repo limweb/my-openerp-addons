@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		
+		<!-- Stock Journal -->
+        <record model="ir.ui.view" id="view_ineco_mrp_stock_journal_tree">
+            <field name="inherit_id" ref="stock.view_stock_journal_tree" />
+            <field name="name">ineco.mrp.stock.journal.tree</field>
+            <field name="model">stock.journal</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+            	<field name="name" position="after">
+            	    <field name="ineco_use_expire" />
+            	    <field name="ineco_stock_type" />
+            	</field>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_ineco_mrp_stock_journal_form">
+            <field name="inherit_id" ref="stock.view_stock_journal_form" />
+            <field name="name">ineco.mrp.stock.journal.form</field>
+            <field name="model">stock.journal</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<field name="name" position="after">
+            	    <field name="ineco_use_expire" />
+            	    <field name="ineco_stock_type" />
+            	</field>
+            </field>
+        </record>
+				
+
+	</data>
+</openerp>

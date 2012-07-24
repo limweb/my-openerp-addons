@@ -204,6 +204,7 @@
             <field name="arch" type="xml">
             	<field name="date" position="after">
             		<field name="date_expired" />
+            		<field name="ineco_mfg_printed" />
             	</field>
 			</field>
 		</record>		
@@ -216,6 +217,7 @@
             <field name="arch" type="xml">
             	<xpath expr="/form/group/field[@name='stock_available']" position="before">
             		<field name="date_expired" />
+            		<field name="ineco_mfg_printed" />
             	</xpath>
 			</field>
 		</record>				 
