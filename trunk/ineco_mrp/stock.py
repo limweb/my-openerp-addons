@@ -58,7 +58,10 @@ class stock_production_lot(osv.osv):
     #Change Sequence in Stock Production Lot to %(year)s%(month)s%(day)s and step = 0
     def create(self, cr, uid, vals, context=None):
         product_obj = self.pool.get('product.product').browse(cr, uid, vals['product_id'])
-        lot_name = self.pool.get('ir.sequence').get(cr, uid, 'stock.lot.serial')
+        if 'lot_name' in context:
+            lot_name = context=['lot_name']
+        else:
+            lot_name = self.pool.get('ir.sequence').get(cr, uid, 'stock.lot.serial')
         lot_ids =  self.pool.get('stock.production.lot').search(cr, uid, [('product_id','=',product_obj.id),('name','=',lot_name)]) 
         vals.update({'prefix': product_obj.default_code,'ref': len(lot_ids) + 1 })
         return super(stock_production_lot, self).create(cr, uid, vals, context)

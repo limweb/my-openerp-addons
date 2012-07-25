@@ -24,6 +24,7 @@
 # 20-07-2012     POP-004    Add Default Lot ID
 # 21-07-2012     POP-005    Change Transfer Journal
 # 24-07-2012     POP-006    Add Expired Date Lot By WIP
+# 25-07-2012     POP-007    Add Lot Name By WIP
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -142,13 +143,15 @@ class mrp_production(osv.osv):
     def action_produce(self, cr, uid, production_id, production_qty, production_mode, context=None):
         production = self.browse(cr, uid, production_id, context=context)
         product = production.product_id
-        #POP-006
+        #POP-006,007
         wip_expired_date = False
+        lot_name = False
         for pick in production.ineco_stock_picking_ids:
             if pick.stock_journal_id.ineco_stock_type == 'wip' and pick.stock_journal_id.name == 'WIP'and not wip_expired_date:
                 for move in pick.move_lines:
                     if not wip_expired_date:
                         wip_expired_date = move.prodlot_id.date_expired
+                        lot_name = move.prodlot_id.name 
                         
         uom = production.product_uom
         stock_move_obj = self.pool.get('stock.move')
@@ -160,6 +163,7 @@ class mrp_production(osv.osv):
                 #POP-004
                 if wip_expired_date and sm.picking_id.stock_journal_id.ineco_use_expire:
                     context['wip_expired_date'] = wip_expired_date
+                    context['lot_name'] = lot_name 
                 product_val = {
                     'product_id': sm.product_id.id,
                 }
