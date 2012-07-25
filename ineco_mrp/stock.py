@@ -59,7 +59,8 @@ class stock_production_lot(osv.osv):
     def create(self, cr, uid, vals, context=None):
         product_obj = self.pool.get('product.product').browse(cr, uid, vals['product_id'])
         if 'lot_name' in context:
-            lot_name = context=['lot_name']
+            lot_name = context['lot_name']
+            vals.update({'name': lot_name})
         else:
             lot_name = self.pool.get('ir.sequence').get(cr, uid, 'stock.lot.serial')
         lot_ids =  self.pool.get('stock.production.lot').search(cr, uid, [('product_id','=',product_obj.id),('name','=',lot_name)]) 
