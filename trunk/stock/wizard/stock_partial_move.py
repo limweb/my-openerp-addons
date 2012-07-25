@@ -23,13 +23,12 @@ from osv import fields, osv
 from tools.translate import _
 import time
 
-
 class stock_partial_move_memory_out(osv.osv_memory):
     _name = "stock.move.memory.out"
     _rec_name = 'product_id'
     _columns = {
         'product_id' : fields.many2one('product.product', string="Product", required=True),
-        'quantity' : fields.float("Quantity", required=True),
+        'quantity' : fields.float("Quantity", digits=(14,4), required=True),
         'product_uom': fields.many2one('product.uom', 'Unit of Measure', required=True),
         'prodlot_id' : fields.many2one('stock.production.lot', 'Production Lot'),
         'move_id' : fields.many2one('stock.move', "Move"),
