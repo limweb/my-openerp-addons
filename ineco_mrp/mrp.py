@@ -25,6 +25,7 @@
 # 21-07-2012     POP-005    Change Transfer Journal
 # 24-07-2012     POP-006    Add Expired Date Lot By WIP
 # 25-07-2012     POP-007    Add Lot Name By WIP
+# 28-07-2012     POP-008    Default Category UOM
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -138,7 +139,36 @@ class mrp_production(osv.osv):
     _description = 'Manufacturing Order'
     _columns = {
         'ineco_stock_picking_ids': fields.one2many('stock.picking','production_id','Stock Picking'),
+        'category_id': fields.many2one('product.uom.categ', 'UOM Category', ondelete="restrict"),
     }
+
+    #POP-008
+    def product_id_change(self, cr, uid, ids, product_id, context=None):
+        """ Finds UoM of changed product.
+        @param product_id: Id of changed product.
+        @return: Dictionary of values.
+        """
+        if not product_id:
+            return {'value': {
+                'product_uom': False,
+                'bom_id': False,
+                'routing_id': False
+            }}
+        bom_obj = self.pool.get('mrp.bom')
+        product = self.pool.get('product.product').browse(cr, uid, product_id, context=context)
+        bom_id = bom_obj._bom_find(cr, uid, product.id, product.uom_id and product.uom_id.id, [])
+        routing_id = False
+        if bom_id:
+            bom_point = bom_obj.browse(cr, uid, bom_id, context=context)
+            routing_id = bom_point.routing_id.id or False
+        result = {
+            'product_uom': product.uom_id and product.uom_id.id or False,
+            'category_id': product.uom_id and product.uom_id.category_id and product.uom_id.category_id.id or False,
+            'bom_id': bom_id,
+            'routing_id': routing_id
+        }
+
+        return {'value': result}
 
     def action_produce(self, cr, uid, production_id, production_qty, production_mode, context=None):
         production = self.browse(cr, uid, production_id, context=context)
