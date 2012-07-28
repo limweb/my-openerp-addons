@@ -8,10 +8,26 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<xpath expr="/form/notebook" position="inside">
-					<page string="Images">
-						<field name="image_garment" colspan="4" nolabel="1" widget="binary" />
+					<page string="Images">						
+						<notebook colspan="4">
+						    <page string="Picture 1">
+						        <field name="image_garment" colspan="4" nolabel="1" widget="binary" />
+						        <field name="preview_image_garment" nolabel="1" widget="image" />
+						    </page>
+						    <page string="Attachment 1">
+						        <field name="attachment_image1" nolabel="1" widget="image" />
+						    </page>
+						    <page string="Attachment 2">
+						        <field name="attachment_image2" nolabel="1" widget="image" />
+						    </page>
+						    <page string="Attachment 3">
+						        <field name="attachment_image3" nolabel="1" widget="image" />
+						    </page>
+						</notebook>
 						<newline />
-						<field name="preview_image_garment" nolabel="1" widget="image" />
+						
+ 						<newline />
+						
 					</page>
 				</xpath>
 			</field>

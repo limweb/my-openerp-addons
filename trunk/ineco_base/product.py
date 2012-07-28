@@ -33,6 +33,8 @@ from decimal import *
 import decimal_precision as dp
 import base64
 import os
+import Image
+import urllib
 
 try:
     from cStringIO import StringIO
@@ -137,6 +139,49 @@ class product_product(osv.osv):
         for each in ids:
             res[each] = self.get_image_url(cr, uid, each)
         return res
+
+    def get_image_attachment_url(self, cr, uid, ids, url):
+        image = False
+        if url :
+            if url.find('.jpg') or url.find('.bmp') or url.find('.gif'):
+                tmp = urllib.urlopen(url).read()
+                if tmp:
+                    image = base64.encodestring(tmp) 
+            #image = base64.encodestring(Image.open(StringIO(urllib.urlopen(url).read())))
+        return image
+
+    def _get_image_attachment(self, cr, uid, ids, field_name, arg, context={}):
+        res = {}
+        attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('type','=','url'),('res_model','=','product.product'),('res_id','in',ids)])
+        index = 0
+        for each in ids:
+            for attach in self.pool.get('ir.attachment').browse(cr, uid, attach_ids) :
+                index += 1
+                if index == 1 :
+                     res[each] = self.get_image_attachment_url(cr, uid, ids, attach.url)
+        return res
+
+    def _get_image_attachment2(self, cr, uid, ids, field_name, arg, context={}):
+        res = {}
+        attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('type','=','url'),('res_model','=','product.product'),('res_id','in',ids)])
+        index = 0
+        for each in ids:
+            if attach_ids and len(attach_ids) >= 2: 
+                attach = self.pool.get('ir.attachment').browse(cr, uid, attach_ids)[1]
+                res[each] = self.get_image_attachment_url(cr, uid, ids, attach.url)
+                     
+        return res
+
+    def _get_image_attachment3(self, cr, uid, ids, field_name, arg, context={}):
+        res = {}
+        attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('type','=','url'),('res_model','=','product.product'),('res_id','in',ids)])
+        index = 0
+        for each in ids:
+            for attach in self.pool.get('ir.attachment').browse(cr, uid, attach_ids) :
+                index += 1
+                if index == 3 :
+                     res[each] = self.get_image_attachment_url(cr, uid, ids, attach.url)
+        return res
     
     _name = "product.product"
     _inherit = "product.product"
@@ -148,6 +193,9 @@ class product_product(osv.osv):
         'keeping_id': fields.many2one('ineco.stock.keeping.method','Keeping Method'),
         'warehouse_uom': fields.many2one('product.uom', 'Warehouse Unit of Measure'),
         'sticker_category_id': fields.many2one('ineco.stock.sticker.category', 'Sticker Category'),
+        'attachment_image1': fields.function(_get_image_attachment, type="binary", method=True),
+        'attachment_image2': fields.function(_get_image_attachment2, type="binary", method=True),
+        'attachment_image3': fields.function(_get_image_attachment3, type="binary", method=True),
     }
 
     #POP-001
