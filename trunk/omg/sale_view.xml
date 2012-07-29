@@ -462,7 +462,21 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 		<menuitem action="act_sale_period_category" id="menu_sale_period_category_master" parent="base.menu_sale_config_sales" />
-		<!--Location-->
-						
+
+		
+		<record model="ir.ui.view" id="view_omg_sale_orderline_form">
+			<field name="name">omg.sale.orderline.form</field>
+			<field name="type">form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page[@string='Sales Order']/field[@name='order_line']/form/notebook/page[@string='Notes]" position="after">
+				    <page string="Location">
+				        <field name="branch_ids" />
+				    </page>
+				</xpath>
+			</field>
+		</record>
+										
 	</data>
 </openerp>
