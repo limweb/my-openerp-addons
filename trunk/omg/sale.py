@@ -816,7 +816,7 @@ class sale_order(osv.osv):
                         output_id = order.shop_id.warehouse_id.lot_output_id.id
                         picking_id = False
                         for line in order.order_line:
-                            print "Location %s -> %s %s" % (location.location_id.name, line.product_id.name, datetime.now()-t0)
+                            #print "Location %s -> %s %s" % (location.location_id.name, line.product_id.name, datetime.now()-t0)
                             proc_id = False
                             date_planned = datetime.strptime(period.date_start, '%Y-%m-%d') - relativedelta(days=line.delay or 0.0) - relativedelta(days=location.location_id.chained_delay or 0.0)
                             date_planned = (date_planned - timedelta(days=company.security_lead)).strftime('%Y-%m-%d %H:%M:%S')
@@ -1489,18 +1489,82 @@ class sale_order_line(osv.osv):
     #POP-025
     def create_line_branch(self, cr, uid, ids, context=None):
         for line in self.browse(cr, uid, ids):
-            cr.execute('delete from sale_order_line_branch where sale_line_id = %s' % (line.sale_line_id))
+            cr.execute('delete from sale_order_line_branch where sale_line_id = %s' % (line.id))
             cr.commit()
+            
+            total_day = 1
+            if line.with_period and line.order_id.sale_period_days:
+                total_day = line.order_id.sale_period_days or 1.0
+    
+            total_location = 1
+            if line.with_branch and line.order_id.sale_location_counts:
+                total_location = line.order_id.sale_location_counts or 1.0
+    
+            new_qty = int(total_day) * line.product_uom_qty
+            
+            #POP-005
+            if not line.apply_all_store:
+                #POP-011
+                if location.estimate:
+                    estimate = location.estimate           
+                    new_qty = ((estimate * (1/(line.omg_ratio or 1.0))) / (line.omg_sampling or 1.0)) * int(total_day)                                
+                    new_qty = round(new_qty)
+                    if line.omg_percent_rate:
+                        new_qty = ( ( estimate * line.omg_percent_rate/100 ) / (line.omg_ratio or 1.0) ) * int(total_day)
+                        new_qty = round(new_qty)                                            
+                else:
+                    lineqty_obj = self.pool.get('stock.location.line.qty')
+                    lineqty_ids = lineqty_obj.search(cr, uid, [('location_id', '=', location.location_id.id),('categ_id','=',line.product_id.categ_id.id)])
+                    if lineqty_ids:
+                        if line.product_id.use_location_qty:
+                            lineqty = lineqty_obj.browse(cr, uid, lineqty_ids)[0]           
+                            #POP-007                 
+                            new_qty = ((lineqty.quantity * (1/(line.omg_ratio or 1.0))) / (line.omg_sampling or 1.0)) * int(total_day)
+                            #POP-009
+                            new_qty = round(new_qty)
+                    else:
+                        if line.product_id.customer_material:
+                            raise osv.except_osv(_('No Product Estimate'), _('Please define product ('+ line.product_id.name +') estimate in location \n'+location.location_id.name+' | '+line.product_id.categ_id.name+'.'))                                        
+                        else:
+                            #POP-007
+                            new_qty = ((line.product_uom_qty * (1/(line.omg_ratio or 1.0))) / (line.omg_sampling or 1.0)) * int(total_day)
+                            #POP-009
+                            new_qty = round(new_qty)
+                #POP-023
+                #DAY-001 ต่ำกว่า 0.25 = 0 , 0.25-0.75 = 0.5 , 0.76+ = 1
+                if line.product_id.uom_id <> line.product_id.warehouse_uom and line.product_id.full_warehouse_uom:
+                    full_warehouse_qty = round(1/(line.product_id.warehouse_uom.factor or 1))
+                    if full_warehouse_qty > 1:
+                        lesspack = round(new_qty,2) % round(full_warehouse_qty,2)
+                        fullpack = round(new_qty,2) / round(full_warehouse_qty,2)
+                        if fullpack:
+                            if fullpack > 1:
+                                #fullpack = round(fullpack)
+                                fullpack = round(new_qty,2) // round(full_warehouse_qty,2)
+                                less_ratio = lesspack / full_warehouse_qty
+                                if less_ratio and less_ratio >= 0.75:
+                                    fullpack = fullpack + 1
+                                    new_qty = fullpack * full_warehouse_qty
+                                elif less_ratio and less_ratio >= 0.25:
+                                    fullpack = fullpack + 0.5
+                                    new_qty = round(fullpack * full_warehouse_qty)
+                                else:
+                                    new_qty = fullpack * full_warehouse_qty
+                            else:
+                                new_qty = new_qty
+                        else:
+                            new_qty = new_qty
+
             for location in line.order_id.sale_location_ids:
                 new_data = {               
-                    'name': False,
+                    'name': line.name,
                     'order_id': line.order_id.id,
                     'sale_line_id': line.id,
                     'location_id': location.location_id.id,
                     'delivery_type_id': False,
                     'process': True,
                     'product_id': line.product_id.id,
-                    'pm_qty': line.product_qty,
+                    'pm_qty': new_qty, # line.product_uom_qty,
                     'pm_uom_id': line.product_uom.id,
                     'note': False,
                 }
