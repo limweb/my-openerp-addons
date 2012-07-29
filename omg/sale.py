@@ -48,6 +48,8 @@
 # 05-07-2012       POP-024    Add Adjust Stock Store
 # 17-07-2012       DAY-002    Group Invoice
 # 23-07-2012       DAY-003    Add Class Cash Advance Other
+# 29-07-2012       POP-025    Add Sale Order Line Branch 
+#                  POP-026    Add Delivery Type
 
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
@@ -65,6 +67,47 @@ import pooler
 import tools 
 
 from operator import itemgetter
+
+#POP-026
+class omg_delivery_type(osv.osv):
+    _name = "omg.delivery.type"
+    _description = "Delivery Kind"
+    _columns = {
+        'name': fields.char('Code', size=50, required=True),
+        'description': fields.char('Description',size=250),
+    }
+    _sql_constraints = [
+        ('code_unique', 'unique (name)', 'The code of the Delivery Type must be unique!')
+    ]
+    
+omg_delivery_type()
+
+#POP-025
+class sale_order_line_branch(osv.osv):
+    _name = 'sale.order.line.branch'
+    _description = 'Sale Line in Branch'
+    _columns = {
+        'name': fields.char('Description', size=250, required=True),
+        'order_id': fields.many2one('sale.order','Sale Order',required=True),
+        'sale_line_id': fields.many2one('sale.order.line','Line',required=True),
+        'location_id': fields.many2one('stock.location','Location',required=True),
+        'delivery_type_id': fields.many2one('omg.delivery.type','Delivery Type'),
+        'process': fields.boolean('Process'),
+        'product_id': fields.many2one('product.product','Product',required=True),
+        'pm_qty': fields.float('PM Qty', digits=(8,2), required=True),
+        'pm_uom_id': fields.many2one('product.uom','PM Uom', required=True),
+        'note': fields.char('Note', size=250),
+    }
+    _defaults = {
+        'process': False,
+        'note': False,
+        'pm_qty': 0,        
+    }
+    _sql_constraints = [
+        ('line_location_product_unique', 'unique (sale_line_id, location_id, product_id)', 'Data must be unique!')
+    ]    
+sale_order_line_branch()
+
 
 class sale_period_line(osv.osv):
 
@@ -1433,6 +1476,7 @@ class sale_order_line(osv.osv):
         'omg_ratio': fields.float('Ratio', digits=(8,2)),
         'omg_sampling': fields.integer('Qty Sampling'),
         'omg_percent_rate': fields.integer('% Rate'),
+        'branch_ids': fields.one2many('sale.order.line.branch', 'sale_line_id', 'Branch')
     }
     _defaults = {
         'with_branch':True,
@@ -1441,6 +1485,28 @@ class sale_order_line(osv.osv):
         'omg_sampling': 1.0,
         'omg_percent_rate': 0,
     }
+    
+    #POP-025
+    def create_line_branch(self, cr, uid, ids, context=None):
+        for line in self.browse(cr, uid, ids):
+            cr.execute('delete from sale_order_line_branch where sale_line_id = %s' % (line.sale_line_id))
+            cr.commit()
+            for location in line.order_id.sale_location_ids:
+                new_data = {               
+                    'name': False,
+                    'order_id': line.order_id.id,
+                    'sale_line_id': line.id,
+                    'location_id': location.location_id.id,
+                    'delivery_type_id': False,
+                    'process': True,
+                    'product_id': line.product_id.id,
+                    'pm_qty': line.product_qty,
+                    'pm_uom_id': line.product_uom.id,
+                    'note': False,
+                }
+                line_branch_id = self.pool.get('sale.order.line.branch').create(cr ,uid, new_data)                
+            
+        return True
     
 #    def write(self, cr, uid, ids, vals, context=None):
 #        cur_obj = self.pool.get('res.currency')
@@ -1783,6 +1849,7 @@ class omg_sale_location_group_special_query(osv.osv):
         """)
     
 omg_sale_location_group_special_query()
+
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
