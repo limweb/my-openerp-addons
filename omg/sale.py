@@ -50,6 +50,8 @@
 # 23-07-2012       DAY-003    Add Class Cash Advance Other
 # 29-07-2012       POP-025    Add Sale Order Line Branch 
 #                  POP-026    Add Delivery Type
+# 30-07-2012       DAY-004    Bug Cancel Sale Order
+# 30-07-2012       DAY-005    Add Fields Locations Type
 
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
@@ -201,7 +203,7 @@ class omg_stock_location_group_special(osv.osv):
     _name = 'omg.stock.location.group.special'
     _description = "Location Group Special"
     _columns = {
-        'name': fields.char('DescDAY-001ription', size=100),
+        'name': fields.char('Description', size=100),
         'location_id': fields.many2one('stock.location', 'Location'),
         'group_id': fields.many2one('omg.sale.group.special', 'Group'),
     }
@@ -228,6 +230,8 @@ class sale_branch_line(osv.osv):
         'group': fields.char('Group',size=32),
         'department': fields.char('Department',size=64),
         'estimate': fields.integer('Estimate'),
+#        DAY-005
+        'location_type_id': fields.related('location_id', 'location_type_id', type='many2one', relation='omg.sale.location.type', store=True, string='Type'),        
     }    
     
     _defaults = {
@@ -1365,11 +1369,12 @@ class sale_order(osv.osv):
             if order.period_id.warehouse_lock:
                 raise osv.except_osv(_('Period Locked.'), _('Peiord ('+ order.period_id.name +') was locked by Logistic Control.'))
 
-            for location_book in order.sale_location_ids:
-                location_booking_ids = self.pool.get('stock.location.booking').search(cr, uid, 
-                    [('order_id','=',location_book.sale_id.id),('location_id','=',location_book.location_id.id)])
-                if location_booking_ids:
-                    self.pool.get('stock.location.booking').write(cr, uid, location_booking_ids, {'state':'cancel'})
+            #DAY-004
+#            for location_book in order.sale_location_ids:
+#                location_booking_ids = self.pool.get('stock.location.booking').search(cr, uid, 
+#                    [('order_id','=',location_book.sale_id.id),('location_id','=',location_book.location_id.id)])
+#                if location_booking_ids:
+#                    self.pool.get('stock.location.booking').write(cr, uid, location_booking_ids, {'state':'cancel'})
 
             for pick in order.picking_ids:
                 if pick.state not in ('cancel'):

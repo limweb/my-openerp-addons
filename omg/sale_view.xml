@@ -88,6 +88,7 @@
 							<tree string="Branch">
 								<field name="location_id" />
 								<field name="location_name" />
+								<field name="location_type_id"/>
 								<field name="estimate" />
 							</tree>
 						</field>
@@ -179,6 +180,24 @@
 				</xpath>
 			</field>
 		</record>
+		<record model="ir.ui.view" id="view_omg_sale_order_copy_inherited_form">
+			<field name="name">omg.sale.order.copy.inherited.form</field>
+			<field name="type">form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page/field[@name='order_line']" position="before">
+            		<button
+                        name="%(omg_sale_order_copy)d"
+                        string="Copy Sale Order"
+                        type="action" 
+                        icon="terp-stock_effects-object-colorize"
+                        states="draft" 
+                        colspan="4"
+                        context="{'passing':0}" />     
+            	</xpath> 
+			</field>
+		</record>		
 		<record model="ir.ui.view" id="view_omg_sale_order_inherited_form">
 			<field name="name">omg.sale.order.inherited.form</field>
 			<field name="type">form</field>
