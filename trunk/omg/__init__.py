@@ -34,6 +34,7 @@ import purchase
 import partner
 import address
 import res_users
+import omg_sale_order_copy
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

@@ -111,6 +111,7 @@
 						<field name="location_lines" nolabel="1" attrs="{'readonly': [('state','in',('done','cancel'))]}">
 							<tree string="Location List" editable="bottom">
 								<field name="location_id" domain="[('omg_approve','=',True)]"/>
+								<field name="location_type_id" />
 								<field name="group_name" />
 							</tree>
 						</field>
