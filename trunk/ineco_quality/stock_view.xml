@@ -46,7 +46,6 @@
 				</button>
 			</field>
 		</record> 
-		 -->
 		
 		<record id="view_ineco_quality_stock_picking_in_form" model="ir.ui.view">
 			<field name="name">ineco.quality.stock.picking.in.form</field>
@@ -71,6 +70,7 @@
 				</xpath>
 			</field>
 		</record> 
+		 -->
 		
 		<!-- Stock Journal -->
         <record model="ir.ui.view" id="view_ineco_stock_journal_tree">
@@ -81,6 +81,7 @@
             <field name="arch" type="xml">
             	<field name="name" position="after">
             	    <field name="ineco_qc_check" />
+            	    <field name="ineco_qc_approve" />
             	</field>
             </field>
         </record>
@@ -93,6 +94,7 @@
             <field name="arch" type="xml">
             	<field name="name" position="after">
             	    <field name="ineco_qc_check" />
+            	    <field name="ineco_qc_approve" />
             	</field>
             </field>
         </record>
