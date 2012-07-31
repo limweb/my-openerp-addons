@@ -8,12 +8,33 @@
 			<field name="inherit_id" ref="stock.view_move_tree_reception_picking" />
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<field name="state" position="after">
+				<field name="state" position="before">
+				    <field name="qc_pass" />
+				    <field name="qc_note" />
+				    <!-- 
                     <button name="action_qcpass" states="draft, waiting" string="QC Pass" type="object" icon="gtk-yes"/>
+                     -->
 				</field>
 			</field>
 		</record> 
 
+		<record id="view_ineco_stock_move_quality_tree" model="ir.ui.view">
+			<field name="name">ineco.stock.move.quality.tree</field>
+			<field name="model">stock.move</field>
+			<field name="inherit_id" ref="stock.view_move_tree" />
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<field name="state" position="before">
+				    <field name="qc_pass" />
+				    <field name="qc_note" />
+				    <!-- 
+                    <button name="action_qcpass" states="draft, waiting" string="QC Pass" type="object" icon="gtk-yes"/>
+                     -->
+				</field>
+			</field>
+		</record> 
+				
+	    <!-- 
 		<record id="view_ineco_quality_stock_move_receiption_picking_form" model="ir.ui.view">
 			<field name="name">ineco.quality.stock.move.reception.picking.form</field>
 			<field name="model">stock.move</field>
@@ -25,6 +46,7 @@
 				</button>
 			</field>
 		</record> 
+		 -->
 		
 		<record id="view_ineco_quality_stock_picking_in_form" model="ir.ui.view">
 			<field name="name">ineco.quality.stock.picking.in.form</field>
@@ -74,7 +96,32 @@
             	</field>
             </field>
         </record>
-				
 
+        <record id="view_ineco_quality_stock_production_lot_form" model="ir.ui.view">
+			<field name="name">ineco.quality.stock.production.lot.form</field>
+			<field name="model">stock.production.lot</field>
+			<field name="inherit_id" ref="stock.view_production_lot_form" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+            	<xpath expr="/form/notebook" position="inside">
+                	<page string="Quality Control">
+                	    <field name="quality_ids" colspan="4" nolabel="1" readonly="1" />
+                	</page>
+				</xpath>
+			</field>
+		</record>         				
+
+       	<record id="view_ineco_quality_stock_production_lot2_form" model="ir.ui.view">
+			<field name="name">ineco.quality.stock.production.lot2.form</field>
+			<field name="model">stock.production.lot</field>
+			<field name="inherit_id" ref="stock.view_production_lot_form" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+			    <field name="date" position="before">
+               		<field name="qc_pass" colspan="4" />
+			    </field>
+			</field>
+		</record>         				
+        
 	</data>
 </openerp>

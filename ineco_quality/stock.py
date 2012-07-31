@@ -65,18 +65,30 @@ class stock_move(osv.osv):
                 qcpass = qc.qc_pass
             res[move.id] = qcpass 
         return res
+
+    def _get_qcnote(self, cr, uid, ids, field_name, arg, context={}):
+        res = {}
+        moves = self.browse(cr, uid, ids, context=context)
+        for move in moves:            
+            qcnote = ''
+            for qc in move.quality_ids:
+                qcnote = qc.note
+            res[move.id] = qcnote 
+        return res
     
     _name = "stock.move"
     _inherit = "stock.move" 
     _description = "Add Quality Control/Assurance"
     _columns = {
-#        'ineco_quality_hold': fields.boolean('Hold'),
-#        'ineco_quality_pass': fields.boolean('Pass'),
+        'ineco_quality_hold': fields.boolean('Hold'),
+        'ineco_quality_pass': fields.boolean('Pass'),
+        'qc_pass': fields.function(_get_qcpass, string='QC Pass', method=True, type='boolean'),
+        'qc_note': fields.function(_get_qcnote, string='QC Note', method=True, type='string'),
         'quality_ids': fields.one2many('ineco.quality.control', 'move_id', 'Quality Control')
     }
     _defaults = {
-#        'ineco_quality_hold': False,
-#        'ineco_quality_pass': False,
+        'ineco_quality_hold': False,
+        'ineco_quality_pass': False,
     }
     
     #POP-001
@@ -143,7 +155,29 @@ class stock_move(osv.osv):
     
     def action_qcpass(self, cr, uid, ids, context=None):
         moves = self.browse(cr, uid, ids, context=context)
-        self.write(cr, uid, ids, {'ineco_quality_pass': True, 'state': 'done'})        
+        for move in moves:
+            self.write(cr, uid, move.id, {'ineco_quality_pass': True, 'state': 'done'})        
         return True
         
 stock_move()
+
+class stock_production_lot(osv.osv):
+    
+    def _get_qcpass(self, cr, uid, ids, field_name, arg, context={}):
+        res = {}
+        lots = self.browse(cr, uid, ids, context=context)
+        for lot in lots:            
+            qcpass = False
+            for qc in lot.quality_ids:
+                if qcpass <> qc.qc_pass:
+                    qcpass = qc.qc_pass
+            res[lot.id] = qcpass 
+        return res
+    
+    _inherit = 'stock.production.lot'
+    _description = "Quality Control of Lot"
+    _columns = {
+        'quality_ids': fields.one2many('ineco.quality.control', 'prodlot_id', 'Quality Control'),
+        'qc_pass': fields.function(_get_qcpass, string='QC Pass', method=True, type='boolean'),
+    }
+stock_production_lot()
