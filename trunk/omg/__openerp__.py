@@ -74,7 +74,7 @@
         'wizard/wizard_report_delivery_return_view.xml',
         'address_view.xml',
         'wizard/update_location_qty_view.xml',
-        'omg_sale_order_copy.xml',
+        'omg_sale_order_copy_view.xml',
         ],
     'demo_xml': [],
     'installable': True,

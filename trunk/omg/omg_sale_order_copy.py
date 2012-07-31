@@ -28,9 +28,6 @@ import netsvc
 import pooler
 from osv.orm import browse_record, browse_null
 
-
-
-
 class omg_sale_order_copy(osv.osv_memory):
     
     _name = "omg.sale.order.copy"
