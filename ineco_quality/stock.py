@@ -21,6 +21,8 @@
 
 # 11-07-2012    POP-001    Add auto create when stock move done
 # 21-07-2012    POP-002    Add QC Check in Stock Journal
+# 31-07-2012    POP-003    Add Relation QC in LOT / Stock Move
+#               POP-004    Check QC Approve before Issue/DO
 
 import math
 
@@ -45,10 +47,12 @@ class stock_journal(osv.osv):
     _inherit = "stock.journal"
     _description = "Add QC Check in Stock Journal"
     _columns = {
-        'ineco_qc_check': fields.boolean('QC Check'),
+        'ineco_qc_check': fields.boolean('Create QC Check'),
+        'ineco_qc_approve': fields.boolean('Check QC Before Issue/Delivery'),
     }
     _defaults = {
-        'ineco_qc_check': False    
+        'ineco_qc_check': False,
+        'ineco_qc_approve': False,
     }
 
 stock_journal()
@@ -59,10 +63,16 @@ class stock_move(osv.osv):
     def _get_qcpass(self, cr, uid, ids, field_name, arg, context={}):
         res = {}
         moves = self.browse(cr, uid, ids, context=context)
-        for move in moves:            
-            qcpass = True
-            for qc in move.quality_ids:
-                qcpass = qc.qc_pass
+        for move in moves:
+            qcpass = False
+            if move.quality_ids:
+                for qc in move.quality_ids:
+                    if not qc.qc_pass:
+                        qcpass = False
+                        break
+                    qcpass = qc.qc_pass
+            else:
+                qcpass = True
             res[move.id] = qcpass 
         return res
 
@@ -71,8 +81,11 @@ class stock_move(osv.osv):
         moves = self.browse(cr, uid, ids, context=context)
         for move in moves:            
             qcnote = ''
-            for qc in move.quality_ids:
-                qcnote = qc.note
+            if move.quality_ids:
+                for qc in move.quality_ids:
+                    qcnote = qc.note
+            else:
+                qcnote = 'No Check'
             res[move.id] = qcnote 
         return res
     
@@ -82,6 +95,7 @@ class stock_move(osv.osv):
     _columns = {
         'ineco_quality_hold': fields.boolean('Hold'),
         'ineco_quality_pass': fields.boolean('Pass'),
+        #POP-003
         'qc_pass': fields.function(_get_qcpass, string='QC Pass', method=True, type='boolean'),
         'qc_note': fields.function(_get_qcnote, string='QC Note', method=True, type='string'),
         'quality_ids': fields.one2many('ineco.quality.control', 'move_id', 'Quality Control')
@@ -99,10 +113,15 @@ class stock_move(osv.osv):
             ids = [ids]
         if 'state' in vals and vals['state'] == 'done':
             for sm in self.pool.get('stock.move').browse(cr, uid, ids):
-                
+                #POP-004
+                if sm.picking_id and sm.picking_id.stock_journal_id and sm.picking_id.stock_journal_id.ineco_qc_approve:
+                    if not sm.prodlot_id.qc_pass:
+                        raise osv.except_osv(_('QC Not Pass !'), _('QC Not Pass!, Check information about ['+sm.product_id.name+']'))                
+                    
                 #POP-002
                 use_quality_form = False
                 if not use_quality_form:
+                    #Form Incoming
                     use_quality_form = not sm.picking_id.stock_journal_id
                 if not use_quality_form:
                     use_quality_form = sm.picking_id.stock_journal_id.ineco_qc_check
@@ -161,6 +180,7 @@ class stock_move(osv.osv):
         
 stock_move()
 
+#POP-003
 class stock_production_lot(osv.osv):
     
     def _get_qcpass(self, cr, uid, ids, field_name, arg, context={}):
@@ -168,9 +188,14 @@ class stock_production_lot(osv.osv):
         lots = self.browse(cr, uid, ids, context=context)
         for lot in lots:            
             qcpass = False
-            for qc in lot.quality_ids:
-                if qcpass <> qc.qc_pass:
+            if lot.quality_ids:
+                for qc in lot.quality_ids:
+                    if not qc.qc_pass:
+                        qcpass = False
+                        break
                     qcpass = qc.qc_pass
+            else:
+                qcpass = True            
             res[lot.id] = qcpass 
         return res
     
