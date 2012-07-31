@@ -188,7 +188,7 @@
 			<field name="arch" type="xml">
             	<xpath expr="/form/notebook/page/field[@name='order_line']" position="before">
             		<button
-                        name="%(omg_sale_order_copy)d"
+                        name="%(omg.omg_sale_order_copy_load)d"
                         string="Copy Sale Order"
                         type="action" 
                         icon="terp-stock_effects-object-colorize"
