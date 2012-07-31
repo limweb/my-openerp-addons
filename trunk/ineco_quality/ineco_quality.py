@@ -103,7 +103,7 @@ class ineco_quality_control(osv.osv):
         res = {}
         quality = self.browse(cr, uid, ids, context=context)
         for qc in quality:
-            qcpass = True
+            qcpass = False
             for line in qc.line_ids:
                 qcpass = qcpass and line.qc_pass
             if qc.qc_force_pass:

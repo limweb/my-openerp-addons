@@ -55,16 +55,28 @@ stock_journal()
 
 
 class stock_move(osv.osv):
+    
+    def _get_qcpass(self, cr, uid, ids, field_name, arg, context={}):
+        res = {}
+        moves = self.browse(cr, uid, ids, context=context)
+        for move in moves:            
+            qcpass = True
+            for qc in move.quality_ids:
+                qcpass = qc.qc_pass
+            res[move.id] = qcpass 
+        return res
+    
     _name = "stock.move"
     _inherit = "stock.move" 
     _description = "Add Quality Control/Assurance"
     _columns = {
-        'ineco_quality_hold': fields.boolean('Hold'),
-        'ineco_quality_pass': fields.boolean('Pass'),
+#        'ineco_quality_hold': fields.boolean('Hold'),
+#        'ineco_quality_pass': fields.boolean('Pass'),
+        'quality_ids': fields.one2many('ineco.quality.control', 'move_id', 'Quality Control')
     }
     _defaults = {
-        'ineco_quality_hold': False,
-        'ineco_quality_pass': False,
+#        'ineco_quality_hold': False,
+#        'ineco_quality_pass': False,
     }
     
     #POP-001
