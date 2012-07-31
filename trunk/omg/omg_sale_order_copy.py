@@ -24,6 +24,12 @@ from osv import fields, osv
 from tools.translate import _
 import decimal_precision as dp
 import time
+import netsvc
+import pooler
+from osv.orm import browse_record, browse_null
+
+
+
 
 class omg_sale_order_copy(osv.osv_memory):
     
