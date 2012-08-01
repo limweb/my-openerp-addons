@@ -101,15 +101,17 @@ class ineco_quality_control(osv.osv):
     
     def _get_pass(self, cr, uid, ids, field_name, arg, context={}):
         res = {}
-        quality = self.browse(cr, uid, ids, context=context)
-        for qc in quality:
+        for qc in self.browse(cr, uid, ids, context=context):
             qcpass = False
-            for line in qc.line_ids:
-                qcpass = qcpass and line.qc_pass
-            if qc.qc_force_pass:
-                res[qc.id] = True
+            if qc.line_ids:
+                for line in qc.line_ids:
+                    qcpass = qcpass and line.qc_pass
+                if qc.qc_force_pass:
+                    res[qc.id] = True
+                else:
+                    res[qc.id] = qcpass
             else:
-                res[qc.id] = qcpass 
+                res[qc.id] = False 
         return res
         
     _name = "ineco.quality.control"
