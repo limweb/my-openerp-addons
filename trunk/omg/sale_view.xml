@@ -47,14 +47,14 @@
 					<page string="Cash Advance Other">
 						<field colspan="4" name="sale_cash_advance_ids" mode="tree,form" nolabel="1" widget="one2many_list">
 							<form string="Cash Advance Other">
-								<field name="location_id" domain="[('omg_approve','=',True)]"/>
+								<field name="location_id" domain="[('id','in',[ x[2]['location_id'][0] for x in parent.sale_location_ids])]"/>
 								<field name="product_id" on_change="onchange_product_id(product_id)" domain="[('cash_advance','=',True)]"/>
 								<field name="amount" />
 							</form>
 							<tree string="Cash Advance Other">
 								<field name="location_id" />
 								<field name="product_id" />
-								<field name="amount" />
+								<field name="amount" sum="amount" />
 							</tree>
 						</field>
 					</page>					
