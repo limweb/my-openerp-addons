@@ -263,6 +263,11 @@
             <field name="type">search</field>
             <field name="arch" type="xml">
 				<search string="Quality Control">
+				    <group>
+				        <filter icon="terp-check" name="draft" string="Draft" domain="[('state', '=', 'draft')]" />
+				        <filter icon="terp-camera_test" name="confirm" string="Confirm" domain="[('state', '=', 'confirm')]" />
+				        <filter icon="terp-dialog-close" name="done" string="Done" domain="[('state', '=', 'done')]" />				        				        
+				    </group>
 					<group>
 						<field name="name" />
 						<field name="date" />
