@@ -145,6 +145,7 @@ class ineco_quality_control(osv.osv):
         'date': lambda *a: time.strftime('%Y-%m-%d'), 
         'state':'draft',       
     }
+    _order = "name desc"
     
     def act_confirm(self, cr, uid, ids, context=None):
         self.write(cr, uid, ids, {'state':'inprogress'})
@@ -217,7 +218,14 @@ class ineco_quality_control_line(osv.osv):
     }
     _defaults = {
     }
-    
+    _order = "seq"
+
+    def create(self, cr, user, vals, context=None):
+        if vals.get('control_id'):
+            data_ids = self.pool.get('ineco.quality.control.line').search(cr, user, [('control_id','=',vals.get('control_id'))])
+            vals['seq'] = len(data_ids) + 1
+        new_id = super(ineco_quality_control_line, self).create(cr, user, vals, context)
+        return new_id
 ineco_quality_control_line()
 
 class ineco_quality_control_line_item(osv.osv):
@@ -239,6 +247,7 @@ class ineco_quality_control_line_item(osv.osv):
     _defaults = {
         'qc_pass': False,
     }
+    _order = "seq"
     
 ineco_quality_control_line_item()
 
