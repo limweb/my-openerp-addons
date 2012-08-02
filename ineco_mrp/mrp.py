@@ -26,6 +26,7 @@
 # 24-07-2012     POP-006    Add Expired Date Lot By WIP
 # 25-07-2012     POP-007    Add Lot Name By WIP
 # 28-07-2012     POP-008    Default Category UOM
+# 01-08-2012     POP-009    Add default QC Disable = False in Trasfer
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -350,6 +351,8 @@ class mrp_production(osv.osv):
                 'state': 'draft',
                 'min_date': production.date_planned,
                 'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                #POP-009
+                'qc_disable': False,
             }
             picking_id = stock_picking_obj.create(cr, uid, picking)
 

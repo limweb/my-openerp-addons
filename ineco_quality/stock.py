@@ -23,6 +23,7 @@
 # 21-07-2012    POP-002    Add QC Check in Stock Journal
 # 31-07-2012    POP-003    Add Relation QC in LOT / Stock Move
 #               POP-004    Check QC Approve before Issue/DO
+# 01-08-2012    POP-005    Add QC Disable in Stock Picking
 
 import math
 
@@ -56,6 +57,23 @@ class stock_journal(osv.osv):
     }
 
 stock_journal()
+
+#POP-005
+class stock_picking(osv.osv):
+    _inherit = "stock.picking"
+    _columns = {
+        'qc_disable': fields.boolean('Disable QC'),
+    }
+    _defaults = {
+        'qc_disable': True
+    }
+    
+    def create(self, cr, user, vals, context=None):
+        if ('qc_disable' in context):
+            vals['qc_disable'] = False
+        return super(stock_picking, self).create(cr, user, vals, context)
+       
+stock_picking()
 
 
 class stock_move(osv.osv):
@@ -125,8 +143,9 @@ class stock_move(osv.osv):
                     use_quality_form = not sm.picking_id.stock_journal_id
                 if not use_quality_form:
                     use_quality_form = sm.picking_id.stock_journal_id.ineco_qc_check
-                    
-                if use_quality_form and sm.product_id.ineco_quality_journal_id :
+                
+                #POP-005
+                if use_quality_form and sm.product_id.ineco_quality_journal_id and not sm.picking_id.qc_disable :
                     quality_obj = self.pool.get('ineco.quality.control')
                     quality_ids = quality_obj.search(cr,uid,[('move_id','=',sm.id)])
                     partner_id = 1 #default
