@@ -620,7 +620,7 @@ class stock_picking(osv.osv):
                     seq_obj_name = stock_journal.sequence_id.code
                 else:
                     seq_obj_name =  'stock.picking.' + vals['type']
-            elif ('stock_journal_id' in context):
+            elif ('stock_journal_id' in context): #make stock_journal_id in context
                 stock_journal_ids = self.pool.get('stock.journal').search(cr, user, [('name','=',context['stock_journal_id'])])
                 if stock_journal_ids:
                     stock_journal = self.pool.get('stock.journal').browse(cr, user, stock_journal_ids)[0]
