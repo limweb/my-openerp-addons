@@ -69,6 +69,8 @@ class stock_picking(osv.osv):
     }
     
     def create(self, cr, user, vals, context=None):
+        if not context:
+            context = {}
         if ('qc_disable' in context):
             vals['qc_disable'] = False
         return super(stock_picking, self).create(cr, user, vals, context)
