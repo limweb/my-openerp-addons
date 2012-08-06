@@ -56,11 +56,9 @@ class omg_sale_order_copy(osv.osv_memory):
                 product_idss = list(set(product_ids)-set(cp_product_ids))
                 if product_ids:
                     if len(product_ids) == len(product_idss):
-#                    for lines in sale_order_line_obj:
-#                        if line.product_id.id != lines.product_id.id: 
-                            check_service = self.pool.get('product.product').browse(cr,uid,line.product_id.id)
-                            if check_service.type != 'service':
-                                order_obj = self.pool.get('sale.order.line').create(cr, uid, {
+                        check_service = self.pool.get('product.product').browse(cr,uid,line.product_id.id)
+                        if check_service.type != 'service':
+                            self.pool.get('sale.order.line').create(cr, uid, {
                                     'order_id': order_id[0],
                                     'name':line.name,
                                     'product_id':line.product_id.id,
@@ -71,11 +69,28 @@ class omg_sale_order_copy(osv.osv_memory):
                                     'omg_ratio':line.omg_ratio,
                                     'omg_sampling':line.omg_sampling,
                                     'product_uom_qty':line.product_uom_qty,
-                                    })
+                                   })
+                    else:
+                        check_service = self.pool.get('product.product').browse(cr,uid,line.product_id.id)
+                        if check_service.type != 'service':
+                            sale_lines = self.pool.get('sale.order.line').search(cr,uid,[('order_id','=',order_id[0]),('product_id','=',line.product_id.id)])                                                      
+                            data = {
+                                    'order_id': order_id[0],
+                                    'name':line.name,
+                                    'product_id':line.product_id.id,
+                                    'product_uom':line.product_uom.id,
+                                    'with_branch':line.with_branch,
+                                    'with_period':line.with_period,
+                                    'apply_all_store':line.apply_all_store,
+                                    'omg_ratio':line.omg_ratio,
+                                    'omg_sampling':line.omg_sampling,
+                                    'product_uom_qty':line.product_uom_qty,
+                                   }                        
+                            self.pool.get('sale.order.line').write(cr,uid,sale_lines,data,context=context)                        
                 else:
                     check_service = self.pool.get('product.product').browse(cr,uid,line.product_id.id)
                     if check_service.type != 'service':
-                        order_obj = self.pool.get('sale.order.line').create(cr, uid, {
+                        self.pool.get('sale.order.line').create(cr, uid, {
                                     'order_id': order_id[0],
                                     'name':line.name,
                                     'product_id':line.product_id.id,
