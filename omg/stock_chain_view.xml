@@ -24,7 +24,7 @@
            		</tree>
             </field>
         </record>
-        
+                
         <record id="line_qty_view_location_form" model="ir.ui.view">
        		<field name="name">line.qty.stock.location.form</field>
        		<field name="model">stock.location</field>
