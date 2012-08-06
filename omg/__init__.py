@@ -20,8 +20,8 @@
 ##############################################################################
 
 import wizard 
-import omg_sale_order_copy
 import stock
+import omg_sale_order_copy
 import sale
 import sale_contact
 import product
