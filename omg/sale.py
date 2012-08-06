@@ -171,7 +171,7 @@ class sale_cash_advance_other_line(osv.osv):
     _description = 'Cash Advance Other from Location'
     _columns = {
         'sale_id': fields.many2one('sale.order','Sale Order',ondelete="restrict"),
-        'cash_advance_other_id':fields.many2one('stock.location.cash.advance.other','Cash Advance Other',ondelete="restrict"),
+  #      'cash_advance_other_id':fields.many2one('stock.location.cash.advance.other','Cash Advance Other',ondelete="restrict"),
         'location_id': fields.many2one('stock.location','Location', required=True, ondelete="restrict"),
         'product_id': fields.many2one('product.product','Cash Advance',required=True),
         'amount': fields.float('Amount',required=True),                      
