@@ -19,6 +19,8 @@
 #
 ##############################################################################
 
+# 06-08-2012     POP-001    Disable UOM Category Warning
+
 from osv import osv, fields
 import decimal_precision as dp
 
@@ -138,11 +140,12 @@ class product_uom(osv.osv):
     def _compute_qty_obj(self, cr, uid, from_unit, qty, to_unit, context=None):
         if context is None:
             context = {}
-        if from_unit.category_id.id <> to_unit.category_id.id:
-            if context.get('raise-exception', True):
-                raise osv.except_osv(_('Error !'), _('Conversion from Product UoM %s to Default UoM %s is not possible as they both belong to different Category!.') % (from_unit.name,to_unit.name,))
-            else:
-                return qty
+        #POP-001
+        #if from_unit.category_id.id <> to_unit.category_id.id:
+        #    if context.get('raise-exception', True):
+        #        raise osv.except_osv(_('Error !'), _('Conversion from Product UoM %s to Default UoM %s is not possible as they both belong to different Category!.') % (from_unit.name,to_unit.name,))
+        #    else:
+        #        return qty
         amount = qty / from_unit.factor
         if to_unit:
             amount = rounding(amount * to_unit.factor, to_unit.rounding)
