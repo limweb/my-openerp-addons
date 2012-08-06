@@ -19,8 +19,8 @@
 #
 ##############################################################################
 
-import wizard 
 import stock
+import wizard 
 import omg_sale_order_copy
 import sale
 import sale_contact
