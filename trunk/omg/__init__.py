@@ -21,10 +21,10 @@
 
 import wizard 
 import omg_sale_order_copy
+import stock
 import sale
 import sale_contact
 import product
-import stock
 import procurement
 import purchase_requisition
 import sale_period

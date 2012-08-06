@@ -43,8 +43,7 @@
 								<field name="date_total" />
 							</tree>
 						</field>
-					</page>
-<!--  			
+					</page>					
 					<page string="Cash Advance Other">
 						<field colspan="4" name="sale_cash_advance_ids" mode="tree,form" nolabel="1" widget="one2many_list">
 							<form string="Cash Advance Other">
@@ -58,8 +57,7 @@
 								<field name="amount" sum="amount" />
 							</tree>
 						</field>
-					</page>		
--->										
+					</page>					
 					<page string="Item Check Sales">
 						<field name="item_sale_check_ids" colspan="4" nolabel="1">
 							<tree>
