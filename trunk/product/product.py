@@ -20,6 +20,7 @@
 ##############################################################################
 
 # 06-08-2012     POP-001    Disable UOM Category Warning
+#                POP-002    Disable EAN13 Checking
 
 from osv import osv, fields
 import decimal_precision as dp
@@ -57,8 +58,10 @@ def check_ean(eancode):
 
     check = int(10 - math.ceil(total % 10.0)) %10
 
-    if check != int(eancode[-1]):
-        return False
+    #POP-002
+    #if check != int(eancode[-1]):
+    #    return False
+    
     return True
 #----------------------------------------------------------
 # UOM
