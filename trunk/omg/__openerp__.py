@@ -33,11 +33,11 @@
     'website': 'http://openerp.tititab.com',
     'update_xml': [
         'omg_groups.xml',
+        'stock_chain_view.xml',        
         'wizard/wizard_location_set_view.xml',
         'wizard/wizard_force_delivery_confirm_view.xml',
         'purchase_requisition_view.xml',
-        'analytic_data.xml',
-        'stock_chain_view.xml',        
+        'analytic_data.xml',        
         'stock_view.xml',                
         'omg_sale_order_copy_view.xml',        
         'sale_view.xml',
