@@ -327,7 +327,7 @@ class mrp_production(osv.osv):
 
             source = production.product_id.product_tmpl_id.property_stock_production.id
             if production.product_id.ineco_stock_journal_id:
-                stock_journal = self.pool.get('stock.journal').browse(cr, uid, [production.product_id.ineco_stock_journal_id.id])
+                stock_journal = self.pool.get('stock.journal').browse(cr, uid, [production.product_id.ineco_stock_transfer_journal_id.id or production.product_id.ineco_stock_journal_id.id])
                 if stock_journal:
                     seq_obj_name = stock_journal[0].sequence_id.code
                     picking_name = self.pool.get('ir.sequence').get(cr, uid, seq_obj_name)
