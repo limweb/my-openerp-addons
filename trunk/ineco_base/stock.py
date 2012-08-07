@@ -232,7 +232,7 @@ class stock_move(osv.osv):
             if warehouse_uom_id and product_obj.warehouse_uom:
                 warehouse_qty = uom_obj._compute_qty_obj(cr, uid, product_uom , 
                     product_qty, product_obj.warehouse_uom, context=context )
-            vals.update({'warehouse_uom': warehouse_uom_id,'warehouse_qty': warehouse_qty}) #'warehouse_diff': diff
+            vals.update({'warehouse_uom': warehouse_uom_id,'warehouse_qty': warehouse_qty, 'category_id':product_uom.category_id.id}) #'warehouse_diff': diff
         return super(stock_move, self).create(cr, uid, vals, context)
 
     #POP-022
