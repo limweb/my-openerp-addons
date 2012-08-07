@@ -344,7 +344,7 @@ class mrp_production(osv.osv):
                 'name': picking_name,
                 'production_id': production.id,
                 'origin': (production.origin or '').split(':')[0] + ':' + production.name,
-                'stock_journal_id': production.product_id.ineco_stock_journal_id.id,        
+                'stock_journal_id': production.product_id.ineco_stock_transfer_journal_id.id or production.product_id.ineco_stock_journal_id.id,        
                 'type': 'internal',            
                 'move_type': 'one',
                 'company_id': production.company_id.id,
