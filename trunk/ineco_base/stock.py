@@ -70,6 +70,27 @@ class stock_inventory(osv.osv):
     _inherit = "stock.inventory"
     _description = "Stock Inventory"    
 
+    def copy(self, cr, uid, id, default={}, context=None, done_list=[], local=False):
+        account = self.browse(cr, uid, id, context=context)
+        new_child_ids = []
+        if not default:
+            default = {}
+        default = default.copy()
+        default['name'] = (account['name'] or '') + ' (copy)'
+        default['date'] = time.strftime('%Y-%m-%d %H:%M:%S')
+        default['move_ids'] = False
+        new_id = super(stock_inventory, self).copy(cr, uid, id, default, context=context)
+        if new_id:
+            inv_obj = self.browse(cr, uid, new_id, context=context)
+            for line in inv_obj.inventory_line_id:
+                stock_report_ids = self.pool.get('ineco.stock.report').search(cr, uid, 
+                    [('location_dest_id','=',line.location_id.id),('product_id','=',line.product_id.id),('qty','!=',0)])
+                if stock_report_ids:
+                    stock = self.pool.get('ineco.stock.report').browse(cr, uid, stock_report_ids)[0]
+                    line.write({'before_qty':stock.qty,'product_qty': stock.qty})                
+            
+        return new_id
+
     def action_confirm(self, cr, uid, ids, context=None):
         """ Confirm the inventory and writes its finished date
         @return: True
