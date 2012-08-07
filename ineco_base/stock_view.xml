@@ -189,7 +189,7 @@
             <field name="arch" type="xml">
             	<xpath expr="/form/notebook/page[@string='General Informations']/field/tree/field[@name='product_uom']" position="replace">
             		<field name="product_uom" domain="[('category_id','=',uom_category_id)]" />
-            		<field name="uom_category_id" readonly="1"/>
+            		<field name="uom_category_id" invisible="1"/>
             		<field name="tracking_id" />
             		<field name="before_qty" />
             	</xpath>            	
