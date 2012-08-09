@@ -65,6 +65,14 @@
 							</tree>
 						</field>
 					</page>
+					<page string="Other Data">
+					    <field name="otherdata_ids" colspan="4" nolabel="1" editable="bottom">
+					        <tree>
+					            <field name="type_id" />
+					            <field name="name" />
+					        </tree>
+					    </field>
+					</page>
 				</xpath>
 			</field>
 		</record>
