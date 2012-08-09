@@ -88,7 +88,8 @@ class stock_inventory(osv.osv):
                 if stock_report_ids:
                     stock = self.pool.get('ineco.stock.report').browse(cr, uid, stock_report_ids)[0]
                     line.write({'before_qty':stock.qty,'product_qty': stock.qty})                
-            
+                else:
+                    line.write({'before_qty':0,'product_qty': 0})            
         return new_id
 
     def action_confirm(self, cr, uid, ids, context=None):
