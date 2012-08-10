@@ -72,33 +72,6 @@ import tools
 from operator import itemgetter
 
 #POP-027
-class omg_sale_data_type(osv.osv):
-    _name = "omg.sale.data.type"
-    _description = "Sale Data Type by Interface FOS"
-    _columns = {
-        'name': fields.char('Name', size=64, required=True),
-        'type': fields.selection([('old','Con. Product'),('new','Other Note')], 'Table Type', required=True),
-    }
-    _defaults = {
-        'type': 'old',
-    }
-    _sql_constraints = [
-        ('name_unique', 'unique (name)', 'Name must be unique!')
-    ]
-omg_sale_data_type()    
-
-class omg_sale_data(osv.osv):
-    _name = "omg.sale.data"
-    _description = "Sale Data"
-    _columns = {
-        'type_id': fields.many2one('omg.sale.data.type','Table Type', required=True),
-        'name': fields.char('Description', size=254, required=True),
-        'sale_order_id': fields.many2one('sale.order', 'Sale Order'),
-    }
-    _sql_constraints = [
-        ('type_name_order_unique', 'unique (type_id, name, sale_order_id)', 'Type and Name must be unique!')
-    ]
-omg_sale_data()
 
 #POP-026
 class omg_delivery_type(osv.osv):
@@ -530,7 +503,6 @@ class sale_order(osv.osv):
         #POP-018
         'period_id': fields.many2one('omg.sale.period', 'Period ID'),
         #POP-027
-        'otherdata_ids': fields.one2many('omg.sale.data','sale_order_id','Other Data'),
     }
 
     def write(self, cr, uid, ids, vals, context=None):
