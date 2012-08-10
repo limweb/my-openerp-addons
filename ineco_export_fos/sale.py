@@ -25,6 +25,7 @@
 # 04-07-2012    POP-004    Add Item Not Check
 # 06-07-2012    POP-005    Insert new table contr_salestock_nochk
 # 09-07-2012    POP-006    Check Data Item Not Check in Item Check
+# 10-08-2012    POP-007    Add Sale Data
 
 import math
 
@@ -62,6 +63,34 @@ class sale_order_iteminfocus(osv.osv):
     
 sale_order_iteminfocus()
 
+class omg_sale_data_type(osv.osv):
+    _name = "omg.sale.data.type"
+    _description = "Sale Data Type by Interface FOS"
+    _columns = {
+        'name': fields.char('Name', size=64, required=True),
+        'type': fields.selection([('old','Con. Product'),('new','Other Note')], 'Table Type', required=True),
+    }
+    _defaults = {
+        'type': 'old',
+    }
+    _sql_constraints = [
+        ('name_unique', 'unique (name)', 'Name must be unique!')
+    ]
+omg_sale_data_type()    
+
+class omg_sale_data(osv.osv):
+    _name = "omg.sale.data"
+    _description = "Sale Data"
+    _columns = {
+        'type_id': fields.many2one('omg.sale.data.type','Table Type', required=True),
+        'name': fields.char('Description', size=250, required=True),
+        'sale_order_id': fields.many2one('sale.order', 'Sale Order'),
+    }
+    _sql_constraints = [
+        ('type_name_order_unique', 'unique (type_id, name, sale_order_id)', 'Type and Name must be unique!')
+    ]
+omg_sale_data()
+
 class sale_order(osv.osv):
     _name = "sale.order"
     _description = "export to fos only"
@@ -70,6 +99,7 @@ class sale_order(osv.osv):
     _columns = {
         'fos_pass': fields.boolean('FOS Passed'),
         'item_infocus_ids': fields.one2many('sale.order.iteminfocus','sale_order_id','Item Not Check'),
+        'otherdata_ids': fields.one2many('omg.sale.data','sale_order_id','Other Data'),
     }
     
     _defaults = {
@@ -398,6 +428,57 @@ class sale_order(osv.osv):
                     update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
                     cur.execute(update_sql.encode('utf-8'))
                     conn.commit()
+                    
+                #POP-007
+                clear_old_saledata_sql = """
+                    update contr_prod
+                    set 
+                      citemno1 = '',
+                      citemno2 = '',
+                      citemno3 = '',
+                      citemno4 = '',
+                      citemno5 = '',
+                      citemno6 = ''
+                    where
+                        contractno = '%s' 
+                """
+                clear_old_saledata_sql = clear_old_saledata_sql % (order.name)
+                cur.execute(clear_old_saledata_sql)
+                conn.commit()
+                
+                delete_old_saledata_sql = """
+                    delete from ERP_OthersNote
+                    where Contracto = '%s' 
+                """
+                delete_old_saledata_sql = delete_old_saledata_sql % (order.name)
+                cur.execute(delete_old_saledata_sql)
+                conn.commit()
+                
+                line_index = 0
+                other_index = 0
+                for line in order.otherdata_ids:
+                    if line.type_id.type == 'old':
+                        line_index = line_index + 1 
+                        sql_update_sale_data = """
+                           update contr_prod
+                           set %s = '%s'
+                           where
+                           contractno = '%s' 
+                        """
+                        sql_update_sale_data = sql_update_sale_data % ('citemno'+str(line_index), line.name, order.name)
+                        cur.execute(sql_update_sale_data.encode('utf-8'))
+                        conn.commit()       
+                    else:
+                        other_index = other_index + 1 
+                        sql_insert_sale_other_data = """
+                            insert into ERP_OthersNote (Contracto, Topic, SeqNo, Description, SendBy, SendDate) 
+                            values ('%s','%s',%s,'%s','%s', getdate())
+                        """
+                        sql_insert_sale_other_data = sql_insert_sale_other_data % (order.name, line.type_id.name, other_index,
+                                line.name, user_name)
+                        cur.execute(sql_insert_sale_other_data.encode('utf-8'))
+                        conn.commit()       
+                    
         
         return True
     
@@ -1301,7 +1382,56 @@ class sale_order(osv.osv):
                     update_sql = update_sql % (line.name, line.name, order.name, line.location_id.store_code, line.product_id.id)
                     cur.execute(update_sql.encode('utf-8'))
                     conn.commit()
-                    
+
+                #POP-007
+                clear_old_saledata_sql = """
+                    update contr_prod
+                    set 
+                      citemno1 = '',
+                      citemno2 = '',
+                      citemno3 = '',
+                      citemno4 = '',
+                      citemno5 = '',
+                      citemno6 = ''
+                    where
+                        contractno = '%s' 
+                """
+                clear_old_saledata_sql = clear_old_saledata_sql % (order.name)
+                cur.execute(clear_old_saledata_sql)
+                conn.commit()
+                
+                delete_old_saledata_sql = """
+                    delete from ERP_OthersNote
+                    where Contracto = '%s' 
+                """
+                delete_old_saledata_sql = delete_old_saledata_sql % (order.name)
+                cur.execute(delete_old_saledata_sql)
+                conn.commit()
+                
+                line_index = 0
+                other_index = 0
+                for line in order.otherdata_ids:
+                    if line.type_id.type == 'old':
+                        line_index = line_index + 1 
+                        sql_update_sale_data = """
+                           update contr_prod
+                           set %s = '%s'
+                           where
+                           contractno = '%s' 
+                        """
+                        sql_update_sale_data = sql_update_sale_data % ('citemno'+str(line_index), line.name, order.name)
+                        cur.execute(sql_update_sale_data.encode('utf-8'))
+                        conn.commit()       
+                    else:
+                        other_index = other_index + 1 
+                        sql_insert_sale_other_data = """
+                            insert into ERP_OthersNote (Contracto, Topic, SeqNo, Description, SendBy, SendDate) 
+                            values ('%s','%s',%s,'%s','%s', getdate())
+                        """
+                        sql_insert_sale_other_data = sql_insert_sale_other_data % (order.name, line.type_id.name, other_index,
+                                line.name, user_name)
+                        cur.execute(sql_insert_sale_other_data.encode('utf-8'))
+                        conn.commit()                                 
 
         return True
     

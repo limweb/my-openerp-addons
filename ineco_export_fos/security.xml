@@ -11,6 +11,26 @@
             <field name="perm_unlink" eval="1"/>
             <field name="perm_write" eval="1"/>
         </record>
-
+        
+	    <record id="secure_omg_sale_data_type" model="ir.model.access">
+	        <field name="name">Employees</field>
+	        <field name="group_id" ref="base.group_user" />
+	        <field name="model_id" ref="model_omg_sale_data_type" />
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+	    </record>
+	
+	    <record id="secure_omg_sale_data" model="ir.model.access">
+	        <field name="name">Employees</field>
+	        <field name="group_id" ref="base.group_user" />
+	        <field name="model_id" ref="model_omg_sale_data" />
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+	    </record>
+        
     </data>
 </openerp>
