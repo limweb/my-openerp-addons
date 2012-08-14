@@ -60,6 +60,7 @@
 							<field name="omg_retail_store_name" />
 							<field name="omg_recruiter" />
 							<field name="omg_remark" />
+							<field name="specific_booth_type_id" />
 						</page>
 						<page string="OA Contact Address"><field name="oa_address_ids" nolabel="1"/></page>
 						<page string="Location Quantity"><field name="lineqty_ids" nolabel="1"/></page>

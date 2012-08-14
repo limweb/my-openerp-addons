@@ -113,6 +113,7 @@
 								<field name="location_id" domain="[('omg_approve','=',True)]"/>
 								<field name="location_type_id" />
 								<field name="group_name" />
+								<field name="specific_booth_type_id" />								
 							</tree>
 						</field>
 					</page>

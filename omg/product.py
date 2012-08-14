@@ -22,6 +22,7 @@
 # 07-05-2012     POP-001    Add Use Full Warehouse UOM
 # 29-05-2012     DAY-001    Add product_category_retailer
 # 20-07-2012     POP-002    Add Not Print Delivery Order
+# 14-08-2012     DAY-002    Add sql_constraints ean13
 
 from osv import osv, fields
 import decimal_precision as dp
@@ -65,6 +66,10 @@ class product_product(osv.osv):
         'equipment': False,
         'full_warehouse_uom': False,
     }
+    #POP-002
+    _sql_constraints = [
+        ('ean13_unique', 'unique (ean13)', "ข้อมูล EAN13 ซ้ำ")
+    ]
     
 product_product()
 

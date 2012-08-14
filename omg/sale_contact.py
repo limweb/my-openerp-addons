@@ -37,6 +37,7 @@
 # 23-07-2012    DAY-006    Update Copy Contact
 # 23-07-2012    DAY-007    Cash Advance Other
 # 30-07-2012    DAY-008    Add Type Location contact_line_location
+# 14-08-2012    DAY-009    Add specific_booth_type
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -644,6 +645,8 @@ class omg_sale_reserve_contact_line_location(osv.osv):
         'group_name': fields.function(_get_group, method=True, type='string', string="Group"),
 #DAY-008
         'location_type_id': fields.related('location_id', 'location_type_id', type='many2one', relation='omg.sale.location.type', store=True, string='Type'),        
+#DAY-009
+        'specific_booth_type_id': fields.related('location_id','specific_booth_type_id', type='many2one',relation='omg.sale.location.booth.type', store=True, string='Booth Type'),
     }
     _sql_constraints = [
         ('sale_reserve_line_location_uniq', 'unique (contact_line_id,location_id)', 'Location must be unique.')
