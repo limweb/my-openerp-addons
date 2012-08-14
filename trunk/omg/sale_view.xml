@@ -89,6 +89,7 @@
 								<field name="location_id" />
 								<field name="location_name" />
 								<field name="location_type_id"/>
+								<field name="specific_booth_type_id" />
 								<field name="estimate" />
 							</tree>
 						</field>
@@ -323,6 +324,25 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 		<menuitem action="act_sale_location_type" id="menu_sale_location_type_master" parent="base.menu_sale_config_sales" />
+
+		<!-- Specific Booth Type -->
+		<record model="ir.ui.view" id="view_omg_sale_location_booth_type_tree">
+			<field name="name">omg.sale.location.booth.type.tree</field>
+			<field name="type">tree</field>
+			<field name="model">omg.sale.location.booth.type</field>
+			<field name="arch" type="xml">
+				<tree string="Specific Booth Type" editable="bottom">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+		<record id="act_sale_location_booth_type" model="ir.actions.act_window">
+			<field name="name">Specific Booth Type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">omg.sale.location.booth.type</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<menuitem action="act_sale_location_booth_type" id="menu_sale_location_booth_type_master" parent="base.menu_sale_config_sales" />
 		
         <record id="ineco_view_order_tree" model="ir.ui.view">
             <field name="name">ineco.sale.order.tree</field>

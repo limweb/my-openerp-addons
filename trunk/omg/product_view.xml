@@ -133,7 +133,18 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 		<menuitem action="act_product_category_retailer" id="menu_product_category_retailer" parent="product.prod_config_main" />
-				
+
+		<record id="product_search_form_view_omg_inherit" model="ir.ui.view">
+            <field name="name">product.search.form.omg.inherit</field>
+            <field name="model">product.product</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="product.product_search_form_view"/>            
+            <field name="arch" type="xml">
+            	<field name="name" position="after">
+            		<field name="ean13" />        		
+            	</field>
+            </field>
+        </record>				
 	</data>
 </openerp>
 

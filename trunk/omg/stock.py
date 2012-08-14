@@ -36,6 +36,7 @@
 # 12-07-2012    POP-009    Add Stock when Picking Done 
 # 20-07-2012    POP-010    Add PM Note/Check
 # 23-07-2012    DAY-005    Add Cash Advance Other
+# 14-08-2012    DAY-006    Add Specific Booth Type
 
 import socket
 import sys
@@ -812,6 +813,8 @@ class stock_location(osv.osv):
         'inventory_ids': fields.one2many('ineco.stock.location.inventory', 'location_id', 'Inventory'),
         #DAY-005
         'cash_advance_ids': fields.one2many('stock.location.cash.advance.other', 'location_id', 'Cash Advance'),
+        #DAY-006
+        'specific_booth_type_id': fields.many2one('omg.sale.location.booth.type', 'Specific Booth Type', ondelete="restrict"),
     }
     _defaults = {
         'omg_approve': False,

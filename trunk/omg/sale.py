@@ -53,6 +53,7 @@
 # 30-07-2012       DAY-004    Bug Cancel Sale Order
 # 30-07-2012       DAY-005    Add Fields Locations Type
 # 09-08-2012       POP-027    Add Sale Data
+# 14-08-2012       DAY-006    Add Specific Booth Type
 
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
@@ -235,6 +236,8 @@ class sale_branch_line(osv.osv):
         'estimate': fields.integer('Estimate'),
 #        DAY-005
         'location_type_id': fields.related('location_id', 'location_type_id', type='many2one', relation='omg.sale.location.type', store=True, string='Type'),        
+#        DAY-006
+        'specific_booth_type_id': fields.related('location_id','specific_booth_type_id', type='many2one',relation='omg.sale.location.booth.type', store=True, string='Booth Type'),
     }    
     
     _defaults = {
@@ -1923,6 +1926,16 @@ class omg_sale_location_group_special_query(osv.osv):
     
 omg_sale_location_group_special_query()
 
-
+#DAY-006
+class omg_sale_location_booth_type(osv.osv):
+    _name = "omg.sale.location.booth.type"
+    _description = "Specific Booth Type"
+    _columns = {
+        'name': fields.char('Specific Booth Type',size=32,required=True),
+    }
+    _sql_constraints = [
+        ('sale_location_booth_type_unique','unique (name)', 'Specific Booth Type must me unique.')
+    ]
+omg_sale_location_booth_type()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
