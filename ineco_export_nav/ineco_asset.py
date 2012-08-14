@@ -127,7 +127,7 @@ class ineco_asset(osv.osv):
                     'COM', # asset.location_id and asset.location_id.code or "", #FA Location Code -> ERP.location_id
                     '0001' , #asset.owner_id and asset.owner_id.code_nav or "", #FA Responsible Employee -> ERP.owner_id
                     asset.name.encode('cp874') or "", #Barcode No
-                    "", #Yes, No
+                    "No", #Yes, No
                     asset.fa_posting_group_id.code_nav or "", #FA Post Group
                     "Company",
                     "Straight-Line",

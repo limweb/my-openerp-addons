@@ -182,8 +182,6 @@ class ineco_nav_dimension_value(osv.osv):
                     
                 cur.close()
     
-ineco_nav_dimension()
-    
 ineco_nav_dimension_value()
 
 class ineco_nav_postmaster_group(osv.osv):
@@ -414,7 +412,7 @@ class ineco_nav_postmaster(osv.osv):
                     if not nav_ids:
                         data = {
                             'name':row['Code'].decode('cp874')+' (gen)',
-                            'code_nav': row['Code'].decode('cp874')+' (gen)',
+                            'code_nav': row['Code'].decode('cp874') ,
                             'group_nav': 'genbus'
                         }
                         self.pool.get('ineco.nav.postmaster').create(cr, uid, data)

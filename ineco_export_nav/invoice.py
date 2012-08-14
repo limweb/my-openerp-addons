@@ -223,7 +223,13 @@ class account_invoice(osv.osv):
                   d5.code as dimension_5,
                   d6.code as dimension_6,
                   account_invoice.name as contact_no,
-                  account_invoice.id as invoice_id
+                  account_invoice.id as invoice_id,
+                  '' as taxcoding,
+                  to_char(sale_order.date_period_start,'dd/mm/yyyy') || ' - ' || to_char(sale_order.date_period_finish,'dd/mm/yyyy') as cycle_name,
+                  sale_order.date_period_finish - sale_order.date_period_start + 1 as cycle_day,
+                  pcserv.name as service_category_name,
+                  pcustomer.name as customer_product_name,
+                  '' as customer_po
                 from account_invoice_line
                 join account_invoice on account_invoice_line.invoice_id = account_invoice.id
                 left join res_partner_address          on account_invoice.address_invoice_id = res_partner_address.id
@@ -240,10 +246,13 @@ class account_invoice(osv.osv):
                 left join ineco_nav_dimension d3 on sale_order.dimension_project = d3.id
                 left join ineco_nav_dimension d4 on sale_order.dimension_product = d4.id
                 left join ineco_nav_dimension d5 on sale_order.dimension_retailer = d5.id
-                left join ineco_nav_dimension d6 on sale_order.dimension_customer = d6.id
+                left join ineco_nav_dimension d6 on sale_order.dimension_customer = d6.id  
+                left join product_template pserv on sale_order.service_product_id = pserv.id 
+                left join product_category pcserv on pserv.categ_id = pcserv.id       
+                left join product_template pcustomer on sale_order.customer_product_id = pcustomer.id     
                 where 
                   account_invoice.type = 'out_invoice' --supplier invoice
-                  and account_invoice.nav_exported = False
+                  and account_invoice.nav_exported = False                 
                   and account_invoice.id = %s           
                 """
             cr.execute(purchase_line_sql % row)
@@ -269,7 +278,7 @@ class account_invoice(osv.osv):
                                 line['purchase_no'], 
                                 line['pay_to_vendor_no'].encode('cp874'),    #NAV
                                 line['pay_to_contact'].encode('cp874') or '',      #Address ERP
-                                line['posting_date'], #ERP Generate Current Date Post
+                                line['posting_date'], #ERP Generate Curredimension_6nt Date Post
                                 line['payment_term_code'],   #NAV
                                 line['currency_code'],       #NAV
                                 'No' ,  #line['price_include_vat'],   #Boolean Yes/No
@@ -286,7 +295,7 @@ class account_invoice(osv.osv):
                                 line['direct_unit_cost'],                             
                                 line['line_discount'], 
                                 line['gen_posting_group'] or '',    #NAV
-                                line['vat_posting_group'] or 'S07', #NAV REQUERY from master product
+                                line['vat_posting_group'] or '', #NAV REQUERY from master product
                                 line['wht_posting_group'] or '',    #NAV or '' ว่าง
                                 line['contact_no'] or '',
                                 line['dimension_1'], 
@@ -295,6 +304,12 @@ class account_invoice(osv.osv):
                                 line['dimension_4'], 
                                 line['dimension_5'], 
                                 line['dimension_6'], 
+                                line['taxcoding'] or '', 
+                                line['service_category_name'] or '', 
+                                line['cycle_name'] or '', 
+                                line['customer_product_name'] or '', 
+                                line['cycle_day'], 
+                                line['customer_po'] or '', 
                             ])
                         except Exception, err:
                             self.log(cr, uid, line['invoice_id'], 'Export Error -> '+line['purchase_no']+":"+str(err))
