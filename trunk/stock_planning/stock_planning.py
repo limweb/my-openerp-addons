@@ -350,6 +350,19 @@ class stock_planning(osv.osv):
         res = self._to_planning_uom(cr, uid, val, planning_qtys, context)
         return res
 
+    def _get_incoming_before(self, cr, uid, val, date_start, date_stop, context=None):
+        cr.execute("SELECT sum(planning.incoming_left), planning.product_uom \
+                    FROM stock_planning AS planning \
+                    LEFT JOIN stock_period AS period \
+                    ON (planning.period_id = period.id) \
+                    WHERE (period.date_stop <= %s) AND (period.date_stop <= %s) \
+                        AND (planning.product_id = %s) AND (planning.company_id = %s) \
+                    GROUP BY planning.product_uom", \
+                        (date_start, date_stop, val.product_id.id, val.company_id.id,))
+        planning_qtys = cr.fetchall()
+        res = self._to_planning_uom(cr, uid, val, planning_qtys, context)
+        return res
+
     def _to_planning_uom(self, cr, uid, val, qtys, context=None):
         res_qty = 0
         if qtys:
@@ -574,26 +587,37 @@ class stock_planning(osv.osv):
             incoming = self._get_in_out(cr, uid, val, val.period_id.date_start, val.period_id.date_stop, direction='in', done=False, context=context),
             outgoing_before = self._get_outgoing_before(cr, uid, val, val.period_id.date_start, val.period_id.date_stop, context=context),
             #outgoing_before = self._get_outgoing_before(cr, uid, val, start_date_current_period, day_before_calculated_period, context=context),
-            incoming_before = self._get_in_out(cr, uid, val, start_date_current_period, day_before_calculated_period, direction='in', done=False, context=context),
+            incoming_before = self._get_incoming_before(cr, uid, val, val.period_id.date_start, val.period_id.date_stop, context=context),
+            #incoming_before = self._get_in_out(cr, uid, val, start_date_current_period, day_before_calculated_period, direction='in', done=False, context=context),
             stock_start = self._get_stock_start(cr, uid, val, val.period_id.date_start, context=context),
             #stock_start = self._get_stock_start(cr, uid, val, date_for_start, context=context),
+            if outgoing_before[0] < 0:
+                outgoing_before = (0,)
             if start_date_current_period == val.period_id.date_start:   # current period is calculated
                 current = True
             else:
                 current = False
             factor, round_value = self._from_default_uom_factor(cr, uid, val.product_id.id, val.product_uom.id, context=context)
+            planned_outgoing = val.planned_outgoing
+            if rounding(already_out[0]*factor,round_value) >= val.planned_outgoing:
+                planned_outgoing = 0 
+            else:
+                planned_outgoing = val.planned_outgoing - rounding(already_out[0]*factor,round_value)
             self.write(cr, uid, ids, {
                 'already_out': rounding(already_out[0]*factor,round_value),
                 'already_in': rounding(already_in[0]*factor,round_value),
                 'outgoing': rounding(outgoing[0]*factor,round_value),
                 'incoming': rounding(incoming[0]*factor,round_value),
                 'outgoing_before' : rounding(outgoing_before[0]*factor,round_value),
-                'incoming_before': rounding((incoming_before[0]+ (not current and already_in[0]))*factor,round_value),
+                'incoming_before' : rounding(incoming_before[0]*factor,round_value),
+                #'incoming_before': rounding((incoming_before[0]+ (not current and already_in[0]))*factor,round_value),
                 'outgoing_left': rounding(val.planned_outgoing - outgoing[0] - rounding(already_out[0]*factor,round_value) * factor, round_value),
                 #'outgoing_left': rounding(val.planned_outgoing - (outgoing[0] + (current and already_out[0]))*factor,round_value),
                 'incoming_left': rounding(val.to_procure - (incoming[0] + (current and already_in[0]))*factor,round_value),
                 'stock_start': rounding(stock_start[0]*factor,round_value),
-                'stock_simulation': rounding(val.to_procure - val.planned_outgoing + (stock_start[0] + incoming_before[0] - outgoing_before[0] - rounding(already_out[0]*factor,round_value) ) * factor,round_value),
+                'stock_simulation': rounding(val.to_procure - planned_outgoing + 
+                                        (stock_start[0] + incoming_before[0] - outgoing_before[0] - 
+                                         rounding(already_out[0]*factor,round_value) + rounding(already_in[0]*factor,round_value) ) * factor,round_value),
                 #'stock_simulation': rounding(val.to_procure - val.planned_outgoing + (stock_start[0]+ incoming_before[0] - outgoing_before[0] \
                 #                     + (not current and already_in[0]))*factor,round_value),
             })
