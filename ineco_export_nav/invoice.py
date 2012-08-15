@@ -70,9 +70,9 @@ class account_invoice(osv.osv):
                select 
                   account_invoice.company_id as company_id,
                   'Invoice' as document_type,
-                  res_partner.ref as buy_from_vendor_no,
+                  res_partner.nav_code_supplier as buy_from_vendor_no,
                   account_invoice.origin as purchase_no,
-                  res_partner.ref as pay_to_vendor_no,
+                  res_partner.nav_code_supplier as pay_to_vendor_no,
                   coalesce(res_partner_address.name,'') as pay_to_contact,
                   to_char(CURRENT_DATE,'DD/MM/yyyy') as order_date,
                   to_char(CURRENT_DATE,'DD/MM/yyyy') as posting_date,
@@ -193,9 +193,9 @@ class account_invoice(osv.osv):
                 select 
                   account_invoice.company_id as company_id,
                   'Invoice' as document_type,
-                  res_partner.ref as buy_from_vendor_no,
+                  res_partner.nav_code_customer as buy_from_vendor_no,
                   account_invoice.origin as purchase_no,
-                  res_partner.ref as pay_to_vendor_no,
+                  res_partner.nav_code_customer as pay_to_vendor_no,
                   coalesce(res_partner_address.name,'') as pay_to_contact,
                   to_char(account_invoice.date_invoice, 'DD/MM/yyyy') as order_date,
                   to_char(account_invoice.date_invoice,'DD/MM/yyyy') as posting_date ,
@@ -247,7 +247,7 @@ class account_invoice(osv.osv):
                 left join ineco_nav_dimension d4 on sale_order.dimension_product = d4.id
                 left join ineco_nav_dimension d5 on sale_order.dimension_retailer = d5.id
                 left join ineco_nav_dimension d6 on sale_order.dimension_customer = d6.id  
-                left join product_template pserv on sale_order.service_product_id = pserv.id 
+                left join product_template pserv on sale_order.customer_product_id = pserv.id 
                 left join product_category pcserv on pserv.categ_id = pcserv.id       
                 left join product_template pcustomer on sale_order.customer_product_id = pcustomer.id     
                 where 
@@ -305,9 +305,9 @@ class account_invoice(osv.osv):
                                 line['dimension_5'], 
                                 line['dimension_6'], 
                                 line['taxcoding'] or '', 
-                                line['service_category_name'] or '', 
+                                line['service_category_name'][0:30].encode('cp874') or '', 
                                 line['cycle_name'] or '', 
-                                line['customer_product_name'] or '', 
+                                line['customer_product_name'][0:30].encode('cp874') or '', 
                                 line['cycle_day'], 
                                 line['customer_po'] or '', 
                             ])
