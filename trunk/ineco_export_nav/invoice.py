@@ -224,7 +224,7 @@ class account_invoice(osv.osv):
                   d6.code as dimension_6,
                   account_invoice.name as contact_no,
                   account_invoice.id as invoice_id,
-                  '' as taxcoding,
+                  res_partner.taxcoding as taxcoding,
                   to_char(sale_order.date_period_start,'dd/mm/yyyy') || ' - ' || to_char(sale_order.date_period_finish,'dd/mm/yyyy') as cycle_name,
                   sale_order.date_period_finish - sale_order.date_period_start + 1 as cycle_day,
                   pcserv.name as service_category_name,
