@@ -603,6 +603,9 @@ class stock_planning(osv.osv):
                 planned_outgoing = 0 
             else:
                 planned_outgoing = val.planned_outgoing - rounding(already_out[0]*factor,round_value)
+            incoming_left = 0
+            if already_in[0] < val.to_procure + incoming[0]:
+                incoming_left = val.to_procure + incoming[0] - already_in[0]
             self.write(cr, uid, ids, {
                 'already_out': rounding(already_out[0]*factor,round_value),
                 'already_in': rounding(already_in[0]*factor,round_value),
@@ -611,13 +614,16 @@ class stock_planning(osv.osv):
                 'outgoing_before' : rounding(outgoing_before[0]*factor,round_value),
                 'incoming_before' : rounding(incoming_before[0]*factor,round_value),
                 #'incoming_before': rounding((incoming_before[0]+ (not current and already_in[0]))*factor,round_value),
-                'outgoing_left': rounding(val.planned_outgoing - outgoing[0] - rounding(already_out[0]*factor,round_value) * factor, round_value),
+                'outgoing_left': rounding(planned_outgoing * factor, round_value),
                 #'outgoing_left': rounding(val.planned_outgoing - (outgoing[0] + (current and already_out[0]))*factor,round_value),
-                'incoming_left': rounding(val.to_procure - (incoming[0] + (current and already_in[0]))*factor,round_value),
+                'incoming_left': rounding(incoming_left * factor, round_value),
+                #'incoming_left': rounding(val.to_procure - (incoming[0] + already_in[0]) * factor, round_value),
                 'stock_start': rounding(stock_start[0]*factor,round_value),
-                'stock_simulation': rounding(val.to_procure - planned_outgoing + 
+                'stock_simulation': rounding(incoming_left - planned_outgoing + 
                                         (stock_start[0] + incoming_before[0] - outgoing_before[0] - 
-                                         rounding(already_out[0]*factor,round_value) + rounding(already_in[0]*factor,round_value) ) * factor,round_value),
+                                         rounding(already_out[0]*factor,round_value) + 
+                                         rounding(already_in[0]*factor,round_value) ) * 
+                                    factor,round_value),
                 #'stock_simulation': rounding(val.to_procure - val.planned_outgoing + (stock_start[0]+ incoming_before[0] - outgoing_before[0] \
                 #                     + (not current and already_in[0]))*factor,round_value),
             })

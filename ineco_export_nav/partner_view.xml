@@ -15,6 +15,8 @@
 						<newline />
 						<field name="customer_posting_group_id" domain="[('group_nav','=','customer')]" attrs="{'invisible':[('customer','=',0)]}" />
 						<field name="supplier_posting_group_id" domain="[('group_nav','=','vendor')]" attrs="{'invisible':[('supplier','=',0)]}" />
+						<newline />
+						<field name="taxcoding" />
 					</page>
 				</xpath>
 			</field>

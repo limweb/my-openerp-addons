@@ -49,6 +49,7 @@ class res_partner(osv.osv):
         'gen_bus_posting_group_id': fields.many2one('ineco.nav.postmaster', 'Gen. Bus. Posting Group'),
         'vat_bus_posting_group_id': fields.many2one('ineco.nav.postmaster', 'VAT. Bus. Posting Group'),
         'wht_bus_posting_group_id': fields.many2one('ineco.nav.postmaster','WHT. Bus. Posting Group'),
+        'taxcoding': fields.char('Tax Coding', size=50)
     }
     
     def schedule_update_supplier_nav(self, cr, uid, context=None):
