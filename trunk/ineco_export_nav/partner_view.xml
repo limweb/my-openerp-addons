@@ -8,8 +8,8 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<xpath expr="/form/notebook" position="inside">
-					<page string="Posting Group">
-						<field name="gen_bus_posting_group_id" domain="[('group_nav','=','general')]"/>
+					<page string="NAV Configuration">
+						<field name="gen_bus_posting_group_id" domain="[('group_nav','=','genbus')]"/>
 						<field name="vat_bus_posting_group_id" domain="[('group_nav','=','vat')]"/>
 						<field name="wht_bus_posting_group_id" domain="[('group_nav','=','wht')]"/>
 						<newline />
@@ -17,6 +17,9 @@
 						<field name="supplier_posting_group_id" domain="[('group_nav','=','vendor')]" attrs="{'invisible':[('supplier','=',0)]}" />
 						<newline />
 						<field name="taxcoding" />
+						<newline />
+						<field name="nav_code_customer" attrs="{'invisible':[('customer','=',0)]}" />
+						<field name="nav_code_supplier" attrs="{'invisible':[('supplier','=',0)]}" />
 					</page>
 				</xpath>
 			</field>

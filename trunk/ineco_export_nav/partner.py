@@ -36,6 +36,7 @@ import csv
 import time
 import codecs 
 import pymssql
+import uuid
 
 from operator import itemgetter
 
@@ -49,7 +50,10 @@ class res_partner(osv.osv):
         'gen_bus_posting_group_id': fields.many2one('ineco.nav.postmaster', 'Gen. Bus. Posting Group'),
         'vat_bus_posting_group_id': fields.many2one('ineco.nav.postmaster', 'VAT. Bus. Posting Group'),
         'wht_bus_posting_group_id': fields.many2one('ineco.nav.postmaster','WHT. Bus. Posting Group'),
-        'taxcoding': fields.char('Tax Coding', size=50)
+        'taxcoding': fields.char('Tax Coding', size=50),
+        'ineco_sync_id':fields.char("Sync ID", size=36),
+        'nav_code_customer': fields.char('NAV Customer Code', size=10), #Effect Update / Customer Invoice        
+        'nav_code_supplier': fields.char('NAV Supplier Code', size=10), #Effect Update / Supplier Invoice
     }
     
     def schedule_update_supplier_nav(self, cr, uid, context=None):
@@ -74,7 +78,8 @@ class res_partner(osv.osv):
                         partner_ids = self.pool.get('res.partner').search(cr, uid, [('id','=',row['Open ERP No_'])] )
                         if partner_ids:
                             partner = self.pool.get('res.partner').browse(cr, uid, partner_ids)[0]
-                            partner.write({'ref': row['No_']})  
+                            #partner.write({'ref': row['No_']})
+                            partner.write({'nav_code_supplier': row['No_']})  
                     row = cur.fetchone()
                     
                 cur.close()
@@ -102,7 +107,8 @@ class res_partner(osv.osv):
                         partner_ids = self.pool.get('res.partner').search(cr, uid, [('id','=',row['Open ERP No_'])] )
                         if partner_ids:
                             partner = self.pool.get('res.partner').browse(cr, uid, partner_ids)[0]
-                            partner.write({'ref': row['No_']})  
+                            #partner.write({'ref': row['No_']})
+                            partner.write({'nav_code_customer': row['No_']})                              
                     row = cur.fetchone()
                     
                 cur.close()
@@ -112,8 +118,7 @@ class res_partner(osv.osv):
         if context is None:
             context = {}
         sql = """
-            select id from res_partner
-            where write_uid is null and ineco_sync_id is not null
+            select id from res_partner where ref is null 
         """
         #only new partner record... Please install ineco_inter_company
         cr.execute(sql)
@@ -130,9 +135,11 @@ class res_partner(osv.osv):
             if addr and addr['invoice']:
                 address_invoice = self.pool.get('res.partner.address').browse(cr, uid, addr['invoice'])
             else:
+                addr_ids = self.pool.get('res.partner.address').search(cr, uid, [('name','=','None')])
+                address_invoice = self.pool.get('res.partner.address').browse(cr, uid, addr_ids )[0]
                 err_message = 'Please insert Invoice Address in Partner master:' + partner.name
                 self.log(cr, uid, partner.id, err_message)
-                raise osv.except_osv(_('Error !'), err_message)
+                #raise osv.except_osv(_('Error !'), err_message)
                 
             config_ids = self.pool.get('ineco.export.config').search(cr, uid, [('type','=','supplier'),('company_id','=',partner.company_id.id)])
             config_obj = self.pool.get('ineco.export.config').browse(cr, uid, config_ids)
@@ -157,21 +164,21 @@ class res_partner(osv.osv):
                     writer.writerow([code ,  
                                      partner.name[0:50].encode('cp874'), 
                                      partner.name[50:0].encode('cp874'), 
-                                     address_invoice.street.encode('cp874') or "", 
-                                     address_invoice.street2.encode('cp874') or "",
+                                     address_invoice.street and address_invoice.street[0:49].encode('cp874') or "", 
+                                     address_invoice.street2 and address_invoice.street2[0:49].encode('cp874') or "",
                                      "",
-                                     address_invoice.city.encode('cp874') or "", #NAV Master
-                                     address_invoice.state_id.name.encode('cp874') or "", #NAV Master
+                                     address_invoice.city and address_invoice.city.encode('cp874') or "", #NAV Master
+                                     address_invoice.state_id and address_invoice.state_id.name.encode('cp874') or "", #NAV Master
                                      address_invoice.zip or "", #NAV Master
-                                     address_invoice.country_id.code or "", #NAV Master
-                                     address_invoice.name.encode('cp874') or "",
-                                     address_invoice.phone or "",
-                                     address_invoice.fax or "",
-                                     partner.supplier_posting_group_id.code_nav or "",
-                                     partner.gen_bus_posting_group_id.code_nav or "",
-                                     partner.vat_bus_posting_group_id.code_nav or "",
-                                     partner.wht_bus_posting_group_id.code_nav or "",
-                                     partner.property_payment_term.code_nav or "",
+                                     address_invoice.country_id and address_invoice.country_id.code or "", #NAV Master
+                                     address_invoice.name and address_invoice.name.encode('cp874') or "",
+                                     address_invoice.phone and address_invoice.phone[0:30] or "",
+                                     address_invoice.fax and address_invoice.fax[0:30] or "",
+                                     partner.supplier_posting_group_id and partner.supplier_posting_group_id.code_nav or "",
+                                     partner.gen_bus_posting_group_id and partner.gen_bus_posting_group_id.code_nav or "",
+                                     partner.vat_bus_posting_group_id and partner.vat_bus_posting_group_id.code_nav or "",
+                                     partner.wht_bus_posting_group_id and partner.wht_bus_posting_group_id.code_nav or "",
+                                     partner.property_payment_term and partner.property_payment_term.code_nav or "",
                                      "", #Block 'All'
                                      partner.tax_id or "",
                                      time.strftime('%d/%m/%Y %H:%M')
@@ -196,21 +203,21 @@ class res_partner(osv.osv):
                     writer.writerow([code , 
                                      partner.name[0:50].encode('cp874'), 
                                      partner.name[50:0].encode('cp874'), 
-                                     address_invoice.street.encode('cp874') or "", 
-                                     address_invoice.street2.encode('cp874') or "",
+                                     address_invoice.street and address_invoice.street[0:49].encode('cp874') or "", 
+                                     address_invoice.street2 and address_invoice.street2[0:49].encode('cp874') or "",
                                      "",
-                                     address_invoice.city.encode('cp874') or "", #NAV Master
-                                     address_invoice.state_id.name.encode('cp874') or "", #NAV Master
+                                     address_invoice.city and address_invoice.city.encode('cp874') or "", #NAV Master
+                                     address_invoice.state_id and address_invoice.state_id.name.encode('cp874') or "", #NAV Master
                                      address_invoice.zip or "", #NAV Master
-                                     address_invoice.country_id.code or "", #NAV Master
-                                     address_invoice.name.encode('cp874') or "",
-                                     address_invoice.phone or "",
-                                     address_invoice.fax or "",
-                                     partner.customer_posting_group_id.code_nav or "",
-                                     partner.gen_bus_posting_group_id.code_nav or "",
-                                     partner.vat_bus_posting_group_id.code_nav or "",
-                                     partner.wht_bus_posting_group_id.code_nav or "",
-                                     partner.property_payment_term.code_nav or "",
+                                     address_invoice.country_id.code or  "", #NAV Master
+                                     address_invoice.name and address_invoice.name.encode('cp874') or "",
+                                     address_invoice.phone and address_invoice.phone[0:30] or "",
+                                     address_invoice.fax and address_invoice.fax[0:30] or "",
+                                     partner.customer_posting_group_id and partner.customer_posting_group_id.code_nav or "",
+                                     partner.gen_bus_posting_group_id and partner.gen_bus_posting_group_id.code_nav or "",
+                                     partner.vat_bus_posting_group_id and partner.vat_bus_posting_group_id.code_nav or "",
+                                     partner.wht_bus_posting_group_id and partner.wht_bus_posting_group_id.code_nav or "",
+                                     partner.property_payment_term and partner.property_payment_term.code_nav or "",
                                      "", #Block "All"
                                      partner.tax_id or "",
                                      time.strftime('%d/%m/%Y %H:%M'),
@@ -228,5 +235,12 @@ class res_partner(osv.osv):
             res_ids = self.pool.get('res.partner').search(cr, uid, [('ineco_sync_id','=',sync_id)])
             self.export_nav(cr, uid, res_ids, context)
         return  update_id
+
+    def create(self, cr, user, vals, context=None):
+        if context is None:
+            context = {}
+        if not vals.get('ineco_sync_id'):
+            sync_id = str(uuid.uuid1())
+            vals.update({'ineco_sync_id': sync_id}) 
     
 res_partner()

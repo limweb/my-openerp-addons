@@ -322,7 +322,7 @@ class sale_order(osv.osv):
                       remark7 = '', orderremark7 = '',
                       remark8 = '', orderremark8 = ''
                     where
-                        contractno = '%s' 
+                      contractno = '%s' 
                 """
                 clear_olddata_sql = clear_olddata_sql % (order.name)
                 cur.execute(clear_olddata_sql)
@@ -448,7 +448,7 @@ class sale_order(osv.osv):
                 
                 delete_old_saledata_sql = """
                     delete from ERP_OthersNote
-                    where Contracto = '%s' 
+                    where Contractno = '%s' 
                 """
                 delete_old_saledata_sql = delete_old_saledata_sql % (order.name)
                 cur.execute(delete_old_saledata_sql)
@@ -471,7 +471,7 @@ class sale_order(osv.osv):
                     else:
                         other_index = other_index + 1 
                         sql_insert_sale_other_data = """
-                            insert into ERP_OthersNote (Contracto, Topic, SeqNo, Description, SendBy, SendDate) 
+                            insert into ERP_OthersNote (Contractno, Topic, SeqNo, Description, SendBy, SendDate) 
                             values ('%s','%s',%s,'%s','%s', getdate())
                         """
                         sql_insert_sale_other_data = sql_insert_sale_other_data % (order.name, line.type_id.name, other_index,
@@ -1402,7 +1402,7 @@ class sale_order(osv.osv):
                 
                 delete_old_saledata_sql = """
                     delete from ERP_OthersNote
-                    where Contracto = '%s' 
+                    where Contractno = '%s' 
                 """
                 delete_old_saledata_sql = delete_old_saledata_sql % (order.name)
                 cur.execute(delete_old_saledata_sql)
@@ -1425,7 +1425,7 @@ class sale_order(osv.osv):
                     else:
                         other_index = other_index + 1 
                         sql_insert_sale_other_data = """
-                            insert into ERP_OthersNote (Contracto, Topic, SeqNo, Description, SendBy, SendDate) 
+                            insert into ERP_OthersNote (Contractno, Topic, SeqNo, Description, SendBy, SendDate) 
                             values ('%s','%s',%s,'%s','%s', getdate())
                         """
                         sql_insert_sale_other_data = sql_insert_sale_other_data % (order.name, line.type_id.name, other_index,
