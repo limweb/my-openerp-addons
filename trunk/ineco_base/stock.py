@@ -46,6 +46,7 @@
 # 07-07-2012       POP-023    Add Before Qty in Physical Inventory
 # 18-07-2012       POP-024    Remove Unique Index in stock.production.lot
 # 24-07-2012       POP-025    Add Picking Do Parial
+# 16-08-2012       POP-026    Default Stock Picking Order by Date desc, name desc
 
 import math
 
@@ -480,6 +481,9 @@ class stock_picking(osv.osv):
     _defaults = {
         'ineco_request_user_id': lambda self, cr, uid, context: uid,
     }
+    
+    #POP-026
+    _order = "date desc, min_date desc, name desc"
     
     #POP-025
     def do_partial(self, cr, uid, ids, partial_datas, context=None):
