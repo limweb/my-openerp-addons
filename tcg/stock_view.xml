@@ -13,6 +13,20 @@
             <field name="search_view_id" ref="stock.view_picking_internal_search"/>
         </record>
 
+        <record model="ir.ui.view" id="ineco_hr_picking_calendar">
+            <field name="name">ineco.hr.picking.calendar</field>
+            <field name="model">stock.picking</field>
+            <field name="type">calendar</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="Calendar View" date_start="date" date_stop="min_date" color="ineco_request_user_id">
+                    <field name="note"/>
+                    <field name="name"/>
+                    <field name="ineco_request_user_id"/>
+                </calendar>
+            </field>
+        </record>
+        
         <record model="ir.actions.act_window.view" id="ineco_action_picking_internalmove_hr_tree">
             <field name="sequence" eval="1"/>
             <field name="view_mode">tree</field>
@@ -27,6 +41,13 @@
             <field name="act_window_id" ref="ineco_action_picking_internalmove_hr"/>
         </record>
 
+        <record id="ineco_action_picking_internalmove_hr_cal" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="ineco_hr_picking_calendar"/>
+            <field name="act_window_id" ref="ineco_action_picking_internalmove_hr"/>
+        </record>
+        
 		<menuitem
 			id="menu_tcg_warehouse_issue"
 			name="Issue"
@@ -63,7 +84,7 @@
             <field name="context">{'contact_display': 'partner_address',"search_default_available":1,'stock_journal_id':'Raw Material'}</field>
             <field name="search_view_id" ref="stock.view_picking_internal_search"/>
         </record>
-
+        
         <record model="ir.actions.act_window.view" id="ineco_action_picking_internalmove_material_tree">
             <field name="sequence" eval="1"/>
             <field name="view_mode">tree</field>
@@ -78,6 +99,27 @@
             <field name="act_window_id" ref="ineco_action_picking_internalmove_material"/>
         </record>
 
+        <record model="ir.ui.view" id="ineco_material_picking_calendar">
+            <field name="name">ineco.material.picking.calendar</field>
+            <field name="model">stock.picking</field>
+            <field name="type">calendar</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="Calendar View" date_start="date" date_stop="min_date" color="ineco_request_user_id">
+                    <field name="note"/>
+                    <field name="name"/>
+                    <field name="ineco_request_user_id"/>
+                </calendar>
+            </field>
+        </record>
+        
+        <record id="ineco_action_picking_internalmove_material_cal" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="ineco_material_picking_calendar"/>
+            <field name="act_window_id" ref="ineco_action_picking_internalmove_material"/>
+        </record>
+        
         <menuitem 
           action="ineco_action_picking_internalmove_material" 
           id="menu_ineco_action_picking_internal_move_material" 
@@ -113,6 +155,27 @@
             <field name="act_window_id" ref="ineco_action_picking_internalmove_pack"/>
         </record>
 
+        <record model="ir.ui.view" id="ineco_package_picking_calendar">
+            <field name="name">ineco.package.picking.calendar</field>
+            <field name="model">stock.picking</field>
+            <field name="type">calendar</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="Calendar View" date_start="date" date_stop="min_date" color="ineco_request_user_id">
+                    <field name="note"/>
+                    <field name="name"/>
+                    <field name="ineco_request_user_id"/>
+                </calendar>
+            </field>
+        </record>
+        
+        <record id="ineco_action_picking_internalmove_package_cal" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="ineco_package_picking_calendar"/>
+            <field name="act_window_id" ref="ineco_action_picking_internalmove_pack"/>
+        </record>
+        
         <menuitem 
           action="ineco_action_picking_internalmove_pack" 
           id="menu_ineco_action_picking_internal_move_package" 
@@ -148,6 +211,27 @@
             <field name="act_window_id" ref="ineco_action_picking_internalmove_wip"/>
         </record>
 
+        <record model="ir.ui.view" id="ineco_wip_picking_calendar">
+            <field name="name">ineco.wip.picking.calendar</field>
+            <field name="model">stock.picking</field>
+            <field name="type">calendar</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="Calendar View" date_start="date" date_stop="min_date" color="ineco_request_user_id">
+                    <field name="note"/>
+                    <field name="name"/>
+                    <field name="ineco_request_user_id"/>
+                </calendar>
+            </field>
+        </record>
+        
+        <record id="ineco_action_picking_internalmove_wip_cal" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="ineco_wip_picking_calendar"/>
+            <field name="act_window_id" ref="ineco_action_picking_internalmove_wip"/>
+        </record>
+        
         <menuitem 
           action="ineco_action_picking_internalmove_wip" 
           id="menu_ineco_action_picking_internal_move_wip" 
@@ -183,6 +267,27 @@
             <field name="act_window_id" ref="ineco_action_picking_internalmove_fa"/>
         </record>
 
+        <record model="ir.ui.view" id="ineco_fg_picking_calendar">
+            <field name="name">ineco.fg.picking.calendar</field>
+            <field name="model">stock.picking</field>
+            <field name="type">calendar</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="Calendar View" date_start="date" date_stop="min_date" color="ineco_request_user_id">
+                    <field name="note"/>
+                    <field name="name"/>
+                    <field name="ineco_request_user_id"/>
+                </calendar>
+            </field>
+        </record>
+        
+        <record id="ineco_action_picking_internalmove_fg_cal" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="ineco_fg_picking_calendar"/>
+            <field name="act_window_id" ref="ineco_action_picking_internalmove_fa"/>
+        </record>
+        
         <menuitem 
           action="ineco_action_picking_internalmove_fa" 
           id="menu_ineco_action_picking_internal_move_fa" 
@@ -218,6 +323,27 @@
             <field name="act_window_id" ref="ineco_action_picking_internalmove_wip_fd"/>
         </record>
 
+        <record model="ir.ui.view" id="ineco_wipfd_picking_calendar">
+            <field name="name">ineco.wipfd.picking.calendar</field>
+            <field name="model">stock.picking</field>
+            <field name="type">calendar</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="Calendar View" date_start="date" date_stop="min_date" color="ineco_request_user_id">
+                    <field name="note"/>
+                    <field name="name"/>
+                    <field name="ineco_request_user_id"/>
+                </calendar>
+            </field>
+        </record>
+        
+        <record id="ineco_action_picking_internalmove_wipfd_cal" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="ineco_wipfd_picking_calendar"/>
+            <field name="act_window_id" ref="ineco_action_picking_internalmove_wip_fd"/>
+        </record>
+        
         <menuitem 
           action="ineco_action_picking_internalmove_wip_fd" 
           id="menu_ineco_action_picking_internal_move_wip_fd" 
@@ -253,6 +379,27 @@
             <field name="act_window_id" ref="ineco_action_picking_internalmove_wip_ds"/>
         </record>
 
+        <record model="ir.ui.view" id="ineco_wipds_picking_calendar">
+            <field name="name">ineco.wipds.picking.calendar</field>
+            <field name="model">stock.picking</field>
+            <field name="type">calendar</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="Calendar View" date_start="date" date_stop="min_date" color="ineco_request_user_id">
+                    <field name="note"/>
+                    <field name="name"/>
+                    <field name="ineco_request_user_id"/>
+                </calendar>
+            </field>
+        </record>
+        
+        <record id="ineco_action_picking_internalmove_wipds_cal" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="ineco_wipds_picking_calendar"/>
+            <field name="act_window_id" ref="ineco_action_picking_internalmove_wip_ds"/>
+        </record>
+        
         <menuitem 
           action="ineco_action_picking_internalmove_wip_ds" 
           id="menu_ineco_action_picking_internal_move_wip_ds" 
@@ -288,6 +435,27 @@
             <field name="act_window_id" ref="ineco_action_picking_internalmove_fg_fd"/>
         </record>
 
+        <record model="ir.ui.view" id="ineco_fgfd_picking_calendar">
+            <field name="name">ineco.fgfd.picking.calendar</field>
+            <field name="model">stock.picking</field>
+            <field name="type">calendar</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="Calendar View" date_start="date" date_stop="min_date" color="ineco_request_user_id">
+                    <field name="note"/>
+                    <field name="name"/>
+                    <field name="ineco_request_user_id"/>
+                </calendar>
+            </field>
+        </record>
+        
+        <record id="ineco_action_picking_internalmove_fgfd_cal" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="ineco_fgfd_picking_calendar"/>
+            <field name="act_window_id" ref="ineco_action_picking_internalmove_fg_fd"/>
+        </record>
+        
         <menuitem 
           action="ineco_action_picking_internalmove_fg_fd" 
           id="menu_ineco_action_picking_internal_move_fg_fd" 
@@ -323,6 +491,27 @@
             <field name="act_window_id" ref="ineco_action_picking_internalmove_fg_ds"/>
         </record>
 
+        <record model="ir.ui.view" id="ineco_fgds_picking_calendar">
+            <field name="name">ineco.fgds.picking.calendar</field>
+            <field name="model">stock.picking</field>
+            <field name="type">calendar</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="Calendar View" date_start="date" date_stop="min_date" color="ineco_request_user_id">
+                    <field name="note"/>
+                    <field name="name"/>
+                    <field name="ineco_request_user_id"/>
+                </calendar>
+            </field>
+        </record>
+        
+        <record id="ineco_action_picking_internalmove_fgds_cal" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="ineco_fgds_picking_calendar"/>
+            <field name="act_window_id" ref="ineco_action_picking_internalmove_fg_ds"/>
+        </record>
+        
         <menuitem 
           action="ineco_action_picking_internalmove_fg_ds" 
           id="menu_ineco_action_picking_internal_move_fg_ds" 
@@ -358,6 +547,27 @@
             <field name="act_window_id" ref="ineco_action_picking_internalmove_en"/>
         </record>
 
+        <record model="ir.ui.view" id="ineco_en_picking_calendar">
+            <field name="name">ineco.en.picking.calendar</field>
+            <field name="model">stock.picking</field>
+            <field name="type">calendar</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="Calendar View" date_start="date" date_stop="min_date" color="ineco_request_user_id">
+                    <field name="note"/>
+                    <field name="name"/>
+                    <field name="ineco_request_user_id"/>
+                </calendar>
+            </field>
+        </record>
+        
+        <record id="ineco_action_picking_internalmove_en_cal" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="ineco_en_picking_calendar"/>
+            <field name="act_window_id" ref="ineco_action_picking_internalmove_en"/>
+        </record>
+        
         <menuitem 
           action="ineco_action_picking_internalmove_en" 
           id="menu_ineco_action_picking_internal_move_en" 
