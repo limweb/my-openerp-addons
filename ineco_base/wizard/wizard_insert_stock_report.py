@@ -55,7 +55,7 @@ class wizard_ineco_insert_stock_report(osv.osv_memory):
             from stock_report_prodlots srp
             join product_product pp on srp.product_id = pp.id
             left join stock_production_lot spl on srp.prodlot_id = spl.id
-            where pp.active = True and pp.id = 1
+            where pp.active = True 
             group by
               srp.product_id,
               srp.location_id,
