@@ -168,7 +168,9 @@ class stock_move(osv.osv):
                            'partner_id': partner_id,
                            'name': '/',
                         }
-                        quality_id = quality_obj.create(cr, uid, new_data)
+                        inv = sm.name.find('INV') #0 = False
+                        if sm.name.find('INV'):
+                            quality_id = quality_obj.create(cr, uid, new_data)
         return super(stock_move, self).write(cr, uid, ids, vals, context=context)
 
     def action_confirm(self, cr, uid, ids, context=None):

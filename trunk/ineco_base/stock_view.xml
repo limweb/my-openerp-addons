@@ -889,6 +889,7 @@
             <field name="arch" type="xml">
 				<field name="user_id" position="after">
 					<field name="sequence_id" />
+					<field name="location_available" />
 				</field>     		
             </field>
         </record>  
@@ -901,6 +902,7 @@
             <field name="arch" type="xml">
 				<field name="user_id" position="after">
 					<field name="sequence_id" />
+					<field name="location_available" />
 				</field>     		
             </field>
         </record>		

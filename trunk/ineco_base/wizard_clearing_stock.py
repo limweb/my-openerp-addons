@@ -114,7 +114,7 @@ class ineco_stock_clearing(osv.osv_memory):
             location_id = product_template.property_stock_inventory.id
 
             value = {
-                'name': 'Adjust Stock',
+                'name': 'INV:Adjust Stock',
                 'product_id': product_id.id,
                 'product_uom': default_uom.id,
                 'prodlot_id': lot_id,

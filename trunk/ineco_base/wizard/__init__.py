@@ -25,3 +25,4 @@ import wizard_stock_report_print
 import stock_return_picking
 import wizard_export_stock_counting
 import wizard_adjust_stock_report
+import wizard_insert_stock_report

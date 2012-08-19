@@ -47,6 +47,7 @@
 # 18-07-2012       POP-024    Remove Unique Index in stock.production.lot
 # 24-07-2012       POP-025    Add Picking Do Parial
 # 16-08-2012       POP-026    Default Stock Picking Order by Date desc, name desc
+# 19-08-2012       POP-027    Change Default Get Stock In Stock Production Lot
 
 import math
 
@@ -112,6 +113,9 @@ class stock_inventory(osv.osv):
                 if line.tracking_id and line.prod_lot_id:
                     stock_report_ids = self.pool.get('ineco.stock.report').search(cr, uid, 
                         [('lot_id','=',line.prod_lot_id.id),('tracking_id','=',line.tracking_id.id)])
+                elif line.prod_lot_id:
+                    stock_report_ids = self.pool.get('ineco.stock.report').search(cr, uid, 
+                        [('location_dest_id','=',line.location_id.id),('product_id','=',line.product_id.id),('lot_id','=',line.prod_lot_id.id)])
                 else:
                     stock_report_ids = self.pool.get('ineco.stock.report').search(cr, uid, 
                         [('location_dest_id','=',line.location_id.id),('product_id','=',line.product_id.id)])
@@ -410,8 +414,9 @@ class stock_move(osv.osv):
                         update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom , 
                            destination_obj.qty-update_qty, product_obj.warehouse_uom, context=context )
                         if state_current == 'cancel' and destination_obj.qty-update_qty < 0:
-                            raise 
-                        destination_obj.write({'qty':destination_obj.qty-update_qty,'warehouse_qty':update_warehouse_qty})
+                            pass
+                        else:
+                            destination_obj.write({'qty':destination_obj.qty-update_qty,'warehouse_qty':update_warehouse_qty})
                     else:
                         update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom , 
                            -update_qty, product_obj.warehouse_uom, context=context )
@@ -837,17 +842,19 @@ class stock_picking(osv.osv):
                     #POP-014
                     #if pick.type in ['out','internal']:
                     if pick.type in ['internal']:
-                        if move.location_id.validate_stock:
-                            check_ids = self.pool.get('ineco.stock.report').search(cr, uid, [('product_id','=',move.product_id.id),('location_dest_id','=',move.location_id.id),('qty','>',0)])
+                        if move.location_id.validate_stock and pick.stock_journal_id.location_available :
+                            check_ids = self.pool.get('ineco.stock.report').search(cr, uid, [('product_id','=',move.product_id.id),
+                                                                                             ('location_dest_id','=',move.location_id.id),('qty','>',0)])
                             if check_ids:
                                 stock_qty = 0
                                 for stock in self.pool.get('ineco.stock.report').browse(cr, uid, check_ids): 
                                     stock_qty = stock_qty + stock.qty
-                                sql = """
-                                select ineco_get_stock(%s, %s) as total
-                                """
-                                cr.execute(sql % (move.product_uom.id, str(int(move.product_qty))))
-                                total = cr.dictfetchall()
+                                #sql = """
+                                #select ineco_get_stock(%s, %s) as total
+                                #"""
+                                #cr.execute(sql % (move.product_uom.id, str(int(move.product_qty))))
+                                #total = cr.dictfetchall()
+                                total = self.pool.get('product.uom')._compute_qty(cr, uid, move.product_uom, move.product_qty, context.get('uom', False))                                
                                 product_qty = 0
                                 if total:
                                     product_qty = total[0]['total']
@@ -967,6 +974,7 @@ class stock_production_lot(osv.osv):
             result = (datetime.today() + relativedelta( years = 1)).strftime('%Y-%m-%d')
         return result
 
+    #POP-027
     def _get_stock(self, cr, uid, ids, field_name, arg, context=None):
         """ Gets stock of products for locations
         @return: Dictionary of values
@@ -974,7 +982,8 @@ class stock_production_lot(osv.osv):
         if context is None:
             context = {}
         if 'location_id' not in context:
-            locations = self.pool.get('stock.location').search(cr, uid, [('usage', '=', 'internal')], context=context)
+            stock_ids = self.pool.get('stock.location').search(cr, uid, [('name','=','Stock')])
+            locations = self.pool.get('stock.location').search(cr, uid, [('usage', '=', 'internal'),('location_id','child_of',stock_ids)], context=context)
         else:
             locations = context['location_id'] and [context['location_id']] or []
 
@@ -984,29 +993,39 @@ class stock_production_lot(osv.osv):
         res = {}.fromkeys(ids, 0.0)
         if locations:
             cr.execute('''select
-                    lot_id,
-                    sum(ineco_get_stock(uom_id,qty))
+                    prodlot_id,
+                    sum(qty)
                 from
-                    ineco_stock_report_master
+                    stock_report_prodlots
                 where
-                    location_dest_id IN %s and lot_id IN %s group by lot_id''',(tuple(locations),tuple(ids),))
+                    location_id IN %s and prodlot_id IN %s group by prodlot_id''',(tuple(locations),tuple(ids),))
+            #cr.execute('''select
+            #        lot_id,
+            #        sum(ineco_get_stock(uom_id,qty))
+            #    from
+            #        ineco_stock_report_master
+            #    where
+            #        location_dest_id IN %s and lot_id IN %s group by lot_id''',(tuple(locations),tuple(ids),))
             res.update(dict(cr.fetchall()))
 
         return res
 
+    #POP-027
     def _stock_search(self, cr, uid, obj, name, args, context=None):
         """ Searches Ids of products
         @return: Ids of locations
         """
-        locations = self.pool.get('stock.location').search(cr, uid, [('usage', '=', 'internal')])
+        stock_ids = self.pool.get('stock.location').search(cr, uid, [('name','=','Stock')])
+        locations = self.pool.get('stock.location').search(cr, uid, [('usage', '=', 'internal'),('location_id','child_of',stock_ids)], context=context)
+        #locations = self.pool.get('stock.location').search(cr, uid, [('usage', '=', 'internal')])
         cr.execute('''select
-                lot_id,
-                sum(ineco_get_stock(uom_id,qty))
+                prodlot_id,
+                sum(qty)
             from
-                ineco_stock_report_master
+                stock_report_prodlots
             where
-                location_dest_id IN %s group by lot_id
-            having  sum(ineco_get_stock(uom_id,qty)) '''+ str(args[0][1]) + str(args[0][2]),(tuple(locations),))
+                location_id IN %s group by prodlot_id
+            having  sum(qty) '''+ str(args[0][1]) + str(args[0][2]),(tuple(locations),))
         res = cr.fetchall()
         ids = [('id', 'in', map(lambda x: x[0], res))]
         return ids
@@ -1974,7 +1993,11 @@ class stock_journal(osv.osv):
     _inherit = 'stock.journal'
     
     _columns = {
-        'sequence_id': fields.many2one('ir.sequence', 'Sequence', required=True)
+        'sequence_id': fields.many2one('ir.sequence', 'Sequence', required=True),
+        'location_available': fields.boolean('Location Available')
+    }
+    _default = {
+        'location_available': False
     }
     
 stock_journal()
