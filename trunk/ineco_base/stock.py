@@ -831,6 +831,9 @@ class stock_picking(osv.osv):
         """ Changes move state to assigned.
         @return: True
         """
+        if context is None:
+            context = {}
+
         user = self.pool.get('res.users').browse(cr, uid, uid)
         for pick in self.browse(cr, uid, ids, context=context):
             todo = []
