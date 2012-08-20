@@ -860,7 +860,8 @@ class stock_picking(osv.osv):
                                 total = self.pool.get('product.uom')._compute_qty(cr, uid, move.product_uom, move.product_qty, context.get('uom', False))                                
                                 product_qty = 0
                                 if total:
-                                    product_qty = total[0]['total']
+                                    #product_qty = total[0]['total']
+                                    product_qty = total
                                     if stock_qty >= product_qty: #change in default_uom qty 
                                         if move.state == 'assigned':
                                             todo.append(move.id)
