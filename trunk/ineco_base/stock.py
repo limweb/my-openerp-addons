@@ -846,8 +846,9 @@ class stock_picking(osv.osv):
                     #if pick.type in ['out','internal']:
                     if pick.type in ['internal']:
                         if move.location_id.validate_stock and pick.stock_journal_id.location_available :
-                            check_ids = self.pool.get('ineco.stock.report').search(cr, uid, [('product_id','=',move.product_id.id),
-                                                                                             ('location_dest_id','=',move.location_id.id),('qty','>',0)])
+                            lot_id = move.prodlot_id and move.prodlot_id.id or False
+                            check_ids = self.pool.get('ineco.stock.report').search(cr, uid,
+                                [('product_id','=',move.product_id.id),('location_dest_id','=',move.location_id.id), ('lot_id','=',lot_id),('qty','>',0)])
                             if check_ids:
                                 stock_qty = 0
                                 for stock in self.pool.get('ineco.stock.report').browse(cr, uid, check_ids): 
