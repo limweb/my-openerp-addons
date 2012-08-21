@@ -23,6 +23,7 @@
 # 29-05-2012     DAY-001    Add product_category_retailer
 # 20-07-2012     POP-002    Add Not Print Delivery Order
 # 14-08-2012     DAY-002    Add sql_constraints ean13
+# 21-08-2012     DAY-003    Add Field Name2
 
 from osv import osv, fields
 import decimal_precision as dp
@@ -59,6 +60,9 @@ class product_product(osv.osv):
         'full_warehouse_uom': fields.boolean('Full Warehouse Uom'),
         #POP-002
         'not_print_do': fields.boolean("Not Print Delivery Order"),
+        #DAY-003
+        'name2': fields.char('Name2', size=128),
+
     }
     
     _defaults = {
