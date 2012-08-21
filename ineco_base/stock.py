@@ -838,6 +838,8 @@ class stock_picking(osv.osv):
         for pick in self.browse(cr, uid, ids, context=context):
             todo = []
             for move in pick.move_lines:
+                if move.state == 'done':
+                    continue
                 if user.company_id.skip_stock_report or pick.ineco_return:
                     if move.state == 'assigned':
                         todo.append(move.id)
