@@ -32,6 +32,9 @@
 			<field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="type">form</field>
             <field name="arch" type="xml">
+             	<field name="name" position="after">
+            		<field name="name2" />
+            	</field>               
             	<field name="purchase_ok" position="after">
             		<field name="name_lock" />
             	</field>
@@ -141,10 +144,25 @@
             <field name="inherit_id" ref="product.product_search_form_view"/>            
             <field name="arch" type="xml">
             	<field name="name" position="after">
-            		<field name="ean13" />        		
+            		<field name="ean13" />
+            		<field name="name2" />        		
             	</field>
             </field>
-        </record>				
+        </record>	
+        <record id="view_omg_product_product_tree_inherit" model="ir.ui.view">
+            <field name="name">omg.product.product.tree.inherit</field>
+            <field name="model">product.product</field>
+			<field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+            	<field name="default_code" position="after">
+            		<field name="ean13" />          		
+            	</field>
+            	<field name="name" position="after">
+            		<field name="name2" />          		
+            	</field>            	
+            </field>
+        </record>        			
 	</data>
 </openerp>
 
