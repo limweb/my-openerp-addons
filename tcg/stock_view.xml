@@ -305,7 +305,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar</field>
             <field name="domain">[('type','=','internal'),('stock_journal_id','=','WIP FD')]</field>
-            <field name="context">{'contact_display': 'partner_address',"search_default_available":1,'stock_journal_id':'WIP FD','qc_disable':False}</field>
+            <field name="context">{'contact_display': 'partner_address',"search_default_available":1,'stock_journal_id':'WIP FD','qc_disable':True}</field>
             <field name="search_view_id" ref="stock.view_picking_internal_search"/>
         </record>
 
@@ -361,7 +361,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar</field>
             <field name="domain">[('type','=','internal'),('stock_journal_id','=','WIP DS')]</field>
-            <field name="context">{'contact_display': 'partner_address',"search_default_available":1,'stock_journal_id':'WIP DS','qc_disable':False}</field>
+            <field name="context">{'contact_display': 'partner_address',"search_default_available":1,'stock_journal_id':'WIP DS','qc_disable':True}</field>
             <field name="search_view_id" ref="stock.view_picking_internal_search"/>
         </record>
 
