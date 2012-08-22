@@ -19,6 +19,8 @@
 #
 ##############################################################################
 
+# 22-08-2012    POP-001    Add Default QC Must Checking
+
 import time
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -91,6 +93,8 @@ class purchase_order(osv.osv):
                 'purchase_id': order.id,
                 'company_id': order.company_id.id,
                 'move_lines' : [],
+                #POP-001
+                'qc_disable': False,
             })
             todo_moves = []
             for order_line in order.order_line:

@@ -1004,11 +1004,11 @@ class stock_production_lot(osv.osv):
         if locations:
             cr.execute('''select
                     prodlot_id,
-                    sum(qty)
+                    round(sum(qty),4)
                 from
                     stock_report_prodlots
                 where
-                    location_id IN %s and prodlot_id IN %s group by prodlot_id''',(tuple(locations),tuple(ids),))
+                    location_id IN %s and prodlot_id IN %s group by prodlot_id ''',(tuple(locations),tuple(ids),))
             #cr.execute('''select
             #        lot_id,
             #        sum(ineco_get_stock(uom_id,qty))
@@ -1030,12 +1030,12 @@ class stock_production_lot(osv.osv):
         #locations = self.pool.get('stock.location').search(cr, uid, [('usage', '=', 'internal')])
         cr.execute('''select
                 prodlot_id,
-                sum(qty)
+                round(sum(qty),4)
             from
                 stock_report_prodlots
             where
                 location_id IN %s group by prodlot_id
-            having  sum(qty) '''+ str(args[0][1]) + str(args[0][2]),(tuple(locations),))
+            having  round(sum(qty),4) '''+ str(args[0][1]) + str(args[0][2]),(tuple(locations),))
         res = cr.fetchall()
         ids = [('id', 'in', map(lambda x: x[0], res))]
         return ids
@@ -1055,6 +1055,8 @@ class stock_production_lot(osv.osv):
         #"date_expired": time.strftime('%Y-%m-%d')
         'date_expired': _get_expire_context ,
     }
+    
+    _order = 'date_expired, name'
     
 stock_production_lot()
 
