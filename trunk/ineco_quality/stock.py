@@ -169,7 +169,7 @@ class stock_move(osv.osv):
                            'name': '/',
                         }
                         inv = sm.name.find('INV') #0 = False
-                        if sm.name.find('INV'):
+                        if sm.name.find('INV') and not sm.scrapped:
                             quality_id = quality_obj.create(cr, uid, new_data)
         return super(stock_move, self).write(cr, uid, ids, vals, context=context)
 

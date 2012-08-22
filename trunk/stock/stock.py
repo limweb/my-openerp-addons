@@ -2245,20 +2245,25 @@ class stock_move(osv.osv):
                 'product_uos_qty': uos_qty,
                 'state': move.state,
                 'scrapped' : True,
-                'location_dest_id': location_id,
+                'location_dest_id': location_id[0], #Change Bug
                 'tracking_id': move.tracking_id.id,
                 'prodlot_id': move.prodlot_id.id,
+                #'product_id': move.product_id.id,
+                #'product_uom': move.product_uom.id,
+                #'name': move.name,
+                #'location_id': move.location_dest_id.id,
             }
-            if move.location_id.usage <> 'internal':
-                default_val.update({'location_id': move.location_dest_id.id})
+            #if move.location_id.usage <> 'internal':
+            #    default_val.update({'location_id': move.location_dest_id.id})
+            #new_move = self.create(cr, uid, default_val)
             new_move = self.copy(cr, uid, move.id, default_val)
 
             res += [new_move]
-            product_obj = self.pool.get('product.product')
-            for (id, name) in product_obj.name_get(cr, uid, [move.product_id.id]):
-                self.log(cr, uid, move.id, "%s x %s %s" % (move.product_qty, name, _("were scrapped")))
+            #product_obj = self.pool.get('product.product')
+            #for (id, name) in product_obj.name_get(cr, uid, [move.product_id.id]):
+            #    self.log(cr, uid, move.id, "%s x %s %s" % (move.product_qty, name, _("were scrapped")))
 
-        self.action_done(cr, uid, res)
+        #self.action_done(cr, uid, res)
         return res
 
     def action_split(self, cr, uid, ids, quantity, split_by_qty=1, prefix=False, with_lot=True, context=None):

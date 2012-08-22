@@ -48,6 +48,7 @@
 # 24-07-2012       POP-025    Add Picking Do Parial
 # 16-08-2012       POP-026    Default Stock Picking Order by Date desc, name desc
 # 19-08-2012       POP-027    Change Default Get Stock In Stock Production Lot
+# 22-08-2012       POP-028    Change ineco.stock.report on Digits UOM from Product UOM Digits
 
 import math
 
@@ -470,6 +471,7 @@ class stock_move(osv.osv):
         if loc_dest_id:
             result['location_dest_id'] = loc_dest_id
         return {'value': result}
+
            
 stock_move()
 
@@ -869,7 +871,8 @@ class stock_picking(osv.osv):
                                         if move.state == 'assigned':
                                             todo.append(move.id)
                                     else:
-                                        raise osv.except_osv(_('Error !'), _('Stock insufficient in source location. [' + move.product_id.name + '->'+move.location_id.name+']'))
+                                        raise osv.except_osv(_('Error !'), _('Stock insufficient in source location. [' + move.product_id.name+ ' (Need:'+ str(move.product_qty) + ') ' + '->'+
+                                                                             move.location_id.name+ ' (Available:'+ str(stock_qty) + ') ]'))
                             else:
                                 raise osv.except_osv(_('Error !'), _('Can not found "'+move.product_id.name+'" in '+move.location_id.name+'. Please checking Stock Report.'))
                         else:
@@ -1875,13 +1878,16 @@ class ineco_stock_report(osv.osv):
         'tracking_id': fields.many2one('stock.tracking', 'Pack'),
         'product_id': fields.many2one('product.product', 'Product'),
         'uom_id': fields.many2one('product.uom', 'UOM'),
-        'qty': fields.float('On Hand'),
+        #POP-028 
+        'qty': fields.float('On Hand', digits_compute=dp.get_precision('Product UoM')),
         #POP-005
         'warehouse_uom': fields.many2one('product.uom', 'Warehouse UOM'),
-        'warehouse_qty': fields.float('Warehouse Qty'),
+        #POP-028 
+        'warehouse_qty': fields.float('Warehouse Qty', digits_compute=dp.get_precision('Product UoM')),
         'date_input': fields.date('Lot Date'),
-        'quantity': fields.float('Quantity'),
-        'available': fields.function(_get_product_available,  string="Stock Move Quantity (Real Stock)", type="float", method=True),
+        #POP-028 
+        'quantity': fields.float('Quantity', digits_compute=dp.get_precision('Product UoM')),
+        'available': fields.function(_get_product_available,  string="Stock Move Quantity (Real Stock)", digits_compute=dp.get_precision('Product UoM'), type="float", method=True),
         'problemed': fields.function(_problemed, method=True, string='Problem', fnct_search=_problemed_search, type='boolean'),
     }
     
