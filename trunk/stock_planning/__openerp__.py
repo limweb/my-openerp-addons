@@ -146,6 +146,7 @@ Remarks:
         "wizard/stock_planning_create_periods_view.xml",
         "wizard/stock_planning_forecast_view.xml",
         "wizard/stock_planning_createlines_view.xml",
+        "wizard/wizard_calculate_all_view.xml",
     ],
     "test": ["test/stock_planning.yml"],
     "active": False,
