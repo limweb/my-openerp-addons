@@ -38,6 +38,7 @@
 # 23-07-2012    DAY-007    Cash Advance Other
 # 30-07-2012    DAY-008    Add Type Location contact_line_location
 # 14-08-2012    DAY-009    Add specific_booth_type
+# 25-08-2012    DAY-010    Materials Cash Adv
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -316,7 +317,7 @@ class omg_sale_reserve_contact_line(osv.osv):
                         booking.write({'state':'draft'})
                 self.write(cr, uid, ids, {'state':'reserve'})
             else:
-                raise osv.except_osv(_('Warning'), _('Set State Sale_Order = Draft'))             
+                raise osv.except_osv(_('Warning'), _("ข้อมูล SaleOrder state ไม่เป็น draft กรุณา set draft ด้วยครับ"))   #DAY-010          
         return []
 
     def _check_booking(self, cr, uid, ids, context=None):
@@ -446,6 +447,10 @@ class omg_sale_reserve_contact_line(osv.osv):
                                 sql_delete_cash_advance ='delete from sale_cash_advance_other_line where sale_id=%s and location_id = %s' % (contact_obj.sale_order_id.id,locaton_del)                                
                                 cr.execute(sql_delete_cash_advance)                        
                                 cr.commit()
+                                #DAY-010
+                                sql_delete_cash_advance_mat ='delete from sale_cash_advance_material_line where sale_id=%s and location_id = %s' % (contact_obj.sale_order_id.id,locaton_del)                                
+                                cr.execute(sql_delete_cash_advance_mat)                        
+                                cr.commit()
                         else:
                             sql_delete_branch = 'delete from sale_branch_line where sale_id =%s and location_id in %s' % (contact_obj.sale_order_id.id,tuple(sale_branch_location_del))
                             cr.execute(sql_delete_branch)                        
@@ -454,11 +459,17 @@ class omg_sale_reserve_contact_line(osv.osv):
                             sql_delete_cash_advance = 'delete from sale_cash_advance_other_line where sale_id=%s and location_id in %s' % (contact_obj.sale_order_id.id,tuple(sale_branch_location_del))
                             cr.execute(sql_delete_cash_advance)                        
                             cr.commit()
+                            #DAY-010
+                            sql_delete_cash_advance_mat ='delete from sale_cash_advance_material_line where sale_id=%s and location_id in %s' % (contact_obj.sale_order_id.id,tuple(sale_branch_location_del))                              
+                            cr.execute(sql_delete_cash_advance_mat)                        
+                            cr.commit()                            
                             
                     if sale_branch_location_add:
                         sale_branch_obj = self.pool.get('sale.branch.line')
                         #DAY-007
                         sale_cash_advance_obj = self.pool.get('sale.cash.advance.other.line')
+                        #DAY-010
+                        sale_cash_advance_mat = self.pool.get('sale.cash.advance.material.line')
                         for lid in sale_branch_location_add:
                             location = self.pool.get('stock.location').browse(cr,uid,[lid])[0]
                             location_categ_ids = self.pool.get('stock.location.line.qty').search(cr, uid, [('categ_id','=',contact_obj.contact_id.product_id.categ_id.id),('location_id','=',location.id)])
@@ -475,6 +486,12 @@ class omg_sale_reserve_contact_line(osv.osv):
                                 'area': location.location_type_id.name or False,
                                 'estimate': estimate,
                                 })
+                            #DAY-010
+                            sale_cash_advance_mat.create(cr,uid,{
+                                'sale_id': contact_obj.sale_order_id.id,
+                                'location_id': location.id,
+                                'amount': 0.0,
+                                })                            
                             #DAY-007
                             location_cash_advance_ids = self.pool.get('stock.location.cash.advance.other').search(cr, uid, [('location_id','=',location.id)])                            
                             if location_cash_advance_ids:
@@ -494,7 +511,7 @@ class omg_sale_reserve_contact_line(osv.osv):
                     self.write(cr, uid, ids, {'state':'done'})
                                             
                 else:
-                    raise osv.except_osv(_('Warning'), _('Set State Sale_Order = Draft'))             
+                    raise osv.except_osv(_('Warning'), _("ข้อมูล SaleOrder state ไม่เป็น draft กรุณา set draft ด้วยครับ"))             
             else:               
                 sale_order_id = sale_order_obj.create(cr, uid, {
                     'pricelist_id': contact_obj.contact_id.customer_id.property_product_pricelist.id,
@@ -514,7 +531,10 @@ class omg_sale_reserve_contact_line(osv.osv):
                 })
                 sale_branch_obj = self.pool.get('sale.branch.line')
                 #DAY-007
-                sale_cash_advance_obj = self.pool.get('sale.cash.advance.other.line')                
+                sale_cash_advance_obj = self.pool.get('sale.cash.advance.other.line')
+                #DAY-010
+                sale_cash_advance_mat = self.pool.get('sale.cash.advance.material.line')
+                                
                 for location in contact_obj.location_lines:
                     if self._can_booking(cr, uid, ids, location.location_id.id, contact_obj.category_id.id, contact_obj.period_id.id, contact_obj.contact_id.service_id.categ_id.id ):
                         location_categ_ids = self.pool.get('stock.location.line.qty').search(cr, uid, [('categ_id','=',contact_obj.contact_id.product_id.categ_id.id),('location_id','=',location.location_id.id)])
@@ -531,6 +551,12 @@ class omg_sale_reserve_contact_line(osv.osv):
                             'area': location.location_id.location_type_id.name or False,
                             'estimate': estimate,
                         })
+                        #DAY-010
+                        sale_cash_advance_mat.create(cr,uid,{
+                            'sale_id': sale_order_id,
+                            'location_id': location.location_id.id,
+                            'amount': 0.0,
+                        })                         
                         #DAY-007
                         location_cash_advance_ids = self.pool.get('stock.location.cash.advance.other').search(cr, uid, [('location_id','=',location.location_id.id)])                            
                         if location_cash_advance_ids:

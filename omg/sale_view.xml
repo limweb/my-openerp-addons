@@ -43,8 +43,24 @@
 								<field name="date_total" />
 							</tree>
 						</field>
-					</page>					
-					<page string="Cash Advance Other">
+					</page>	
+					<page string="Materials Cash Adv.">	
+						<field colspan="2" name="amount_by_store"  />					    				    					    
+                		<button colspan="2" name="set_amount_mat" states="draft" string="Set Amount" type="object" icon="terp-stock_effects-object-colorize"/>
+						<newline/>                		
+						<field colspan="4" name="sale_cash_advance_mat_ids" mode="tree,form" nolabel="1" widget="one2many_list">
+						    <form string="Material Cash Advance">
+								<field name="location_id" domain="[('id','in',[ x[2]['location_id'][0] for x in parent.sale_location_ids])]"/>
+								<field name="amount" />
+							</form>
+							<tree string="Material Cash Advance">
+								<field name="location_id" />
+								<field name="amount" sum="amount" />
+							</tree>
+						</field>
+						<field colspan="4" name="total_cash_advance"  />
+					</page>									
+					<page string="Others Cash Adv.">
 						<field colspan="4" name="sale_cash_advance_ids" mode="tree,form" nolabel="1" widget="one2many_list">
 							<form string="Cash Advance Other">
 								<field name="location_id" domain="[('id','in',[ x[2]['location_id'][0] for x in parent.sale_location_ids])]"/>
@@ -56,7 +72,7 @@
 								<field name="product_id" />
 								<field name="amount" sum="amount" />
 							</tree>
-						</field>
+						</field>						
 					</page>					
 					<page string="Item Check Sales">
 						<field name="item_sale_check_ids" colspan="4" nolabel="1">

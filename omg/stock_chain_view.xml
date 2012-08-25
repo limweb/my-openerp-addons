@@ -42,7 +42,6 @@
 							<field name="store_code" />
 							<field name="path" />
 							<field name="name_thai" />
-							<field name="store_address_id"/>
 							<field name="omg_classification"/>
 							<field name="omg_format"/>
 							<field name="omg_channel"/>
@@ -54,8 +53,11 @@
 						<page string="OMG Information2">
 							<field name="omg_no_other" />
 							<field name="omg_store_code" />
+							<field name="store_address_id"/>
 							<field name="omg_latitude" />
+							<field name="field_sup_address_id"/>
 							<field name="omg_longitude" />
+							<field name="assistant_address_id"/>
 							<field name="omg_region" />
 							<field name="omg_retail_store_name" />
 							<field name="omg_recruiter" />

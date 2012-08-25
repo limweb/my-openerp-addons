@@ -54,6 +54,7 @@
 # 30-07-2012       DAY-005    Add Fields Locations Type
 # 09-08-2012       POP-027    Add Sale Data
 # 14-08-2012       DAY-006    Add Specific Booth Type
+# 25-08-2012       DAY-007    Add Material Cash Advance
 
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
@@ -188,6 +189,18 @@ class sale_cash_advance_other_line(osv.osv):
         return {'value': v}
         
 sale_cash_advance_other_line()
+
+
+#DAY-007
+class sale_cash_advance_material_line(osv.osv):
+    _name = 'sale.cash.advance.material.line'
+    _description = 'Material Cash Advance'
+    _columns = {
+        'sale_id': fields.many2one('sale.order','Sale Order',ondelete="restrict"),
+        'location_id': fields.many2one('stock.location','Location', required=True, ondelete="restrict"),
+        'amount': fields.float('Amount',required=True),                  
+    }   
+sale_cash_advance_material_line()
     
 #POP-006
 class omg_sale_group_special(osv.osv):
@@ -440,7 +453,32 @@ class sale_order(osv.osv):
                 date_finish = max(date_finish, period.period_id.date_finish)
             res[line.id] = date_finish
         return res
-
+    
+#DAY-007    
+    def set_amount_mat(self, cr, uid, ids, context=None):
+        res = {}        
+        for order in self.browse(cr, uid, ids, context):
+            location_mat_ids = self.pool.get('sale.cash.advance.material.line').search(cr, uid, [('sale_id','=',order.id)])
+            if order.amount_by_store:
+                if location_mat_ids:
+                    self.pool.get('sale.cash.advance.material.line').write(cr, uid, location_mat_ids, {'amount': order.amount_by_store })
+        return res  
+#DAY-007    
+    def _amount_mats(self, cr, uid, ids, field_name, arg, context=None):
+        res = {}
+        if context is None:
+            context = {}
+        mats_val = 0.0
+        oth_val = 0.0
+        for line in self.browse(cr, uid, ids, context=context):
+            for mats in line.sale_cash_advance_mat_ids:
+                if mats.id:
+                    mats_val = mats_val + mats.amount
+            for oths in line.sale_cash_advance_ids:
+                if oths.id:
+                    oth_val = oth_val + oths.amount
+            res[line.id] = mats_val + oth_val
+        return res    
     #define how to convert delivery
     def choose_delivery_qty(self, cr, uid, ids, current, value_a, value_b, context=None):
         delivery = {}
@@ -463,7 +501,11 @@ class sale_order(osv.osv):
 
     _columns = {
 #DAY-003        
-        'sale_cash_advance_ids':fields.one2many('sale.cash.advance.other.line','sale_id','Cash Advance Other'),
+        'sale_cash_advance_ids':fields.one2many('sale.cash.advance.other.line','sale_id','Others Cash Advance Lines'),
+#DAY-007
+        'sale_cash_advance_mat_ids':fields.one2many('sale.cash.advance.material.line','sale_id','Material Cash Advance Lines'),        
+        'amount_by_store': fields.float('Amount by Store'),
+        'total_cash_advance': fields.function(_amount_mats, method=True, type='float', string='Total Cash Advance'),    
         'sale_period_ids': fields.one2many('sale.period.line', 'sale_id', 'Period Lines'),
         'sale_location_ids': fields.one2many('sale.branch.line', 'sale_id', 'Location Lines'),
         'sale_quotation_ids': fields.one2many('sale.order.quotation.line', 'saleorder_id', 'Quotation Manual'),

@@ -20,6 +20,9 @@
 #
 ##############################################################################
 
+# Date             ID         Message
+# 23-08-2012       DAY-001    Email Text proposed 
+
 import time
 import netsvc
 
@@ -128,7 +131,8 @@ class purchase_requisition(osv.osv):
                     'email_from': 'ERP Email Agent',
                     'email_to': purchase_account.name.user_email,
                     'account_id': email_account_id ,
-                    'subject': _('New PR: %s was approved by %s') % (obj.name, obj.user_id.user_email), #add pr no
+                    #DAY-001
+                    'subject': _('New PR: %s was proposed by %s') % (obj.name, obj.user_id.user_email), #add pr no
                     'body_text': 'See in application. Thank you.' 
                 })            
                 email_obj.send_this_mail(cr, uid, [email_id])
