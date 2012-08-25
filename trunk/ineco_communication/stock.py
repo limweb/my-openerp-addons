@@ -19,6 +19,10 @@
 #
 ##############################################################################
 
+# Date             ID         Message
+# 23-08-2012       DAY-001    Email Text 
+
+
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 import time
@@ -42,13 +46,24 @@ class stock_picking(osv.osv):
                 email_obj = self.pool.get('email_template.mailbox')       
                 email_account_id = self.pool.get('email_template.account').search(cr, uid, [('name', '=', 'ERP Mail Service')])[0]
                 if email_account_id:
+                    #DAY-001
+                    email_text_status = ''
+                    if pick.purchase_id.warehouse_id.lot_input_id.id == 40:
+                        email_text_status = 'Warehouse - Goods Receive'
+                    else:
+                        email_text_status = 'Purchase - Admin'
+                    
                     email_id = email_obj.create(cr, uid, {
                         'email_from': 'ERP Email Agent',
                         'email_to': pick.purchase_id.requisition_id.user_id.user_email,
                         'email_cc': pick.purchase_id.requisition_id.user_support_id.user_email or '',
                         'account_id': email_account_id ,
-                        'subject': _('Purchase order : %s has been %s (include PR: %s) by %s') % (pick.purchase_id.name, status, pick.purchase_id.requisition_id.name,email_cc_name) ,
-                        'body_text': 'Your PR has been received product, please contact PO Users to get it.' 
+#                        'subject': _('Purchase order : %s has been %s (include PR: %s) by %s') % (pick.purchase_id.name, status, pick.purchase_id.requisition_id.name,email_cc_name) ,
+                        #DAY-001
+                        'subject': _('Purchase order : %s %s') % (pick.purchase_id.name, status),
+#                        'body_text': 'Your PR has been received product, please contact PO Users to get it.' 
+                        'body_text': _('Your PR: %s the goods have been received, please contact %s') % (pick.purchase_id.requisition_id.name,email_text_status)
+                                        
                     })            
                     email_obj.send_this_mail(cr, uid, [email_id])
         return True
@@ -190,7 +205,7 @@ class stock_picking(osv.osv):
                 wf_service.trg_validate(uid, 'stock.picking', new_picking, 'button_done', cr)
                 pickin = self.browse(cr, uid, [new_picking])[0]
                 if pickin.type == 'in':
-                    self._send_mail(cr, uid, [new_picking], 'received product')
+                    self._send_mail(cr, uid, [new_picking], 'the goods have been received')#DAY-001
                 wf_service.trg_write(uid, 'stock.picking', pick.id, cr)
                 delivered_pack_id = new_picking
             else:
@@ -198,7 +213,7 @@ class stock_picking(osv.osv):
                 wf_service.trg_validate(uid, 'stock.picking', pick.id, 'button_done', cr)
                 pickin = self.browse(cr, uid, [pick.id])[0]
                 if pickin.type == 'in':
-                    self._send_mail(cr, uid, [pick.id], 'received product')
+                    self._send_mail(cr, uid, [pick.id], 'the goods have been received')#DAY-001
                 delivered_pack_id = pick.id
 
             delivered_pack = self.browse(cr, uid, delivered_pack_id, context=context)

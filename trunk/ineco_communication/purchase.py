@@ -19,6 +19,11 @@
 #
 ##############################################################################
 
+# Date             ID         Message
+# 23-08-2012       DAY-001    Email Text 
+# 25-08-2012       DAY-002    Create RFQ Not Send Email
+
+
 import time
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -61,8 +66,9 @@ class purchase_order(osv.osv):
 
     def create(self, cr, user, vals, context=None):        
         po_id = super(purchase_order,self).create(cr, user, vals, context)
-        if ('requisition_id' in vals):
-            self._send_mail(cr, user, [po_id], 'created')
+        #DAY-002
+        #if ('requisition_id' in vals):
+        #    self._send_mail(cr, user, [po_id], 'issued') #DAY-001
         return po_id
 
     def wkf_approve_order(self, cr, uid, ids, context=None):
@@ -71,7 +77,7 @@ class purchase_order(osv.osv):
 
     def wkf_confirm_order(self, cr, uid, ids, context=None):
         super(purchase_order,self).wkf_confirm_order(cr, uid, ids, context)
-        self._send_mail(cr, uid, ids, 'confirmed')
+        self._send_mail(cr, uid, ids, 'submitted') #DAY-001
         return True
 
     def action_cancel_draft(self, cr, uid, ids, *args):

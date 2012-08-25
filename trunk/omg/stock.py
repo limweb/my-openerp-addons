@@ -37,6 +37,7 @@
 # 20-07-2012    POP-010    Add PM Note/Check
 # 23-07-2012    DAY-005    Add Cash Advance Other
 # 14-08-2012    DAY-006    Add Specific Booth Type
+# 25-08-2012    DAY-007    Add 
 
 import socket
 import sys
@@ -90,7 +91,8 @@ def send_sms(host, post, message):
         except socket.error, msg:
             s.close()
             s = None
-            continue
+            continue     
+
         break
     if s is None:
         print 'could not open socket'
@@ -815,6 +817,9 @@ class stock_location(osv.osv):
         'cash_advance_ids': fields.one2many('stock.location.cash.advance.other', 'location_id', 'Cash Advance'),
         #DAY-006
         'specific_booth_type_id': fields.many2one('omg.sale.location.booth.type', 'Specific Booth Type', ondelete="restrict"),
+        #DAY-007
+        'field_sup_address_id': fields.many2one('res.partner.address','Field Sup Contact', ondelete='restrict'),        
+        'assistant_address_id': fields.many2one('res.partner.address','Assistant Contact', ondelete='restrict'),        
     }
     _defaults = {
         'omg_approve': False,
