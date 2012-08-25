@@ -606,7 +606,7 @@ class stock_planning(osv.osv):
             incoming_left = 0
             if already_in[0] < val.to_procure + incoming[0]:
                 incoming_left = val.to_procure + incoming[0] - already_in[0]
-            self.write(cr, uid, ids, {
+            self.write(cr, uid, val.id, {
                 'already_out': rounding(already_out[0]*factor,round_value),
                 'already_in': rounding(already_in[0]*factor,round_value),
                 'outgoing': rounding(outgoing[0]*factor,round_value),

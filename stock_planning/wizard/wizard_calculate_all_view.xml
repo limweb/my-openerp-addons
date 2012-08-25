@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_wizard_ineco_calculate_all" model="ir.ui.view">
+            <field name="name">Calculate All</field>
+            <field name="model">wizard.ineco.calculate.all</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form string="Calculate">
+                    <group colspan="4">
+                        <group colspan="4" states="choose">
+                            <separator colspan="4" string="Selecting"/>
+                            <field invisible="1" name="state"/>
+                        </group>
+                        <group colspan="4" states="get">
+                            <separator string="Execute Done" colspan="4"/>
+                        </group>
+                    </group>
+                    <group colspan="8" col="8" states="choose">
+                        <separator string="" colspan="8"/>
+                        <button icon="gtk-cancel" name="act_cancel" special="cancel" string="_Close" type="object"/>
+                        <button icon="gtk-ok" name="execute" string="_Execute" type="object"/>
+                    </group>
+                    <group colspan="8" col="8" states="get">
+                        <separator string="" colspan="8"/>
+                        <button icon="gtk-close" name="act_destroy" special="cancel" string="_Close" type="object"/>
+                    </group>
+            	</form>
+            </field>
+        </record>
+
+        <record id="action_wizard_ineco_calculate_all" model="ir.actions.act_window">
+            <field name="name">Calculate All</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.ineco.calculate.all</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+		 <act_window name="Calculate All"		    
+			res_model="wizard.ineco.calculate.all"
+			src_model="stock.planning"
+			view_mode="form"
+           	multi="True"
+			target="new"        
+			key2="client_action_multi"
+			id="action_wizard_ineco_calculate_all"/>	
+
+    </data>
+</openerp>

@@ -22,3 +22,4 @@
 import stock_planning_create_periods
 import stock_planning_forecast
 import stock_planning_createlines
+import wizard_calculate_all
