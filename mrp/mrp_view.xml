@@ -335,7 +335,7 @@
                         <page string="Components">
                             <field colspan="4" name="bom_lines" nolabel="1" widget="one2many_list">
                                 <tree string="Components" editable="bottom">
-                                    <field name="product_id" on_change="onchange_product_id(product_id, name)" select="1"/>
+                                    <field name="product_id" on_change="onchange_product_id(product_id, name, product_uom)" select="1"/>
                                     <field name="product_qty"/>
                                     <field name="product_uom"/>
                                     <field name="name" invisible="1"/>
@@ -344,7 +344,7 @@
                                 </tree>
                                 <form string="Bill of Material">
                                     <group colspan="4" col="6">
-                                    <field name="product_id" on_change="onchange_product_id(product_id, name)" select="1"/>
+                                    <field name="product_id" on_change="onchange_product_id(product_id, name, product_uom)" select="1"/>
                                     <field name="name" select="1"/>
                                     <field name="code" select="1" string="Reference" groups="base.group_extended"/>
                                     <newline/>
@@ -363,7 +363,7 @@
                                     <page string="Components">
                                         <field colspan="4" name="bom_lines" nolabel="1" widget="one2many_list">
                                             <tree string="Components" editable="bottom">
-                                                <field name="product_id" on_change="onchange_product_id(product_id, name)" select="1"/>
+                                                <field name="product_id" on_change="onchange_product_id(product_id, name, product_uom)" select="1"/>
                                                 <field name="product_qty"/>
                                                 <field name="product_uom"/>
                                                 <field name="name" invisible="1"/>
@@ -590,7 +590,7 @@
             <field name="type">calendar</field>
             <field eval="2" name="priority"/>
             <field name="arch" type="xml">
-                <calendar color="routing_id" date_start="date_planned" string="Manufacturing Orders">
+                <calendar color="product_id" date_start="date_planned" string="Manufacturing Orders">
                     <field name="name"/>
                     <field name="product_id"/>
                     <field name="product_qty"/>
