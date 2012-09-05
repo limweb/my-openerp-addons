@@ -1057,7 +1057,7 @@ class sale_order(osv.osv):
                   else product_uom_qty
                 end as altqty,
                 'Store' as altuom,
-                coalesce(price_unit,0) as chargerate,
+                coalesce(price_unit, 0.0) as chargerate,
                 --product_uom_qty * coalesce((select count(*) from sale_branch_line where sale_id = so.id),1) * coalesce(price_unit,1)  as extcharge
                 (case with_branch
                   when false then 
@@ -1082,7 +1082,7 @@ class sale_order(osv.osv):
                 left join product_template pt on pp.product_tmpl_id = pt.id
                 left join product_category pc on pt.categ_id = pc.id
                 left join omg_sale_period osp on so.period_id = osp.id
-                where so.company_id = %s and so.id = %s
+                where so.company_id = %s and so.id = %s and coalesce(price_unit, 0.0) <> 0
             
                 """
 #
