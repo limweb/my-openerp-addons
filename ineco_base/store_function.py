@@ -189,7 +189,7 @@ class ineco_public_function_getstocklimit(osv.osv):
                     stock record;
                     local_product_id alias for $1;
                     total alias for $2;
-                    tmp_quantity int default 0;
+                    tmp_quantity numeric default 0;
             begin
                 for stock in select id, qty from ineco_stock_report_master where product_id = local_product_id and qty > 0  order by expired, date_input, qty loop
                     tmp_quantity = tmp_quantity + stock.qty;

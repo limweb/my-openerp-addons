@@ -330,6 +330,7 @@ class procurement_order(osv.osv):
                         'product_qty': procurement.product_qty,
                         'product_uom': procurement.product_uom.id,
                         'date_expected': procurement.date_planned,
+                        'date': procurement.date_planned,
                         'state': 'draft',
                         'company_id': procurement.company_id.id,
                         'auto_validate': True,
