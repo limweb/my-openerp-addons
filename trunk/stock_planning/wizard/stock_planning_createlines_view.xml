@@ -14,7 +14,7 @@
                     <field name="period_id" widget="selection"/>
                     <field name="warehouse_id" domain = "[('company_id','=',company_id)] "/>
                     <field name="forecasted_products"/>
-                    <field name="product_categ_id" attrs="{'required':[('forecasted_products','=',0)]}" widget="selection"/>
+                    <field name="product_categ_id" attrs="{'required':[('forecasted_products','=',0)]}" widget="many2one"/>
                     <field name="company_id" widget= "selection" on_change="onchange_company(company_id)" groups="base.group_multi_company"/>
                     <newline/>
                     <label colspan ="4"  string="Note: Doesn't duplicate existing lines created by you."/>
