@@ -26,6 +26,7 @@
 # 06-07-2012    POP-005    Insert new table contr_salestock_nochk
 # 09-07-2012    POP-006    Check Data Item Not Check in Item Check
 # 10-08-2012    POP-007    Add Sale Data
+# 10-09-2012    POP-008    Delete all costitem
 
 import math
 
@@ -1027,7 +1028,12 @@ class sale_order(osv.osv):
                 else:
                     raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
 
-
+            #POP-008 
+            delete_costitem_sql = """
+                delete from contr_costitem where contractno = %s 
+            """
+            cr.execute(delete_costitem_sql % (order.name))
+            
             costitem_sql = """
             
             select
