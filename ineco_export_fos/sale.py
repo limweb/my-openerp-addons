@@ -1032,7 +1032,17 @@ class sale_order(osv.osv):
             delete_costitem_sql = """
                 delete from contr_costitem where contractno = %s 
             """
-            cr.execute(delete_costitem_sql % (order.name))
+            if order.company_id.fos_host and order.company_id.fos_user and order.company_id.fos_dbname:
+                server_ip = order.company_id.fos_host
+                server_user = order.company_id.fos_user
+                server_password = order.company_id.fos_password
+                server_db = order.company_id.fos_dbname
+
+                conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
+                                       database=server_db,as_dict=True)
+                cur = conn.cursor()
+                cur.execute('SET ANSI_WARNINGS off')
+                cur.execute(delete_costitem_sql.encode('utf-8'), (order.name))
             
             costitem_sql = """
             
