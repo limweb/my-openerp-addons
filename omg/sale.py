@@ -781,7 +781,7 @@ class sale_order(osv.osv):
                                 'sale_id': order.id,
                                 'address_id': order.partner_shipping_id.id,
                                 'note': order.note,
-                                'invoice_state': (order.order_poidslicy=='picking' and '2binvoiced') or 'none',
+                                'invoice_state': (order.order_policy=='picking' and '2binvoiced') or 'none',
                                 'company_id': order.company_id.id,
                                 'customer_id': order.partner_id.id,
                             })
