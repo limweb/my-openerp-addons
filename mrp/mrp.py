@@ -263,13 +263,14 @@ class mrp_bom(osv.osv):
         (_check_product, 'BoM line product should not be same as BoM product.', ['product_id']),
     ]
 
-    def onchange_product_id(self, cr, uid, ids, product_id, name, uom_id, context=None):
+    def onchange_product_id(self, cr, uid, ids, product_id, name, uom_id=None, context=None):
         """ Changes UoM and name if product_id changes.
         @param name: Name of the field
         @param product_id: Changed product_id
         @return:  Dictionary of changed values
         """
         if product_id:
+            v = {}
             prod = self.pool.get('product.product').browse(cr, uid, product_id, context=context)
             if not uom_id:
                 v = {'product_uom': prod.uom_id.id}
