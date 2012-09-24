@@ -66,8 +66,8 @@ class wizard_ineco_adjust_stock_report(osv.osv_memory):
                         line.product_id.product_tmpl_id.uom_id , 
                         line.available, 
                         line.product_id.warehouse_uom, 
-                        context=context )
-                line.write({'qty':line.available,'warehouse_qty': warehouse_qty or False,'warehouse_uom':line.product_id.warehouse_uom.id or False})
+                        context=context )                    
+                line.write({'qty':line.available, 'warehouse_qty': warehouse_qty or False,'warehouse_uom':line.product_id.warehouse_uom.id or False})
                 cr.execute('delete from ineco_stock_report_problem where id = %s' % (line.id))
                 cr.commit()
         return {'type':'ir.actions.act_window_close' }

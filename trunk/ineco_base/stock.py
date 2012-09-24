@@ -49,6 +49,9 @@
 # 16-08-2012       POP-026    Default Stock Picking Order by Date desc, name desc
 # 19-08-2012       POP-027    Change Default Get Stock In Stock Production Lot
 # 22-08-2012       POP-028    Change ineco.stock.report on Digits UOM from Product UOM Digits
+# 20-09-2012       POP-029    Add Patial/Full in Stock Move
+# 24-09-2012       POP-030    Change Stock_Report.Qty -> Stock_Report.Available in Physical Inventory
+#                  POP-031    Add Schedule Correct Stock Report 
 
 import math
 
@@ -123,14 +126,19 @@ class stock_inventory(osv.osv):
                 amount = 0
                 if stock_report_ids:
                     stock_report = self.pool.get('ineco.stock.report').browse(cr, uid, stock_report_ids)[0]
-                    amount = stock_report.qty                    
+                    #amount = stock_report.qty
+                    #POP-030
+                    amount = stock_report.available                    
                     #amount = location_obj._product_get(cr, uid, line.location_id.id, [pid], product_context)[pid]
 
                 change = line.product_qty - amount
                 lot_id = False
                 if line.prod_lot_id:                
-                    lot_id = line.prod_lot_id.id
+                    lot_id =  line.prod_lot_id.id 
                 if change:
+                    full_qty = round(change // round(1/line.full_uom.factor)) or 0.0
+                    partial_qty = round(change - round( (full_qty / line.full_uom.factor), 10))
+                    
                     product_template = self.pool.get('product.template').browse(cr ,uid, [line.product_id.id] )[0]
                     location_id = product_template.property_stock_inventory.id
                     #location_id = line.product_id.product_tmpl_id.property_stock_inventory.id
@@ -141,10 +149,14 @@ class stock_inventory(osv.osv):
                         'prodlot_id': lot_id,
                         'tracking_id': line.tracking_id.id,
                         'date': inv.date,
+                        'full_uom': line.full_uom.id,
+                        'partial_uom': line.partial_uom.id,
                     }
                     if change > 0:
                         value.update( {
                             'product_qty': change,
+                            'full_qty': full_qty,
+                            'partial_qty': partial_qty,
                             'location_id': location_id,
                             'location_dest_id': line.location_id.id,
                         })
@@ -153,6 +165,8 @@ class stock_inventory(osv.osv):
                             'product_qty': -change,
                             'location_id': line.location_id.id,
                             'location_dest_id': location_id,
+                            'full_qty': -full_qty,
+                            'partial_qty': -partial_qty,
                         })
                     #if lot_id:
                     #    value.update({
@@ -176,32 +190,95 @@ class stock_inventory_line(osv.osv):
         'tracking_id': fields.many2one('stock.tracking', 'Pack'),
         #POP-023
         'before_qty': fields.float('Before Qty'),
+        #POP-029
+        'partial_uom': fields.many2one('product.uom', 'Partial UOM'),
+        'partial_qty': fields.integer('Partial Qty'),
+        'full_uom': fields.many2one('product.uom', 'Full UOM'),
+        'full_qty': fields.integer('Full Qty'),        
     }
     _defaults = {
         'before_qty': 0,
+        'partial_qty': 0,
+        'full_qty': 0,
     }
 
     def on_change_product_id(self, cr, uid, ids, location_id, product, uom=False, to_date=False):
         if not product:
             return {}
         uom_categ_id = None
+        partial_uom = False
+        full_uom = False
         if not uom:
             prod = self.pool.get('product.product').browse(cr, uid, [product], {'uom': uom})[0]
             uom = prod.uom_id.id
             uom_categ_id = prod.uom_id.category_id.id
+            partial_uom = prod.uom_id.id or False
+            full_uom = prod.warehouse_uom.id or False
         stock_location_ids = self.pool.get("stock.location").search(cr, uid, [('name','=','Stock'),('location_id','=',1)])
         stock_report_ids = self.pool.get('ineco.stock.report').search(cr, uid, [('location_dest_id','=',location_id),('product_id','=',product),('location_dest_id','child_of',stock_location_ids),('qty','!=',0)])
         lot_id = False
         tracking_id = False
         amount = 0
+        partial_qty = 0.0
+        full_qty = 0.0
         if stock_report_ids:
             stock_report = self.pool.get('ineco.stock.report').browse(cr, uid, stock_report_ids)[0]
             amount = stock_report.qty
             lot_id = stock_report.lot_id.id
             tracking_id = stock_report.tracking_id.id
+            partial_uom = stock_report.partial_uom.id or False
+            full_uom = stock_report.full_uom.id or False
+            partial_qty = stock_report.partial_qty or 0.0
+            full_qty = stock_report.full_qty or 0.0
         #amount = self.pool.get('stock.location')._product_get(cr, uid, location_id, [product], {'uom': uom, 'to_date': to_date})[product]
-        result = {'before_qty': amount, 'product_qty': amount, 'product_uom': uom,'uom_category_id': uom_categ_id,'tracking_id':tracking_id,'prod_lot_id':lot_id}
+        result = {'before_qty': amount, 'product_qty': amount, 
+                  'product_uom': uom,'uom_category_id': uom_categ_id,
+                  'tracking_id':tracking_id,'prod_lot_id':lot_id,
+                  'partial_uom': partial_uom,
+                  'full_uom': full_uom,
+                  'partial_qty': partial_qty,
+                  'full_qty': full_qty,
+                   }
         return {'value': result}
+
+    def create(self, cr, uid, vals, context=None):
+        if context is None:
+            context = {}
+            
+        if 'product_id' in vals and 'partial_qty' in vals and 'partial_uom' in vals and 'full_qty' in vals and 'full_uom' in vals :            
+            uom_obj = self.pool.get('product.uom')
+            partial_uom = self.pool.get('product.uom').browse(cr, uid, vals['partial_uom'])
+            full_uom = self.pool.get('product.uom').browse(cr, uid, vals['full_uom'])
+            
+            partial_qty = vals['partial_qty']
+            full_qty = vals['full_qty']
+
+            qty1 = uom_obj._compute_qty_obj(cr, uid, partial_uom, partial_qty, partial_uom, context=context ) or 0.0
+            qty2 = uom_obj._compute_qty_obj(cr, uid, full_uom, full_qty, partial_uom, context=context ) or 0.0
+            
+            vals['product_qty'] = qty1+qty2
+            
+        return super(stock_inventory_line, self).create(cr, uid, vals, context=context)
+
+    def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context = {}
+
+        if 'product_id' in vals and 'partial_qty' in vals and 'partial_uom' in vals and 'full_qty' in vals and 'full_uom' in vals :
+            uom_obj = self.pool.get('product.uom')
+            
+            partial_uom = self.pool.get('product.uom').browse(cr, uid, vals['partial_uom'])
+            full_uom = self.pool.get('product.uom').browse(cr, uid, vals['full_uom'])
+            
+            partial_qty = vals['partial_qty']
+            full_qty = vals['full_qty']
+
+            qty1 = uom_obj._compute_qty_obj(cr, uid, partial_uom, partial_qty, partial_uom, context=context ) or 0.0
+            qty2 = uom_obj._compute_qty_obj(cr, uid, full_uom, full_qty, partial_uom, context=context ) or 0.0
+            
+            vals['product_qty'] = qty1+qty2
+            
+        return super(stock_inventory_line, self).write(cr, uid, ids, vals, context=context)
 
 stock_inventory_line()
 
@@ -230,19 +307,26 @@ class stock_move(osv.osv):
     _columns={
         'category_id': fields.many2one('product.uom.categ', 'UOM Category', ondelete="restrict"),
         'warehouse_uom': fields.many2one('product.uom', 'Warehouse Unit of Measure'),
-        'warehouse_qty': fields.integer('Warehouse Qty'),
+        'warehouse_qty': fields.integer('Warehouse Qty'),        
         'warehouse_diff': fields.integer('Warehouse Diff'),
+        #POP-029
+        'partial_uom': fields.many2one('product.uom', 'Partial UOM'),
+        'partial_qty': fields.integer('Partial Qty'),
+        'full_uom': fields.many2one('product.uom', 'Full UOM'),
+        'full_qty': fields.integer('Full Qty'),        
     }
 
     _defaults = {
         'location_dest_id': _ineco_default_location_destination,
+        'partial_qty': 0,
+        'full_qty': 0,
     }
 
     #POP-022 Change Default Warehouse UOM
     def create(self, cr, uid, vals, context=None):
         if context is None:
             context = {}
-        if 'product_id' in vals and 'product_qty' in vals and 'product_uom' in vals:
+        if 'product_id' in vals and 'product_qty' in vals and 'product_uom' in vals and 'partial_qty' in vals and 'partial_uom' in vals and 'full_qty' in vals and 'full_uom' in vals :
             uom_obj = self.pool.get('product.uom')
             #product_ids = self.pool.get("product.product").search(cr, uid, [('id','=',vals['product_id'])])
             #warning product outsize your company
@@ -253,10 +337,24 @@ class stock_move(osv.osv):
                 warehouse_uom_id = product_obj.warehouse_uom.id
             else:
                 warehouse_uom_id = default_uom_id
-            product_uom =  self.pool.get('product.uom').browse(cr, uid, vals['product_uom'])
+                
+            product_uom = self.pool.get('product.uom').browse(cr, uid, vals['product_uom'])
+            partial_uom = self.pool.get('product.uom').browse(cr, uid, vals['partial_uom'])
+            full_uom = self.pool.get('product.uom').browse(cr, uid, vals['full_uom'])
+            
             product_qty = vals['product_qty']
+            partial_qty = vals['partial_qty']
+            full_qty = vals['full_qty']
+            
+            qty1 = uom_obj._compute_qty_obj(cr, uid, partial_uom, partial_qty, partial_uom, context=context ) or 0.0
+            qty2 = uom_obj._compute_qty_obj(cr, uid, full_uom, full_qty, partial_uom, context=context ) or 0.0
+            
+            if qty1+qty2 <> product_qty:
+                raise osv.except_osv(_('Error !'), _('Quantity unexceptable.'))
+            
             warehouse_qty = product_qty
             diff = 0
+            
             if warehouse_uom_id and product_obj.warehouse_uom:
                 warehouse_qty = uom_obj._compute_qty_obj(cr, uid, product_uom , 
                     product_qty, product_obj.warehouse_uom, context=context )
@@ -267,6 +365,23 @@ class stock_move(osv.osv):
     def write(self, cr, uid, ids, vals, context=None):
         if context is None:
             context = {}
+
+        if 'product_id' in vals and 'product_qty' in vals and 'product_uom' in vals and 'partial_qty' in vals and 'partial_uom' in vals and 'full_qty' in vals and 'full_uom' in vals :
+            uom_obj = self.pool.get('product.uom')
+            
+            product_uom = self.pool.get('product.uom').browse(cr, uid, vals['product_uom'])
+            partial_uom = self.pool.get('product.uom').browse(cr, uid, vals['partial_uom'])
+            full_uom = self.pool.get('product.uom').browse(cr, uid, vals['full_uom'])
+            
+            product_qty = vals['product_qty']
+            partial_qty = vals['partial_qty']
+            full_qty = vals['full_qty']
+
+            qty1 = uom_obj._compute_qty_obj(cr, uid, partial_uom, partial_qty, partial_uom, context=context ) or 0.0
+            qty2 = uom_obj._compute_qty_obj(cr, uid, full_uom, full_qty, partial_uom, context=context ) or 0.0
+            
+            if qty1+qty2 <> product_qty:
+                raise osv.except_osv(_('Error !'), _('Quantity unexceptable.'))
         
         if not isinstance(ids,list):
             ids = [ids]
@@ -346,6 +461,7 @@ class stock_move(osv.osv):
                         update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom , 
                             source_obj.qty-update_qty, product_obj.warehouse_uom, context=context )
                         source_obj.write({'qty':source_obj.qty-update_qty,'warehouse_qty':update_warehouse_qty})
+                        #source_obj.write({'qty':source_obj.available})
                     else:
                         update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom , 
                             -update_qty, product_obj.warehouse_uom, context=context )
@@ -362,12 +478,18 @@ class stock_move(osv.osv):
                              'warehouse_uom': product_obj.warehouse_uom.id or False,
                              'date_input': date_input or False,
                              'expired': date_expired or False,
+                             #POP-029
+                             'partial_qty':sm.partial_qty,
+                             'partial_uom':sm.partial_uom.id,
+                             'full_qty':sm.full_qty,
+                             'full_uom':sm.full_uom.id,
                             })
                     if location_dest_stock_ids:
                         destination_obj = self.pool.get('ineco.stock.report').browse(cr, uid, location_dest_stock_ids)[0]
                         update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom , 
                             destination_obj.qty+update_qty, product_obj.warehouse_uom, context=context )
-                        destination_obj.write({'qty':destination_obj.qty+update_qty,'warehouse_qty':update_warehouse_qty})
+                        destination_obj.write({'qty': destination_obj.qty+update_qty,'warehouse_qty':update_warehouse_qty})
+                        #destination_obj.write({'qty': destination_obj.available})
                     else:
                         update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom , 
                             update_qty, product_obj.warehouse_uom, context=context )
@@ -384,6 +506,11 @@ class stock_move(osv.osv):
                              'warehouse_uom': product_obj.warehouse_uom.id or False,
                              'date_input': date_input or False,
                              'expired': date_expired or False,
+                             #POP-029
+                             'partial_qty':sm.partial_qty,
+                             'partial_uom':sm.partial_uom.id,
+                             'full_qty':sm.full_qty,
+                             'full_uom':sm.full_uom.id,
                             })
                 
                 #Stock Done
@@ -392,7 +519,8 @@ class stock_move(osv.osv):
                         source_obj = self.pool.get('ineco.stock.report').browse(cr, uid, location_source_stock_ids)[0]
                         update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom, 
                             source_obj.qty + update_qty, product_obj.warehouse_uom, context=context )
-                        source_obj.write({'qty':source_obj.qty + update_qty,'warehouse_qty':update_warehouse_qty})
+                        source_obj.write({'qty':source_obj.qty + update_qty, 'warehouse_qty': update_warehouse_qty})
+                        #source_obj.write({'qty':source_obj.available})
                     else:
                         update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom, 
                             update_qty, product_obj.warehouse_uom, context=context )
@@ -409,6 +537,11 @@ class stock_move(osv.osv):
                              'warehouse_uom': product_obj.warehouse_uom.id or False,
                              'date_input': date_input or False,
                              'expired': date_expired or False,
+                             #POP-029
+                             'partial_qty':sm.partial_qty,
+                             'partial_uom':sm.partial_uom.id,
+                             'full_qty':sm.full_qty,
+                             'full_uom':sm.full_uom.id,
                             })
                     if location_dest_stock_ids:
                         destination_obj = self.pool.get('ineco.stock.report').browse(cr, uid, location_dest_stock_ids)[0]
@@ -417,7 +550,9 @@ class stock_move(osv.osv):
                         if state_current == 'cancel' and destination_obj.qty-update_qty < 0:
                             pass
                         else:
-                            destination_obj.write({'qty':destination_obj.qty-update_qty,'warehouse_qty':update_warehouse_qty})
+                            destination_obj.write({'qty': destination_obj.qty-update_qty,'warehouse_qty':update_warehouse_qty})
+                        #destination_obj.write({'qty': destination_obj.available})
+
                     else:
                         update_warehouse_qty = uom_obj._compute_qty_obj(cr, uid, default_uom , 
                            -update_qty, product_obj.warehouse_uom, context=context )
@@ -434,6 +569,11 @@ class stock_move(osv.osv):
                              'warehouse_uom': product_obj.warehouse_uom.id or False,
                              'date_input': date_input or False,
                              'expired': date_expired or False,
+                             #POP-029
+                             'partial_qty':sm.partial_qty,
+                             'partial_uom':sm.partial_uom.id,
+                             'full_qty':sm.full_qty,
+                             'full_uom':sm.full_uom.id,
                             })
                 vals.update({'warehouse_uom': warehouse_uom_id,'warehouse_qty': warehouse_qty}) #'warehouse_diff': diff
         return super(stock_move, self).write(cr, uid, ids, vals, context=context)
@@ -464,6 +604,10 @@ class stock_move(osv.osv):
             'category_id': product.uom_id.category_id.id,
             'product_uos_qty' : self.pool.get('stock.move').onchange_quantity(cr, uid, ids, prod_id, 1.00, product.uom_id.id, uos_id)['value']['product_uos_qty']
         }
+        #POP-029
+        if product:
+            result['partial_uom'] = product.uom_id.id
+            result['full_uom'] = product.warehouse_uom.id or False
         if not ids:
             result['name'] = product.partner_ref
         if loc_id:
@@ -643,6 +787,27 @@ class stock_picking(osv.osv):
 
         return res
     
+#    def action_done(self, cr, uid, ids, context=None):
+#        for pick in self.pool.get('stock.picking').browse(cr, uid, ids):
+#            for sm in pick.move_lines:
+#                product_id = sm.product_id.id
+#                lot_id = sm.prodlot_id.id or False
+#                location_src_id = sm.location_id.id 
+#                location_dest_id = sm.location_dest_id.id
+#                pack_id = sm.tracking_id.id or False
+#                stock_report_obj = self.pool.get('ineco.stock.report')
+#                source_ids = stock_report_obj.search(cr, uid, [('product_id','=',product_id),
+#                    ('lot_id','=',lot_id),('location_dest_id','=',location_src_id),('tracking_id','=',pack_id)])
+#                if source_ids:
+#                    for line in self.pool.get('ineco.stock.report').browse(cr, uid, source_ids):
+#                        line.write({'qty': line.available})
+#                destination_ids = stock_report_obj.search(cr, uid, [('product_id','=',product_id),
+#                    ('lot_id','=',lot_id),('location_dest_id','=',location_dest_id),('tracking_id','=',pack_id)])
+#                if destination_ids:
+#                    for line in self.pool.get('ineco.stock.report').browse(cr, uid, destination_ids):
+#                        line.write({'qty': line.available})
+#
+#        return super(stock_picking, self).action_done(cr, uid, ids, context)
 
     #POP-008 Add new sequence by stock journal 
     def create(self, cr, user, vals, context=None):
@@ -882,8 +1047,24 @@ class stock_picking(osv.osv):
                         if move.state == 'assigned':
                             todo.append(move.id)
             if len(todo):
-                self.pool.get('stock.move').action_done(cr, uid, todo,
-                        context=context)
+                self.pool.get('stock.move').action_done(cr, uid, todo, context=context)
+                for sm in self.pool.get('stock.move').browse(cr, uid, todo, context=context):
+                    product_id = sm.product_id.id
+                    lot_id = sm.prodlot_id.id or False
+                    location_src_id = sm.location_id.id 
+                    location_dest_id = sm.location_dest_id.id
+                    pack_id = sm.tracking_id.id or False
+                    stock_report_obj = self.pool.get('ineco.stock.report')
+                    source_ids = stock_report_obj.search(cr, uid, [('product_id','=',product_id),
+                        ('lot_id','=',lot_id),('location_dest_id','=',location_src_id),('tracking_id','=',pack_id)])
+                    if source_ids:
+                        for line in self.pool.get('ineco.stock.report').browse(cr, uid, source_ids):
+                            line.write({'qty': line.available})
+                    destination_ids = stock_report_obj.search(cr, uid, [('product_id','=',product_id),
+                        ('lot_id','=',lot_id),('location_dest_id','=',location_dest_id),('tracking_id','=',pack_id)])
+                    if destination_ids:
+                        for line in self.pool.get('ineco.stock.report').browse(cr, uid, destination_ids):
+                            line.write({'qty': line.available})
         return True
 
     def action_assign(self, cr, uid, ids, *args):
@@ -1891,12 +2072,33 @@ class ineco_stock_report(osv.osv):
         'quantity': fields.float('Quantity', digits_compute=dp.get_precision('Product UoM')),
         'available': fields.function(_get_product_available,  string="Stock Move Quantity (Real Stock)", digits_compute=dp.get_precision('Product UoM'), type="float", method=True),
         'problemed': fields.function(_problemed, method=True, string='Problem', fnct_search=_problemed_search, type='boolean'),
+        #POP-029
+        'partial_uom': fields.many2one('product.uom', 'Partial UOM'),
+        'partial_qty': fields.integer('Partial Qty'),
+        'full_uom': fields.many2one('product.uom', 'Full UOM'),
+        'full_qty': fields.integer('Full Qty'),        
     }
     
     _defaults = {
         'qty': 0,
         'quantity': 0,
     }
+
+    def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context = {}
+            
+        for line in self.browse(cr, uid, ids):
+            uom_obj = self.pool.get('product.uom')
+            qty1 = uom_obj._compute_qty_obj(cr, uid, line.partial_uom, line.partial_qty, line.partial_uom, context=context ) or 0.0
+            qty2 = uom_obj._compute_qty_obj(cr, uid, line.full_uom, line.full_qty, line.partial_uom, context=context ) or 0.0
+            if line.available <> qty1 + qty2:
+                full_qty = round(line.available // round(1/line.full_uom.factor)) or 0.0
+                partial_qty = round(line.available - round( (full_qty / line.full_uom.factor), 10))
+                vals['full_qty'] = full_qty
+                vals['partial_qty'] = partial_qty 
+                            
+        return super(ineco_stock_report, self).write(cr, uid, ids, vals, context=context)
 
     def schedule_problem_sync(self, cr, uid, context=None):
         cr.execute("delete from ineco_stock_report_problem")
@@ -1931,6 +2133,20 @@ class ineco_stock_report(osv.osv):
         cr.commit()
         cr.execute("update ineco_stock_report_master set create_uid = 1, create_date = now()")
         cr.commit()
+        
+    #POP-031
+    def schedule_correct_stock(self, cr, uid, context=None):
+        stock_report_ids = self.pool.get('ineco.stock.report').search(cr, uid, [])
+        for line in self.pool.get('ineco.stock.report').browse(cr, uid, stock_report_ids):
+            uom_obj = self.pool.get('product.uom')
+            if line.partial_uom and line.full_uom:
+                qty1 = uom_obj._compute_qty_obj(cr, uid, line.partial_uom, line.partial_qty, line.partial_uom, context=context ) or 0.0
+                qty2 = uom_obj._compute_qty_obj(cr, uid, line.full_uom, line.full_qty, line.partial_uom, context=context ) or 0.0
+                if line.available <> qty1 + qty2:
+                    full_qty = round(line.available // round(1/line.full_uom.factor)) or 0.0
+                    partial_qty = round(line.available - round( (full_qty / line.full_uom.factor), 10))
+                    line.write({'full_qty':full_qty,'partial_qty':partial_qty})
+
     
 #    def schedule_sync(self, cr, uid, context=None):
     #   cr.execute("delete from ineco_stock_report")
