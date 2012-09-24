@@ -7,14 +7,61 @@
 
 <openerp>
 	<data>
-        <record id="ineco_view_picking_in_form" model="ir.ui.view">
+
+        <record id="ineco_view_picking_in2_form" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.in2.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_in_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='General Information']/field/form/group/field[@name='product_id']" position="after">
+            		<field name="full_qty" />
+            		<field name="full_uom" />		
+            	    <field name="partial_qty" />
+            		<field name="partial_uom" />
+            	</xpath>
+            </field>
+        </record>
+        
+        <record id="ineco_view_picking_out2_form" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.out2.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_out_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='Products']/field/form/group/field[@name='product_id']" position="after">
+            		<field name="full_qty" />
+            		<field name="full_uom" />		
+            	    <field name="partial_qty" />
+            		<field name="partial_uom" />
+            	</xpath>            	
+            </field>
+        </record>            
+        
+        <record id="ineco_view_picking_internal2_form" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.internal2.form</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field eval="12" name="priority"/>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='Products']/field[@name='move_lines']/form[@string='Stock Moves']/group/field[@name='product_id']" position="after">
+            		<field name="full_qty" />
+            		<field name="full_uom" />		
+            	    <field name="partial_qty" />
+            		<field name="partial_uom" />
+            	</xpath>            	
+            </field>
+        </record>
+        	    	    
+	    <record id="ineco_view_picking_in_form" model="ir.ui.view">
             <field name="name">ineco.stock.picking.in.form</field>
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.view_picking_in_form"/>
             <field name="type">form</field>
             <field name="arch" type="xml">
             	<xpath expr="/form/notebook/page[@string='General Information']/field/form/group/field[@name='location_dest_id']" position="after">
-            		<field name="category_id" />            		
+            		<field name="category_id" />           
             	</xpath>
             </field>
         </record>
@@ -179,7 +226,20 @@
             	</xpath>            	
             </field>
         </record>
-				
+
+        <record id="ineco_view_inventory2_form" model="ir.ui.view">
+            <field name="name">ineco.stock.inventory2.form</field>
+            <field name="model">stock.inventory</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field eval="12" name="priority"/>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page[@string='General Informations']/field/tree/field[@name='product_qty']" position="replace">
+            	    <field name="product_qty" invisible = "1" />
+            	</xpath>
+           	</field>
+        </record>        
+        				
         <record id="ineco_view_inventory_form" model="ir.ui.view">
             <field name="name">stock.inventory.form</field>
             <field name="model">stock.inventory</field>
@@ -188,10 +248,14 @@
             <field eval="12" name="priority"/>
             <field name="arch" type="xml">
             	<xpath expr="/form/notebook/page[@string='General Informations']/field/tree/field[@name='product_uom']" position="replace">
+            	    <field name="full_qty" />
+            	    <field name="full_uom" />
+            	    <field name="partial_qty" />
+            	    <field name="partial_uom" />
             		<field name="product_uom" domain="[('category_id','=',uom_category_id)]" />
             		<field name="uom_category_id" invisible="1"/>
             		<field name="tracking_id" />
-            		<field name="before_qty" />
+            		<field name="before_qty" invisible="1" />
             	</xpath>            	
             </field>
         </record>	
@@ -591,10 +655,17 @@
                     <field name="expired" />
                     <field name="tracking_id" />
                     <field name="product_id" />
-                    <field name="qty" />
-                    <field name="uom_id"/>
-                    <field name="warehouse_qty" />
-                    <field name="warehouse_uom" />
+                    
+                    <field name="full_qty" />
+                    <field name="full_uom" />
+                    <field name="partial_qty" />
+                    <field name="partial_uom" />
+                    
+                    <field name="qty" invisible="1" />
+                    <field name="uom_id" invisible="1" />
+                    <field name="warehouse_qty" invisible="1" />
+                    <field name="warehouse_uom" invisible="1" />
+                    
                     <field name="available" groups="base.group_ineco_adjust_stock" /> 
             		<button name="%(action_ineco_stock_clearing)d" string="Change Stock" 
             		    type="action"
