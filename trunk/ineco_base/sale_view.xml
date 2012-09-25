@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="view_omg_sale_plan_inherited_form">
+			<field name="name">omg.sale.plan.form</field>
+			<field name="type">form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page/field/tree/field[@name='name']" position="after">
+					<field name="period_warehouse_qty" />
+					<field name="period_store_qty" />
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>
