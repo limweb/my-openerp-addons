@@ -415,6 +415,26 @@ class stock_move(osv.osv):
                 warehouse_qty = uom_obj._compute_qty_obj(cr, uid, product_uom , 
                     product_qty, product_obj.warehouse_uom, context=context )
             vals.update({'warehouse_uom': warehouse_uom_id,'warehouse_qty': warehouse_qty, 'category_id':product_uom.category_id.id}) #'warehouse_diff': diff
+
+        if 'date_expected' in vals:
+            period_sql = """
+                select id from stock_period where date_start <= '%s' and date_stop >= '%s'
+                """
+            cr.execute(period_sql % (vals['date_expected'],vals['date_expected']))
+            act_ids = map(lambda x: x[0], cr.fetchall())
+            if act_ids:
+                act_id = act_ids[0]
+                vals.update({'stock_period_id': act_id })
+                
+        if 'product_id' in vals and 'product_qty' in vals and 'product_uom' in vals and not ('partial_qty' in vals) and not ('partial_uom' in vals) and not ('full_qty' in vals) and not ('full_uom' in vals) :
+            uom_obj = self.pool.get('product.uom')
+            product_obj = self.pool.get('product.product').browse(cr, uid, vals['product_id'])
+            if product_obj:
+                vals['partial_qty'] = vals['product_qty']
+                vals['partial_uom'] = vals['product_uom']
+                vals['full_qty'] = 0.0
+                vals['full_uom'] = product_obj.warehouse_uom and product_obj.warehouse_uom.id                
+                
         return super(stock_move, self).create(cr, uid, vals, context)
 
     #POP-022
