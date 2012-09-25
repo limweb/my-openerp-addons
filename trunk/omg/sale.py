@@ -871,8 +871,9 @@ class sale_order(osv.osv):
                         for line in order.order_line:
                             #print "Location %s -> %s %s" % (location.location_id.name, line.product_id.name, datetime.now()-t0)
                             proc_id = False
-                            date_planned = datetime.strptime(period.date_start, '%Y-%m-%d') - relativedelta(days=line.delay or 0.0) - relativedelta(days=location.location_id.chained_delay or 0.0)
-                            date_planned = (date_planned - timedelta(days=company.security_lead)).strftime('%Y-%m-%d %H:%M:%S')
+                            date_planned = datetime.strptime(period.date_start, '%Y-%m-%d')
+                            #date_planned = datetime.strptime(period.date_start, '%Y-%m-%d') - relativedelta(days=line.delay or 0.0) - relativedelta(days=location.location_id.chained_delay or 0.0)
+                            #date_planned = (date_planned - timedelta(days=company.security_lead)).strftime('%Y-%m-%d %H:%M:%S')
                             date_arrival = (datetime.strptime(period.date_start, '%Y-%m-%d') - relativedelta(days=7 or 0.0)).strftime('%Y-%m-%d')
             
                             if line.state == 'done':
