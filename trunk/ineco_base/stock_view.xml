@@ -118,6 +118,8 @@
             <field name="arch" type="xml">
             	<xpath expr="/form/notebook/page[@string='Products']/field/form/group/field[@name='location_dest_id']" position="after">
             		<field name="category_id" colspan="4" readonly="1"/>
+					<field name="period_warehouse_qty" />
+					<field name="period_store_qty" />
             	</xpath>            	
             </field>
         </record>            

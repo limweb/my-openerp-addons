@@ -19,6 +19,8 @@
 #
 ##############################################################################
 
+# 25-09-2012     POP-001    Add Stock Period ID
+
 import math
 
 from osv import fields,osv
@@ -134,3 +136,106 @@ class sale_order(osv.osv):
         return True
     
 sale_order()
+
+class sale_order_line(osv.osv):
+    
+    def _get_warehouse_qty(self, cr, uid, ids, field_name, arg, context=None):
+        """ Gets stock of products for locations
+        @return: Dictionary of values
+        """
+        if context is None:
+            context = {}
+        res = {}
+        for line in self.browse(cr, uid, ids):
+            res[line.id] = 0
+            if line.stock_period_id and line.order_id.shop_id and line.product_id :
+                planning_ids = self.pool.get('stock.planning').search(cr, uid, [('warehouse_id','=',line.order_id.shop_id.warehouse_id.id),
+                                                                 ('product_id','=',line.product_id.id),
+                                                                 ('period_id','=',line.stock_period_id.id)])
+                if planning_ids:
+                    plan = self.pool.get('stock.planning').browse(cr, uid, planning_ids)[0]
+                    if plan:
+                        res[line.id] = plan.stock_start                         
+        return res
+
+    def _get_store_qty(self, cr, uid, ids, field_name, arg, context=None):
+        """ Gets stock of products for locations
+        @return: Dictionary of values
+        """
+        if context is None:
+            context = {}
+        res = {}
+        for line in self.browse(cr, uid, ids):            
+            res[line.id] = 0
+            warehouse_sql = """
+                select id from stock_warehouse
+                where lot_stock_id in (
+                
+                select sbl.location_id from sale_order so 
+                join sale_order_line sol on so.id = sol.order_id
+                join sale_branch_line sbl on so.id = sbl.sale_id
+                where so.id = %s )
+            """            
+            cr.execute(warehouse_sql % (line.order_id.id))
+            act_ids = map(lambda x: x[0], cr.fetchall())
+            if act_ids and line.stock_period_id and line.product_id :
+                    planning_ids = self.pool.get('stock.planning').search(cr, uid, [('warehouse_id','in',act_ids),
+                                                                     ('product_id','=',line.product_id.id),
+                                                                     ('period_id','=',line.stock_period_id.id)])
+                    stock_all = 0
+                    for data in self.pool.get('stock.planning').browse(cr, uid, planning_ids):
+                        stock_all = stock_all + data.stock_start
+                    res[line.id] = stock_all                       
+        return res
+    
+    _inherit = "sale.order.line"
+    _description="Add Stock Period In Sale Order Line"
+    _columns = {
+        #POP-001
+        'stock_period_id': fields.many2one('stock.period'),
+        'period_warehouse_qty': fields.function(_get_warehouse_qty, method=True, type="float", string="Warehouse Qty", digits_compute=dp.get_precision('Product UoM')),        
+        'period_store_qty': fields.function(_get_store_qty, method=True, type="float", string="Store Qty", digits_compute=dp.get_precision('Product UoM')),        
+    }
+
+    def create(self, cr, uid, vals, context=None):
+        if context is None:
+            context = {}
+            
+        if 'order_id' in vals:
+            period_sql = """
+                select
+                  (select id from stock_period 
+                   where date_start <= so.date_period_start and date_stop >= so.date_period_start) as stock_period_id
+                from sale_order so 
+                where so.id = %s
+                """
+            cr.execute(period_sql % (vals['order_id']))
+            act_ids = map(lambda x: x[0], cr.fetchall())
+            if act_ids:
+                act_id = act_ids[0]
+                vals.update({'stock_period_id': act_id })
+        
+        return super(sale_order_line, self).create(cr, uid, vals, context=context)
+
+    def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context = {}
+        
+        #Warning Date Period Start in OMG Module
+        period_sql = """
+            select
+              (select id from stock_period 
+               where date_start <= so.date_period_start and date_stop >= so.date_period_start) as stock_period_id
+            from sale_order_line sol
+            join sale_order so on sol.order_id = so.id
+            where sol.id = %s
+            """
+        cr.execute(period_sql % (ids[0]))
+        act_ids = map(lambda x: x[0], cr.fetchall())
+        if act_ids:
+            act_id = act_ids[0]
+            vals.update({'stock_period_id': act_id })
+            
+        return super(sale_order_line, self).write(cr, uid, ids, vals, context=context)
+    
+sale_order_line()
