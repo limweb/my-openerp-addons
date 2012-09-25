@@ -143,10 +143,13 @@ class product_product(osv.osv):
     def get_image_attachment_url(self, cr, uid, ids, url):
         image = False
         if url :
-            if url.find('.jpg') or url.find('.bmp') or url.find('.gif'):
-                tmp = urllib.urlopen(url).read()
-                if tmp:
-                    image = base64.encodestring(tmp) 
+            try:
+                if url.find('.jpg') or url.find('.bmp') or url.find('.gif'):
+                    tmp = urllib.urlopen(url).read()
+                    if tmp:
+                        image = base64.encodestring(tmp) 
+            except:
+                pass
             #image = base64.encodestring(Image.open(StringIO(urllib.urlopen(url).read())))
         return image
 

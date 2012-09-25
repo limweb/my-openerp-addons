@@ -285,6 +285,54 @@ stock_inventory_line()
 
 class stock_move(osv.osv):
 
+    def _get_warehouse_qty(self, cr, uid, ids, field_name, arg, context=None):
+        """ Gets stock of products for locations
+        @return: Dictionary of values
+        """
+        if context is None:
+            context = {}
+        res = {}
+        wids = self.pool.get('stock.warehouse').search(cr, uid, [('allow_counting','!=',False)], context=context)
+        for line in self.browse(cr, uid, ids):
+            res[line.id] = 0            
+            if line.stock_period_id and wids and line.product_id :
+                planning_ids = self.pool.get('stock.planning').search(cr, uid, [('warehouse_id','in',wids),
+                                                                 ('product_id','=',line.product_id.id),
+                                                                 ('period_id','=',line.stock_period_id.id)])
+                if planning_ids:
+                    plan = self.pool.get('stock.planning').browse(cr, uid, planning_ids)[0]
+                    if plan:
+                        res[line.id] = plan.stock_start                         
+        return res
+
+    def _get_store_qty(self, cr, uid, ids, field_name, arg, context=None):
+        """ Gets stock of products for locations
+        @return: Dictionary of values
+        """
+        if context is None:
+            context = {}
+        res = {}
+        for line in self.browse(cr, uid, ids):            
+            res[line.id] = 0
+            warehouse_sql = """
+                select id from stock_warehouse
+                where lot_stock_id in (
+                  select location_dest_id 
+                  from stock_move sm 
+                  where sm.id = %s )
+            """            
+            cr.execute(warehouse_sql % (line.id))
+            act_ids = map(lambda x: x[0], cr.fetchall())
+            if act_ids and line.stock_period_id and line.product_id :
+                    planning_ids = self.pool.get('stock.planning').search(cr, uid, [('warehouse_id','in',act_ids),
+                                                                     ('product_id','=',line.product_id.id),
+                                                                     ('period_id','=',line.stock_period_id.id)])
+                    stock_all = 0
+                    for data in self.pool.get('stock.planning').browse(cr, uid, planning_ids):
+                        stock_all = stock_all + data.stock_start
+                    res[line.id] = stock_all                       
+        return res
+
     def _ineco_default_location_destination(self, cr, uid, context=None):
         """ Gets default address of partner for destination location
         @return: Address id or False
@@ -320,6 +368,8 @@ class stock_move(osv.osv):
         'stock_product_qty': fields.float('Default Qty', digits_compute=dp.get_precision('Product UoM'), states={'done': [('readonly', True)]}),
         #POP-033
         'stock_period_id': fields.many2one('stock.period'),
+        'period_warehouse_qty': fields.function(_get_warehouse_qty, method=True, type="float", string="Warehouse Qty", digits_compute=dp.get_precision('Product UoM')),        
+        'period_store_qty': fields.function(_get_store_qty, method=True, type="float", string="Store Qty", digits_compute=dp.get_precision('Product UoM')),        
     }
 
     _defaults = {
@@ -595,15 +645,15 @@ class stock_move(osv.osv):
             vals.update({'stock_product_qty': update_qty })
             
             #POP-033
-            period_sql = """"
+            period_sql = """
                 select
                   (select id from stock_period 
                    where date_start <= sm.date_expected and date_stop >= sm.date_expected) as stock_period_id
                 from stock_picking sp
                 join stock_move sm on sp.id = sm.picking_id
-                where sm.id = %s
-              """
-            cr.execute(period_sql,(sm.id))
+                where sm.id = %s 
+                """
+            cr.execute(period_sql % (sm.id))
             act_ids = map(lambda x: x[0], cr.fetchall())
             if act_ids:
                 act_id = act_ids[0]

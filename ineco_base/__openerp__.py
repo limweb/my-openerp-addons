@@ -53,6 +53,7 @@
         "wizard/wizard_adjust_stock_report_view.xml",
         "wizard/wizard_insert_stock_report_view.xml",
         "stock_inventory_load_view.xml",
+        "sale_view.xml",
          ],
     'demo_xml': [],
     'installable': True,
