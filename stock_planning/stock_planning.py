@@ -19,6 +19,8 @@
 #
 ##############################################################################
 
+# 31-08-2012    POP-001    Check BOM Qty
+
 import time
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -338,7 +340,8 @@ class stock_planning(osv.osv):
         return res
 
     def _get_outgoing_before(self, cr, uid, val, date_start, date_stop, context=None):
-        cr.execute("SELECT sum(planning.outgoing_left), planning.product_uom \
+        #cr.execute("SELECT sum(planning.outgoing_left), planning.product_uom \
+        cr.execute("SELECT sum(planning.outgoing), planning.product_uom \
                     FROM stock_planning AS planning \
                     LEFT JOIN stock_period AS period \
                     ON (planning.period_id = period.id) \
@@ -351,7 +354,8 @@ class stock_planning(osv.osv):
         return res
 
     def _get_incoming_before(self, cr, uid, val, date_start, date_stop, context=None):
-        cr.execute("SELECT sum(planning.incoming_left), planning.product_uom \
+        #cr.execute("SELECT sum(planning.incoming_left), planning.product_uom \
+        cr.execute("SELECT sum(planning.incoming), planning.product_uom \
                     FROM stock_planning AS planning \
                     LEFT JOIN stock_period AS period \
                     ON (planning.period_id = period.id) \
@@ -603,9 +607,14 @@ class stock_planning(osv.osv):
                 planned_outgoing = 0 
             else:
                 planned_outgoing = val.planned_outgoing - rounding(already_out[0]*factor,round_value)
+                
             incoming_left = 0
-            if already_in[0] < val.to_procure + incoming[0]:
-                incoming_left = val.to_procure + incoming[0] - already_in[0]
+            if val.to_procure and val.to_procure > 0.0:
+                if already_in[0] < val.to_procure - incoming[0]:
+                    incoming_left = val.to_procure - incoming[0] - already_in[0]
+            else:                
+                incoming_left = 0
+                
             self.write(cr, uid, val.id, {
                 'already_out': rounding(already_out[0]*factor,round_value),
                 'already_in': rounding(already_in[0]*factor,round_value),
@@ -619,7 +628,7 @@ class stock_planning(osv.osv):
                 'incoming_left': rounding(incoming_left * factor, round_value),
                 #'incoming_left': rounding(val.to_procure - (incoming[0] + already_in[0]) * factor, round_value),
                 'stock_start': rounding(stock_start[0]*factor,round_value),
-                'stock_simulation': rounding(incoming_left - planned_outgoing + 
+                'stock_simulation': rounding(incoming[0] - planned_outgoing + 
                                         (stock_start[0] + incoming_before[0] - outgoing_before[0] - 
                                          rounding(already_out[0]*factor,round_value) + 
                                          rounding(already_in[0]*factor,round_value) ) * 
@@ -660,35 +669,107 @@ class stock_planning(osv.osv):
             if obj.incoming_left <= 0:
                 raise osv.except_osv(_('Error !'), _('Incoming Left must be greater than 0 !'))
             uom_qty, uom, uos_qty, uos = self._qty_to_standard(cr, uid, obj, context)
+            #POP-001
+            bom_ids = self.pool.get('mrp.bom').search(cr, uid, [('bom_id','=',False),('product_id','=',obj.product_id.id)])
             user = self.pool.get('res.users').browse(cr, uid, uid, context=context)
-            proc_id = self.pool.get('procurement.order').create(cr, uid, {
-                        'company_id' : obj.company_id.id,
-                        'name': _('Manual planning for ') + obj.period_id.name,
-                        'origin': _('MPS(') + str(user.login) +') '+ obj.period_id.name,
-                        'date_planned': obj.period_id.date_start,
-                        'product_id': obj.product_id.id,
-                        'product_qty': uom_qty,
-                        'product_uom': uom,
-                        'product_uos_qty': uos_qty,
-                        'product_uos': uos,
-                        'location_id': obj.procure_to_stock and obj.warehouse_id.lot_stock_id.id or obj.warehouse_id.lot_input_id.id,
-                        'procure_method': 'make_to_order',
-                        'note' : _("Procurement created in MPS by user: ") + str(user.login) + _("  Creation Date: ") + \
-                                            time.strftime('%Y-%m-%d %H:%M:%S') + \
-                                        _("\nFor period: ") + obj.period_id.name + _(" according to state:") + \
-                                        _("\n Warehouse Forecast: ") + str(obj.warehouse_forecast) + \
-                                        _("\n Initial Stock: ") + str(obj.stock_start) + \
-                                        _("\n Planned Out: ") + str(obj.planned_outgoing) + _("    Planned In: ") + str(obj.to_procure) + \
-                                        _("\n Already Out: ") + str(obj.already_out) + _("    Already In: ") +  str(obj.already_in) + \
-                                        _("\n Confirmed Out: ") + str(obj.outgoing) + _("    Confirmed In: ") + str(obj.incoming) + \
-                                        _("\n Planned Out Before: ") + str(obj.outgoing_before) + _("    Confirmed In Before: ") + \
-                                                                                            str(obj.incoming_before) + \
-                                        _("\n Expected Out: ") + str(obj.outgoing_left) + _("    Incoming Left: ") + str(obj.incoming_left) + \
-                                        _("\n Stock Simulation: ") +  str(obj.stock_simulation) + _("    Minimum stock: ") + str(obj.minimum_op),
+            if bom_ids:
+                bom_obj = self.pool.get('mrp.bom').browse(cr, uid, bom_ids)[0]
+                if bom_obj.capacity_per_day:
+                    order_count = int(uom_qty) / int(bom_obj.capacity_per_day)
+                    order_part = int(uom_qty) % int(bom_obj.capacity_per_day)
+                    proc_ids = []
+                    wf_service = netsvc.LocalService("workflow")
+                    for i in range(order_count):
+                        proc_id = self.pool.get('procurement.order').create(cr, uid, {
+                                    'company_id' : obj.company_id.id,
+                                    'name': _('Manual planning for ') + obj.period_id.name,
+                                    'origin': _('MPS(') + str(user.login) +') '+ obj.period_id.name,
+                                    'date_planned': obj.period_id.date_start,
+                                    'product_id': obj.product_id.id,
+                                    'product_qty': bom_obj.capacity_per_day,
+                                    'product_uom': uom,
+                                    'product_uos_qty': bom_obj.capacity_per_day,
+                                    'product_uos': uos,
+                                    'location_id': obj.procure_to_stock and obj.warehouse_id.lot_stock_id.id or obj.warehouse_id.lot_input_id.id,
+                                    'procure_method': 'make_to_order',
+                                    'note' : _("Procurement created in MPS by user: ") + str(user.login) + _("  Creation Date: ") + \
+                                                        time.strftime('%Y-%m-%d %H:%M:%S') + \
+                                                    _("\nFor period: ") + obj.period_id.name + _(" according to state:") + \
+                                                    _("\n Warehouse Forecast: ") + str(obj.warehouse_forecast) + \
+                                                    _("\n Initial Stock: ") + str(obj.stock_start) + \
+                                                    _("\n Planned Out: ") + str(obj.planned_outgoing) + _("    Planned In: ") + str(obj.to_procure) + \
+                                                    _("\n Already Out: ") + str(obj.already_out) + _("    Already In: ") +  str(obj.already_in) + \
+                                                    _("\n Confirmed Out: ") + str(obj.outgoing) + _("    Confirmed In: ") + str(obj.incoming) + \
+                                                    _("\n Planned Out Before: ") + str(obj.outgoing_before) + _("    Confirmed In Before: ") + \
+                                                                                                        str(obj.incoming_before) + \
+                                                    _("\n Expected Out: ") + str(obj.outgoing_left) + _("    Incoming Left: ") + str(obj.incoming_left) + \
+                                                    _("\n Stock Simulation: ") +  str(obj.stock_simulation) + _("    Minimum stock: ") + str(obj.minimum_op),
+            
+                                        }, context=context)
+                        wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
+                        wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_check', cr)
+                        
+                    #Part
+                    if order_part:
+                        proc_id = self.pool.get('procurement.order').create(cr, uid, {
+                                    'company_id' : obj.company_id.id,
+                                    'name': _('Manual planning for ') + obj.period_id.name,
+                                    'origin': _('MPS(') + str(user.login) +') '+ obj.period_id.name,
+                                    'date_planned': obj.period_id.date_start,
+                                    'product_id': obj.product_id.id,
+                                    'product_qty': order_part,
+                                    'product_uom': uom,
+                                    'product_uos_qty': order_part,
+                                    'product_uos': uos,
+                                    'location_id': obj.procure_to_stock and obj.warehouse_id.lot_stock_id.id or obj.warehouse_id.lot_input_id.id,
+                                    'procure_method': 'make_to_order',
+                                    'note' : _("Procurement created in MPS by user: ") + str(user.login) + _("  Creation Date: ") + \
+                                                        time.strftime('%Y-%m-%d %H:%M:%S') + \
+                                                    _("\nFor period: ") + obj.period_id.name + _(" according to state:") + \
+                                                    _("\n Warehouse Forecast: ") + str(obj.warehouse_forecast) + \
+                                                    _("\n Initial Stock: ") + str(obj.stock_start) + \
+                                                    _("\n Planned Out: ") + str(obj.planned_outgoing) + _("    Planned In: ") + str(obj.to_procure) + \
+                                                    _("\n Already Out: ") + str(obj.already_out) + _("    Already In: ") +  str(obj.already_in) + \
+                                                    _("\n Confirmed Out: ") + str(obj.outgoing) + _("    Confirmed In: ") + str(obj.incoming) + \
+                                                    _("\n Planned Out Before: ") + str(obj.outgoing_before) + _("    Confirmed In Before: ") + \
+                                                                                                        str(obj.incoming_before) + \
+                                                    _("\n Expected Out: ") + str(obj.outgoing_left) + _("    Incoming Left: ") + str(obj.incoming_left) + \
+                                                    _("\n Stock Simulation: ") +  str(obj.stock_simulation) + _("    Minimum stock: ") + str(obj.minimum_op),
+            
+                                        }, context=context)
+                        wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
+                        wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_check', cr)
 
-                            }, context=context)
-            wf_service = netsvc.LocalService("workflow")
-            wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
+            else:
+                proc_id = self.pool.get('procurement.order').create(cr, uid, {
+                            'company_id' : obj.company_id.id,
+                            'name': _('Manual planning for ') + obj.period_id.name,
+                            'origin': _('MPS(') + str(user.login) +') '+ obj.period_id.name,
+                            'date_planned': obj.period_id.date_start,
+                            'product_id': obj.product_id.id,
+                            'product_qty': uom_qty,
+                            'product_uom': uom,
+                            'product_uos_qty': uos_qty,
+                            'product_uos': uos,
+                            'location_id': obj.procure_to_stock and obj.warehouse_id.lot_stock_id.id or obj.warehouse_id.lot_input_id.id,
+                            'procure_method': 'make_to_order',
+                            'note' : _("Procurement created in MPS by user: ") + str(user.login) + _("  Creation Date: ") + \
+                                                time.strftime('%Y-%m-%d %H:%M:%S') + \
+                                            _("\nFor period: ") + obj.period_id.name + _(" according to state:") + \
+                                            _("\n Warehouse Forecast: ") + str(obj.warehouse_forecast) + \
+                                            _("\n Initial Stock: ") + str(obj.stock_start) + \
+                                            _("\n Planned Out: ") + str(obj.planned_outgoing) + _("    Planned In: ") + str(obj.to_procure) + \
+                                            _("\n Already Out: ") + str(obj.already_out) + _("    Already In: ") +  str(obj.already_in) + \
+                                            _("\n Confirmed Out: ") + str(obj.outgoing) + _("    Confirmed In: ") + str(obj.incoming) + \
+                                            _("\n Planned Out Before: ") + str(obj.outgoing_before) + _("    Confirmed In Before: ") + \
+                                                                                                str(obj.incoming_before) + \
+                                            _("\n Expected Out: ") + str(obj.outgoing_left) + _("    Incoming Left: ") + str(obj.incoming_left) + \
+                                            _("\n Stock Simulation: ") +  str(obj.stock_simulation) + _("    Minimum stock: ") + str(obj.minimum_op),
+    
+                                }, context=context)
+                wf_service = netsvc.LocalService("workflow")
+                wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
+                wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_check', cr)
             self.calculate_planning(cr, uid, ids, context)
             prev_text = obj.history or ""
             self.write(cr, uid, ids, {

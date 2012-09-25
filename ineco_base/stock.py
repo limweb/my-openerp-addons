@@ -52,7 +52,8 @@
 # 20-09-2012       POP-029    Add Patial/Full in Stock Move
 # 24-09-2012       POP-030    Change Stock_Report.Qty -> Stock_Report.Available in Physical Inventory
 #                  POP-031    Add Schedule Correct Stock Report 
-
+# 25-09-2012       POP-032    Add Stock Move Date Done
+#                  POP-033    Add Stock Period in Stock Move
 import math
 
 from osv import fields,osv
@@ -314,6 +315,11 @@ class stock_move(osv.osv):
         'partial_qty': fields.integer('Partial Qty'),
         'full_uom': fields.many2one('product.uom', 'Full UOM'),
         'full_qty': fields.integer('Full Qty'),        
+        #POP-032 
+        'ineco_date_complete' : fields.datetime('Date Complete'),
+        'stock_product_qty': fields.float('Default Qty', digits_compute=dp.get_precision('Product UoM'), states={'done': [('readonly', True)]}),
+        #POP-033
+        'stock_period_id': fields.many2one('stock.period'),
     }
 
     _defaults = {
@@ -576,6 +582,33 @@ class stock_move(osv.osv):
                              'full_uom':sm.full_uom.id,
                             })
                 vals.update({'warehouse_uom': warehouse_uom_id,'warehouse_qty': warehouse_qty}) #'warehouse_diff': diff
+            #POP-032 
+            if 'state' in vals:
+                state_current = vals['state'] 
+                if state_current == 'done':
+                    vals.update({'ineco_date_complete': time.strftime('%Y-%m-%d %H:%M:%S')})
+                else:
+                    vals.update({'ineco_date_complete': False})
+            else:
+                vals.update({'ineco_date_complete': False})
+            
+            vals.update({'stock_product_qty': update_qty })
+            
+            #POP-033
+            period_sql = """"
+                select
+                  (select id from stock_period 
+                   where date_start <= sm.date_expected and date_stop >= sm.date_expected) as stock_period_id
+                from stock_picking sp
+                join stock_move sm on sp.id = sm.picking_id
+                where sm.id = %s
+              """
+            cr.execute(period_sql,(sm.id))
+            act_ids = map(lambda x: x[0], cr.fetchall())
+            if act_ids:
+                act_id = act_ids[0]
+                vals.update({'stock_period_id': act_id })
+
         return super(stock_move, self).write(cr, uid, ids, vals, context=context)
     
     def onchange_product_id(self, cr, uid, ids, prod_id=False, loc_id=False,loc_dest_id=False, address_id=False):

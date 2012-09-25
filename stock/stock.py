@@ -18,6 +18,8 @@
 #
 ##############################################################################
 
+# 25-09-2012    POP-001    Add Allow Counting
+
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 import time
@@ -2682,9 +2684,12 @@ class stock_warehouse(osv.osv):
         'lot_input_id': fields.many2one('stock.location', 'Location Input', required=True, domain=[('usage','<>','view')]),
         'lot_stock_id': fields.many2one('stock.location', 'Location Stock', required=True, domain=[('usage','<>','view')]),
         'lot_output_id': fields.many2one('stock.location', 'Location Output', required=True, domain=[('usage','<>','view')]),
+        #POP-001
+        'allow_counting': fields.boolean('Allow Counting', select=True),
     }
     _defaults = {
         'company_id': lambda self, cr, uid, c: self.pool.get('res.company')._company_default_get(cr, uid, 'stock.inventory', context=c),
+        'allow_counting': False
     }
 
 stock_warehouse()
