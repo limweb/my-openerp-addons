@@ -627,6 +627,7 @@
                     <field name="lot_input_id"/>
                     <field name="lot_stock_id"/>
                     <field name="lot_output_id"/>
+                    <field name="allow_counting" />
                     <field name="company_id" select="1" groups="base.group_multi_company" widget="selection"/>
                     <newline/>
                     <field name="partner_address_id" context="{'contact_display':'partner'}"/>
@@ -643,6 +644,7 @@
                     <field name="lot_input_id"/>
                     <field name="lot_stock_id"/>
                     <field name="lot_output_id"/>
+                    <field name="allow_counting" />
                     <field name="partner_address_id" context="{'contact_display':'partner'}"/>
                 </tree>
             </field>

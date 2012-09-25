@@ -19,6 +19,8 @@
 #
 ##############################################################################
 
+#25-09-2012    POP-001    Add Allow Counting
+
 from osv import fields, osv
 from tools.translate import _
 import decimal_precision as dp
@@ -198,7 +200,8 @@ class product_product(osv.osv):
                 context['warehouse'] = res2[0]
 
         if context.get('warehouse', False):
-            cr.execute('select lot_stock_id from stock_warehouse where id=%s', (int(context['warehouse']),))
+            #POP-001
+            cr.execute('select lot_stock_id from stock_warehouse where allow_counting = true and id=%s', (int(context['warehouse']),))
             res2 = cr.fetchone()
             if res2:
                 context['location'] = res2[0]
@@ -212,7 +215,8 @@ class product_product(osv.osv):
                 location_ids = context['location']
         else:
             location_ids = []
-            wids = self.pool.get('stock.warehouse').search(cr, uid, [], context=context)
+            #POP-001
+            wids = self.pool.get('stock.warehouse').search(cr, uid, [('allow_counting','!=',False)], context=context)
             for w in self.pool.get('stock.warehouse').browse(cr, uid, wids, context=context):
                 location_ids.append(w.lot_stock_id.id)
 
