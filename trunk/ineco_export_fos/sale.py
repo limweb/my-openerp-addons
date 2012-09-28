@@ -494,20 +494,22 @@ class sale_order(osv.osv):
 
                 conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
                                        database=server_db,as_dict=True)
-                sql_contr_update = """
-                    update contrmf set status = 'N' where contractno = '%s' 
-                """
-                sql_contr_update = sql_contr_update % (order.name)
-                cur = conn.cursor()
-                cur.execute('SET ANSI_WARNINGS off')
-                cur.execute(sql_contr_update.encode('utf-8'))
-                cur.close()
-                conn.commit()
+                try:
+                    sql_contr_update = """
+                        update contrmf set status = 'N' where contractno = '%s' 
+                    """
+                    sql_contr_update = sql_contr_update % (order.name)
+                    cur = conn.cursor()
+                    cur.execute('SET ANSI_WARNINGS off')
+                    cur.execute(sql_contr_update.encode('utf-8'))
+                    cur.close()
+                    conn.commit()
+                finally:
+                    conn.close()
             else:
                 raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))                
-            
-        super(sale_order, self).action_cancel(cr, uid, ids, context=context)        
-        return True
+                            
+        return super(sale_order, self).action_cancel(cr, uid, ids, context=context)
 
     
     def export_fos(self, cr, uid, ids, context=None):
@@ -528,7 +530,7 @@ class sale_order(osv.osv):
             #POP-003
             sql = """
                 select 
-                  rp.id as marketercd,
+                  rp.id as marketercd,                
                   rp.name as marketername,
                   'Customer' as status,
                   'Commercial' as dptype,
@@ -562,19 +564,21 @@ class sale_order(osv.osv):
 
                     conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
                                            database=server_db,as_dict=True)
-                    cur = conn.cursor()
                     try:
-                        #insert_sql
-                        cur.execute('SET ANSI_WARNINGS off')
-                        cur.execute(insert_contrmf_sql.encode('utf-8'))
-
-                    except:
-                        #update_sql
-                        cur.execute('SET ANSI_WARNINGS off')
-                        cur.execute(update_contrmf_sql.encode('utf-8'))
-
-                    cur.close()
-                    conn.commit()
+                        cur = conn.cursor()
+                        try:
+                            #insert_sql
+                            cur.execute('SET ANSI_WARNINGS off')
+                            cur.execute(insert_contrmf_sql.encode('utf-8'))    
+                        except:
+                            #update_sql
+                            cur.execute('SET ANSI_WARNINGS off')
+                            cur.execute(update_contrmf_sql.encode('utf-8'))
+    
+                        cur.close()
+                        conn.commit()
+                    finally:
+                        conn.close()
                     
                 else:
                     raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))                
@@ -618,9 +622,12 @@ class sale_order(osv.osv):
                 
                 conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
                                        database=server_db,as_dict=True)
-                cur = conn.cursor()
-                cur.execute(sql_clear_prod)
-                conn.commit()
+                try:
+                    cur = conn.cursor()
+                    cur.execute(sql_clear_prod)
+                    conn.commit()
+                finally:
+                    conn.close()
 
             sql_contr_detail_delete = """
                 delete from contr_detailtsbystore where contractno = '%s' 
@@ -635,9 +642,12 @@ class sale_order(osv.osv):
                 
                 conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
                                        database=server_db,as_dict=True)
-                cur = conn.cursor()
-                cur.execute(sql_contr_detail_delete)
-                conn.commit()
+                try:
+                    cur = conn.cursor()
+                    cur.execute(sql_contr_detail_delete)
+                    conn.commit()
+                finally:
+                    conn.close()
 
             
             for index in range(len(product_id_list)):
@@ -674,22 +684,28 @@ class sale_order(osv.osv):
                             "( '%s', %s, '%s', %s, '%s', '%s','%s')" % (product_id_list[index],product_name,order.partner_id.ineco_fos_code,product_ean13,
                                 'Product Sampling','S','pcs')
                         cur.close()
-                        cur = conn.cursor()
-                        cur.execute('SET ANSI_WARNINGS off')
-                        conn.commit()
-                        cur.execute(itemmf_insert_sql.encode('utf-8'))
-                        cur.close()
-                        conn.commit()
+                        try:
+                            cur = conn.cursor()
+                            cur.execute('SET ANSI_WARNINGS off')
+                            conn.commit()
+                            cur.execute(itemmf_insert_sql.encode('utf-8'))
+                            cur.close()
+                            conn.commit()
+                        finally:
+                            conn.close()
                     else:
                         itemmf_update_sql = "update itemmf set itemdesc1 = %s, marketercd = '%s', barcodeno = %s where itemno = '%s' " % (product_name, order.partner_id.ineco_fos_code, product_ean13 or '', product_id_list[index] )
                         #print itemmf_update_sql
                         cur.close()
-                        cur = conn.cursor()
-                        cur.execute('SET ANSI_WARNINGS off')
-                        conn.commit()
-                        cur.execute(itemmf_update_sql.encode('utf-8'))
-                        cur.close()
-                        conn.commit()
+                        try:
+                            cur = conn.cursor()
+                            cur.execute('SET ANSI_WARNINGS off')
+                            conn.commit()
+                            cur.execute(itemmf_update_sql.encode('utf-8'))
+                            cur.close()
+                            conn.commit()
+                        finally:
+                            conn.close()
                         
                 else:
                     raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
@@ -721,16 +737,22 @@ class sale_order(osv.osv):
                     row = cur.fetchone()
                     if row[0] == 0:
                         cur.close()
-                        cur = conn.cursor()
-                        cur.execute(insert_sku_sql.encode('utf-8'))
-                        cur.close()
-                        conn.commit()
+                        try:
+                            cur = conn.cursor()
+                            cur.execute(insert_sku_sql.encode('utf-8'))
+                            cur.close()
+                            conn.commit()
+                        finally:
+                            conn.close()
                     else:
                         cur.close()
-                        cur = conn.cursor()
-                        cur.execute(update_sku_sql.encode('utf-8'))
-                        cur.close()
-                        conn.commit()
+                        try:
+                            cur = conn.cursor()
+                            cur.execute(update_sku_sql.encode('utf-8'))
+                            cur.close()
+                            conn.commit()
+                        finally:
+                            conn.close()
                 else:
                     raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
                 
@@ -840,7 +862,7 @@ class sale_order(osv.osv):
 
                     conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
                                            database=server_db,as_dict=True)
-                    cur = conn.cursor()
+                    cur = conn.cursor()                    
                     try:
                         #insert_sql
                         cur.execute('SET ANSI_WARNINGS off')
@@ -854,6 +876,7 @@ class sale_order(osv.osv):
 
                     cur.close()
                     conn.commit()
+                    conn.close()
                     
                 else:
                     raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))                
@@ -930,6 +953,7 @@ class sale_order(osv.osv):
 
                     cur.close()
                     conn.commit()
+                    conn.close()
                     
                 else:
                     raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
@@ -1012,18 +1036,29 @@ class sale_order(osv.osv):
                     conn = pymssql.connect(host=server_ip, user=server_user, password=server_password, 
                                            database=server_db,as_dict=True)
                     cur = conn.cursor()
-                    try:
-                        #insert_sql
+                    itemmf_find_sql = "select count(*) as total from contr_detailtsbystore where contractno = %s and storecd = %s "
+                    cur.execute(itemmf_find_sql, (data['contractno'], data['storecd'],))
+                    row = cur.fetchone()
+                    if row[0] == 0:
                         cur.execute('SET ANSI_WARNINGS off')
                         cur.execute(insert_contrmf_sql.encode('utf-8'))
-
-                    except:
-                        #update_sql
+                    else:
                         cur.execute('SET ANSI_WARNINGS off')
                         cur.execute(update_contrmf_sql.encode('utf-8'), (data['contractno'], data['storecd'],))
+                                        
+                    #try:
+                        #insert_sql
+                    #    cur.execute('SET ANSI_WARNINGS off')
+                    #    cur.execute(insert_contrmf_sql.encode('utf-8'))
+
+                    #except:
+                        #update_sql
+                    #    cur.execute('SET ANSI_WARNINGS off')
+                    #    cur.execute(update_contrmf_sql.encode('utf-8'), (data['contractno'], data['storecd'],))
 
                     cur.close()
                     conn.commit()
+                    conn.close()
                     
                 else:
                     raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
@@ -1043,6 +1078,9 @@ class sale_order(osv.osv):
                 cur = conn.cursor()
                 cur.execute('SET ANSI_WARNINGS off')
                 cur.execute(delete_costitem_sql.encode('utf-8'), (order.name))
+                cur.close();
+                conn.commit()
+                conn.close()
             
             costitem_sql = """
             
@@ -1150,6 +1188,7 @@ class sale_order(osv.osv):
                         cur.execute(update_contrmf_sql.encode('utf-8'), (data['contractno'], data['costitem'],))
                     cur.close()
                     conn.commit()
+                    conn.close()
                     
                 else:
                     raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
@@ -1203,6 +1242,7 @@ class sale_order(osv.osv):
 
                     cur.close()
                     conn.commit()
+                    conn.close()
                     
                 else:
                     raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
@@ -1254,6 +1294,7 @@ class sale_order(osv.osv):
 
                     cur.close()
                     conn.commit()
+                    conn.close()
                     
                 else:
                     raise osv.except_osv(_('Error !'), _('Please config FOS Server in company.'))
@@ -1278,6 +1319,7 @@ class sale_order(osv.osv):
                 delete_notchk_sql = delete_notchk_sql % (order.name)
                 cur.execute(delete_notchk_sql)
                 conn.commit()
+                
                 
                 #POP-004
                 clear_olddata_sql = """
@@ -1447,7 +1489,8 @@ class sale_order(osv.osv):
                         sql_insert_sale_other_data = sql_insert_sale_other_data % (order.name, line.type_id.name, other_index,
                                 line.name, user_name)
                         cur.execute(sql_insert_sale_other_data.encode('utf-8'))
-                        conn.commit()                                 
+                        conn.commit()  
+                conn.close()                               
 
         return True
     
