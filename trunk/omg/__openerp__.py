@@ -39,7 +39,8 @@
         'purchase_requisition_view.xml',
         'analytic_data.xml',        
         'stock_view.xml',                
-        'omg_sale_order_copy_view.xml',        
+        'omg_sale_order_copy_view.xml',  
+        'omg_sale_order_cancel_view.xml',              
         'sale_view.xml',
         'wizard/wizard_product_set_view.xml',
         'wizard/wizard_booking_checkprice_view.xml',
@@ -75,7 +76,7 @@
         'wizard/wizard_report_delivery_return_view.xml',
         'address_view.xml',
         'wizard/update_location_qty_view.xml',
-        'omg_sale_order_cancel_view.xml',
+
         ],
     'demo_xml': [],
     'installable': True,
