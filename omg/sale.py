@@ -55,6 +55,7 @@
 # 09-08-2012       POP-027    Add Sale Data
 # 14-08-2012       DAY-006    Add Specific Booth Type
 # 25-08-2012       DAY-007    Add Material Cash Advance
+# 29-09-2012       DAY-008    Edit Check Booking Confirm
 
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
@@ -266,19 +267,48 @@ class sale_branch_line(osv.osv):
         service_ids = self.pool.get('ineco.stock.location.category.max').search(cr, uid, [('location_id','=',location_id),('category_id','=',service_categ_id)])
         if service_ids:
             service = self.pool.get('ineco.stock.location.category.max').browse(cr, uid, service_ids)[0]
-            result = service.quantity
+            #DAY-008
+            if service.category_id.ineco_check_place:
+                result = service.quantity
         return result
+#    DAY-008
+    def _get_period_ids(self, cr, uid, period_id, context=None):
+        if not period_id:
+            raise osv.except_osv(_('Warning'), _('Period is empty.')) 
+        
+        period = self.pool.get('omg.sale.period').browse(cr, uid, [period_id])[0]
+        
+        sql = """
+               select osp.id from omg_sale_period osp
+               where 
+                 (osp.date_start between '%s' and '%s') and
+                 (osp.date_finish <= '%s')
+        """
+        cr.execute(sql % (period.date_start, period.date_finish, period.date_finish))
+        ids = map(itemgetter(0), cr.fetchall())
+        return ids
+    
+    def _can_booking(self, cr, uid, location_id, category_id, period_id, service_category_id,contact_line, context=None):
+#DAY-008
+        period_ids = self._get_period_ids(cr, uid, period_id)
+        if not period_ids:
+            raise osv.except_osv(_('Warning'), _('List of Period is empty.'))            
+        if contact_line:
+            booking_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('category_id','=',category_id),('state','!=','cancel'),('ineco_check_cate','=',1),('contact_line_id','!=',contact_line)])
+            max_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('state','!=','cancel'),('service_category_id','=',service_category_id),('ineco_check_place','=',1),('contact_line_id','!=',contact_line)])
+        else:
+            booking_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('category_id','=',category_id),('state','!=','cancel'),('ineco_check_cate','=',1)])
+            max_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('state','!=','cancel'),('service_category_id','=',service_category_id),('ineco_check_place','=',1)])
 
-    def _can_booking(self, cr, uid, location_id, category_id, period_id, service_categ_id, context=None):
-        booking_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','=',period_id),('category_id','=',category_id),('state','=','done')])
-        max_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','=',period_id),('state','=','done'),('service_category_id','=',service_categ_id)])
+#        booking_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','=',period_id),('category_id','=',category_id),('state','=','done')])
+#        max_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','=',period_id),('state','=','done'),('service_category_id','=',service_categ_id)])
         can_book = True
         location = self.pool.get('stock.location').browse(cr, uid, [location_id])[0]
 
         if len(booking_ids) > 0:
            raise osv.except_osv(_('Warning'), _('You have selected Duplication Category')) 
         
-        max_service_qty = self._get_max_service(cr, uid, location.id, service_categ_id)
+        max_service_qty = self._get_max_service(cr, uid, location.id, service_category_id)
         
         if len(booking_ids) == 0 and location and max_service_qty > len(max_ids):
         #elif len(booking_ids) == 0 and location and location.max_place_qty > len(max_ids):
@@ -294,22 +324,26 @@ class sale_branch_line(osv.osv):
             location_id = vals['location_id']
             customer_product_id = sale_obj.customer_product_id.id
             category_id = sale_obj.customer_product_id.categ_id.id
+            contact_line = self.pool.get('omg.sale.reserve.contact.line').search(cr, uid, [('sale_order_id','=',sale_obj.id)])       
+            if contact_line:
+                contact_id = int(contact_line[0])
             period_id = False
             if sale_obj.sale_period_ids:
                 period_id = sale_obj.sale_period_ids[0].period_id.id
             if sale_obj.service_product_id and period_id :
                 service_category_id = sale_obj.service_product_id.categ_id.id
-                can_book = self._can_booking(cr, uid, location_id, category_id, period_id, service_category_id )            
+                can_book = self._can_booking(cr, uid, location_id, category_id, period_id, service_category_id,contact_id )            
 #            #vals.update({'sequence_id': self.create_sequence(cr, uid, vals, context)})
         return super(sale_branch_line, self).create(cr, uid, vals, context)
-    
-    def unlink(self, cr, uid, ids, context=None):
+
+#   DAY-008
+#    def unlink(self, cr, uid, ids, context=None):
         #self._check_moves(cr, uid, ids, "unlink", context=context)
-        for line in self.browse(cr, uid, ids, context):
-            location_booking_ids = self.pool.get('stock.location.booking').search(cr, uid, [('order_id','=',line.sale_id.id),('location_id','=',line.location_id.id)])
-            if location_booking_ids:
-                self.pool.get('stock.location.booking').write(cr, uid, location_booking_ids, {'state':'cancel'})
-        return super(sale_branch_line, self).unlink(cr, uid, ids, context=context)
+#        for line in self.browse(cr, uid, ids, context):
+#            location_booking_ids = self.pool.get('stock.location.booking').search(cr, uid, [('order_id','=',line.sale_id.id),('location_id','=',line.location_id.id)])
+#            if location_booking_ids:
+#                self.pool.get('stock.location.booking').write(cr, uid, location_booking_ids, {'state':'cancel'})
+#        return super(sale_branch_line, self).unlink(cr, uid, ids, context=context)
     
 
 sale_branch_line()

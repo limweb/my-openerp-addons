@@ -10,9 +10,9 @@
 		<form string="Reservation Contact">
 			<field name="name" />
 			<field name="contact_date" />
-			<field name="customer_id" />
-			<field name="product_id" domain="[('customer_product','=',True)]"/>
-			<field name="service_id" domain="[('service_type','=',True)]"/>
+			<field name="customer_id" domain="[('customer','=',True)]"/>
+			<field name="product_id"  domain="[('customer_product','=',True)]"/>
+			<field name="service_id"  domain="[('service_type','=',True)]"/>
 			<field name="saleman_id" />
 			<field name="sale_admin_id" />
 			<field name="fos_contact_no" />
@@ -26,6 +26,7 @@
 					<field name="line_ids" colspan="4" nolabel="1" attrs="{'readonly': [('currency_id','=',False)]}" context="{'service_id':service_id}"/>
 				</page>
 				<page string="Notes">
+				    <field name="credit_term" colspan="4" />
 					<field name="note" colspan="4" nolabel="1"/>
 				</page>
 			</notebook>
@@ -42,14 +43,14 @@
         <field name="arch" type="xml">
 			<tree string="Reservation Contact">
 				<field name="name" />
-				<field name="contact_date" />
+				<field name="contact_date"/>
 				<field name="period_id" />
 				<field name="chain_id" />
 				<field name="customer_id" />
 				<field name="product_id" />
 				<field name="service_id" />
 				<field name="saleman_id" />
-				<field name="total" />
+				<field name="total" sum="total" />
 			</tree>
 		</field>
     </record>
@@ -65,7 +66,7 @@
 					<field name="customer_id" />
 					<field name="product_id" />
 					<field name="service_id" />
-					<field name="period_id" />
+					<field name="period_id" type="text" />
 					<field name="chain_id" />
 					<field name="saleman_id" />
 					<field name="total" />
@@ -86,6 +87,7 @@
 				<field name="sale_order_id" />
 				<field name="location_qty" />
 				<field name="unit_price" />
+				<field name="summary_total"/>
 				<field name="sub_total" />
 				<field name="state" />
                 <button name="action_process" states="reserve" string="Process" type="object" icon="gtk-go-forward"/>
@@ -101,31 +103,35 @@
         <field name="model">omg.sale.reserve.contact.line</field>
         <field name="arch" type="xml">
 			<form string="Reservation Line">
-				<field name="period_id" attrs="{'readonly': [('state','in',('done','cancel'))]}" />
-				<field name="chain_id" attrs="{'readonly': [('state','in',('done','cancel'))]}"/>
-				<field name="location_list" attrs="{'readonly': [('state','in',('done','cancel'))]}"/>
-				<field name="allow_duplicate" />
+				<field name="period_id"/>
+				<field name="chain_id" />
+				<field name="location_list"  colspan="4"/>				
+				<field name="category_es_id" colspan="3" domain="[('parent_id','!=',1),('service_category','!=',True)]" />
+                <button name="set_estimate" string="Set Estimate" type="object" icon="terp-stock_effects-object-colorize"  states="reserve,inprogress"/>												
+				<field name="allow_duplicate" invisible="1"/>
 				<field name="client_price" invisible="1"/>
 				<notebook colspan="4" >
 					<page string="Location">
-						<field name="location_lines" nolabel="1" attrs="{'readonly': [('state','in',('done','cancel'))]}">
+						<field name="location_lines" nolabel="1">
 							<tree string="Location List" editable="bottom">
 								<field name="location_id" domain="[('omg_approve','=',True)]"/>
+						  		<field name="omg_format"/>
 								<field name="location_type_id" />
 								<field name="group_name" />
-								<field name="specific_booth_type_id" />								
+								<field name="specific_booth_type_id" />		
+								<field name="estimate" sum="estimate"/>					
 							</tree>
 						</field>
 					</page>
 					<page string="Product">
-						<field name="product_lines" nolabel="1" attrs="{'readonly': [('state','in',('done','cancel'))]}" >
+						<field name="product_lines" nolabel="1">
 							<tree string="Product List" >
 								<field name="product_id" on_change="onchange_product_id(product_id)" domain="[('service_type','=',True)]" />
 								<field name="location_qty" />
 								<field name="day_qty" />
 								<field name="product_qty" />
 								<field name="sale_price" />
-								<field name="sub_total" />
+								<field name="sub_total" sum="sub_total"/>
 							</tree>
 							<form string="Product List">
 								<field name="product_id" on_change="onchange_product_id(product_id)" domain="[('service_type','=',True)]" />
@@ -136,25 +142,32 @@
 						</field>
 					</page>
 					<page string="Summary">
-						<field name="summary_lines" nolabel="1" attrs="{'readonly': [('state','in',('done','cancel'))]}" >
+						<field name="summary_lines" nolabel="1" >
 							<tree string="Summary List">
 								<field name="product_id"  on_change="onchange_product_id(product_id)" domain="[('service_type','=',True)]"/>
 								<field name="product_qty" />
+								<field name="with_branch"/>
+								<field name="with_period"/>						
 								<field name="sale_price" />
-								<field name="sub_total" />
+								<field name="sub_total" sum="sub_total" />
 							</tree>
 							<form string="Summary List">
 								<field name="product_id" on_change="onchange_product_id(product_id)" domain="[('service_type','=',True)]"/>
+								<field name="with_branch"/>
 								<field name="product_qty" />
+								<field name="with_period"/>
 								<field name="sale_price" />
 								<field name="sub_total" />
 							</form>
 						</field>
 					</page>
 				</notebook>
-				<field name="location_qty" attrs="{'readonly': [('state','in',('done','cancel'))]}" invisible="1"/>
-				<field name="unit_price" attrs="{'readonly': [('state','in',('done','cancel'))]}" invisible="1"/>
-				<field name="sub_total" attrs="{'readonly': [('state','in',('done','cancel'))]}" invisible="1"/>
+				<field name="state" />
+				<field name="sub_total" />					
+				<field name="location_qty"   invisible="1"/>
+				<field name="unit_price"     invisible="1" />
+				<field name="summary_total"  invisible="1"/>
+			
 			</form>
 		</field>
     </record>
@@ -175,7 +188,8 @@
             <field name="type">search</field>
             <field name="arch" type="xml">
                 <search string="Reservation Contact Line">
-					<field name="period_id" />
+                    <field name="contact_id" type="text" />
+					<field name="period_id" type="text" />
 					<field name="chain_id" />
 					<field name="sale_order_id" />
 					<field name="state" />
