@@ -50,7 +50,7 @@
         'booking_wizard.xml',
         'procurement_view.xml',
         'account_analytic_view.xml',
-#        'default_report_data.xml',          
+        'default_report_data.xml',          
         'product_view.xml',
         'wizard/purchase_requisition_partner_view.xml',
         'sale_contact_view.xml',
