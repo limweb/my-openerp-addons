@@ -39,6 +39,7 @@
 # 30-07-2012    DAY-008    Add Type Location contact_line_location
 # 14-08-2012    DAY-009    Add specific_booth_type
 # 25-08-2012    DAY-010    Materials Cash Adv
+# 24-09-2012    DAY-011    Fos , Estimate, client_price 
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -96,11 +97,13 @@ class omg_sale_reserve_contact(osv.osv):
 
     _columns = {
         'name': fields.char('Booking No', size=32, required=True),
-        'contact_date': fields.datetime("Contact Date", required=True),
+        #DAY-011
+        #'contact_date': fields.datetime("Contact Date", required=True),
+        'contact_date': fields.date("Contact Date", required=True),
         'customer_id': fields.many2one('res.partner', 'Customer', required=True, ondelete="restrict"),
         'product_id': fields.many2one('product.product', 'Customer Product', required=True, ondelete="restrict"),
         'service_id': fields.many2one('product.product', 'Service Type', required=True, ondelete="restrict"),
-        'saleman_id': fields.many2one('res.users', 'Salesman' , ondelete="restrict"),
+        'saleman_id': fields.many2one('res.users', 'Salesman' ,required=True, ondelete="restrict"),
         'note': fields.text('Notes'),
         'location_qty': fields.function(_count_location, method=True, type='integer', string='Location Qty'),
         'period_qty': fields.function(_count_period, method=True, type='integer', string='Period Qty'),
@@ -110,12 +113,14 @@ class omg_sale_reserve_contact(osv.osv):
         'company_id': fields.many2one('res.company', 'Company', required=True), 
         'period_first': fields.function(_get_period_first, method=True, type='string', string='Period Name'),
         #POP-005
-        'sale_admin_id': fields.many2one('res.users', 'Sale Admin' , ondelete="restrict"),
+        'sale_admin_id': fields.many2one('res.users', 'Sale Admin' ,required=True, ondelete="restrict"),
         #POP-008
         'chain_id': fields.many2one('omg.sale.chain','Chain'),
         'period_id': fields.many2one('omg.sale.period','Period'),
         #POP-009
         'fos_contact_no': fields.char('FOS No', size=50,),
+        #DAY-011
+        'credit_term': fields.char('Credit Term', size=250,),        
         
     }    
 
@@ -124,7 +129,9 @@ class omg_sale_reserve_contact(osv.osv):
         'saleman_id': lambda self, cr, uid, context: uid,
         #POP-005
         'sale_admin_id': lambda self, cr, uid, context: uid,
-        'contact_date': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
+        #DAY-011
+        #'contact_date': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
+        'contact_date': lambda *a: time.strftime('%Y-%m-%d'),
         'company_id': lambda self, cr, uid, c: self.pool.get('res.users').browse(cr, uid, uid, c).company_id.id,
     }
     
@@ -182,9 +189,7 @@ class omg_sale_reserve_contact(osv.osv):
                                         'ineco_check_place':reserve_obj.service_id.categ_id.ineco_check_place,
                                        #DAY-006 
                                         'ineco_check_cate':reserve_obj.service_id.categ_id.ineco_check_categ}                        
-                    self.pool.get('stock.location.booking').create(cr, uid, location_booking)
-                    line.location_id
-                
+                    self.pool.get('stock.location.booking').create(cr, uid, location_booking)                
         return res
 
 
@@ -221,29 +226,36 @@ class omg_sale_reserve_contact_line(osv.osv):
         res = {}
         if context is None:
             context = {}
-        master_price = 0
         for line in self.browse(cr, uid, ids, context=context):
-            master_price = line.client_price or line.contact_id.service_id.list_price
             other_price = 0
             for product in line.product_lines:
-                other_price = other_price + (product.product_qty * product.sale_price or 0.0)
-            res[line.id] = master_price + other_price
-        return res
+                other_price += product.sub_total
+            res[line.id] =  other_price
+        return res     
     
+    def _get_summary_total(self, cr, uid, ids, field_name, arg, context=None):
+        res = {}
+        if context is None:
+            context = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            other_price = 0
+            for summary in line.summary_lines:
+                other_price += summary.sub_total
+            res[line.id] =  other_price
+        return res   
+     
     def _get_subtotal(self, cr, uid, ids, field_name, arg, context=None):
         res = {}
         if context is None:
             context = {}
         for line in self.browse(cr, uid, ids, context=context):
-            location_qty = 0
-            other_price = 0
-            date_count = line.period_id.date_length or 1
-            unit_price = line.unit_price 
+            product_price = 0
+            summary_price = 0
             for summary in line.summary_lines:
-                other_price += summary.sub_total
-            for location in line.location_lines:
-                location_qty = location_qty + 1
-            res[line.id] =  (location_qty * unit_price * date_count) + other_price or 0
+                summary_price += summary.sub_total
+            for product in line.product_lines:
+                product_price += product.sub_total              
+            res[line.id] =  summary_price + product_price
         return res
     
     def _get_default_price(self, cr, uid, context=None):
@@ -253,35 +265,41 @@ class omg_sale_reserve_contact_line(osv.osv):
         if context.get('active_id'):
             contact = self.pool.get('omg.sale.reserve.contact').browse(cr, uid, context['active_id'], context=context)
             if contact:
-                unit_price = contact.service_id.list_price
+                #DAY-011
+                #unit_price = contact.service_id.list_price
+                unit_price = 0
         return unit_price
     
     _name = "omg.sale.reserve.contact.line"
     _description = "Line of Contacts"
     _columns = {
         'name': fields.char('Description', size=100),
-        'contact_id': fields.many2one('omg.sale.reserve.contact', 'Contact', ondelete="restrict"),
-        'period_id': fields.many2one('omg.sale.period','Period', ondelete="restrict"),
-        'chain_id': fields.many2one('omg.sale.chain', 'Chain', ondelete="restrict"),
+        'contact_id': fields.many2one('omg.sale.reserve.contact', 'Contact',required=True, ondelete="restrict"),
+        'period_id': fields.many2one('omg.sale.period','Period',required=True,readonly=True, states={'reserve':[('readonly', False)],'inprogress': [('readonly', False)]}, ondelete="restrict"),
+        'chain_id': fields.many2one('omg.sale.chain', 'Chain',required=True,readonly=True, states={'reserve':[('readonly', False)],'inprogress': [('readonly', False)]}, ondelete="restrict"),
         'category_id': fields.many2one('product.category','Category', ondelete="restrict"),
-        'location_list': fields.function(_get_location_list, method=True, type='char', string="Location Detail"),
+        'location_list': fields.function(_get_location_list, method=True, type='char', string="Location Detail",readonly=True,),
         'location_qty': fields.function(_count_location, method=True, type='integer', string="Location QTY"),
         'sale_order_id': fields.many2one('sale.order','Sale Order', ondelete="restrict"),        
         'client_price': fields.float('Client Price', digits_compute= dp.get_precision('Sale Price')),        
-        'unit_price': fields.function(_get_unitprice, method=True, type='float', string="Unit Price"),
+        'summary_total': fields.function(_get_summary_total, method=True, type='float', string="Summary Total"),
+        'unit_price': fields.function(_get_unitprice, method=True, type='float', string="Product Total"),
         'sub_total': fields.function(_get_subtotal, method=True, type='float', string="Total"),
-        'location_lines': fields.one2many('omg.sale.reserve.contact.line.location','contact_line_id','Locations'),
-        'product_lines': fields.one2many('omg.sale.reserve.contact.line.product','contact_line_id','Products'),
-        'summary_lines': fields.one2many('omg.sale.reserve.contact.line.summary','contact_line_id','Summary'),
+        'location_lines': fields.one2many('omg.sale.reserve.contact.line.location','contact_line_id','Locations',readonly=True, states={'reserve':[('readonly', False)],'inprogress': [('readonly', False)]}),
+        'product_lines': fields.one2many('omg.sale.reserve.contact.line.product','contact_line_id','Products',readonly=True, states={'reserve':[('readonly', False)],'inprogress': [('readonly', False)]}),
+        'summary_lines': fields.one2many('omg.sale.reserve.contact.line.summary','contact_line_id','Summary',readonly=True, states={'reserve':[('readonly', False)],'inprogress': [('readonly', False)]}),
         'state': fields.selection([('reserve', 'Reserved'), ('inprogress', 'In-Progress'), ('done', 'Done'),('cancel','Cancel')], 'State', readonly=True, select=True),
         'allow_duplicate': fields.boolean('Allow Duplicate Category'),
         #POP-003
         #'item_sale_check_ids': fields.many2many('product.product', 'product_product_contact_check_rel', 'contact_id', 'product_tmpl_id', 'Item Check Sales'),                
+        #DAY-011
+        'category_es_id': fields.many2one('product.category','Category Estimate',readonly=True, states={'reserve':[('readonly', False)],'inprogress': [('readonly', False)]}, ondelete="restrict"),
+        
     }
     _defaults = {
         'state': 'reserve',
         'allow_duplicate': False,
-        'client_price': _get_default_price ,
+        'client_price': 0 ,
     }
 
     _sql_constraints = [
@@ -358,7 +376,7 @@ class omg_sale_reserve_contact_line(osv.osv):
     def _can_booking(self, cr, uid, ids, location_id, category_id, period_id, service_categ_id, context=None):
         period_ids = self._get_period_ids(cr, uid, ids, period_id)
         if not period_ids:
-              raise osv.except_osv(_('Warning'), _('List of Period is empty.'))       
+            raise osv.except_osv(_('Warning'), _('List of Period is empty.'))       
         #DAY-005
         booking_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('category_id','=',category_id),('state','!=','cancel'),('ineco_check_cate','=',1),('contact_line_id','!=',ids[0])])
         max_ids = self.pool.get('stock.location.booking').search(cr, uid,[('location_id','=',location_id),('period_id','in',period_ids),('state','!=','cancel'),('service_category_id','=',service_categ_id),('ineco_check_place','=',1),('contact_line_id','!=',ids[0])])
@@ -371,7 +389,7 @@ class omg_sale_reserve_contact_line(osv.osv):
                 booking_ids = []
             else:
                 if len(booking_ids) > 0:
-                   raise osv.except_osv(_('Warning'), _('You have selected Duplication Category')) 
+                    raise osv.except_osv(_('Warning'), _('You have selected Duplication Category')) 
         #DAY 004
         if contact_obj.contact_id.service_id.categ_id.ineco_check_place: 
             #POP-007
@@ -472,11 +490,17 @@ class omg_sale_reserve_contact_line(osv.osv):
                         sale_cash_advance_mat = self.pool.get('sale.cash.advance.material.line')
                         for lid in sale_branch_location_add:
                             location = self.pool.get('stock.location').browse(cr,uid,[lid])[0]
-                            location_categ_ids = self.pool.get('stock.location.line.qty').search(cr, uid, [('categ_id','=',contact_obj.contact_id.product_id.categ_id.id),('location_id','=',location.id)])
+                            #DAY-011
+                            location_est_ids = self.pool.get('omg.sale.reserve.contact.line.location').search(cr, uid, [('contact_line_id','=',contact_obj.id),('location_id','=',location.id)])
+                            if location_est_ids:
+                                location_est = self.pool.get('omg.sale.reserve.contact.line.location').browse(cr, uid, location_est_ids)[0]
+                            else:
+                                raise osv.except_osv(_('Warning'), _("ข้อมูลมีปัญหากรุณาติดต่อผู้ดูแลระบบ"))
+                            #location_categ_ids = self.pool.get('stock.location.line.qty').search(cr, uid, [('categ_id','=',contact_obj.contact_id.product_id.categ_id.id),('location_id','=',location.id)])
                             #POP-002
-                            estimate = 0
-                            if location_categ_ids:
-                                estimate = self.pool.get('stock.location.line.qty').browse(cr, uid, location_categ_ids)[0].quantity
+                            #estimate = 0
+                            # if location_categ_ids:
+                            #    estimate = self.pool.get('stock.location.line.qty').browse(cr, uid, location_categ_ids)[0].quantity
                             sale_branch_obj.create(cr,uid,{
                                 'sale_id': contact_obj.sale_order_id.id,
                                 'location_id': location.id,
@@ -484,7 +508,9 @@ class omg_sale_reserve_contact_line(osv.osv):
                                 'group': location.location_group_id.name or False,
                                 'department': location.chain_id.name or False,
                                 'area': location.location_type_id.name or False,
-                                'estimate': estimate,
+                                # DAY-011
+                                # 'estimate': estimate,
+                                'estimate': location_est.estimate,                              
                                 })
                             #DAY-010
                             sale_cash_advance_mat.create(cr,uid,{
@@ -528,6 +554,8 @@ class omg_sale_reserve_contact_line(osv.osv):
                     #POP-003 Check Item Sale
                     'item_sale_check_ids': [(6, 0, [x.id for x in contact_obj.contact_id.product_id.item_sale_check_ids])],
                     'service_product_id': contact_obj.contact_id.service_id.id,
+                    #DAY-011
+                    'note': contact_obj.contact_id.credit_term,
                 })
                 sale_branch_obj = self.pool.get('sale.branch.line')
                 #DAY-007
@@ -537,11 +565,14 @@ class omg_sale_reserve_contact_line(osv.osv):
                                 
                 for location in contact_obj.location_lines:
                     if self._can_booking(cr, uid, ids, location.location_id.id, contact_obj.category_id.id, contact_obj.period_id.id, contact_obj.contact_id.service_id.categ_id.id ):
-                        location_categ_ids = self.pool.get('stock.location.line.qty').search(cr, uid, [('categ_id','=',contact_obj.contact_id.product_id.categ_id.id),('location_id','=',location.location_id.id)])
+                        #DAY-011
+                        location_est_ids = self.pool.get('omg.sale.reserve.contact.line.location').search(cr, uid, [('contact_line_id','=',contact_obj.id),('location_id','=',location.location_id.id)])
+                        location_est = self.pool.get('omg.sale.reserve.contact.line.location').browse(cr, uid, location_est_ids)[0]                        
+                        #location_categ_ids = self.pool.get('stock.location.line.qty').search(cr, uid, [('categ_id','=',contact_obj.contact_id.product_id.categ_id.id),('location_id','=',location.location_id.id)])
                         #POP-002
-                        estimate = 0
-                        if location_categ_ids:
-                            estimate = self.pool.get('stock.location.line.qty').browse(cr, uid, location_categ_ids)[0].quantity
+                        #estimate = 0
+                        #if location_categ_ids:
+                        #    estimate = self.pool.get('stock.location.line.qty').browse(cr, uid, location_categ_ids)[0].quantity
                         sale_branch_obj.create(cr,uid,{
                             'sale_id': sale_order_id,
                             'location_id': location.location_id.id,
@@ -549,7 +580,9 @@ class omg_sale_reserve_contact_line(osv.osv):
                             'group': location.location_id.location_group_id.name or False,
                             'department': location.location_id.chain_id.name or False,
                             'area': location.location_id.location_type_id.name or False,
-                            'estimate': estimate,
+                            #DAY-011
+                            #'estimate': estimate,
+                            'estimate': location_est.estimate,
                         })
                         #DAY-010
                         sale_cash_advance_mat.create(cr,uid,{
@@ -600,7 +633,7 @@ class omg_sale_reserve_contact_line(osv.osv):
                         'name': product.product_id.name,
                         'product_uom': product.product_id.uom_id.id,
                         'product_uom_qty': product.product_qty,
-                        'with_branch': False,
+                        #'with_branch': False,
                         #POP-005
                         'with_period': True,
                         'with_branch': True,
@@ -617,8 +650,9 @@ class omg_sale_reserve_contact_line(osv.osv):
                         'product_uom': product.product_id.uom_id.id,
                         'product_uom_qty': product.product_qty,
                         'price_unit': product.sale_price, #product.unit_price ,
-                        'with_branch': False,
-                        'with_period': False,
+                        #DAY-011
+                        'with_branch': product.with_branch,
+                        'with_period': product.with_period,
                         'apply_all_store': True,
                         'tax_id': [(6, 0, [x.id for x in product.product_id.taxes_id])] ,
                     })
@@ -649,6 +683,30 @@ class omg_sale_reserve_contact_line(osv.osv):
                 raise osv.except_osv(_('Warning'), _('Not Delete State = Done'))                 
         return super(omg_sale_reserve_contact_line, self).unlink(cr, uid, ids, context)
     
+    #DAY-011 
+    def set_estimate(self, cr, uid, ids, context=None):
+        res = {}        
+        for contact_line in self.browse(cr, uid, ids, context):                 
+            location_est_ids = self.pool.get('omg.sale.reserve.contact.line.location').search(cr, uid, [('contact_line_id','=',contact_line.id)])
+            location_est = self.pool.get('omg.sale.reserve.contact.line.location').browse(cr, uid, location_est_ids)
+            if contact_line.category_es_id:
+                for location in location_est:                
+                    location_categ_ids = self.pool.get('stock.location.line.qty').search(cr, uid, [('categ_id','=',contact_line.category_es_id.id),('location_id','=',location.location_id.id)])
+                    estimate = 0
+                    if location_categ_ids:
+                        estimate = self.pool.get('stock.location.line.qty').browse(cr, uid, location_categ_ids)[0].quantity                   
+                        estimate = estimate * contact_line.period_id.date_total
+                    location.write({'estimate': estimate}) 
+            else:
+                for location in location_est:
+                    location_categ_ids = self.pool.get('stock.location.line.qty').search(cr, uid, [('categ_id','=',contact_line.contact_id.product_id.categ_id.id),('location_id','=',location.location_id.id)])
+                    estimate = 0
+                    if location_categ_ids: 
+                        estimate = self.pool.get('stock.location.line.qty').browse(cr, uid, location_categ_ids)[0].quantity                   
+                        estimate = estimate * contact_line.period_id.date_total
+                    location.write({'estimate': estimate})                  
+        return res  
+
 omg_sale_reserve_contact_line()
 
 class omg_sale_reserve_contact_line_location(osv.osv):
@@ -661,18 +719,35 @@ class omg_sale_reserve_contact_line_location(osv.osv):
             if line.location_id and line.location_id.location_group_id :                
                 res[line.id] = line.location_id.location_group_id.name
         return res
+
+
+#DAY-011
+    def _get_format(self, cr, uid, ids, field_name, arg, context=None):
+        res = {}
+        if context is None:
+            context = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            if line.location_id and line.location_id.omg_format:                
+                res[line.id] = line.location_id.omg_format
+            else:
+                res[line.id] = False
+        return res
     
     _name = "omg.sale.reserve.contact.line.location"
     _description = "Location List of Contact"
     _columns = {
         'name': fields.char('Description', size=100),
         'contact_line_id': fields.many2one('omg.sale.reserve.contact.line', 'Lines', ondelete='cascade'),
-        'location_id': fields.many2one('stock.location', 'Location', ondelete="restrict" ),
+        'location_id': fields.many2one('stock.location', 'Location', required=True, ondelete="restrict" ),
         'group_name': fields.function(_get_group, method=True, type='string', string="Group"),
 #DAY-008
         'location_type_id': fields.related('location_id', 'location_type_id', type='many2one', relation='omg.sale.location.type', store=True, string='Type'),        
 #DAY-009
         'specific_booth_type_id': fields.related('location_id','specific_booth_type_id', type='many2one',relation='omg.sale.location.booth.type', store=True, string='Booth Type'),
+#DAY-011
+        'omg_format': fields.function(_get_format, method=True, type='string', string="Format"),
+        'estimate': fields.integer('Estimate * Days'),
+        
     }
     _sql_constraints = [
         ('sale_reserve_line_location_uniq', 'unique (contact_line_id,location_id)', 'Location must be unique.')
@@ -685,7 +760,7 @@ class omg_sale_reserve_contact_line_location(osv.osv):
             if location_book_ids:
                 self.pool.get('stock.location.booking').unlink(cr, uid, location_book_ids)
         result = super(omg_sale_reserve_contact_line_location, self).unlink(cr, uid, ids, context)
-        return result            
+        return result  
     
 omg_sale_reserve_contact_line_location()
 
@@ -740,14 +815,15 @@ class omg_sale_reserve_contact_line_product(osv.osv):
     _columns = {
         'name': fields.char('Description', size=100),
         'contact_line_id': fields.many2one('omg.sale.reserve.contact.line', 'Lines', ondelete='cascade'),
-        'product_id': fields.many2one('product.product', 'Products', ondelete="restrict" ),
+        'product_id': fields.many2one('product.product', 'Products',required=True, ondelete="restrict" ),
         'product_qty': fields.integer('Quantity'),
         'unit_price': fields.function(_get_unitprice,method=True,type="float",string="Unit Price"),
         'sale_price': fields.float('Sale Price', digits_compute= dp.get_precision('Sale Price')),        
         'sub_total': fields.function(_get_subtotal,method=True,type="float",string="Total"),
         'sale_order_id': fields.many2one('sale.order','Sale Order', ondelete="restrict"),        
         'location_qty': fields.function(_get_location_count,method=True,type="integer",string="Location Count"),
-        'day_qty': fields.function(_get_day_count,method=True,type="integer",string="Day Count"),
+        'day_qty': fields.function(_get_day_count,method=True,type="integer",string="Day Count"),      
+
     }
     _sql_constraints = [
         ('sale_reserve_line_product_uniq', 'unique (contact_line_id,product_id)', 'Product must be unique.')
@@ -763,6 +839,7 @@ class omg_sale_reserve_contact_line_product(osv.osv):
             v['sale_price'] = product.list_price
         return {'value': v}
 
+    
 omg_sale_reserve_contact_line_product()
 
 class omg_sale_reserve_contact_line_summary(osv.osv):
@@ -782,20 +859,33 @@ class omg_sale_reserve_contact_line_summary(osv.osv):
         for line in self.browse(cr, uid, ids, context=context):
             location_qty = line.product_qty
             unit_price = line.sale_price
-            res[line.id] =  location_qty * unit_price or 0.0
-        return res
-
+            #DAY-011
+            if line.with_branch:
+                branch = line.contact_line_id.location_qty
+            else:
+                branch = 1
+            if line.with_period:
+                period = line.contact_line_id.period_id.date_length
+            else:
+                period = 1
+                       
+            res[line.id] =  int(branch) * int(period) * int(location_qty) * unit_price or 0.0
+        return res     
+        
     _name = "omg.sale.reserve.contact.line.summary"
     _description = "Summary price of Contact"
     _columns = {
         'name': fields.char('Description', size=100),
         'contact_line_id': fields.many2one('omg.sale.reserve.contact.line', 'Lines', ondelete='cascade'),
-        'product_id': fields.many2one('product.product', 'Products', ondelete="restrict" ),
+        'product_id': fields.many2one('product.product', 'Products',required=True, ondelete="restrict" ),
         'product_qty': fields.integer('Quantity'),
         'unit_price': fields.function(_get_unitprice,method=True,type="float",string="Unit Price"),
         'sale_price': fields.float('Sale Price', digits_compute= dp.get_precision('Sale Price')),        
         'sub_total': fields.function(_get_subtotal,method=True,type="float",string="Total"),
         'sale_order_id': fields.many2one('sale.order','Sale Order', ondelete="restrict"),        
+        #DAY-011
+        'with_branch': fields.boolean('* Location'),
+        'with_period': fields.boolean('* Days'),          
     }
     _sql_constraints = [
         ('sale_reserve_line_summary_uniq', 'unique (contact_line_id, product_id)', 'Product must be unique.')
@@ -808,8 +898,8 @@ class omg_sale_reserve_contact_line_summary(osv.osv):
         if product_id:
             product = self.pool.get('product.product').browse(cr, uid, product_id)
             v['sale_price'] = product.list_price
-        return {'value': v}
-
+        return {'value': v}    
+            
 omg_sale_reserve_contact_line_summary()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

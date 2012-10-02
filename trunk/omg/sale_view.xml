@@ -214,7 +214,27 @@
                         context="{'passing':0}" />     
             	</xpath> 
 			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="view_omg_sale_order_cancel_inherited_form">
+			<field name="name">omg.sale.order.cancel.inherited.form</field>
+			<field name="type">form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page/group/field[@name='state']" position="after">
+            		<button
+                        name="%(omg.omg_sale_order_cancel_load)d"
+                        string="Cancel Sale Order"
+                        type="action" 
+                        icon="gtk-cancel"
+                        states="manual,progress"
+                        colspan="1"
+                        context="{'passing':0}" />     
+            	</xpath> 
+			</field>
 		</record>		
+				
 		<record model="ir.ui.view" id="view_omg_sale_order_inherited_form">
 			<field name="name">omg.sale.order.inherited.form</field>
 			<field name="type">form</field>
