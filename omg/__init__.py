@@ -22,6 +22,7 @@
 import stock
 import wizard 
 import omg_sale_order_copy
+import omg_sale_order_cancel
 import sale
 import sale_contact
 import product
@@ -35,7 +36,7 @@ import purchase
 import partner
 import address
 import res_users
-import omg_sale_order_cancel
+
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
