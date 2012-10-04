@@ -10,8 +10,9 @@
 		<form string="Reservation Contact">
 			<field name="name" />
 			<field name="contact_date" />
-			<field name="customer_id" domain="[('customer','=',True)]"/>
+			<field name="customer_id" domain="[('customer','=',True)]" on_change="onchange_customer_id(customer_id)" />
 			<field name="product_id"  domain="[('customer_product','=',True)]"/>
+			<field name="contact_name"/>			
 			<field name="service_id"  domain="[('service_type','=',True)]"/>
 			<field name="saleman_id" />
 			<field name="sale_admin_id" />

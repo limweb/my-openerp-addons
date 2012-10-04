@@ -120,7 +120,8 @@ class omg_sale_reserve_contact(osv.osv):
         #POP-009
         'fos_contact_no': fields.char('FOS No', size=50,),
         #DAY-011
-        'credit_term': fields.char('Credit Term', size=250,),        
+        'credit_term': fields.char('Credit Term', size=250,),
+        'contact_name': fields.char('Contact Name',size=100,),
         
     }    
 
@@ -138,6 +139,13 @@ class omg_sale_reserve_contact(osv.osv):
     _sql_constraints = [
         ('sale_reserve_uniq', 'unique (name)', 'Contact No must be unique.')
     ]    
+    
+    def onchange_customer_id(self, cr, uid, ids, customer_id):
+        v = {}
+        if customer_id:
+            customer = self.pool.get('res.partner').browse(cr,uid,customer_id)
+            v['contact_name'] = customer.address[0].name
+        return {'value': v}       
     
     def create(self, cr, user, vals, context=None):
         if ('name' not in vals) or (vals.get('name')=='/'):
@@ -556,6 +564,8 @@ class omg_sale_reserve_contact_line(osv.osv):
                     'service_product_id': contact_obj.contact_id.service_id.id,
                     #DAY-011
                     'note': contact_obj.contact_id.credit_term,
+                    'contact_name': contact_obj.contact_id.contact_name,
+                    
                 })
                 sale_branch_obj = self.pool.get('sale.branch.line')
                 #DAY-007

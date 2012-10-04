@@ -203,6 +203,9 @@
 			<field name="model">sale.order</field>
 			<field name="inherit_id" ref="sale.view_order_form"/>
 			<field name="arch" type="xml">
+			    <field name="project_id" position="after" >
+			        <field name="contact_name"/>
+			    </field>
             	<xpath expr="/form/notebook/page/field[@name='order_line']" position="before">
             		<button
                         name="%(omg.omg_sale_order_copy_load)d"
