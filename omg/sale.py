@@ -535,13 +535,13 @@ class sale_order(osv.osv):
 
     _columns = {
 #DAY-003        
-        'sale_cash_advance_ids':fields.one2many('sale.cash.advance.other.line','sale_id','Others Cash Advance Lines'),
+        'sale_cash_advance_ids':fields.one2many('sale.cash.advance.other.line','sale_id','Others Cash Advance Lines',readonly=True, states={'draft': [('readonly', False)]}),
 #DAY-007
-        'sale_cash_advance_mat_ids':fields.one2many('sale.cash.advance.material.line','sale_id','Material Cash Advance Lines'),        
-        'amount_by_store': fields.float('Amount by Store'),
+        'sale_cash_advance_mat_ids':fields.one2many('sale.cash.advance.material.line','sale_id','Material Cash Advance Lines',readonly=True, states={'draft': [('readonly', False)]}),        
+        'amount_by_store': fields.float('Amount by Store',readonly=True, states={'draft': [('readonly', False)]}),
         'total_cash_advance': fields.function(_amount_mats, method=True, type='float', string='Total Cash Advance'),    
-        'sale_period_ids': fields.one2many('sale.period.line', 'sale_id', 'Period Lines'),
-        'sale_location_ids': fields.one2many('sale.branch.line', 'sale_id', 'Location Lines'),
+        'sale_period_ids': fields.one2many('sale.period.line', 'sale_id', 'Period Lines',readonly=True, states={'draft': [('readonly', False)]}),
+        'sale_location_ids': fields.one2many('sale.branch.line', 'sale_id', 'Location Lines',readonly=True, states={'draft': [('readonly', False)]}),
         'sale_quotation_ids': fields.one2many('sale.order.quotation.line', 'saleorder_id', 'Quotation Manual'),
         'notes_quotation':fields.text("Quotation Notes"),
         'sale_period_days': fields.function(_get_date_count, method=True, type='integer', string='Summay Days'),
@@ -567,21 +567,22 @@ class sale_order(osv.osv):
             },
             multi='sums', help="The total amount."),
 
-        'customer_product_id': fields.many2one('product.product', 'Customer Product', ondelete="restrict" ),
+        'customer_product_id': fields.many2one('product.product', 'Customer Product', ondelete="restrict",readonly=True,states={'draft': [('readonly', False)]} ),
         'period_date_start': fields.function(_period_date_start, method=True, type='date', string='Start'),
         'period_date_finish': fields.function(_period_date_finish, method=True, type='date', string='Finish'),
         'date_period_start': fields.date('Start'),
         'date_period_finish': fields.date('Finish'),        
-        'service_product_id': fields.many2one('product.product','Service Category'),
+        'service_product_id': fields.many2one('product.product','Service Category',readonly=True,states={'draft': [('readonly', False)]}),
         'item_sale_check_ids': fields.many2many('product.product', 'product_product_sale_check_rel', 'sale_id', 'product_tmpl_id', 'Item Check Sales'),
         #POP-012
         'price_period_days': fields.function(_get_date_price, method=True, type='integer', string='Summay Price Days'),
         #POP-014
-        'force_draft_state': fields.boolean('Force Draft State'),
-        'force_equipment': fields.boolean('Force Equipment'),
+        'force_draft_state': fields.boolean('Force Draft State',readonly=True, states={'draft': [('readonly', False)]}),
+        'force_equipment': fields.boolean('Force Equipment',readonly=True, states={'draft': [('readonly', False)]}),
         #POP-018
         'period_id': fields.many2one('omg.sale.period', 'Period ID'),
         #POP-027
+        'contact_name': fields.char('Contact Name',size=100,readonly=True, states={'draft': [('readonly', False)]}), #DAY-008
     }
 
     def write(self, cr, uid, ids, vals, context=None):
