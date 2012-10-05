@@ -826,7 +826,8 @@ class sale_order(osv.osv):
                   substring(ru3.login,1,10) as usercreate,
                   so.create_date::date as createdate,
                   coalesce(pp2.default_code,'D') as typeserv,  --New Field In Master Product by FOS
-                  7 as taxrate
+                  7 as taxrate,
+                  so.contact_name as mktcontact2
                   
                 from sale_order so
                 left join res_partner rp on so.partner_id = rp.id
