@@ -32,7 +32,7 @@
             5. Sale order Cancelling must be cancel all delivery order.
         """,
     'author': 'INECO LIMITED PARTNERSHIP',
-    'depends': ["base","product","stock","purchase","sale","procurement","stock_planning"],
+    'depends': ["base","product","stock","purchase","sale","procurement"],
     'website': 'http://openerp.tititab.com',
     'update_xml': [
         "security.xml",
