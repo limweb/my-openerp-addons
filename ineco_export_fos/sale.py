@@ -1095,7 +1095,7 @@ class sale_order(osv.osv):
                 case with_branch
                   when false then             
             case with_period 
-               when false then product_uom_qty
+               when false then 1 --product_uom_qty
                else ((date_period_finish - date_period_start) + 1)
             end 
                   else 
