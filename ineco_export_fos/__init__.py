@@ -20,6 +20,7 @@
 ##############################################################################
 
 import partner
+import product
 import company
 import sale 
 

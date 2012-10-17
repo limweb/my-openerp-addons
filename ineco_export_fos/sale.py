@@ -101,10 +101,12 @@ class sale_order(osv.osv):
         'fos_pass': fields.boolean('FOS Passed'),
         'item_infocus_ids': fields.one2many('sale.order.iteminfocus','sale_order_id','Item Not Check'),
         'otherdata_ids': fields.one2many('omg.sale.data','sale_order_id','Other Data'),
+        'revenue_share': fields.boolean('Revenue Share'),
     }
     
     _defaults = {
         'fos_pass': False,
+        'revenue_share': False,
     }
     
     def testmethod(self, cr, uid, ip, user, database, password, context=None):
@@ -827,7 +829,8 @@ class sale_order(osv.osv):
                   so.create_date::date as createdate,
                   coalesce(pp2.default_code,'D') as typeserv,  --New Field In Master Product by FOS
                   7 as taxrate,
-                  so.contact_name as mktcontact2
+                  so.contact_name as mktcontact2,
+                  so.revenue_share as revenue_share
                   
                 from sale_order so
                 left join res_partner rp on so.partner_id = rp.id

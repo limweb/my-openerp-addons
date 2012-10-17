@@ -33,7 +33,7 @@ class res_partner(osv.osv):
     _inherit = 'res.partner'
     _description = 'Add Fos Code In Product.Product'
     _columns = {
-        'ineco_fos_code': fields.char('FOS Code', size=20),
+        'ineco_fos_code': fields.char('FOS Code', size=100),
     }
     
 res_partner()
