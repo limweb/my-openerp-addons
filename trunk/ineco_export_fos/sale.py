@@ -830,7 +830,7 @@ class sale_order(osv.osv):
                   coalesce(pp2.default_code,'D') as typeserv,  --New Field In Master Product by FOS
                   7 as taxrate,
                   so.contact_name as mktcontact2,
-                  so.revenue_share as RevenueShare
+                  case when so.revenue_share = True then 'Y' else 'N' end as RevenueShare
                   
                 from sale_order so
                 left join res_partner rp on so.partner_id = rp.id
