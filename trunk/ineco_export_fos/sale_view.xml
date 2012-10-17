@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 17-10-2012		POP-001		Hiding Export FOS when click once -->
+
+
 <openerp>
 	<data>
+	    
 		<record id="view_ineco_fos_sale_order" model="ir.ui.view">
 			<field name="name">ineco.fos.sale.order</field>
 			<field name="model">sale.order</field>
@@ -8,8 +12,23 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<xpath expr="/form/notebook/page[@string='Sales Order']/group/field[@name='state']" position="after">
-				  	<button name="export_fos" states="draft,manual,progress" string="Export to FOS" type="object" icon="gtk-go-forward"/>				    
+				  	<button name="export_fos" states="draft,manual,progress" string="Export to FOS" 
+				  	    type="object" 
+				  	    icon="gtk-go-forward" 
+				  	    attrs="{'invisible': [('fos_pass','=',True)]}" />
 				</xpath>
+			</field>
+		</record> 
+				 
+		<record id="view_ineco_revenue_share" model="ir.ui.view">
+			<field name="name">ineco.revenue.sale.order</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<field name="shipped" position="after">
+				    <field name="revenue_share" />
+				</field>
 			</field>
 		</record> 
 
@@ -47,15 +66,12 @@
 			<field name="arch" type="xml">
 				<xpath expr="/form/notebook/page[@string='History']" position="after">
 					<page string="Item Not Check">
-						<!-- <field name="sale_period_days" colspan="4" />
-						<newline/>
-						 -->
 						<button name="action_resenditem" colspan="4" string="Resend to FOS" type="object" icon="gtk-go-forward" attrs="{'invisible': [('fos_pass','!=',True)]}"/>
 						<newline/>
 						<field colspan="4" name="item_infocus_ids" mode="tree,form" nolabel="1">
 							<form string="Item List">
-						   	    <field name="location_id" domain="[('id','in',[ x[2]['location_id'][0] for x in parent.sale_location_ids])]" />
-						   	    <!-- <field name="location_id" domain="[('id','in',[ x[2]['location_id'] for x in parent.sale_location_ids])]" /> for Client-->
+								<!-- <field name="location_id" domain="[('id','in',[ x[2]['location_id'] for x in parent.sale_location_ids])]" /> for Client-->
+							    <field name="location_id" domain="[('id','in',[ x[2]['location_id'][0] for x in parent.sale_location_ids])]" />
 						   	    <field name="product_id" domain="[('id','in', [ x[2] for x in parent.item_sale_check_ids][0] )]" />
 						   	    <field name="name" />
 							</form>
@@ -68,10 +84,14 @@
 					</page>
 					<page string="Other Data">
 					    <field name="otherdata_ids" colspan="4" nolabel="1" >
-					        <tree editable="bottom">
+					        <tree >
 					            <field name="type_id" />
 					            <field name="name" />
 					        </tree>
+					        <form>
+					            <field name="type_id" />
+					            <field name="name" />
+					        </form>
 					    </field>
 					</page>
 					
@@ -86,7 +106,8 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<xpath expr="/form/notebook/page[@string='Item Check Sales']/field[@name='item_sale_check_ids']" position="before">
-					<button name="action_resenditem" colspan="4" string="Resend to FOS" type="object" icon="gtk-go-forward" attrs="{'invisible': [('fos_pass','!=',True)]}"/>
+					<button name="action_resenditem" colspan="4" string="Resend to FOS" type="object" icon="gtk-go-forward" 
+					    attrs="{'invisible': [('fos_pass','!=',True)]}"/>
 					<newline/>
 					<field name="fos_pass" readonly="1" />
 					<newline/>
@@ -96,3 +117,5 @@
 						
 	</data>
 </openerp>
+
+

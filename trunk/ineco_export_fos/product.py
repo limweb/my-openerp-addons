@@ -19,6 +19,8 @@
 #
 ##############################################################################
 
+# 17-10-2012    POP-001    Change size of FOS Code from 20 to 100
+
 from datetime import datetime
 from osv import osv, fields
 from tools.translate import _
@@ -33,7 +35,12 @@ class product_product(osv.osv):
     _inherit = 'product.product'
     _description = 'Add Fos Code In Product.Product'
     _columns = {
-        'ineco_fos_code': fields.char('FOS Code', size=20),
+        'ineco_fos_code': fields.char('FOS Code', size=100),
+        'check_link': fields.boolean('Check Link'),
+    }
+    
+    _defaults = {
+        'check_link': False,
     }
     
 product_product()
