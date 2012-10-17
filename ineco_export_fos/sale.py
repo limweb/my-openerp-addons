@@ -106,7 +106,7 @@ class sale_order(osv.osv):
     
     _defaults = {
         'fos_pass': False,
-        'revenue_share': False,
+        'revenue_share': True,
     }
     
     def testmethod(self, cr, uid, ip, user, database, password, context=None):
