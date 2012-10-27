@@ -213,7 +213,13 @@
 				    <field name="product_id" on_change="onchange_product_id(product_id)"/>
 					<field name="uom_id" domain="[('category_id','=',category_id)]" />
 					<field name="category_id" invisible="1" />
-					<field name="quantity" />    
+					<field name="quantity" />  
+					<field name="date" />  
+					<newline />
+					<group colspan="4">
+						<button name="action_done" states="draft" string="Post" type="object"  icon="gtk-go-forward"/>
+						<button name="action_cancel" states="draft, done" string="Cancel" type="object"  icon="gtk-cancel"/>
+					</group>
 				</form>						        						        
 			</field>
 		</record>
@@ -229,15 +235,37 @@
 					<field name="uom_id" domain="[('category_id','=',category_id)]" />
 					<field name="category_id" invisible="1" />
 					<field name="quantity" />    
-				</tree>			    				
+					<field name="date" />  
+					<field name="state" />
+					<button name="action_done" states="draft" string="Post" type="object"  icon="gtk-go-forward"/>
+					<button name="action_cancel" states="draft, done" string="Cancel" type="object"  icon="gtk-cancel"/>
+					</tree>			    				
 			</field>
 		</record>
-		
+
+		<record model="ir.ui.view" id="view_ineco_stock_store_search">
+			<field name="name">ineco.stock.store.search</field>
+			<field name="type">tree</field>
+			<field name="model">ineco.stock.location.inventory</field>
+			<field name="arch" type="xml">
+				<search string="Delivery Product">
+                  	<filter icon="terp-check" name="draft" string="Draft" domain="[('state','=','draft')]" />
+                  	<filter icon="terp-gtk-go-back-rtl" name="done" string="Done" domain="[('state','=','done')]" />
+                  	<filter icon="terp-gtk-go-back-rtl" name="cancel" string="Cancel" domain="[('state','=','cancel')]" />
+	                <field name="location_id" domain="[('usage','=','customer')]" />
+					<field name="product_id" />
+					<field name="date" />	
+				</search>					    
+            </field>
+        </record>  
+						
 		<record id="act_ineco_stock_store" model="ir.actions.act_window">
 			<field name="name">Store Inventory</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">ineco.stock.location.inventory</field>
 			<field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_ineco_stock_store_tree"/>
+            <field name="search_view_id" ref="view_ineco_stock_store_search"/>
 		</record>
 		
 		<menuitem action="act_ineco_stock_store" 

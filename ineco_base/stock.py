@@ -54,6 +54,10 @@
 #                  POP-031    Add Schedule Correct Stock Report 
 # 25-09-2012       POP-032    Add Stock Move Date Done
 #                  POP-033    Add Stock Period in Stock Move
+# 30-09-2012       POP-034    Add Type in Stock Move
+#                  POP-035    Add schedule_update_type
+# 10-10-2012       POP-036    Add On Change Full_Qty/Partial_Qty
+
 import math
 
 from osv import fields,osv
@@ -369,7 +373,9 @@ class stock_move(osv.osv):
         #POP-033
         'stock_period_id': fields.many2one('stock.period'),
         'period_warehouse_qty': fields.function(_get_warehouse_qty, method=True, type="float", string="Warehouse Qty", digits_compute=dp.get_precision('Product UoM')),        
-        'period_store_qty': fields.function(_get_store_qty, method=True, type="float", string="Store Qty", digits_compute=dp.get_precision('Product UoM')),        
+        'period_store_qty': fields.function(_get_store_qty, method=True, type="float", string="Store Qty", digits_compute=dp.get_precision('Product UoM')),
+        #POP-034
+        'type': fields.selection([('out', 'Sending Goods'), ('in', 'Getting Goods'), ('internal', 'Internal')], 'Shipping Type', required=True, select=True, help="Shipping type specify, goods coming in or going out."),
     }
 
     _defaults = {
@@ -377,6 +383,13 @@ class stock_move(osv.osv):
         'partial_qty': 0,
         'full_qty': 0,
     }
+
+    #POP-035
+    def schedule_update_type(self, cr, uid, context=None):
+        stock_move_ids = self.pool.get('stock.move').search(cr, uid, [('type','=',False)])
+        for line in self.pool.get('stock.move').browse(cr, uid, stock_move_ids):
+            if line.picking_id:
+                line.write({'type':line.picking_id.type})
 
     #POP-022 Change Default Warehouse UOM
     def create(self, cr, uid, vals, context=None):
@@ -386,6 +399,7 @@ class stock_move(osv.osv):
             uom_obj = self.pool.get('product.uom')
             #product_ids = self.pool.get("product.product").search(cr, uid, [('id','=',vals['product_id'])])
             #warning product outsize your company
+            
             product_obj = self.pool.get('product.product').browse(cr, uid, vals['product_id'])
             product_tmpl_obj = self.pool.get('product.template').browse(cr, uid, vals['product_id'])
             default_uom_id = product_tmpl_obj.uom_id.id
@@ -433,8 +447,8 @@ class stock_move(osv.osv):
                 vals['partial_qty'] = vals['product_qty']
                 vals['partial_uom'] = vals['product_uom']
                 vals['full_qty'] = 0.0
-                vals['full_uom'] = product_obj.warehouse_uom and product_obj.warehouse_uom.id                
-                
+                vals['full_uom'] = product_obj.warehouse_uom and product_obj.warehouse_uom.id    
+                                    
         return super(stock_move, self).create(cr, uid, vals, context)
 
     #POP-022
@@ -462,6 +476,8 @@ class stock_move(osv.osv):
         if not isinstance(ids,list):
             ids = [ids]
         for sm in self.pool.get('stock.move').browse(cr, uid, ids):
+            if sm.picking_id and not ('type' in vals) : 
+                vals.update({'type':sm.picking_id.type})
             uom_obj = self.pool.get('product.uom')
             product_obj = False
             product_tmpl_obj = False
@@ -680,6 +696,21 @@ class stock_move(osv.osv):
                 vals.update({'stock_period_id': act_id })
 
         return super(stock_move, self).write(cr, uid, ids, vals, context=context)
+    
+    #POP-036
+    def onchange_new_quantity(self, cr, uid, ids, partial_uom, partial_qty, full_uom, full_qty, context=None):
+        result = {}
+        if context is None:
+            context = {}
+        if partial_uom and full_uom:
+            uom_obj = self.pool.get('product.uom')
+            partial_uom = self.pool.get('product.uom').browse(cr, uid, [partial_uom])[0]
+            full_uom = self.pool.get('product.uom').browse(cr, uid, [full_uom])[0]
+            qty1 = uom_obj._compute_qty_obj(cr, uid, partial_uom, partial_qty, partial_uom, context=context ) or 0.0
+            qty2 = uom_obj._compute_qty_obj(cr, uid, full_uom, full_qty, partial_uom, context=context ) or 0.0            
+            result = {'product_qty':qty1+qty2,'product_uos_qty':qty1+qty2}
+        
+        return {'value': result}
     
     def onchange_product_id(self, cr, uid, ids, prod_id=False, loc_id=False,loc_dest_id=False, address_id=False):
         """ On change of product id, if finds UoM, UoS, quantity and UoS quantity.

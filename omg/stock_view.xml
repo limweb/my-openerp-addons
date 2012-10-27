@@ -287,7 +287,10 @@
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','out')]</field>
+            <!-- 
             <field name="domain">['|','&amp;',('picking_id','=',False),('location_id.usage', 'in', ['customer','supplier']),'&amp;',('picking_id','!=',False),('picking_id.type','=','out')]</field>
+             -->
             <field name="view_id" ref="view_move_tree_omg_delivery_product"/>
             <field name="search_view_id" ref="view_move_search_omg_delivery_product"/>
         </record>
@@ -610,7 +613,83 @@
                     <field name="date_finished" />
              	</field>
             </field>                
-        </record>        						
+        </record>        				
+        
+		<!-- Delivery Plan Item -->
+        <record id="view_omg_delivery_plan_item_tree" model="ir.ui.view">
+            <field name="name">omg.delivery.plan.item.tree</field>
+            <field name="model">stock.move</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree colors="grey:state in ('cancel'); red:period_warehouse_qty &lt; product_qty and period_store_qty &lt; product_qty " string="Delivery Plan Item" editable="top">
+					<field name="period_id" string="Sale Period" readonly="1" />	
+					<field name="stock_period_id" string="Planning Period" readonly="1"/>
+					<field name="location_dest_id" string="Store" readonly="1"/>
+					<field name="customer_product_id" readonly="1"/>
+					<field name="origin" string="Sale Order" readonly="1"/>
+                    <field name="picking_id" string="Deivery Order" readonly="1"/>
+                    <field name="product_id" readonly="1"/>
+                    <field name="product_uom" string="UoM" readonly="1"/>
+                    <field name="product_qty" string="Sale Qty" readonly="1" />
+                    <field name="period_warehouse_qty" />
+                    <field name="period_store_qty" />
+                    <field name="store_qty" string="PM Qty" />
+                    <field name="ineco_delivery_type_id" />
+                    <field name="state" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_omg_delivery_plan_item_search" model="ir.ui.view">
+            <field name="name">omg.delivery.plan.item.search</field>
+            <field name="model">stock.move</field>
+            <field name="type">search</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Delivery Plan Item">
+                    <group col="8" colspan="4">
+                        <field name="origin" string="Sale Order"/>
+                        <field name="customer_product_id" />
+						<field name="period_id" string="Sale Period" />	
+						<field name="stock_period_id" string="Planning Period" />
+						<field name="location_dest_id" string="Store" />
+                        <field name="picking_id" string="Delivery Order" />
+                        <field name="product_id" />
+                        <field name="state" />
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="4" col="8" groups="base.group_extended">
+                        <filter string="Store" icon="terp-personal" domain="[]" context="{'group_by':'location_dest_id'}"/>
+                        <filter string="C.Product" icon="terp-personal" domain="[]" context="{'group_by':'customer_product_id'}"/>
+                        <filter string="Plan Period" icon="terp-personal" domain="[]" context="{'group_by':'stock_period_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Product" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'product_id'}"/>
+                        <filter string="Sale Order" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'origin'}"/>
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_omg_delivery_plan_item" model="ir.actions.act_window">
+            <field name="name">Delivery Plan Item</field>
+            <field name="res_model">stock.move</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','out'),('state','!=','cancel')]</field>
+            <field name="view_id" ref="view_omg_delivery_plan_item_tree"/>
+            <field name="search_view_id" ref="view_omg_delivery_plan_item_search"/>
+        </record>
+
+      <menuitem 
+          id="menu_omg_delivery_plan_item" 
+          action="action_omg_delivery_plan_item" 
+          parent="stock.menu_stock_products_moves" 
+          sequence="10" />        	
+
+				
 	</data>
 </openerp>
 

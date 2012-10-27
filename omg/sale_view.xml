@@ -22,68 +22,97 @@
 			<field name="inherit_id" ref="sale.view_order_form"/>
 			<field name="arch" type="xml">
 				<xpath expr="/form/notebook/page[@string='History']" position="before">
-					<page string="Periods">
-						<field name="sale_period_days" colspan="4" />
-						<newline/>
-						<field colspan="4" name="sale_period_ids" mode="tree,form" nolabel="1" widget="one2many_list">
-							<form string="Periods">
-								<field name="period_id" />
-								<field name="description" />
-								<field name="date_start" />
-								<field name="date_finish" />
-								<field name="date_length" />
-								<field name="date_total" />
-							</form>
-							<tree string="Periods">
-								<field name="period_id" />
-								<field name="description" />
-								<field name="date_start" />
-								<field name="date_finish" />
-								<field name="date_length" />
-								<field name="date_total" />
-							</tree>
-						</field>
-					</page>	
-					<page string="Materials Cash Adv.">	
-						<field colspan="2" name="amount_by_store"  />					    				    					    
-                		<button colspan="2" name="set_amount_mat" states="draft" string="Set Amount" type="object" icon="terp-stock_effects-object-colorize"/>
-						<newline/>                		
-						<field colspan="4" name="sale_cash_advance_mat_ids" mode="tree,form" nolabel="1" widget="one2many_list">
-						    <form string="Material Cash Advance">
-								<field name="location_id" domain="[('id','in',[ x[2]['location_id'][0] for x in parent.sale_location_ids])]"/>
-								<field name="amount" />
-							</form>
-							<tree string="Material Cash Advance">
-								<field name="location_id" />
-								<field name="amount" sum="amount" />
-							</tree>
-						</field>
-						<field colspan="4" name="total_cash_advance"  />
-					</page>									
-					<page string="Others Cash Adv.">
-						<field colspan="4" name="sale_cash_advance_ids" mode="tree,form" nolabel="1" widget="one2many_list">
-							<form string="Cash Advance Other">
-								<field name="location_id" domain="[('id','in',[ x[2]['location_id'][0] for x in parent.sale_location_ids])]"/>
-								<field name="product_id" on_change="onchange_product_id(product_id)" domain="[('cash_advance','=',True)]"/>
-								<field name="amount" />
-							</form>
-							<tree string="Cash Advance Other">
-								<field name="location_id" />
-								<field name="product_id" />
-								<field name="amount" sum="amount" />
-							</tree>
-						</field>						
-					</page>					
-					<page string="Item Check Sales">
-						<field name="item_sale_check_ids" colspan="4" nolabel="1">
-							<tree>
-								<field name="name_template" />
-							</tree>
-						</field>
-					</page>
+				    <page string="OMG">
+				        <notebook>
+							<page string="Periods">
+								<field name="sale_period_days" colspan="4" />
+								<newline/>
+								<field colspan="4" name="sale_period_ids" mode="tree,form" nolabel="1" widget="one2many_list">
+									<form string="Periods">
+										<field name="period_id" />
+										<field name="description" />
+										<field name="date_start" />
+										<field name="date_finish" />
+										<field name="date_length" />
+										<field name="date_total" />
+									</form>
+									<tree string="Periods">
+										<field name="period_id" />
+										<field name="description" />
+										<field name="date_start" />
+										<field name="date_finish" />
+										<field name="date_length" />
+										<field name="date_total" />
+									</tree>
+								</field>
+							</page>	
+
+							<page string="Branch">
+								<button name="%(action_location_set_wizard)d" string="Select Location Set" type="action" icon="gtk-execute" colspan="4"/>
+								<field name="sale_location_counts" colspan="4" />
+								<newline/>
+								<field colspan="4" name="sale_location_ids" mode="tree,form" nolabel="1" widget="one2many_list">
+									<form string="Branch">
+										<field name="location_id" domain="[('omg_approve','=',True)]" />
+										<field name="location_name" />
+										<field name="estimate" />
+									</form>
+									<tree string="Branch">
+										<field name="location_id" />
+										<field name="location_name" />
+										<field name="location_type_id"/>
+										<field name="specific_booth_type_id" />
+										<field name="estimate" />
+									</tree>
+								</field>
+							</page>
+																					
+							<page string="Materials Cash Adv.">	
+								<field colspan="2" name="amount_by_store"  />					    				    					    
+		                		<button colspan="2" name="set_amount_mat" states="draft" string="Set Amount" type="object" icon="terp-stock_effects-object-colorize"/>
+								<newline/>                		
+								<field colspan="4" name="sale_cash_advance_mat_ids" mode="tree,form" nolabel="1" widget="one2many_list">
+								    <form string="Material Cash Advance">
+										<field name="location_id" domain="[('id','in',[ x[2]['location_id'][0] for x in parent.sale_location_ids])]"/>
+										<field name="amount" />
+									</form>
+									<tree string="Material Cash Advance">
+										<field name="location_id" />
+										<field name="amount" sum="amount" />
+									</tree>
+								</field>
+								<field colspan="4" name="total_cash_advance"  />
+							</page>									
+							<page string="Others Cash Adv.">
+								<field colspan="4" name="sale_cash_advance_ids" mode="tree,form" nolabel="1" widget="one2many_list">
+									<form string="Cash Advance Other">
+										<field name="location_id" domain="[('id','in',[ x[2]['location_id'][0] for x in parent.sale_location_ids])]"/>
+										<field name="product_id" on_change="onchange_product_id(product_id)" domain="[('cash_advance','=',True)]"/>
+										<field name="amount" />
+									</form>
+									<tree string="Cash Advance Other">
+										<field name="location_id" />
+										<field name="product_id" />
+										<field name="amount" sum="amount" />
+									</tree>
+								</field>						
+							</page>					
+							<page string="Item Check Sales">
+								<field name="item_sale_check_ids" colspan="4" nolabel="1">
+									<tree>
+										<field name="name_template" />
+									</tree>
+								</field>
+							</page>
+						            				            
+				        </notebook>
+				    </page>
+					
 				</xpath>
 			</field>
 		</record>
+
+		<!-- 		
 		<record model="ir.ui.view" id="view_omg_sale_order_branch_form">
 			<field name="name">omg.sale.order.branch.form</field>
 			<field name="type">form</field>
@@ -113,6 +142,8 @@
 				</xpath>
 			</field>
 		</record>
+		 -->
+		
 		<record model="ir.ui.view" id="view_omg_sale_period_form">
 			<field name="name">omg.sale.period.form</field>
 			<field name="type">form</field>
@@ -168,6 +199,7 @@
 		src_model="sale.order"/>
 		-->
 
+		<!-- Unused
 		<record model="ir.ui.view" id="view_omg_sale_order_quotation_form">
 			<field name="name">omg.sale.order.quotation.form</field>
 			<field name="type">form</field>
@@ -197,6 +229,7 @@
 				</xpath>
 			</field>
 		</record>
+		 -->
 		<record model="ir.ui.view" id="view_omg_sale_order_copy_inherited_form">
 			<field name="name">omg.sale.order.copy.inherited.form</field>
 			<field name="type">form</field>
@@ -242,7 +275,10 @@
 			<field name="name">omg.sale.order.inherited.form</field>
 			<field name="type">form</field>
 			<field name="model">sale.order</field>
+			<!-- 
 			<field name="inherit_id" ref="view_omg_sale_order_branch_form"/>
+			 -->
+			<field name="inherit_id" ref="sale.view_order_form"/>			
 			<field name="arch" type="xml">
 				<xpath expr="/form/notebook/page/field/tree/field[@name='discount']" position="before">
 					<field name="total_period" />
@@ -251,28 +287,37 @@
 				</xpath>
 			</field>
 		</record>
+		
 		<record model="ir.ui.view" id="view_omg_sale_order_inherited2_form">
 			<field name="name">omg.sale.order.inherited2.form</field>
 			<field name="type">form</field>
 			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>			
+			<!-- 
 			<field name="inherit_id" ref="view_omg_sale_order_inherited_form"/>
+			 -->
 			<field name="arch" type="xml">
 				<xpath expr="/form/notebook/page/field/form/notebook/page/field[@name='discount']" position="before">
 					<field name="sale_subtotal" />
 					<field name="with_branch" />
 					<field name="with_period" />
  					<field name="apply_all_store" />
+ 					<field name="ineco_delivery_type_id" />
 					<field name="omg_ratio" attrs="{'invisible': [('apply_all_store','=',True)]}"/>
 					<field name="omg_sampling" attrs="{'invisible': [('apply_all_store','=',True)]}"/>
 					<field name="omg_percent_rate" attrs="{'invisible': [('apply_all_store','=',True)]}"/>					 
 				</xpath>
 			</field>
 		</record>
+		
 		<record model="ir.ui.view" id="view_omg_sale_order_inherited3_form">
 			<field name="name">omg.sale.order.inherited3.form</field>
 			<field name="type">form</field>
 			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>			
+			<!-- 
 			<field name="inherit_id" ref="view_omg_sale_order_inherited2_form"/>
+			 -->
 			<field name="arch" type="xml">
 				<field name="shipped" position="after">
 					<group colspan="4">
@@ -284,6 +329,7 @@
 				</field>
 			</field>
 		</record>
+		
 		<record id="act_sale_request" model="ir.actions.act_window">
 			<field name="name">Request Sale Orders</field>
 			<field name="type">ir.actions.act_window</field>
