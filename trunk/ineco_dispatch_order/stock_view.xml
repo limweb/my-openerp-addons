@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+		<!-- Dispatch Order -->
+		
+        <record id="view_ineco_dispatch_order_tree" model="ir.ui.view">
+            <field name="name">ineco.dispatch.order.tree</field>
+            <field name="model">ineco.dispatch.order</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<tree string="Dispatch Order">
+				    <field name="name" />
+					<field name="date" />
+					<field name="date_confirm" />
+					<field name="date_complete" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+		
+        <record id="view_ineco_dispatch_order_form" model="ir.ui.view">
+            <field name="name">ineco.dispatch.order.form</field>
+            <field name="model">ineco.dispatch.order</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<form string="Dispatch Order">
+					<field name="name" readonly="1"/>
+					<field name="date" readonly="1"/>
+					<field name="date_confirm" attrs="{'readonly':[('state','!=','draft')]}"/>
+					<field name="date_complete" attrs="{'readonly':[('state','!=','draft')]}"/>
+					<notebook colspan="4">
+					    <page string="Sale Order">
+					        
+					        <field name="order_ids" nolabel="1" widget="many2many"
+					               domain="[('dispatch_order_id','=',False)]"  
+					               attrs="{'readonly':[('state','!=','draft')]}" > 
+					           	<tree string="Sale Order">
+				                    <field name="name"/>
+				                    <field name="date_order" />
+				                    <field name="partner_id" />
+				                    <field name="origin"/>
+				                	<field name="period_id" />
+				                    <field name="customer_product_id" />
+				                    <field name="service_product_id" />
+				                    <field name="sale_period_days" />
+				                    <field name="state"/>					           	    					           	    
+					           	</tree>
+					        </field>
+					    </page>					 
+					    <page string="Product Summary">
+					        <field name="summary_ids" nolabel="1" />
+					    </page>
+					    <page string="Delivery Order">
+					        <field name="pick_ids" nolabel="1"/>					        
+					    </page>    	
+					    <page string="Stock Move">
+					        <field name="move_ids" nolabel="1" />
+					    </page>
+					    <page string="Note">
+					        <field name="note" nolabel="1" />
+					    </page>
+					</notebook>
+					<newline />
+					<group colspan="4">
+						<group colspan="2">
+							<field name="state" readonly="1" />
+						</group>
+						<group colspan="2">
+	                        <button name="act_confirm" string="Confirm" states="draft" type="object" icon="gtk-go-forward"/>
+	                        <button name="act_setdraft" string="Set Draft" states="cancel" type="object" icon="gtk-go-forward"/>
+	                        <button name="act_done" string="Done" states="confirm" type="object" icon="terp-camera_test"/>
+	                        <button name="act_cancel" string="Cancel" states="draft,confirm,done" type="object" icon="gtk-cancel"/>
+						</group>					    
+					</group>
+				</form>
+			</field>
+		</record>		
+
+        <record id="view_ineco_dispatch_order_filter" model="ir.ui.view">
+            <field name="name">ineco.dispatch.order.filter</field>
+            <field name="model">ineco.dispatch.order</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Dispatch Order">
+						<field name="name" />
+						<field name="date" />
+						<field name="date_confirm" />
+						<field name="date_complete" />												
+				</search>
+			</field>
+		</record>
+        
+        <record id="action_ineco_dispatch_order" model="ir.actions.act_window">
+            <field name="name">Dispatch Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.dispatch.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_ineco_dispatch_order_tree"/>
+            <field name="search_view_id" ref="view_ineco_dispatch_order_filter" />
+        </record>       
+        
+		<menuitem
+            id="menu_ineco_dispatch_order" 
+            name="Dispatch Order"
+            parent="stock.menu_stock_warehouse_mgmt" 
+            sequence="10"
+            action="action_ineco_dispatch_order"/>   				
+
+		<!-- Delivery Type -->
+        <record id="view_ineco_delivery_type_tree" model="ir.ui.view">
+            <field name="name">ineco.delivery.type.tree</field>
+            <field name="model">ineco.delivery.type</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+				<tree string="Delivery Type">
+					<field name="name"/>
+					<field name="print_issue" />
+					<field name="print_delivery_order" />
+				</tree>
+			</field>
+		</record>		
+
+        <record id="view_ineco_delivery_type_form" model="ir.ui.view">
+            <field name="name">ineco.delivery.type.form</field>
+            <field name="model">ineco.delivery.type</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<form string="Delivery Type">
+					<field name="name"/>
+					<field name="print_issue" />
+					<field name="print_delivery_order" />
+				</form>
+			</field>
+		</record>		
+
+        <record id="view_ineco_delivery_type_search" model="ir.ui.view">
+            <field name="name">ineco.delivery.type.search</field>
+            <field name="model">ineco.delivery.type</field>
+            <field name="type">search</field>
+            <field eval="6" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Delivery Type">
+                	<filter string="Print Issue" icon="terp-personal" domain="[('print_issue','=',True)]" />
+                	<filter string="Print Delivery" icon="terp-personal" domain="[('print_delivery_order','=',True)]" />
+                	<separator orientation="vertical"/>
+                    <field name="name" />
+                </search>
+            </field>
+        </record>
+
+        <record id="action_ineco_delivery_type" model="ir.actions.act_window">
+            <field name="name">Delivery Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.delivery.type</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_ineco_delivery_type_tree"/>
+            <field name="search_view_id" ref="view_ineco_delivery_type_search" />
+        </record>
+        
+		<menuitem
+            id="menu_ineco_delivery_type" 
+            name="Delivery Type"
+            parent="stock.menu_warehouse_config" 
+            sequence="25"
+            action="action_ineco_delivery_type"/>   
+		
+	</data>
+</openerp>
