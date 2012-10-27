@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="seq_ineco_dispatch_order_type" model="ir.sequence.type">
+            <field name="name">Dispatch Order Type</field>
+            <field name="code">ineco.dispatch.order.type</field>
+        </record>
+
+        <record id="seq_ineco_dispatch_order" model="ir.sequence">
+            <field name="name">Dispatch Order Sequence</field>
+            <field name="code">ineco.dispatch.order.type</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">LG%(y)s%(month)s-</field>
+        </record>
+        
+    </data>
+</openerp>
