@@ -15,10 +15,10 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
             	<xpath expr="/form/notebook/page[@string='General Information']/field/form/group/field[@name='product_id']" position="after">
-            		<field name="full_qty" />
-            		<field name="full_uom" />		
-            	    <field name="partial_qty" />
-            		<field name="partial_uom" />
+            		<field name="full_qty" on_change="onchange_new_quantity(partial_uom,partial_qty,full_uom,full_qty)" />
+            		<field name="full_uom" domain="[('category_id','=',category_id)]"/>		
+            	    <field name="partial_qty" on_change="onchange_new_quantity(partial_uom,partial_qty,full_uom,full_qty)" />
+            		<field name="partial_uom" domain="[('category_id','=',category_id)]"/>
             	</xpath>
             </field>
         </record>
@@ -30,10 +30,10 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
             	<xpath expr="/form/notebook/page[@string='Products']/field/form/group/field[@name='product_id']" position="after">
-            		<field name="full_qty" />
-            		<field name="full_uom" />		
-            	    <field name="partial_qty" />
-            		<field name="partial_uom" />
+            		<field name="full_qty" on_change="onchange_new_quantity(partial_uom,partial_qty,full_uom,full_qty)"/>
+            		<field name="full_uom" domain="[('category_id','=',category_id)]"/>		
+            	    <field name="partial_qty" on_change="onchange_new_quantity(partial_uom,partial_qty,full_uom,full_qty)"/>
+            		<field name="partial_uom" domain="[('category_id','=',category_id)]"/>
             	</xpath>            	
             </field>
         </record>            
@@ -46,10 +46,10 @@
             <field eval="12" name="priority"/>
             <field name="arch" type="xml">
             	<xpath expr="/form/notebook/page[@string='Products']/field[@name='move_lines']/form[@string='Stock Moves']/group/field[@name='product_id']" position="after">
-            		<field name="full_qty" />
-            		<field name="full_uom" />		
-            	    <field name="partial_qty" />
-            		<field name="partial_uom" />
+            		<field name="full_qty" on_change="onchange_new_quantity(partial_uom,partial_qty,full_uom,full_qty)"/>
+            		<field name="full_uom" domain="[('category_id','=',category_id)]"/>		
+            	    <field name="partial_qty" on_change="onchange_new_quantity(partial_uom,partial_qty,full_uom,full_qty)"/>
+            		<field name="partial_uom" domain="[('category_id','=',category_id)]"/>
             	</xpath>            	
             </field>
         </record>
@@ -1116,7 +1116,8 @@
             	</xpath>
             </field>
         </record>
-		
+
+								
 	</data>
 	             
 		

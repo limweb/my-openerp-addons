@@ -38,6 +38,7 @@
 # 23-07-2012    DAY-005    Add Cash Advance Other
 # 14-08-2012    DAY-006    Add Specific Booth Type
 # 25-08-2012    DAY-007    Add 
+# 01-10-2012    POP-011    Add Delivery Type in Stock Move
 
 import socket
 import sys
@@ -107,6 +108,9 @@ def send_sms(host, post, message):
     #print 'Received', repr(data)  #wait parsing xml and record in database
     return True  
 
+#POP-011
+#Remove to Ineco Dispatch Order
+
 #POP-008
 class ineco_stock_location_inventory(osv.osv):
     _name = "ineco.stock.location.inventory"
@@ -118,9 +122,18 @@ class ineco_stock_location_inventory(osv.osv):
         'uom_id': fields.many2one('product.uom','Uom',required=True),
         'category_id': fields.many2one('product.uom.categ','Category'),
         'quantity': fields.integer('Quantity'),
+        'date': fields.datetime('Date'),
+        'state': fields.selection([
+            ('draft', 'Draft'),
+            ('done', 'Done'),
+            ('cancel', 'Cancel'),
+            ], 'State', readonly=True),
+        
     }
     _defaults = {
         'quantity': 0,
+        'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+        'state': 'draft',
     }
     
     def onchange_product_id(self, cr, uid, ids, product_id, context=None):
@@ -134,6 +147,14 @@ class ineco_stock_location_inventory(osv.osv):
             prod = self.pool.get('product.template').browse(cr, uid, product_id, context=context)
             value = {'uom_id': prod.uom_id.id, 'category_id': prod.uom_id.category_id.id  }
         return {'value': value}
+    
+    def action_done(self, cr, uid, ids, context=None):
+        self.write({'state': 'done'})
+        return True
+
+    def action_cancel(self, cr, uid, ids, context=None):
+        self.write({'state': 'cancel'})
+        return True
     
 ineco_stock_location_inventory() 
 
@@ -149,6 +170,8 @@ class stock_move(osv.osv):
         for line in self.browse(cr, uid, ids, context=context):
             if line.picking_id and line.picking_id.date_arrival:
                 result[line.id] = line.picking_id.date_arrival
+            else:
+                result[line.id] = False
         return result
 
     def _get_date_period_start(self, cr, uid, ids, field_name, arg, context=None):
@@ -156,8 +179,10 @@ class stock_move(osv.osv):
         if context is None:
             context = {}
         for line in self.browse(cr, uid, ids, context=context):
-            if line.period_id:
+            if line.period_id and line.period_id.date_start :
                 res[line.id] = line.period_id.date_start
+            else:
+                res[line.id] = False
         return res
        
     _name = "stock.move"
@@ -382,6 +407,13 @@ class stock_move(osv.osv):
             if move_obj[0].state == 'done' and 'product_qty' in vals :
                 raise osv.except_osv(_('Error'), _('Stock Move Locked -> '+move_obj[0].product_id.name+'.' ))
         return super(stock_move, self).write(cr, uid, ids, vals, context=context)
+
+    def create(self, cr, uid, vals, context=None):
+        if context is None:
+            context = {}
+        if 'product_qty' in vals :
+            vals['store_qty'] = vals['product_qty']
+        return super(stock_move, self).create(cr, uid, vals, context)
 
 stock_move()
 
